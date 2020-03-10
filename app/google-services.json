@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "85477549747",
+    "firebase_url": "https://bantoo-e41fa.firebaseio.com",
+    "project_id": "bantoo-e41fa",
+    "storage_bucket": "bantoo-e41fa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:85477549747:android:46a24d17fd8e26932772c6",
+        "android_client_info": {
+          "package_name": "com.TommyR.bantoo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "85477549747-im8k24cq5rtsd9hd10k8ct1npn8l8u65.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEgRGBcpjlFkVukmT1P95Cyp5vXdlyrNo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "85477549747-im8k24cq5rtsd9hd10k8ct1npn8l8u65.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

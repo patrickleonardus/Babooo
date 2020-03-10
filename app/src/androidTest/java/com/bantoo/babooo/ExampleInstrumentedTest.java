@@ -1,4 +1,4 @@
-package com.example.babooo;
+package com.bantoo.babooo;
 
 import android.content.Context;
 

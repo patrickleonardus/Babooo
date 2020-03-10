@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    tools:context=".Controller.VerificationActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:textStyle="bold"
+        android:textSize="8pt"
+        android:text="Input 6 digit code"/>
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/verificationTextTV"
+        android:text="verification code has been sent to +62..." />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/layoutCode">
+        <EditText
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:maxLength="1"
+            android:layout_marginRight="10dp"
+            android:maxLines="1"
+            android:textAlignment="center"
+            android:id="@+id/code1ET"
+            android:background="@drawable/edit_text_border"/>
+        <EditText
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="10dp"
+            android:textAlignment="center"
+            android:clickable="false"
+            android:maxLength="1"
+            android:maxLines="1"
+            android:id="@+id/code2ET"
+            android:background="@drawable/edit_text_border"/>
+        <EditText
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:maxLength="1"
+            android:maxLines="1"
+            android:clickable="false"
+            android:textAlignment="center"
+            android:layout_marginRight="10dp"
+            android:id="@+id/code3ET"
+            android:background="@drawable/edit_text_border"/>
+        <EditText
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:maxLength="1"
+            android:maxLines="1"
+            android:layout_marginRight="10dp"
+            android:textAlignment="center"
+            android:clickable="false"
+            android:id="@+id/code4RT"
+            android:background="@drawable/edit_text_border"/>
+        <EditText
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="10dp"
+            android:textAlignment="center"
+            android:maxLines="1"
+            android:clickable="false"
+            android:maxLength="1"
+            android:id="@+id/code5ET"
+            android:background="@drawable/edit_text_border"/>
+        <EditText
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:maxLength="1"
+            android:clickable="false"
+            android:textAlignment="center"
+            android:maxLines="1"
+            android:layout_marginRight="10dp"
+            android:id="@+id/code6ET"
+            android:background="@drawable/edit_text_border"/>
+    </LinearLayout>
+
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="100dp"
+        android:text="login"
+        android:layout_gravity="center"
+        android:textColor="#ffffff"
+        android:onClick="login"
+        android:backgroundTint="@color/buttonPurple"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="100dp"
+        android:text="Didn't get the code? Resend"
+        android:onClick="resendCode"
+        android:clickable="true"/>
+
+</LinearLayout>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".Controller.MainActivity"
     android:orientation="vertical"
     android:gravity="center">
 
@@ -17,20 +17,37 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:orientation="horizontal"
-        android:layout_marginTop="100dp">
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="50dp">
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Country code"/>
+            android:text="+62"
+            android:id="@+id/countryCodeET"/>
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/phoneNumberET"
             android:hint="Input your phone number"/>
 
     </LinearLayout>
 
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="Login"
+        android:backgroundTint="@color/buttonPurple"
+        android:onClick="loginButton"
+        android:layout_marginBottom="20dp"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Haven't created an account yet? SIGN UP"
+        android:clickable="true"/>
 
 </LinearLayout>
