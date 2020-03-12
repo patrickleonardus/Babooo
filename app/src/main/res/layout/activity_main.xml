@@ -42,12 +42,19 @@
         android:text="Login"
         android:backgroundTint="@color/buttonPurple"
         android:onClick="loginButton"
+        android:textColor="@color/white"
         android:layout_marginBottom="20dp"/>
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/google_sign_in_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Haven't created an account yet? SIGN UP"
+        android:onClick="signUpButton"
         android:clickable="true"/>
 
 </LinearLayout>

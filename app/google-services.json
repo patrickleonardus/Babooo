@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "85477549747-dn8bipv9lieu826a39ms0u45pka00rvj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.TommyR.bantoo",
+            "certificate_hash": "3938736eb4bf3a5f2e663ab5c3226c40c0c07592"
+          }
+        },
+        {
           "client_id": "85477549747-im8k24cq5rtsd9hd10k8ct1npn8l8u65.apps.googleusercontent.com",
           "client_type": 3
         }

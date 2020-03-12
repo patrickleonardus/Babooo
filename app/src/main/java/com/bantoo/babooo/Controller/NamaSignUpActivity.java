@@ -1,0 +1,15 @@
+package com.bantoo.babooo.Controller;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import com.bantoo.babooo.R;
+
+public class NamaSignUpActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_nama_sign_up);
+    }
+}
