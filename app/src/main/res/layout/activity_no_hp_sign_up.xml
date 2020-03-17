@@ -4,34 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Controller.MainActivity"
     android:orientation="vertical"
+    android:gravity="center_vertical"
     android:layout_marginLeft="20dp"
-    android:layout_marginTop="100dp"
-    android:layout_marginRight="20dp">
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:src="@drawable/logo_bantoo"/>
+    android:layout_marginRight="20dp"
+    tools:context="com.bantoo.babooo.Controller.SignUpActivity.NoHpSignUpActivity">
 
     <TextView
-        android:textStyle="bold"
-        android:textSize="48px"
-        android:layout_marginTop="100dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/nomorHPTV"
-        android:text="Masukan nomor handphone" />
+        android:text="Daftar Akun"
+        android:textSize="56px"/>
 
     <TextView
-        android:textSize="36px"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Masuk dengan nomor handphone anda yang telah terdaftar"/>
+        android:text="Lengkapi data diri anda"
+        android:textSize="24px"/>
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No Handphone"
+        android:textSize="48px"/>
 
     <LinearLayout
-        android:layout_marginTop="70dp"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:orientation="horizontal"
@@ -52,29 +50,34 @@
 
         <EditText
             android:layout_marginLeft="5dp"
-            android:id="@+id/phoneNumberET"
-            android:background="@null"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:background="@null"
             android:hint="your phone number"/>
 
     </LinearLayout>
 
-    <Button
-        android:layout_marginTop="100dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="Login"
-        android:backgroundTint="@color/buttonPurple"
-        android:onClick="loginButton"
-        android:textColor="@color/white"
-        android:layout_marginBottom="20dp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Haven't created an account yet? SIGN UP"
-        android:onClick="signUpButton"
-        android:clickable="true"/>
+        android:orientation="horizontal"
+        android:layout_marginTop="200dp">
+
+        <ImageButton
+            android:id="@+id/prevButton_nama"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/left"
+            android:layout_gravity="left"/>
+
+        <ImageButton
+            android:id="@+id/nextButton_nama"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/right"
+            android:layout_gravity="right"/>
+
+    </FrameLayout>
 
 </LinearLayout>

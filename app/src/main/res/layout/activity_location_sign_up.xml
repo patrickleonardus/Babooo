@@ -8,7 +8,7 @@
     android:gravity="center_vertical"
     android:layout_marginLeft="20dp"
     android:layout_marginRight="20dp"
-    tools:context="com.bantoo.babooo.Controller.SignUpActivity.NamaSignUpActivity">
+    tools:context="com.bantoo.babooo.Controller.SignUpActivity.LocationSignUpActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -26,15 +26,34 @@
         android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nama"
+        android:text="No Handphone"
         android:textSize="48px"/>
 
-    <EditText
-        android:id="@+id/namaET"
+    <LinearLayout
+        android:id="@+id/locationLayout"
         android:layout_width="match_parent"
-        android:background="@drawable/edit_text_border"
-        android:layout_height="wrap_content"
-        android:hint="Masukan nama anda"/>
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:background="@drawable/edit_text_border">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:src="@drawable/common_google_signin_btn_text_dark_normal"/>
+
+        <EditText
+            android:id="@+id/locationET"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:hint="your location"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:src="@drawable/common_google_signin_btn_text_dark_normal"/>
+
+    </LinearLayout>
 
 
     <FrameLayout
@@ -44,14 +63,14 @@
         android:layout_marginTop="200dp">
 
         <ImageButton
-            android:id="@+id/prevButton_nama"
+            android:id="@+id/prevButton_nohp"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/left"
             android:layout_gravity="left"/>
 
         <ImageButton
-            android:id="@+id/nextButton_nama"
+            android:id="@+id/nextButton_nohp"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/right"

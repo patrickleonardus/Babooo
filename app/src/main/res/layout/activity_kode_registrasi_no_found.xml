@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    tools:context="com.bantoo.babooo.Controller.SignUpActivity.KodeRegistrasiNoFoundActivity">
+
+    <ImageView
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/gbr_error"/>
+
+    <TextView
+        android:textStyle="bold"
+        android:textSize="78px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Oops."/>
+
+    <TextView
+        android:layout_marginTop="15dp"
+        android:textSize="36px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Kode registrasi mitra yang anda masukkan belum terdaftar"/>
+
+    <TextView
+        android:textStyle="bold"
+        android:textSize="42px"
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Segera lakukan pendaftaran pada kantor Bantoo untuk melanjutkan registrasi akun"/>
+
+    <ImageButton
+        android:layout_marginTop="50dp"
+        android:layout_width="150dp"
+        android:src="@drawable/btn_back"
+        android:layout_height="50dp"
+        android:layout_gravity="right"/>
+</LinearLayout>

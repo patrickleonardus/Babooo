@@ -12,9 +12,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Controller.NamaSignUpActivity"></activity>
+        <activity android:name=".Controller.InputKodeRegistrasiActivity"></activity>
+        <activity android:name=".Controller.SignUpActivity.KodeRegistrasiNoFoundActivity" />
+        <activity android:name=".Controller.SignUpActivity.LocationSignUpActivity"></activity>
+        <activity android:name=".Controller.SignUpActivity.NoHpSignUpActivity" />
+        <activity android:name=".Controller.SignUpActivity.PasswordSignUpActivity" />
+        <activity android:name=".Controller.SignUpActivity.EmailSignUpActivity" />
+        <activity android:name=".Controller.SignUpActivity.NamaSignUpActivity" />
         <activity
-            android:name=".Controller.SignUpActivity"
+            android:name=".Controller.SignUpActivity.SignUpActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".Controller.HomeActivity" />
         <activity android:name=".Controller.VerificationActivity" />

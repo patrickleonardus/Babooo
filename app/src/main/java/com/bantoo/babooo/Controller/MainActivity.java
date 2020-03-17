@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.bantoo.babooo.Controller.SignUpActivity.SignUpActivity;
 import com.bantoo.babooo.Model.FirebaseHelper;
 import com.bantoo.babooo.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -50,15 +51,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         phoneNumberET = findViewById(R.id.phoneNumberET);
-        signInButton = findViewById(R.id.google_sign_in_button);
         /*
         User user = new User("Tommy", "tommy@icloud.com", "0812323323", "12345678");
         firebaseHelper.addUser(user);*/
 
-        setupGoogleSignIn();
         setupNotification();
     }
 
+    /*
     private void setupGoogleSignIn() {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         final GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-    }
+    }*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
