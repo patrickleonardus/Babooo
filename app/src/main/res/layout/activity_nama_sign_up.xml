@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Lengkapi data diri anda"
-        android:textSize="24px"/>
+        android:textSize="36px"/>
 
     <TextView
         android:layout_marginTop="20dp"
@@ -30,10 +30,11 @@
         android:textSize="48px"/>
 
     <EditText
+        android:layout_marginTop="10dp"
         android:id="@+id/namaET"
         android:layout_width="match_parent"
         android:background="@drawable/edit_text_border"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:hint="Masukan nama anda"/>
 
 

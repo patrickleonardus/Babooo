@@ -12,13 +12,13 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="50dp"
         android:src="@drawable/logo_bantoo"/>
 
     <TextView
         android:textStyle="bold"
         android:textSize="48px"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/nomorHPTV"
@@ -65,15 +65,15 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="Login"
-        android:backgroundTint="@color/buttonPurple"
         android:onClick="loginButton"
         android:textColor="@color/white"
+        android:background="@drawable/rounded_button"
         android:layout_marginBottom="20dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Haven't created an account yet? SIGN UP"
+        android:text="Belum memiliki akun? Daftar sekarang"
         android:onClick="signUpButton"
         android:clickable="true"/>
 
