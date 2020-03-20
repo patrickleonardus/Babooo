@@ -37,11 +37,7 @@ public class EmailSignUpActivity extends AppCompatActivity {
         prevButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("email", emailET.getText().toString());
-                editor.apply();
-                setAnimation(Gravity.RIGHT);
-                finish();
+                onBackPressed();
             }
         });
 

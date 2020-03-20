@@ -40,11 +40,7 @@ public class NamaSignUpActivity extends AppCompatActivity {
         prevButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("nama", namaET.getText().toString());
-                editor.apply();
-                setAnimation(Gravity.RIGHT);
-                finish();
+               onBackPressed();
             }
         });
 

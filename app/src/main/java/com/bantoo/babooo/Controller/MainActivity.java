@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.bantoo.babooo.Controller.SignUpActivity.SignUpActivity;
 import com.bantoo.babooo.Model.FirebaseHelper;
+import com.bantoo.babooo.Model.User;
 import com.bantoo.babooo.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -51,9 +52,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         phoneNumberET = findViewById(R.id.phoneNumberET);
-        /*
-        User user = new User("Tommy", "tommy@icloud.com", "0812323323", "12345678");
-        firebaseHelper.addUser(user);*/
+
+        User user = new User("Tommy", "tommy@icloud.com", "0812323323", "1234567");
+        firebaseHelper.addUser(user);
 
         setupNotification();
     }

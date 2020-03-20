@@ -23,7 +23,7 @@
         <TextView
             android:layout_width="50dp"
             android:gravity="center"
-            android:background="@color/buttonPurple"
+            android:background="@color/buttonGreenPrimary"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:text="X3" />

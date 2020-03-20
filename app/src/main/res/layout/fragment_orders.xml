@@ -22,13 +22,13 @@
                 android:layout_height="wrap_content"
                 android:text="SERVICE"
                 android:backgroundTint="@color/white"
-                android:textColor="@color/buttonPurple"/>
+                android:textColor="@color/buttonGreenPrimary"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="subscription"
                 android:backgroundTint="@color/white"
-                android:textColor="@color/buttonPurple"/>
+                android:textColor="@color/buttonGreenPrimary"/>
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

@@ -39,11 +39,7 @@ public class PasswordSignUpActivity extends AppCompatActivity {
         prevButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("password", passwordET.getText().toString());
-                editor.apply();
-                setAnimation(Gravity.RIGHT);
-                finish();
+                onBackPressed();
             }
         });
 

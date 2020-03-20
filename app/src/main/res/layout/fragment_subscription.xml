@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:text="buy more subscription"
                 android:layout_marginBottom="50dp"
-                android:backgroundTint="@color/buttonPurple"
+                android:backgroundTint="@color/buttonGreenPrimary"
                 android:textColor="@color/white"/>
         </LinearLayout>
     </LinearLayout>
