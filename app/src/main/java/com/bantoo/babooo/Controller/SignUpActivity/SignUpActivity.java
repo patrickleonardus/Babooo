@@ -111,7 +111,8 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void startActivity(){
-        Intent i = new Intent(this, NamaSignUpActivity.class);
+//        Intent i = new Intent(this, NamaSignUpActivity.class);
+        Intent i = new Intent(this,SignUpFormActivity.class);
         if(Build.VERSION.SDK_INT>20){
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this);
             startActivity(i,options.toBundle());

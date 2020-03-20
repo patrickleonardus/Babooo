@@ -10,54 +10,54 @@
     android:layout_marginRight="20dp"
     tools:context="com.bantoo.babooo.Controller.SignUpActivity.NamaSignUpActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Daftar Akun"
-        android:textSize="56px"/>
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Daftar Akun"-->
+<!--        android:textSize="56px"/>-->
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Lengkapi data diri anda"
-        android:textSize="36px"/>
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Lengkapi data diri anda"-->
+<!--        android:textSize="36px"/>-->
 
-    <TextView
-        android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nama"
-        android:textSize="48px"/>
+<!--    <TextView-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Nama"-->
+<!--        android:textSize="48px"/>-->
 
-    <EditText
-        android:layout_marginTop="10dp"
-        android:id="@+id/namaET"
-        android:layout_width="match_parent"
-        android:background="@drawable/edit_text_border"
-        android:layout_height="50dp"
-        android:hint="Masukan nama anda"/>
+<!--    <EditText-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:id="@+id/namaET"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:background="@drawable/edit_text_border"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:hint="Masukan nama anda"/>-->
 
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="200dp">
+<!--    <FrameLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:layout_marginTop="200dp">-->
 
-        <ImageButton
-            android:id="@+id/prevButton_nama"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/left"
-            android:layout_gravity="left"/>
+<!--        <ImageButton-->
+<!--            android:id="@+id/prevButton_nama"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:background="@drawable/left"-->
+<!--            android:layout_gravity="left"/>-->
 
-        <ImageButton
-            android:id="@+id/nextButton_nama"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/right"
-            android:layout_gravity="right"/>
+<!--        <ImageButton-->
+<!--            android:id="@+id/nextButton_nama"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:background="@drawable/right"-->
+<!--            android:layout_gravity="right"/>-->
 
-    </FrameLayout>
+<!--    </FrameLayout>-->
 
 </LinearLayout>
