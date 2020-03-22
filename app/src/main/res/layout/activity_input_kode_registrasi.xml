@@ -13,7 +13,7 @@
         android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:src="@drawable/gbr_verif"/>
+        android:src="@drawable/verif_asset"/>
 
     <TextView
         android:layout_marginTop="30dp"
@@ -107,14 +107,14 @@
             android:id="@+id/prevButton_koderes"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/left"
+            android:background="@drawable/nav_left"
             android:layout_gravity="left"/>
 
         <ImageButton
             android:id="@+id/nextButton_koderes"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/right"
+            android:background="@drawable/nav_right"
             android:layout_gravity="right"/>
 
     </FrameLayout>

@@ -5,12 +5,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,40 +16,39 @@ import androidx.fragment.app.Fragment;
 
 import com.bantoo.babooo.R;
 
-public class EmailPage extends Fragment {
+public class PhonePage extends Fragment {
 
-    EditText emailET;
-    String email;
+    EditText phoneET;
+    String phone;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_sign_up_email,container,false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_sign_up_phone,container,false);
 
-        emailET = rootView.findViewById(R.id.email_sign_up_ET);
+        phoneET = rootView.findViewById(R.id.phone_sign_up_ET);
 
-        emailET.addTextChangedListener(new TextWatcher() {
+        phoneET.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                phone = phoneET.getText().toString();
 
-                email = emailET.getText().toString();
-
-                if (email.length() < 3){
-                    emailET.setError("Masukan format email yang benar");
+                if (!phone.startsWith("08")){
+                    phoneET.setError("Format nomor salah");
                 }
-                else if (!email.contains("@")){
-                    emailET.setError("Masukan format email yang benar");
+                else if (phone.length()<10){
+                    phoneET.setError("Nomor handphone terlalu singkat");
                 }
-                else if (!email.contains(".com") && !email.contains(".co.id")){
-                    emailET.setError("Masukan format email yang benar");
+                else if(phone.length()>13){
+                    phoneET.setError("Nomor handphone terlalu panjang");
                 }
                 else {
                     SharedPreferences sharedPreferences = getContext().getSharedPreferences("userPref", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("email",email).commit();
+                    editor.putString("phone", phone).commit();
                 }
 
             }
@@ -62,4 +59,5 @@ public class EmailPage extends Fragment {
 
         return rootView;
     }
+
 }

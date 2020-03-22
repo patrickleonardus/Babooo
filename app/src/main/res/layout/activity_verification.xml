@@ -100,7 +100,7 @@
         android:layout_gravity="center"
         android:textColor="#ffffff"
         android:onClick="login"
-        android:backgroundTint="@color/buttonGreenPrimary"/>
+        android:backgroundTint="@color/greenPrimary"/>
 
     <TextView
         android:layout_width="wrap_content"

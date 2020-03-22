@@ -3,12 +3,17 @@ package com.bantoo.babooo.Controller;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -18,8 +23,6 @@ import com.bantoo.babooo.Model.User;
 import com.bantoo.babooo.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -51,12 +54,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        generalStyling();
+
         phoneNumberET = findViewById(R.id.phoneNumberET);
 
         User user = new User("Tommy", "tommy@icloud.com", "0812323323", "1234567");
         firebaseHelper.addUser(user);
 
         setupNotification();
+    }
+
+    public void generalStyling(){
+        Window window = getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(),R.color.orangePrimary));
+        window.setNavigationBarColor(ContextCompat.getColor(getApplicationContext(),R.color.greenPrimary));
     }
 
     /*
@@ -173,6 +186,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void signUpButton(View v) {
+
+        SharedPreferences sharedPreferences = getSharedPreferences("userPref", Context.MODE_PRIVATE);
+        sharedPreferences.edit().clear().commit();
+
         Intent moveToSignUp = new Intent(this, SignUpActivity.class);
         startActivity(moveToSignUp);
     }

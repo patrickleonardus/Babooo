@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="80dp"
         android:layout_marginRight="20dp"
         android:orientation="vertical">
 
@@ -74,11 +74,11 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="15dp"
                         android:text="Pengguna Layanan"
                         android:textAlignment="center"
                         android:textColor="@color/black"
-                        android:textSize="15sp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -114,11 +114,11 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="15dp"
                         android:text="Mitra ART"
                         android:textAlignment="center"
                         android:textColor="@color/black"
-                        android:textSize="15sp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -134,6 +134,6 @@
         android:layout_alignParentBottom="true"
         android:layout_gravity="right"
         android:layout_weight="1"
-        android:src="@drawable/bg_bawah" />
+        android:src="@drawable/bg_bottom" />
 
 </RelativeLayout>

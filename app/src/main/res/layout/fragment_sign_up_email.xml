@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="80dp"
         android:layout_marginRight="20dp"
         android:gravity="center_vertical"
         android:orientation="vertical">
@@ -27,47 +27,19 @@
             android:layout_marginTop="10sp"
             android:text="E-mail"
             android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/emailET"
+            android:id="@+id/email_sign_up_ET"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="12sp"
             android:background="@drawable/edit_text_border"
             android:hint="Masukan alamat e-mail anda"
+            android:inputType="textEmailAddress"
             android:paddingLeft="8sp"
             android:paddingRight="8sp" />
 
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80sp"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:layout_width="60sp"
-                android:layout_height="60sp"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="18sp"
-                android:src="@drawable/left" />
-
-            <ImageView
-                android:layout_width="60sp"
-                android:layout_height="60sp"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="18sp"
-                android:src="@drawable/right" />
-
-        </RelativeLayout>
-    </LinearLayout>
-
 
 </LinearLayout>

@@ -69,14 +69,14 @@
             android:id="@+id/prevButton_nama"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/left"
+            android:background="@drawable/nav_left"
             android:layout_gravity="left"/>
 
         <ImageButton
             android:id="@+id/nextButton_nama"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/right"
+            android:background="@drawable/nav_right"
             android:layout_gravity="right"/>
 
     </FrameLayout>

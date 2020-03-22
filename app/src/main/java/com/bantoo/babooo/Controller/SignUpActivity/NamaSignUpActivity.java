@@ -31,7 +31,7 @@ public class NamaSignUpActivity extends AppCompatActivity {
 
         prevButton = findViewById(R.id.prevButton_nama);
         nextButton = findViewById(R.id.nextButton_nama);
-        namaET = findViewById(R.id.namaET);
+        namaET = findViewById(R.id.name_sign_up_ET);
 
         final SharedPreferences sharedPreferences = getSharedPreferences("userPref", Context.MODE_PRIVATE);
         namaET.setText(sharedPreferences.getString("nama", ""));

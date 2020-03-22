@@ -82,7 +82,7 @@
                 android:clickable="true"
                 android:onClick="signUpButton"
                 android:text="Daftar sekarang"
-                android:textColor="@color/buttonGreenPrimary"
+                android:textColor="@color/greenPrimary"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -96,7 +96,7 @@
         android:layout_alignParentBottom="true"
         android:layout_gravity="right"
         android:layout_weight="1"
-        android:src="@drawable/bg_bawah" />
+        android:src="@drawable/bg_bottom" />
 
 
 </RelativeLayout>

@@ -1,15 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.bantoo.babooo.Controller.SignUpActivity.SignUpFormActivity">
 
+    <LinearLayout
+        android:id="@+id/validation_sign_up"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:animateLayoutChanges="true"
+        android:background="@drawable/error_validation_bg"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/validation_sign_up_TV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Error"
+            android:textAlignment="center"
+            android:textColor="@color/red"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <com.layer_net.stepindicator.StepIndicator
+        android:id="@+id/stepIndicatorSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/validation_sign_up"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginRight="10dp"
+        app:siBackgroundColor="@color/orangePrimary"
+        app:siRadius="18dp"
+        app:siStepColor="@color/greenPrimary" />
+
+    <TextView
+        android:id="@+id/roleTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/stepIndicatorSignUp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:text="Anda mendaftar sebagai : "
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/pager"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    
-    
-</LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/navigationBtnSignUp"
+        android:layout_below="@+id/roleTV" />
+
+    <RelativeLayout
+        android:id="@+id/navigationBtnSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="100dp">
+
+        <ImageView
+            android:id="@+id/prevBtn"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            android:clickable="true"
+            android:src="@drawable/nav_left" />
+
+        <ImageView
+            android:id="@+id/nextBtn"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:clickable="true"
+            android:src="@drawable/nav_right"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/finishBtn"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:clickable="true"
+            android:src="@drawable/nav_checklist"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
