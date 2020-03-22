@@ -10,10 +10,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -23,7 +26,6 @@ import com.bantoo.babooo.Model.User;
 import com.bantoo.babooo.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -42,9 +44,12 @@ import com.google.firebase.iid.InstanceIdResult;
 public class MainActivity extends AppCompatActivity {
 
     FirebaseHelper firebaseHelper = new FirebaseHelper();
+
     EditText phoneNumberET;
-    SignInButton signInButton;
+    Button loginBtn;
+
     final String TAG = "MainActivity";
+    boolean restrictLogin;
 
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference reference = database.getReference();
@@ -54,14 +59,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        generalStyling();
-
-        phoneNumberET = findViewById(R.id.phoneNumberET);
+        phoneNumberET = findViewById(R.id.phoneNumber_login_ET);
+        loginBtn = findViewById(R.id.login_btn);
 
         User user = new User("Tommy", "tommy@icloud.com", "0812323323", "1234567");
         firebaseHelper.addUser(user);
 
         setupNotification();
+
+        generalStyling();
+        handleLogin();
+        phoneChecker();
+
     }
 
     public void generalStyling(){
@@ -162,7 +171,59 @@ public class MainActivity extends AppCompatActivity {
         });*/
     }
 
-    public void loginButton(View v) {
+    public void handleLogin(){
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (phoneNumberET.getText().toString().isEmpty()){
+                    phoneNumberET.setError("Nomor telepon harus diisi");
+                }
+                else if (!restrictLogin){
+                    loginAction();
+                }
+            }
+        });
+    }
+
+    public void phoneChecker(){
+        phoneNumberET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!s.toString().startsWith("08")){
+                    phoneNumberET.setError("Format nomor handphone salah");
+                    restrictLogin = true;
+                }
+                else if (s.length() < 10){
+                    phoneNumberET.setError("Nomor handphone terlalu pendek");
+                    restrictLogin = true;
+                }
+                else if (s.length() > 13){
+                    phoneNumberET.setError("Nomor handphone terlalu panjang");
+                    restrictLogin = true;
+                }
+                else {
+                    restrictLogin = false;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+    }
+
+    public void signUpButton(View v) {
+
+        SharedPreferences sharedPreferences = getSharedPreferences("userPref", Context.MODE_PRIVATE);
+        sharedPreferences.edit().clear().commit();
+
+        Intent moveToSignUp = new Intent(this, SignUpActivity.class);
+        startActivity(moveToSignUp);
+    }
+
+    public void loginAction(){
         boolean found;
         DatabaseReference userRef = reference.child("Users");
         Query queryRef = userRef.orderByChild("phoneNumber").equalTo(phoneNumberET.getText().toString());
@@ -183,14 +244,5 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    public void signUpButton(View v) {
-
-        SharedPreferences sharedPreferences = getSharedPreferences("userPref", Context.MODE_PRIVATE);
-        sharedPreferences.edit().clear().commit();
-
-        Intent moveToSignUp = new Intent(this, SignUpActivity.class);
-        startActivity(moveToSignUp);
     }
 }

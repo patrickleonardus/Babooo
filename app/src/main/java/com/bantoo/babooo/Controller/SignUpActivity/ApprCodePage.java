@@ -5,9 +5,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -19,6 +22,8 @@ import com.bantoo.babooo.R;
 public class ApprCodePage extends Fragment {
 
     ImageView infoBtn;
+    EditText apprCodeET;
+    String apprCode;
 
     @Nullable
     @Override
@@ -26,8 +31,36 @@ public class ApprCodePage extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_sign_up_apprcode,container,false);
 
         infoBtn = rootView.findViewById(R.id.infoBtn);
+        apprCodeET = rootView.findViewById(R.id.apprCodeET);
 
         handleButton();
+
+        apprCodeET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                apprCode = apprCodeET.getText().toString();
+
+                if (apprCode.isEmpty()){
+                    apprCodeET.setError("Harus diisi");
+                }
+                else if (apprCode.length() < 4){
+                    apprCodeET.setError("Periksa kembali approval code anda");
+                }
+                else {
+                    SharedPreferences sharedPreferences = getContext().getSharedPreferences("userPref", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("apprCode", apprCode).commit();
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
 
         return rootView;
     }

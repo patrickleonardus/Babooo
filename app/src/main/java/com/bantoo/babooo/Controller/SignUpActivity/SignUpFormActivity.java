@@ -43,7 +43,7 @@ public class SignUpFormActivity extends AppCompatActivity {
     TextView errorMessage;
     Animation animationDown,animationUp;
 
-    String name,email,password,alamat,phone;
+    String name,email,password,alamat,phone,apprCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,30 +167,58 @@ public class SignUpFormActivity extends AppCompatActivity {
         password = sharedPreferences.getString("password","N/A");
         alamat = sharedPreferences.getString("location","N/A");
         phone = sharedPreferences.getString("phone","N/A");
+        apprCode = sharedPreferences.getString("apprCode","N/A");
 
         checkUserData();
     }
 
     private void checkUserData(){
 
-        if (name.equals("N/A")){
-           displayError("Nama belum diisi");
-        }
-        else if (email.equals("N/A")){
-            displayError("Email belum diisi");
-        }
-        else if (password.equals("N/A")){
+        SharedPreferences sharedPreferences = getSharedPreferences("userPref", Context.MODE_PRIVATE);
+        userRole = sharedPreferences.getString("role","N/A");
 
-            displayError("Cek kembali password anda");
+        if (userRole.equals("pengguna")){
+            if (name.equals("N/A")){
+                displayError("Nama belum diisi");
+            }
+            else if (email.equals("N/A")){
+                displayError("Email belum diisi");
+            }
+            else if (password.equals("N/A")){
+                displayError("Cek kembali password anda");
+            }
+            else if (alamat.equals("N/A")){
+                displayError("Alamat belum diisi");
+            }
+            else if (phone.equals("N/A")){
+                displayError("Nomor handphone belum diisi");
+            }
+            else {
+                Toast.makeText(getApplicationContext(),"Sukses membuat akun",Toast.LENGTH_SHORT).show();
+            }
         }
-        else if (alamat.equals("N/A")){
-            displayError("Alamat belum diisi");
-        }
-        else if (phone.equals("N/A")){
-            displayError("Nomor handphone belum diisi");
-        }
-        else {
-            Toast.makeText(getApplicationContext(),"Sukses membuat akun",Toast.LENGTH_SHORT).show();
+        else if (userRole.equals("mitra")){
+            if (name.equals("N/A")){
+                displayError("Nama belum diisi");
+            }
+            else if (email.equals("N/A")){
+                displayError("Email belum diisi");
+            }
+            else if (password.equals("N/A")){
+                displayError("Cek kembali password anda");
+            }
+            else if (alamat.equals("N/A")){
+                displayError("Alamat belum diisi");
+            }
+            else if (phone.equals("N/A")){
+                displayError("Nomor handphone belum diisi");
+            }
+            else if (apprCode.equals("N/A")){
+                displayError("Periksa kembali approval code anda");
+            }
+            else {
+                Toast.makeText(getApplicationContext(),"Sukses membuat akun",Toast.LENGTH_SHORT).show();
+            }
         }
 
     }

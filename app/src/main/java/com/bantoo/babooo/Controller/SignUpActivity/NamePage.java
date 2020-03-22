@@ -40,7 +40,7 @@ public class NamePage extends Fragment {
 
                 name = nameET.getText().toString();
 
-                if (name.length() < 3){
+                if (name.length() < 4){
                     nameET.setError("Nama anda terlalu singkat");
                 }
                 else {

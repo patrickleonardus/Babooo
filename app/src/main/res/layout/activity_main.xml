@@ -45,7 +45,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/phoneNumberET"
+                android:id="@+id/phoneNumber_login_ET"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="5dp"
@@ -57,12 +57,12 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/login_btn"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="60dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/rounded_button"
-            android:onClick="loginButton"
             android:text="Masuk"
             android:textColor="@color/white" />
 
