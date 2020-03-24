@@ -13,22 +13,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Controller.SignUpActivity.SignUpFormActivity"
+            android:name=".Pages.SignUpPage.SignUpFormActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".Controller.InputKodeRegistrasiActivity" />
-        <activity android:name=".Controller.SignUpActivity.KodeRegistrasiNoFoundActivity" />
-        <activity android:name=".Controller.SignUpActivity.LocationSignUpActivity" />
-        <activity android:name=".Controller.SignUpActivity.NoHpSignUpActivity" />
-        <activity android:name=".Controller.SignUpActivity.PasswordSignUpActivity" />
-        <activity android:name=".Controller.SignUpActivity.EmailSignUpActivity" />
-        <activity android:name=".Controller.SignUpActivity.NamaSignUpActivity" />
+        <activity android:name=".Pages.SignUpPage.Fragment.ApprCodePage" />
         <activity
-            android:name=".Controller.SignUpActivity.SignUpActivity"
+            android:name=".Pages.SignUpPage.SignUpRoleActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".Controller.HomeActivity" />
-        <activity android:name=".Controller.VerificationActivity" />
+        <activity android:name=".Pages.HomePage.HomeActivity" />
         <activity
-            android:name=".Controller.MainActivity"
+            android:name=".Pages.VerificationPage.VerificationActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".Pages.LoginPage.LoginActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,7 +34,7 @@
         </activity>
 
         <service
-            android:name=".Controller.MyFirebaseMessagingService"
+            android:name=".Pages.MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

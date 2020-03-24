@@ -1,60 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".Pages.SignUpPage.Fragment.ApprCodePage">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginRight="20dp"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
+        android:layout_marginLeft="20sp"
+        android:layout_marginTop="80sp"
+        android:layout_marginRight="20sp"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Lengkapi data diri anda"
+            android:text="Approval Code"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10sp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Approval Code"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
-
-            <ImageView
-                android:id="@+id/infoBtn"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="2dp"
-                android:src="@drawable/info_asset" />
-
-        </LinearLayout>
-
-        <EditText
-            android:id="@+id/apprCodeET"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="12sp"
-            android:background="@drawable/edit_text_border"
-            android:hint="Masukan approval code"
-            android:paddingLeft="8sp"
-            android:paddingRight="8sp" />
+        <ImageView
+            android:id="@+id/infoBtn"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/info_asset" />
 
     </LinearLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20sp"
+        android:text="Masukan approval code pendaftaran mitra anda"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:id="@+id/layoutCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal"
+        android:weightSum="6">
+
+        <EditText
+            android:id="@+id/code1ET"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/edit_text_border"
+            android:maxLength="1"
+            android:maxLines="1"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/code2ET"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/edit_text_border"
+            android:clickable="false"
+            android:maxLength="1"
+            android:maxLines="1"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/code3ET"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/edit_text_border"
+            android:clickable="false"
+            android:maxLength="1"
+            android:maxLines="1"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/code4ET"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/edit_text_border"
+            android:clickable="false"
+            android:maxLength="1"
+            android:maxLines="1"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/code5ET"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/edit_text_border"
+            android:clickable="false"
+            android:maxLength="1"
+            android:maxLines="1"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/code6ET"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@drawable/edit_text_border"
+            android:clickable="false"
+            android:maxLength="1"
+            android:maxLines="1"
+            android:textAlignment="center" />
+    </LinearLayout>
 
 </LinearLayout>

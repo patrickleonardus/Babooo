@@ -4,111 +4,181 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
     android:orientation="vertical"
-    android:gravity="center_vertical"
-    tools:context=".Controller.VerificationActivity">
+    tools:context=".Pages.VerificationPage.VerificationActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/validation_login"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:textStyle="bold"
-        android:textSize="8pt"
-        android:text="Input 6 digit code"/>
-
-    <TextView
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="50dp"
+        android:layout_marginRight="10dp"
+        android:animateLayoutChanges="true"
+        android:background="@drawable/error_validation_bg"
+        android:gravity="center"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/validation_login_TV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Error"
+            android:textAlignment="center"
+            android:textColor="@color/red"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/verif_asset" />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Masukan kode verifikasi"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="SMS kode verifikasi telah dikirimkan ke nomor:"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+    <TextView
         android:id="@+id/verificationTextTV"
-        android:text="verification code has been sent to +62..." />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="081xxxxxxxxx"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="35dp"
-        android:layout_marginTop="100dp"
         android:layout_height="wrap_content"
-        android:id="@+id/layoutCode">
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal"
+        android:weightSum="6">
+
         <EditText
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:id="@+id/code1_login_ET"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:layout_marginRight="6dp"
+            android:layout_weight="1"
+            android:background="@drawable/edit_text_border"
+            android:inputType="number"
             android:maxLength="1"
-            android:layout_marginRight="10dp"
             android:maxLines="1"
-            android:textAlignment="center"
-            android:id="@+id/code1ET"
-            android:background="@drawable/edit_text_border"/>
+            android:textAlignment="center" />
+
         <EditText
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginRight="10dp"
-            android:textAlignment="center"
+            android:id="@+id/code2_login_ET"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:layout_marginRight="6dp"
+            android:layout_weight="1"
+            android:background="@drawable/edit_text_border"
             android:clickable="false"
+            android:inputType="number"
             android:maxLength="1"
             android:maxLines="1"
-            android:id="@+id/code2ET"
-            android:background="@drawable/edit_text_border"/>
+            android:textAlignment="center" />
+
         <EditText
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:id="@+id/code3_login_ET"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:layout_marginRight="6dp"
+            android:layout_weight="1"
+            android:background="@drawable/edit_text_border"
+            android:clickable="false"
+            android:inputType="number"
             android:maxLength="1"
             android:maxLines="1"
-            android:clickable="false"
-            android:textAlignment="center"
-            android:layout_marginRight="10dp"
-            android:id="@+id/code3ET"
-            android:background="@drawable/edit_text_border"/>
+            android:textAlignment="center" />
+
         <EditText
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:id="@+id/code4_login_ET"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:layout_marginRight="6dp"
+            android:layout_weight="1"
+            android:background="@drawable/edit_text_border"
+            android:clickable="false"
+            android:inputType="number"
             android:maxLength="1"
             android:maxLines="1"
-            android:layout_marginRight="10dp"
-            android:textAlignment="center"
-            android:clickable="false"
-            android:id="@+id/code4RT"
-            android:background="@drawable/edit_text_border"/>
+            android:textAlignment="center" />
+
         <EditText
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginRight="10dp"
-            android:textAlignment="center"
-            android:maxLines="1"
+            android:id="@+id/code5_login_ET"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:layout_marginRight="6dp"
+            android:layout_weight="1"
+            android:background="@drawable/edit_text_border"
             android:clickable="false"
+            android:inputType="number"
             android:maxLength="1"
-            android:id="@+id/code5ET"
-            android:background="@drawable/edit_text_border"/>
+            android:maxLines="1"
+            android:textAlignment="center" />
+
         <EditText
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:maxLength="1"
+            android:id="@+id/code6_login_ET"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:layout_weight="1"
+            android:background="@drawable/edit_text_border"
             android:clickable="false"
-            android:textAlignment="center"
+            android:inputType="number"
+            android:maxLength="1"
             android:maxLines="1"
-            android:layout_marginRight="10dp"
-            android:id="@+id/code6ET"
-            android:background="@drawable/edit_text_border"/>
+            android:textAlignment="center" />
     </LinearLayout>
 
-    <Button
-        android:layout_width="300dp"
+    <include
+        android:id="@+id/verificationBtn"
+        layout="@layout/button_progress_layout"
+        android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="100dp"
-        android:text="login"
-        android:layout_gravity="center"
-        android:textColor="#ffffff"
-        android:onClick="login"
-        android:backgroundTint="@color/greenPrimary"/>
+        android:layout_marginTop="50dp" />
 
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="100dp"
-        android:text="Didn't get the code? Resend"
-        android:onClick="resendCode"
-        android:clickable="true"/>
+        android:layout_marginTop="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tidak mendapatkan kode? " />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:onClick="resendCode"
+            android:text="Klik untuk kirim ulang"
+            android:textColor="@color/greenPrimary"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
 </LinearLayout>
