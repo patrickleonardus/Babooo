@@ -2,11 +2,14 @@ package com.bantoo.babooo.Pages.HomePage;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 import com.bantoo.babooo.Pages.HomePage.AccountPage.AccountFragment;
@@ -33,6 +36,23 @@ public class HomeActivity extends AppCompatActivity {
         mainFrame = findViewById(R.id.mainFrame);
         navbar = findViewById(R.id.menuItem);
 
+        generalStyling();
+        fragmentSetup();
+
+    }
+
+    public void generalStyling(){
+        Window window = getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(),R.color.orangePrimary));
+        window.setNavigationBarColor(ContextCompat.getColor(getApplicationContext(),R.color.greenPrimary));
+    }
+
+    //Fragment Handler
+    //Below Code is only for fragment handler and setup
+
+    private void fragmentSetup(){
         serviceFragment = new ServiceFragment();
         subscriptionFragment = new SubscriptionFragment();
         ordersFragment = new OrdersFragment();

@@ -1,11 +1,9 @@
 package com.bantoo.babooo.Pages.LoginPage;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -18,19 +16,13 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bantoo.babooo.Pages.HomePage.HomeActivity;
 import com.bantoo.babooo.Pages.SignUpPage.SignUpRoleActivity;
 import com.bantoo.babooo.Pages.VerificationPage.VerificationActivity;
 import com.bantoo.babooo.R;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -39,8 +31,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -50,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     private DatabaseReference reference = database.getReference();
 
     EditText phoneNumberET;
+    TextView signUpBtn;
     View loginBtn;
     LoginProgressButton progressButton;
 
@@ -62,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
 
         phoneNumberET = findViewById(R.id.phoneNumber_login_ET);
         loginBtn = findViewById(R.id.login_btn);
+        signUpBtn = findViewById(R.id.signUp_btn);
         progressButton = new LoginProgressButton(LoginActivity.this,loginBtn);
         progressButton.setTextButton("Masuk");
 
@@ -73,16 +65,12 @@ public class LoginActivity extends AppCompatActivity {
             moveToHome();
         }
         else if (mUser == null){
-
             generalStyling();
             handleLogin();
             phoneChecker();
+            signUpAction();
         }
         resetSharedPref();
-
-
-//        setupNotification();
-
     }
 
     public void generalStyling(){
@@ -99,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
         LoginActivity.this.finish();
     }
 
-    public void resetSharedPref(){
+    private void resetSharedPref(){
         //clear semua sharedPreferences
         SharedPreferences userPref = getSharedPreferences("userPref", Context.MODE_PRIVATE);
         SharedPreferences verifPref = getSharedPreferences("verificationPage", Context.MODE_PRIVATE);
@@ -107,95 +95,7 @@ public class LoginActivity extends AppCompatActivity {
         verifPref.edit().clear().commit();
     }
 
-    /*
-    private void setupGoogleSignIn() {
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-        final GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-        if (GoogleSignIn.getLastSignedInAccount(this) != null) {
-            //logged in
-            Log.d(TAG, "setupGoogleSignIn: "+GoogleSignIn.getLastSignedInAccount(this));
-        } else {
-            signInButton.setSize(SignInButton.SIZE_STANDARD);
-            signInButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-                    startActivityForResult(signInIntent, 101);
-                }
-            });
-        }
-    }*/
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(resultCode == Activity.RESULT_OK) {
-            switch (requestCode) {
-                case 101:
-                    try{
-                        Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-                        GoogleSignInAccount account = task.getResult(ApiException.class);
-                        onLoggedIn(account);
-
-                    } catch (ApiException e) {
-
-                    }
-                    break;
-            }
-        }
-    }
-
-    private void onLoggedIn(GoogleSignInAccount googleSignInAccount) {
-        Toast.makeText(this, googleSignInAccount.getDisplayName(), Toast.LENGTH_SHORT).show();
-        //move to another activity
-        /*
-        * Intent intent = new Intent(this, ProfileActivity.class);
-          intent.putExtra(ProfileActivity.GOOGLE_ACCOUNT, googleSignInAccount);
-
-          startActivity(intent);
-          finish();
-        * */
-    }
-
-    private void setupNotification() {
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-
-        auth.signInAnonymously().addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()) {
-                    Toast.makeText(LoginActivity.this, "notif success", Toast.LENGTH_LONG).show();
-                    final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Notification");
-                    FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
-                        @Override
-                        public void onSuccess(InstanceIdResult instanceIdResult) {
-                            reference.child("token").setValue(instanceIdResult.getToken());
-                        }
-                    });
-                } else {
-                    Toast.makeText(LoginActivity.this, "notif failed", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-/*
-        auth.signInWithEmailAndPassword("tommyryantotomtom@gmail.com", "").addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()) {
-                    Toast.makeText(MainActivity.this, "notif success", Toast.LENGTH_LONG).show();
-                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Notification");
-                    reference.child("token").setValue(FirebaseInstanceId.getInstance().getToken());
-                } else {
-                    Toast.makeText(MainActivity.this, "notif failed", Toast.LENGTH_LONG).show();
-                    Log.e(TAG, "onComplete: ", task.getException() );
-                }
-            }
-        });*/
-    }
-
-    public void handleLogin(){
+    private void handleLogin(){
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -215,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void phoneChecker(){
+    private void phoneChecker(){
         phoneNumberET.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -246,12 +146,17 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-    public void signUpButton(View v) {
-        Intent moveToSignUp = new Intent(this, SignUpRoleActivity.class);
-        startActivity(moveToSignUp);
+    private void signUpAction() {
+        signUpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent moveToSignUp = new Intent(LoginActivity.this, SignUpRoleActivity.class);
+                startActivity(moveToSignUp);
+            }
+        });
     }
 
-    public void loginAction(){
+    private void loginAction(){
         DatabaseReference userRef = reference.child("Users");
         Query queryRef = userRef.orderByChild("phoneNumber").equalTo(phoneNumberET.getText().toString());
         queryRef.addValueEventListener(new ValueEventListener() {
@@ -280,7 +185,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void unregisteredPhoneNumber(){
+    private void unregisteredPhoneNumber(){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 this);
         alertDialogBuilder.setTitle("Nomor anda belum terdaftar");

@@ -55,7 +55,7 @@
                 android:layout_marginRight="6sp"
                 android:layout_marginBottom="10sp"
                 android:layout_weight="5"
-                android:background="@drawable/shadow"
+                android:background="@drawable/shadow_border"
                 android:clickable="true"
                 android:elevation="5sp"
                 android:gravity="center">
@@ -95,7 +95,7 @@
                 android:layout_marginRight="4sp"
                 android:layout_marginBottom="10sp"
                 android:layout_weight="5"
-                android:background="@drawable/shadow"
+                android:background="@drawable/shadow_border"
                 android:clickable="true"
                 android:elevation="5sp"
                 android:gravity="center">
@@ -134,6 +134,6 @@
         android:layout_alignParentBottom="true"
         android:layout_gravity="right"
         android:layout_weight="1"
-        android:src="@drawable/bg_bottom" />
+        android:src="@drawable/background_bottom" />
 
 </RelativeLayout>

@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="12sp"
-            android:background="@drawable/edit_text_border"
+            android:background="@drawable/border_edit_text"
             android:hint="Masukan nama anda"
             android:paddingLeft="8sp"
             android:paddingRight="8sp" />

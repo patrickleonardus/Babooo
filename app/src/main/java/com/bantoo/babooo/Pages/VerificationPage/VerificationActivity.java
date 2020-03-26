@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -27,6 +26,7 @@ import com.bantoo.babooo.Model.User;
 import com.bantoo.babooo.Pages.HomePage.HomeActivity;
 import com.bantoo.babooo.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
@@ -34,6 +34,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.concurrent.TimeUnit;
 
@@ -50,8 +52,8 @@ public class VerificationActivity extends AppCompatActivity {
     View verificationBtn;
     VerificationProgressButton progressButton;
 
-    String codeSent,phoneNumber,numberWithCode;
-    String apprCode,code1,code2,code3,code4,code5,code6;
+    private String codeSent,phoneNumber,numberWithCode;
+    private String apprCode,code1,code2,code3,code4,code5,code6;
     String sender,buttonTitle;
     private String uid;
     private String role,name,email,password,address,phoneNum;
@@ -127,15 +129,22 @@ public class VerificationActivity extends AppCompatActivity {
 
     private void createAccount(){
         mUser = mAuth.getInstance().getCurrentUser();
-
         if (mUser != null){
             uid = mUser.getUid();
-            User user = new User(role,name,email,phoneNum,password,address);
-            firebaseHelper.addUser(user,uid);
+
+            FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
+                @Override
+                public void onSuccess(InstanceIdResult instanceIdResult) {
+                    String token = "";
+                    token = instanceIdResult.getToken();
+                    User user = new User(role,name,email,phoneNum,password,address,token);
+                    firebaseHelper.addUser(user,uid);
+                }
+            });
         }
     }
 
-    public void handleVerificationText(){
+    private void handleVerificationText(){
         code1ET.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -267,7 +276,7 @@ public class VerificationActivity extends AppCompatActivity {
         });
     }
 
-    public void handleButton(){
+    private void handleButton(){
         if (sender.equals("N/A")){
             displayError("Terjadi kesalahan, silahkan reload ulang page ini");
         }
@@ -282,7 +291,7 @@ public class VerificationActivity extends AppCompatActivity {
         }
     }
 
-    public void handlePhoneNumber(){
+    private void handlePhoneNumber(){
         if (sender.equals("login")){
             phoneNumber = getIntent().getStringExtra("phoneNumber");
             verificationPhone.setText(phoneNumber);
@@ -307,7 +316,7 @@ public class VerificationActivity extends AppCompatActivity {
         }
     }
 
-    public void resendCode(View v) {
+    private void resendCode(View v) {
         resendVerificationCode(mResendToken);
         Toast.makeText(getApplicationContext(),"Kode verifikasi telah dikirim",Toast.LENGTH_SHORT).show();
     }
@@ -346,7 +355,7 @@ public class VerificationActivity extends AppCompatActivity {
         }
     };
 
-    public void moveToHome(){
+    private void moveToHome(){
         Intent intent = new Intent(VerificationActivity.this, HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

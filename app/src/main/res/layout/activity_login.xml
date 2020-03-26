@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="40dp"
-            android:background="@drawable/edit_text_border"
+            android:background="@drawable/border_edit_text"
             android:orientation="horizontal">
 
             <EditText
@@ -74,10 +74,10 @@
                 android:text="Belum memiliki akun? " />
 
             <TextView
+                android:id="@+id/signUp_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                android:onClick="signUpButton"
                 android:text="Daftar sekarang"
                 android:textColor="@color/greenPrimary"
                 android:textStyle="bold" />
@@ -93,7 +93,7 @@
         android:layout_alignParentBottom="true"
         android:layout_gravity="right"
         android:layout_weight="1"
-        android:src="@drawable/bg_bottom" />
+        android:src="@drawable/background_bottom" />
 
 
 </RelativeLayout>

@@ -1,11 +1,23 @@
 package com.bantoo.babooo.Model;
 
-public class ScheduleData {
+public class ServiceSchedule {
     private String orderDate;
     private String serviceType;
     private String maid;
     private String orderMonth;
     private String status;
+    private String orderTime;
+    private String address;
+
+    public ServiceSchedule(String orderDate, String serviceType, String maid, String orderMonth, String status, String orderTime, String address) {
+        this.orderDate = orderDate;
+        this.serviceType = serviceType;
+        this.maid = maid;
+        this.orderMonth = orderMonth;
+        this.status = status;
+        this.orderTime = orderTime;
+        this.address = address;
+    }
 
     public String getStatus() {
         return status;
@@ -63,6 +75,4 @@ public class ScheduleData {
         this.address = address;
     }
 
-    private String orderTime;
-    private String address;
 }

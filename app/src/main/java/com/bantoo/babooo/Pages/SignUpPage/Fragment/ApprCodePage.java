@@ -87,6 +87,7 @@ public class ApprCodePage extends Fragment {
                 else {
                     codeTemp1 = codeET1.getText().toString();
                     apprCode = codeTemp1 + codeTemp2 + codeTemp3 + codeTemp4 + codeTemp5 + codeTemp6;
+                    codeET2.requestFocus();
 
                     if(codeTemp1.equals("")||codeTemp2.equals("")||codeTemp3.equals("")||codeTemp4.equals("")||codeTemp5.equals("")||codeTemp6.equals("")){
                         editor.putString("apprCode", "N/A").commit();
@@ -118,6 +119,7 @@ public class ApprCodePage extends Fragment {
                 else {
                     codeTemp2 = codeET2.getText().toString();
                     apprCode = codeTemp1 + codeTemp2 + codeTemp3 + codeTemp4 + codeTemp5 + codeTemp6;
+                    codeET3.requestFocus();
 
                     if(codeTemp1.equals("")||codeTemp2.equals("")||codeTemp3.equals("")||codeTemp4.equals("")||codeTemp5.equals("")||codeTemp6.equals("")){
                         editor.putString("apprCode", "N/A").commit();
@@ -148,6 +150,7 @@ public class ApprCodePage extends Fragment {
                 else {
                     codeTemp3 = codeET3.getText().toString();
                     apprCode = codeTemp1 + codeTemp2 + codeTemp3 + codeTemp4 + codeTemp5 + codeTemp6;
+                    codeET4.requestFocus();
 
                     if(codeTemp1.equals("")||codeTemp2.equals("")||codeTemp3.equals("")||codeTemp4.equals("")||codeTemp5.equals("")||codeTemp6.equals("")){
                         editor.putString("apprCode", "N/A").commit();
@@ -178,6 +181,7 @@ public class ApprCodePage extends Fragment {
                 else {
                     codeTemp4 = codeET4.getText().toString();
                     apprCode = codeTemp1 + codeTemp2 + codeTemp3 + codeTemp4 + codeTemp5 + codeTemp6;
+                    codeET5.requestFocus();
 
                     if(codeTemp1.equals("")||codeTemp2.equals("")||codeTemp3.equals("")||codeTemp4.equals("")||codeTemp5.equals("")||codeTemp6.equals("")){
                         editor.putString("apprCode", "N/A").commit();
@@ -208,6 +212,7 @@ public class ApprCodePage extends Fragment {
                 else {
                     codeTemp5 = codeET5.getText().toString();
                     apprCode = codeTemp1 + codeTemp2 + codeTemp3 + codeTemp4 + codeTemp5 + codeTemp6;
+                    codeET6.requestFocus();
 
                     if(codeTemp1.equals("")||codeTemp2.equals("")||codeTemp3.equals("")||codeTemp4.equals("")||codeTemp5.equals("")||codeTemp6.equals("")){
                         editor.putString("apprCode", "N/A").commit();

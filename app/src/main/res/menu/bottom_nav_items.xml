@@ -4,14 +4,18 @@
 
     <item
         android:id="@+id/serviceItem"
-        android:title="Service" />
+        android:icon="@drawable/bottom_nav_maid"
+        android:title="Layanan" />
     <item
         android:id="@+id/subsItem"
+        android:icon="@drawable/bottom_nav_subs"
         android:title="Subscriptions" />
     <item
         android:id="@+id/ordersItem"
-        android:title="Orders" />
+        android:icon="@drawable/bottom_nav_order"
+        android:title="Order" />
     <item
         android:id="@+id/accountItem"
-        android:title="Account" />
+        android:icon="@drawable/bottom_nav_acc"
+        android:title="Akun" />
 </menu>
