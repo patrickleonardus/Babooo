@@ -1,5 +1,6 @@
 package com.bantoo.babooo.Pages.HomePage.ServicePage;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,10 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bantoo.babooo.Model.ServiceSchedule;
+import com.bantoo.babooo.Pages.HomePage.HomeActivity;
+import com.bantoo.babooo.Pages.MonthlyMaidPage.MonthlyMaidActivity;
 import com.bantoo.babooo.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,11 +31,11 @@ import com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServiceFragment extends Fragment {
+public class ServiceFragment extends Fragment implements ServiceItemClickListener{
 
     //FIREBASE INIT
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference databaseReference;
+    private DatabaseReference userReference;
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
     private String uid;
@@ -39,11 +43,12 @@ public class ServiceFragment extends Fragment {
     private MultiSnapRecyclerView scheduleRV;
     private LinearLayoutManager scheduleLayoutManager;
     private ServiceRecyclerViewAdapter serviceRecyclerViewAdapter;
-    private List<ServiceSchedule> serviceScheduleList = new ArrayList<ServiceSchedule>();;
+    private List<ServiceSchedule> serviceScheduleList = new ArrayList<ServiceSchedule>();
     private String username;
 
     LinearLayout dailyServiceOption,monthlyServiceOption,topUpOption;
-    TextView usernameTV;
+    TextView usernameTV,coinsTV;
+    ProgressBar usernamePB,coinsPB;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
@@ -53,8 +58,13 @@ public class ServiceFragment extends Fragment {
         dailyServiceOption = rootView.findViewById(R.id.dailyServiceLayout);
         monthlyServiceOption = rootView.findViewById(R.id.monthlyServiceLayout);
         usernameTV = rootView.findViewById(R.id.username_home_tv);
+        coinsTV = rootView.findViewById(R.id.coins_home_TV);
         topUpOption = rootView.findViewById(R.id.topUp_home_layout);
+        usernamePB = rootView.findViewById(R.id.username_home_PB);
+        coinsPB = rootView.findViewById(R.id.coins_home_PB);
 
+        showUserProgressBar(true);
+        showCoinProgressBar(true);
         dummyData();
         setupScheduleView();
         menuHandler();
@@ -80,13 +90,23 @@ public class ServiceFragment extends Fragment {
 
     }
 
+    //SETUP RECYCLER VIEW (JADWAL PESANAN)
+    //Code below is only for recyclerview hanlder
     private void setupScheduleView(){
-        serviceRecyclerViewAdapter = new ServiceRecyclerViewAdapter(getContext(),serviceScheduleList);
+        serviceRecyclerViewAdapter = new ServiceRecyclerViewAdapter(getContext(),serviceScheduleList,this);
         scheduleLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
 
         scheduleRV.setLayoutManager(scheduleLayoutManager);
         scheduleRV.setAdapter(serviceRecyclerViewAdapter);
     }
+
+    @Override
+    public void onItemClick(int position) {
+        Toast.makeText(getContext(),serviceScheduleList.get(position).getServiceType(),Toast.LENGTH_SHORT).show();
+    }
+
+    //SETUP RECYCLER VIEW (JADWAL PESANAN)
+    //Code above is only for recyclerview hanlder
 
     private void menuHandler(){
         topUpOption.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +126,7 @@ public class ServiceFragment extends Fragment {
         monthlyServiceOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),"Montlhy Service",Toast.LENGTH_SHORT).show();
+               moveToMontlhyMaid();
             }
         });
     }
@@ -122,6 +142,31 @@ public class ServiceFragment extends Fragment {
         }
     }
 
+    private void showUserProgressBar(boolean show){
+        if(show){
+            usernamePB.setVisibility(View.VISIBLE);
+        }
+        else {
+            usernamePB.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void showCoinProgressBar(boolean show){
+        if(show){
+            coinsPB.setVisibility(View.VISIBLE);
+            coinsTV.setVisibility(View.GONE);
+        }
+        else {
+            coinsPB.setVisibility(View.INVISIBLE);
+            coinsTV.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void moveToMontlhyMaid(){
+        Intent intent = new Intent(getContext(), MonthlyMaidActivity.class);
+        startActivity(intent);
+    }
+
     //FIREBASE HANDLER
     //BELOW CODE ARE ONLY FOR DATABASE HANDLER
 
@@ -132,22 +177,22 @@ public class ServiceFragment extends Fragment {
         uid = mUser.getUid();
 
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("Users").child(uid);
+        userReference = firebaseDatabase.getReference("Users").child(uid);
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        userReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 username = dataSnapshot.child("name").getValue().toString();
                 trimName(username);
+                showUserProgressBar(false);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                showUserProgressBar(false);
             }
         });
     }
-
 
     //FIREBASE HANDLER
     //ABOVE CODE ARE ONLY FOR DATABASE HANDLER

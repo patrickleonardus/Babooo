@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="12sp"
-            android:background="@drawable/border_edit_text"
+            android:background="@drawable/border_rounded_edit_text"
             android:hint="Masukan alamat e-mail anda"
             android:inputType="textEmailAddress"
             android:paddingLeft="8sp"

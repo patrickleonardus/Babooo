@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bantoo.babooo.Model.ServiceSchedule;
@@ -18,10 +17,12 @@ public class ServiceRecyclerViewAdapter extends RecyclerView.Adapter<ServiceRecy
 
     private Context context;
     private List<ServiceSchedule> serviceScheduleList;
+    private ServiceItemClickListener itemClickListener;
 
-    public ServiceRecyclerViewAdapter(Context context, List<ServiceSchedule> serviceScheduleList){
+    public ServiceRecyclerViewAdapter(Context context, List<ServiceSchedule> serviceScheduleList, ServiceItemClickListener itemClickListener){
         this.context = context;
         this.serviceScheduleList = serviceScheduleList;
+        this.itemClickListener = itemClickListener;
     }
 
     @Override
@@ -67,6 +68,7 @@ public class ServiceRecyclerViewAdapter extends RecyclerView.Adapter<ServiceRecy
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
+                    itemClickListener.onItemClick(position);
                 }
             });
         }

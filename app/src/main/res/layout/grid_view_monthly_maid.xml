@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="180dp"
+    android:layout_height="180dp"
+    android:background="@drawable/shadow_border"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp">
+
+        <ImageView
+            android:id="@+id/image_maid_IV"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:src="@color/orangePrimary" />
+
+        <TextView
+            android:id="@+id/name_maid_TV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image_maid_IV"
+            android:text="Name"
+            android:textColor="@color/greenPrimary"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/rating_maid_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/name_maid_TV"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+            <ImageView
+                android:id="@+id/star_rating1"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginRight="4dp"
+                android:layout_weight="1"
+                android:src="@color/orangePrimary" />
+
+            <ImageView
+                android:id="@+id/star_rating2"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginRight="4dp"
+                android:layout_weight="1"
+                android:src="@color/orangePrimary" />
+
+            <ImageView
+                android:id="@+id/star_rating3"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginRight="4dp"
+                android:layout_weight="1"
+                android:src="@color/orangePrimary" />
+
+            <ImageView
+                android:id="@+id/star_rating4"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginRight="4dp"
+                android:layout_weight="1"
+                android:src="@color/orangePrimary" />
+
+            <ImageView
+                android:id="@+id/star_rating5"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginRight="4dp"
+                android:layout_weight="1"
+                android:src="@color/orangePrimary" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/coins_maid_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rating_maid_layout"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="12dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/asset_coin" />
+
+            <TextView
+                android:id="@+id/coins_maid_TV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:text="1000"
+                android:textColor="@color/greenPrimary"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

@@ -24,28 +24,38 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:background="@drawable/background_home">
+                android:background="@drawable/background_home"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/username_home_tv"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginRight="5dp"
                     android:text="Hello, Bantooers"
                     android:textColor="@color/white"
                     android:textSize="30sp"
                     android:textStyle="bold" />
+
+                <ProgressBar
+                    android:id="@+id/username_home_PB"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="20dp"
+                    android:indeterminateTint="@color/white"
+                    android:visibility="visible" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginLeft="40dp"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="-60dp"
-                android:layout_marginRight="40dp"
+                android:layout_marginRight="30dp"
                 android:background="@drawable/background_dotted_line_white"
                 android:gravity="center"
                 android:weightSum="2">
@@ -63,14 +73,24 @@
                         android:src="@drawable/asset_coin" />
 
                     <TextView
+                        android:id="@+id/coins_home_TV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
-                        android:text="0 coins"
+                        android:text="coins"
                         android:textAlignment="center"
                         android:textColor="@color/orangePrimary"
                         android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:visibility="visible" />
+
+                    <ProgressBar
+                        android:id="@+id/coins_home_PB"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="8dp"
+                        android:indeterminateTint="@color/orangePrimary"
+                        android:visibility="visible" />
 
                 </LinearLayout>
 
