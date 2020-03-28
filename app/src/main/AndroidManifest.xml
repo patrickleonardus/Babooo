@@ -13,13 +13,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Pages.MonthlyMaidPage.MonthlyMaidActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:name=".Pages.MonthlyServicePage.FilterPage.FilterActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".Pages.MonthlyServicePage.CityRegionPage.CityRegionActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".Pages.MonthlyServicePage.SortPage.SortMaidActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".Pages.DailyServicePage.DailyServiceActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".Pages.MonthlyServicePage.MonthlyMaidActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Pages.SignUpPage.SignUpFormActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".Pages.SignUpPage.Fragment.ApprCodePage" />
+        <activity android:name=".Pages.SignUpPage.Fragment.ApprCodePage" />
         <activity
             android:name=".Pages.SignUpPage.SignUpRoleActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

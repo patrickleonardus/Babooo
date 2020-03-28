@@ -13,4 +13,12 @@
     <color name="red">#fc0303</color>
     <color name="litePink">#ffcfcf</color>
     <color name="grey">#949494</color>
+    <color name="aquaBlue">#677FAC</color>
+    <color name="paleBlue">#8C9FC0</color>
+    <color name="liteRed">#ED5931</color>
+    <color name="pastelRed">#F58C74</color>
+    <color name="liteOrange">#FDB157</color>
+    <color name="pastelOrange">#FDC98E</color>
+    <color name="greenTosca">#1B545D</color>
+    <color name="paleGreen">#668990</color>
 </resources>

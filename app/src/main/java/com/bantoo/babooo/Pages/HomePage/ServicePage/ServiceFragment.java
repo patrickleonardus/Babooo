@@ -1,5 +1,4 @@
 package com.bantoo.babooo.Pages.HomePage.ServicePage;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -16,8 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bantoo.babooo.Model.ServiceSchedule;
-import com.bantoo.babooo.Pages.HomePage.HomeActivity;
-import com.bantoo.babooo.Pages.MonthlyMaidPage.MonthlyMaidActivity;
+import com.bantoo.babooo.Pages.DailyServicePage.DailyServiceActivity;
+import com.bantoo.babooo.Pages.LoginPage.LoginActivity;
+import com.bantoo.babooo.Pages.MonthlyServicePage.MonthlyMaidActivity;
 import com.bantoo.babooo.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -119,7 +119,7 @@ public class ServiceFragment extends Fragment implements ServiceItemClickListene
         dailyServiceOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),"Daily Service",Toast.LENGTH_SHORT).show();
+                moveToDailyService();
             }
         });
 
@@ -164,6 +164,11 @@ public class ServiceFragment extends Fragment implements ServiceItemClickListene
 
     private void moveToMontlhyMaid(){
         Intent intent = new Intent(getContext(), MonthlyMaidActivity.class);
+        startActivity(intent);
+    }
+
+    private void moveToDailyService(){
+        Intent intent = new Intent(getContext(), DailyServiceActivity.class);
         startActivity(intent);
     }
 

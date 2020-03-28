@@ -1,9 +1,10 @@
-package com.bantoo.babooo.Pages.MonthlyMaidPage;
+package com.bantoo.babooo.Pages.MonthlyServicePage;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,6 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bantoo.babooo.Model.Maid;
+import com.bantoo.babooo.Pages.MonthlyServicePage.FilterPage.FilterActivity;
+import com.bantoo.babooo.Pages.MonthlyServicePage.SortPage.SortMaidActivity;
 import com.bantoo.babooo.R;
 
 import java.util.ArrayList;
@@ -65,13 +68,13 @@ public class MonthlyMaidActivity extends AppCompatActivity{
 
     public void dummyData(){
 
-        Maid dummy1 = new Maid("mitra","Sadikin","sadikin@gmail","08131888888","-","Bogor","-",1000,3);
-        Maid dummy2 = new Maid("mitra","Munir","sadikin@gmail","08131888888","-","Bogor","-",500,2);
-        Maid dummy3 = new Maid("mitra","Hasan","sadikin@gmail","08131888888","-","Bogor","-",1000,5);
-        Maid dummy4 = new Maid("mitra","Joni","sadikin@gmail","08131888888","-","Bogor","-",1000,5);
-        Maid dummy5 = new Maid("mitra","Beben","sadikin@gmail","08131888888","-","Bogor","-",1000,5);
-        Maid dummy6 = new Maid("mitra","Kiki","sadikin@gmail","08131888888","-","Bogor","-",1000,5);
-        Maid dummy7 = new Maid("mitra","sutopo","sadikin@gmail","08131888888","-","Bogor","-",1000,5);
+        Maid dummy1 = new Maid(role,"Sadikin","sadikin@gmail","08131888888","-","Bogor","-", 1571489529,1000,3);
+        Maid dummy2 = new Maid(role,"Munir","sadikin@gmail","08131888888","-","Bogor","-",1571489529,500,2);
+        Maid dummy3 = new Maid(role,"Hasan","sadikin@gmail","08131888888","-","Bogor","-",1571489529,1000,5);
+        Maid dummy4 = new Maid(role,"Joni","sadikin@gmail","08131888888","-","Bogor","-",1571489529,1000,5);
+        Maid dummy5 = new Maid(role,"Beben","sadikin@gmail","08131888888","-","Bogor","-",1571489529,1000,5);
+        Maid dummy6 = new Maid(role,"Kiki","sadikin@gmail","08131888888","-","Bogor","-",1571489529,1000,5);
+        Maid dummy7 = new Maid(role,"sutopo","sadikin@gmail","08131888888","-","Bogor","-",1571489529,1000,5);
 
         maidList.add(dummy1);
         maidList.add(dummy2);
@@ -113,15 +116,25 @@ public class MonthlyMaidActivity extends AppCompatActivity{
         sortOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               Toast.makeText(getApplicationContext(),"Sort",Toast.LENGTH_SHORT).show();
+               moveToSortPage();
             }
         });
 
         filterOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"Filter",Toast.LENGTH_SHORT).show();
+                moveToFilterPage();
             }
         });
+    }
+
+    private void moveToSortPage(){
+        Intent intent = new Intent(this, SortMaidActivity.class);
+        startActivity(intent);
+    }
+
+    private void moveToFilterPage(){
+        Intent intent = new Intent(this, FilterActivity.class);
+        startActivity(intent);
     }
 }

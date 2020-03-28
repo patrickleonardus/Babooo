@@ -1,4 +1,4 @@
-package com.bantoo.babooo.Pages.MonthlyMaidPage;
+package com.bantoo.babooo.Pages.MonthlyServicePage;
 
 import android.content.Context;
 import android.view.LayoutInflater;
