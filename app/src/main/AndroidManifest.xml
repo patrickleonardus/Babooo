@@ -16,7 +16,7 @@
             android:name=".Pages.MonthlyServicePage.FilterPage.FilterActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".Pages.MonthlyServicePage.CityRegionPage.CityRegionActivity"
+            android:name=".Pages.MonthlyServicePage.FilterPage.CityRegionPage.CityRegionActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Pages.MonthlyServicePage.SortPage.SortMaidActivity"
@@ -49,6 +49,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Utils.BaseActivity" />
 
         <service
             android:name=".Pages.MyFirebaseMessagingService"

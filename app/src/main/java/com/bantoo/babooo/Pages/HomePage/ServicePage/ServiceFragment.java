@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.bantoo.babooo.Model.ServiceSchedule;
 import com.bantoo.babooo.Pages.DailyServicePage.DailyServiceActivity;
-import com.bantoo.babooo.Pages.LoginPage.LoginActivity;
 import com.bantoo.babooo.Pages.MonthlyServicePage.MonthlyMaidActivity;
 import com.bantoo.babooo.R;
 import com.google.firebase.auth.FirebaseAuth;

@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.Window;
@@ -16,6 +17,7 @@ import com.bantoo.babooo.Pages.HomePage.AccountPage.AccountFragment;
 import com.bantoo.babooo.Pages.HomePage.OrderPage.OrdersFragment;
 import com.bantoo.babooo.Pages.HomePage.ServicePage.ServiceFragment;
 import com.bantoo.babooo.Pages.HomePage.Subscription.SubscriptionFragment;
+import com.bantoo.babooo.Pages.MonthlyServicePage.FilterPage.FilterActivity;
 import com.bantoo.babooo.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 

@@ -73,6 +73,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:paddingBottom="12dp"
         android:weightSum="4">
 
         <LinearLayout
@@ -96,7 +97,7 @@
                     android:layout_height="80dp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="12dp"
-                    android:src="@color/greenPrimary" />
+                    android:src="@drawable/asset_service_wash" />
 
                 <LinearLayout
                     android:id="@+id/detail_daily_service_1"
@@ -161,7 +162,7 @@
                     android:layout_height="80dp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="12dp"
-                    android:src="@color/greenPrimary" />
+                    android:src="@drawable/asset_service_ironing" />
 
                 <LinearLayout
                     android:id="@+id/detail_daily_service_2"
@@ -226,7 +227,7 @@
                     android:layout_height="80dp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="12dp"
-                    android:src="@color/greenPrimary" />
+                    android:src="@drawable/asset_service_cleaning" />
 
                 <LinearLayout
                     android:id="@+id/detail_daily_service_3"
@@ -291,7 +292,7 @@
                     android:layout_height="80dp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="12dp"
-                    android:src="@color/greenPrimary" />
+                    android:src="@drawable/asset_service_bathroom" />
 
                 <LinearLayout
                     android:id="@+id/detail_daily_service_4"

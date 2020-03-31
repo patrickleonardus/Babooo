@@ -20,6 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bantoo.babooo.Pages.HomePage.HomeActivity;
+import com.bantoo.babooo.Pages.MonthlyServicePage.FilterPage.CityRegionPage.CityRegionActivity;
+import com.bantoo.babooo.Pages.MonthlyServicePage.FilterPage.FilterActivity;
 import com.bantoo.babooo.Pages.SignUpPage.SignUpRoleActivity;
 import com.bantoo.babooo.Pages.VerificationPage.VerificationActivity;
 import com.bantoo.babooo.R;
@@ -60,9 +62,12 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
 
+        Intent intent = new Intent(this, FilterActivity.class);
+        startActivity(intent);
+
         //Check state, klo dah isi uid langsung ke home
         if (mUser != null){
-            moveToHome();
+//            moveToHome();
         }
         else if (mUser == null){
             generalStyling();

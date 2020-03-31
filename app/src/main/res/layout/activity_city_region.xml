@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.bantoo.babooo.Pages.MonthlyServicePage.CityRegionPage.CityRegionActivity">
+    tools:context=".Pages.MonthlyServicePage.FilterPage.CityRegionPage.CityRegionActivity">
 
     <LinearLayout
-        android:layout_margin="18dp"
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="18dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <ImageView
@@ -21,9 +21,9 @@
             android:src="@drawable/asset_close" />
 
         <LinearLayout
-            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
@@ -45,12 +45,66 @@
         android:layout_alignParentTop="true"
         android:background="@android:color/darker_gray" />
 
-    <ListView
-        android:id="@+id/city_LV"
+    <EditText
+        android:id="@+id/city_ET"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="50dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/border_ellips_green_edit_text"
+        android:drawableRight="@drawable/drawable_end_search_edit_text"
+        android:hint="Cari Kota"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:visibility="gone" />
 
-    </ListView>
+    <RelativeLayout
+        android:id="@+id/city_contentWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/city_RV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/set_city_BTN"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="12dp" />
+
+        <Button
+            android:id="@+id/set_city_BTN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/rounded_button_green"
+            android:text="Set Kota"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/city_error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="Kota tidak ditemukan, periksa kembali kata kunci yang dimasukan"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+    </LinearLayout>
 
 </LinearLayout>
