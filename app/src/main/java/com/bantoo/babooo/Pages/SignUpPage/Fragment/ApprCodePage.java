@@ -11,7 +11,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,18 +21,17 @@ import com.bantoo.babooo.R;
 
 public class ApprCodePage extends Fragment {
 
-    ImageView infoBtn;
+    ImageView infoBTN;
     EditText codeET1, codeET2, codeET3, codeET4, codeET5, codeET6;
-    String codeTemp1, codeTemp2, codeTemp3, codeTemp4, codeTemp5, codeTemp6;
-
-    String apprCode;
+    private String codeTemp1, codeTemp2, codeTemp3, codeTemp4, codeTemp5, codeTemp6;
+    private String apprCode;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_sign_up_apprcode, container, false);
 
-        infoBtn = rootView.findViewById(R.id.infoBtn);
+        infoBTN = rootView.findViewById(R.id.infoBtn);
         codeET1 = rootView.findViewById(R.id.code1ET);
         codeET2 = rootView.findViewById(R.id.code2ET);
         codeET3 = rootView.findViewById(R.id.code3ET);
@@ -59,7 +57,7 @@ public class ApprCodePage extends Fragment {
     }
 
     public void handleButton() {
-        infoBtn.setOnClickListener(new View.OnClickListener() {
+        infoBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showAlertInfo();

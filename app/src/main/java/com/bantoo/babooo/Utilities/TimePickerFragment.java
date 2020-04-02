@@ -1,4 +1,4 @@
-package com.bantoo.babooo.Pages.DailyServicePage.DailyConfirmationPage;
+package com.bantoo.babooo.Utilities;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -13,7 +13,7 @@ import com.bantoo.babooo.R;
 
 import java.util.Calendar;
 
-public class DailyConfirmationTimePickerFragment extends DialogFragment {
+public class TimePickerFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {

@@ -19,7 +19,7 @@ import com.bantoo.babooo.R;
 public class PasswordPage extends Fragment {
 
     EditText pass1ET,pass2ET;
-    String pass1,pass2;
+    private String pass1,pass2;
 
     @Nullable
     @Override

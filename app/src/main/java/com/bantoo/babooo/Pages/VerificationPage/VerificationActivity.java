@@ -1,8 +1,6 @@
 package com.bantoo.babooo.Pages.VerificationPage;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,8 +10,6 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
@@ -25,7 +21,7 @@ import com.bantoo.babooo.Model.FirebaseHelper;
 import com.bantoo.babooo.Model.User;
 import com.bantoo.babooo.Pages.HomePage.HomeActivity;
 import com.bantoo.babooo.R;
-import com.bantoo.babooo.Utils.BaseActivity;
+import com.bantoo.babooo.Utilities.BaseActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -47,15 +43,15 @@ public class VerificationActivity extends BaseActivity {
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private FirebaseHelper firebaseHelper = new FirebaseHelper();
 
-    TextView verificationPhone, validationTV;
+    TextView verificationPhoneTV, validationTV;
     EditText code1ET, code2ET, code3ET, code4ET, code5ET, code6ET;
-    LinearLayout validation;
-    View verificationBtn;
+    LinearLayout validationLayout;
+    View verificationBTN;
     VerificationProgressButton progressButton;
 
     private String codeSent, phoneNumber, numberWithCode;
     private String apprCode, code1, code2, code3, code4, code5, code6;
-    String sender, buttonTitle;
+    private String sender, buttonTitle;
     private String uid;
     private String role, name, email, password, address, phoneNum;
 
@@ -70,19 +66,19 @@ public class VerificationActivity extends BaseActivity {
         mAuth = FirebaseAuth.getInstance();
         mAuth.setLanguageCode("id");
 
-        verificationPhone = findViewById(R.id.verificationTextTV);
+        verificationPhoneTV = findViewById(R.id.verificationTextTV);
         code1ET = findViewById(R.id.code1_login_ET);
         code2ET = findViewById(R.id.code2_login_ET);
         code3ET = findViewById(R.id.code3_login_ET);
         code4ET = findViewById(R.id.code4_login_ET);
         code5ET = findViewById(R.id.code5_login_ET);
         code6ET = findViewById(R.id.code6_login_ET);
-        verificationBtn = findViewById(R.id.verificationBtn);
+        verificationBTN = findViewById(R.id.verificationBtn);
         validationTV = findViewById(R.id.validation_login_TV);
-        validation = findViewById(R.id.validation_login);
+        validationLayout = findViewById(R.id.validation_login);
         animationUp = AnimationUtils.loadAnimation(this, R.anim.slide_up);
         animationDown = AnimationUtils.loadAnimation(this, R.anim.slide_down);
-        progressButton = new VerificationProgressButton(VerificationActivity.this, verificationBtn);
+        progressButton = new VerificationProgressButton(VerificationActivity.this, verificationBTN);
 
         //check datang dari page mana
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("verificationPage", Context.MODE_PRIVATE);
@@ -278,7 +274,7 @@ public class VerificationActivity extends BaseActivity {
         if (sender.equals("N/A")) {
             displayError("Terjadi kesalahan, silahkan reload ulang page ini");
         } else {
-            verificationBtn.setOnClickListener(new View.OnClickListener() {
+            verificationBTN.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     progressButton.buttonActivated();
@@ -291,12 +287,12 @@ public class VerificationActivity extends BaseActivity {
     private void handlePhoneNumber() {
         if (sender.equals("login")) {
             phoneNumber = getIntent().getStringExtra("phoneNumber");
-            verificationPhone.setText(phoneNumber);
+            verificationPhoneTV.setText(phoneNumber);
             numberWithCode = "+62" + phoneNumber.substring(1);
         } else if (sender.equals("register")) {
             SharedPreferences phonePref = getSharedPreferences("userPref", Context.MODE_PRIVATE);
             phoneNumber = phonePref.getString("phone", "N/A");
-            verificationPhone.setText(phoneNumber);
+            verificationPhoneTV.setText(phoneNumber);
             numberWithCode = "+62" + phoneNumber.substring(1);
         }
     }
@@ -332,8 +328,8 @@ public class VerificationActivity extends BaseActivity {
     }
 
     public void displayError(String message) {
-        validation.setVisibility(View.VISIBLE);
-        validation.startAnimation(animationDown);
+        validationLayout.setVisibility(View.VISIBLE);
+        validationLayout.startAnimation(animationDown);
         validationTV.setText(message);
         handler.postDelayed(removeError, 3500);
 
@@ -342,9 +338,9 @@ public class VerificationActivity extends BaseActivity {
     public Runnable removeError = new Runnable() {
         @Override
         public void run() {
-            if (validation.getVisibility() == View.VISIBLE) {
-                validation.startAnimation(animationUp);
-                validation.setVisibility(View.GONE);
+            if (validationLayout.getVisibility() == View.VISIBLE) {
+                validationLayout.startAnimation(animationUp);
+                validationLayout.setVisibility(View.GONE);
             }
         }
     };

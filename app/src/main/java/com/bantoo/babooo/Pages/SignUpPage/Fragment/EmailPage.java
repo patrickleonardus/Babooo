@@ -19,7 +19,7 @@ import com.bantoo.babooo.R;
 public class EmailPage extends Fragment {
 
     EditText emailET;
-    String email;
+    private String email;
 
     @Nullable
     @Override

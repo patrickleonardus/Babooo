@@ -16,7 +16,7 @@ import com.bantoo.babooo.Model.City;
 import com.bantoo.babooo.Model.FilterSearch;
 import com.bantoo.babooo.Pages.MonthlyServicePage.FilterPage.CityRegionPage.CityRegionActivity;
 import com.bantoo.babooo.R;
-import com.bantoo.babooo.Utils.BaseActivity;
+import com.bantoo.babooo.Utilities.BaseActivity;
 import com.jaygoo.widget.OnRangeChangedListener;
 import com.jaygoo.widget.RangeSeekBar;
 import com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView;
@@ -32,18 +32,18 @@ public class FilterActivity extends BaseActivity implements Serializable, CityFi
     private RangeSeekBar filterAge, filterYears, filterCost;
     private PrefixSuffixEditText maxAgeET, minAgeET, maxYearsET, minYearsET;
     private EditText maxCostET, minCostET;
-    private TextView allCityBtn;
-    private ImageView closeBtn, popularity1, popularity2, popularity3, popularity4, popularity5;
-    private Button setFilter;
+    private TextView allCityBTN;
+    private ImageView closeIV, popularity1IV, popularity2IV, popularity3IV, popularity4IV, popularity5IV;
+    private Button setFilterBTN;
     private CityFilterRecyclerViewAdapter adapter;
     private LinearLayoutManager manager;
     private List<City> cityList = new ArrayList<City>();
     private List<FilterSearch> filterSearches = new ArrayList<FilterSearch>();
 
-    static final String SERIALIZEPARAMETER = "choosenCity";
-    static final String CHOOSENCITYRESULT = "choosenCityResults";
-    static final int CHOOSENCITYACTIVITYRESULT = 1;
-    static final String FILTERINTENT = "filterIntent";
+    private static final String SERIALIZEPARAMETER = "choosenCity";
+    private static final String CHOOSENCITYRESULT = "choosenCityResults";
+    private static final int CHOOSENCITYACTIVITYRESULT = 1;
+    private static final String FILTERINTENT = "filterIntent";
 
     private int defaultMaxAgeValue = 60;
     private int defaultMinAgeValue = 18;
@@ -70,14 +70,14 @@ public class FilterActivity extends BaseActivity implements Serializable, CityFi
         minYearsET = findViewById(R.id.minimumYears_filter_ET);
         maxCostET = findViewById(R.id.maximumCost_filter_ET);
         minCostET = findViewById(R.id.minimumCost_filter_ET);
-        allCityBtn = findViewById(R.id.allCity_filter_TV);
-        closeBtn = findViewById(R.id.close_filter_IV);
-        popularity1 = findViewById(R.id.star_popularity1);
-        popularity2 = findViewById(R.id.star_popularity2);
-        popularity3 = findViewById(R.id.star_popularity3);
-        popularity4 = findViewById(R.id.star_popularity4);
-        popularity5 = findViewById(R.id.star_popularity5);
-        setFilter = findViewById(R.id.setFilter_BTN);
+        allCityBTN = findViewById(R.id.allCity_filter_TV);
+        closeIV = findViewById(R.id.close_filter_IV);
+        popularity1IV = findViewById(R.id.star_popularity1);
+        popularity2IV = findViewById(R.id.star_popularity2);
+        popularity3IV = findViewById(R.id.star_popularity3);
+        popularity4IV = findViewById(R.id.star_popularity4);
+        popularity5IV = findViewById(R.id.star_popularity5);
+        setFilterBTN = findViewById(R.id.setFilter_BTN);
 
         initVar();
         handleRangeSeekBar();
@@ -220,43 +220,43 @@ public class FilterActivity extends BaseActivity implements Serializable, CityFi
 
             case 5:
                 maidPopularity = 5;
-                popularity1.setImageResource(R.drawable.asset_star_active);
-                popularity2.setImageResource(R.drawable.asset_star_active);
-                popularity3.setImageResource(R.drawable.asset_star_active);
-                popularity4.setImageResource(R.drawable.asset_star_active);
-                popularity5.setImageResource(R.drawable.asset_star_active);
+                popularity1IV.setImageResource(R.drawable.asset_star_active);
+                popularity2IV.setImageResource(R.drawable.asset_star_active);
+                popularity3IV.setImageResource(R.drawable.asset_star_active);
+                popularity4IV.setImageResource(R.drawable.asset_star_active);
+                popularity5IV.setImageResource(R.drawable.asset_star_active);
                 break;
             case 4:
                 maidPopularity = 4;
-                popularity1.setImageResource(R.drawable.asset_star_active);
-                popularity2.setImageResource(R.drawable.asset_star_active);
-                popularity3.setImageResource(R.drawable.asset_star_active);
-                popularity4.setImageResource(R.drawable.asset_star_active);
-                popularity5.setImageResource(R.drawable.asset_star_inactive);
+                popularity1IV.setImageResource(R.drawable.asset_star_active);
+                popularity2IV.setImageResource(R.drawable.asset_star_active);
+                popularity3IV.setImageResource(R.drawable.asset_star_active);
+                popularity4IV.setImageResource(R.drawable.asset_star_active);
+                popularity5IV.setImageResource(R.drawable.asset_star_inactive);
                 break;
             case 3:
                 maidPopularity = 3;
-                popularity1.setImageResource(R.drawable.asset_star_active);
-                popularity2.setImageResource(R.drawable.asset_star_active);
-                popularity3.setImageResource(R.drawable.asset_star_active);
-                popularity4.setImageResource(R.drawable.asset_star_inactive);
-                popularity5.setImageResource(R.drawable.asset_star_inactive);
+                popularity1IV.setImageResource(R.drawable.asset_star_active);
+                popularity2IV.setImageResource(R.drawable.asset_star_active);
+                popularity3IV.setImageResource(R.drawable.asset_star_active);
+                popularity4IV.setImageResource(R.drawable.asset_star_inactive);
+                popularity5IV.setImageResource(R.drawable.asset_star_inactive);
                 break;
             case 2:
                 maidPopularity = 2;
-                popularity1.setImageResource(R.drawable.asset_star_active);
-                popularity2.setImageResource(R.drawable.asset_star_active);
-                popularity3.setImageResource(R.drawable.asset_star_inactive);
-                popularity4.setImageResource(R.drawable.asset_star_inactive);
-                popularity5.setImageResource(R.drawable.asset_star_inactive);
+                popularity1IV.setImageResource(R.drawable.asset_star_active);
+                popularity2IV.setImageResource(R.drawable.asset_star_active);
+                popularity3IV.setImageResource(R.drawable.asset_star_inactive);
+                popularity4IV.setImageResource(R.drawable.asset_star_inactive);
+                popularity5IV.setImageResource(R.drawable.asset_star_inactive);
                 break;
             case 1:
                 maidPopularity = 1;
-                popularity1.setImageResource(R.drawable.asset_star_active);
-                popularity2.setImageResource(R.drawable.asset_star_inactive);
-                popularity3.setImageResource(R.drawable.asset_star_inactive);
-                popularity4.setImageResource(R.drawable.asset_star_inactive);
-                popularity5.setImageResource(R.drawable.asset_star_inactive);
+                popularity1IV.setImageResource(R.drawable.asset_star_active);
+                popularity2IV.setImageResource(R.drawable.asset_star_inactive);
+                popularity3IV.setImageResource(R.drawable.asset_star_inactive);
+                popularity4IV.setImageResource(R.drawable.asset_star_inactive);
+                popularity5IV.setImageResource(R.drawable.asset_star_inactive);
                 break;
 
             default:
@@ -274,56 +274,56 @@ public class FilterActivity extends BaseActivity implements Serializable, CityFi
 
 
     private void handleButton() {
-        allCityBtn.setOnClickListener(new View.OnClickListener() {
+        allCityBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 moveToCityPage();
             }
         });
 
-        closeBtn.setOnClickListener(new View.OnClickListener() {
+        closeIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
 
-        popularity1.setOnClickListener(new View.OnClickListener() {
+        popularity1IV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 handlePopularity(1);
             }
         });
 
-        popularity2.setOnClickListener(new View.OnClickListener() {
+        popularity2IV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 handlePopularity(2);
             }
         });
 
-        popularity3.setOnClickListener(new View.OnClickListener() {
+        popularity3IV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 handlePopularity(3);
             }
         });
 
-        popularity4.setOnClickListener(new View.OnClickListener() {
+        popularity4IV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 handlePopularity(4);
             }
         });
 
-        popularity5.setOnClickListener(new View.OnClickListener() {
+        popularity5IV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 handlePopularity(5);
             }
         });
 
-        setFilter.setOnClickListener(new View.OnClickListener() {
+        setFilterBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FilterSearch filter = new FilterSearch(maxCost, minCost, maxYears, minYears, minAge, maxAge, maidPopularity,cityList);

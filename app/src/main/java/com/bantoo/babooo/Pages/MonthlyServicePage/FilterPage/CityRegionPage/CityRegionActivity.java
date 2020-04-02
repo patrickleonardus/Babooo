@@ -14,11 +14,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.bantoo.babooo.Model.City;
 import com.bantoo.babooo.R;
-import com.bantoo.babooo.Utils.BaseActivity;
+import com.bantoo.babooo.Utilities.BaseActivity;
 
 import java.io.Serializable;
 import java.util.ArrayList;

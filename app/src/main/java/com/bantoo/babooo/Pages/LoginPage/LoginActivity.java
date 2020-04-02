@@ -15,12 +15,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bantoo.babooo.Pages.DailyServicePage.DailyServiceActivity;
 import com.bantoo.babooo.Pages.HomePage.HomeActivity;
 import com.bantoo.babooo.Pages.SignUpPage.SignUpRoleActivity;
 import com.bantoo.babooo.Pages.VerificationPage.VerificationActivity;
 import com.bantoo.babooo.R;
-import com.bantoo.babooo.Utils.BaseActivity;
+import com.bantoo.babooo.Utilities.BaseActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -38,9 +37,9 @@ public class LoginActivity extends BaseActivity {
     private DatabaseReference reference = database.getReference();
 
     EditText phoneNumberET;
-    TextView signUpBtn;
-    View loginBtn;
-    LoginProgressButton progressButton;
+    TextView signUpBTN;
+    View loginBTN;
+    LoginProgressButton progressBTN;
 
     private boolean restrictLogin;
 
@@ -50,20 +49,17 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
 
         phoneNumberET = findViewById(R.id.phoneNumber_login_ET);
-        loginBtn = findViewById(R.id.login_btn);
-        signUpBtn = findViewById(R.id.signUp_btn);
-        progressButton = new LoginProgressButton(LoginActivity.this, loginBtn);
-        progressButton.setTextButton("Masuk");
+        loginBTN = findViewById(R.id.login_btn);
+        signUpBTN = findViewById(R.id.signUp_btn);
+        progressBTN = new LoginProgressButton(LoginActivity.this, loginBTN);
+        progressBTN.setTextButton("Masuk");
 
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
 
-        Intent intent = new Intent(this, DailyServiceActivity.class);
-        startActivity(intent);
-
         //Check state, klo dah isi uid langsung ke home
         if (mUser != null) {
-//            moveToHome();
+            moveToHome();
         } else if (mUser == null) {
             handleLogin();
             phoneChecker();
@@ -87,13 +83,13 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void handleLogin() {
-        loginBtn.setOnClickListener(new View.OnClickListener() {
+        loginBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (phoneNumberET.getText().toString().isEmpty()) {
                     phoneNumberET.setError("Nomor telepon harus diisi");
                 } else if (!restrictLogin) {
-                    progressButton.buttonActivated();
+                    progressBTN.buttonActivated();
 
                     SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("verificationPage", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -135,7 +131,7 @@ public class LoginActivity extends BaseActivity {
 
 
     private void signUpAction() {
-        signUpBtn.setOnClickListener(new View.OnClickListener() {
+        signUpBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent moveToSignUp = new Intent(LoginActivity.this, SignUpRoleActivity.class);
@@ -151,15 +147,15 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    progressButton.buttonFinished();
+                    progressBTN.buttonFinished();
                     Intent moveToVerification = new Intent(LoginActivity.this, VerificationActivity.class);
                     moveToVerification.putExtra("phoneNumber", phoneNumberET.getText().toString());
                     startActivity(moveToVerification);
                 } else if (!dataSnapshot.exists()) {
-                    progressButton.buttonFinished();
+                    progressBTN.buttonFinished();
                     unregisteredPhoneNumber();
                 } else {
-                    progressButton.buttonFinished();
+                    progressBTN.buttonFinished();
                     Toast.makeText(getApplicationContext(), "Terjadi kesalahan, periksa koneksi jaringan anda", Toast.LENGTH_SHORT).show();
                 }
             }

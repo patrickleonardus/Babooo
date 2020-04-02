@@ -1,4 +1,4 @@
-package com.bantoo.babooo.Pages.DailyServicePage.DailyConfirmationPage;
+package com.bantoo.babooo.Utilities;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -12,7 +12,7 @@ import com.bantoo.babooo.R;
 
 import java.util.Calendar;
 
-public class DailyConfirmationDatePickerFragment extends DialogFragment {
+public class DatePickerFragment extends DialogFragment {
 
     @NonNull
     @Override

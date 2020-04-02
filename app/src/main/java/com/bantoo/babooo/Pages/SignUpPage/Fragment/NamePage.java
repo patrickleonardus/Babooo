@@ -19,7 +19,7 @@ import com.bantoo.babooo.R;
 public class NamePage extends Fragment {
 
     EditText nameET;
-    String name;
+    private String name;
 
     @Nullable
     @Override

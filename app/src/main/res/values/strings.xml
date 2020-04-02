@@ -1,7 +1,13 @@
 <resources>
     <string name="app_name">Bantoo</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="password">merklaptopgwacer</string>
+    <string-array name="Duration">
+        <item>1 Bulan</item>
+        <item>2 Bulan</item>
+        <item>3 Bulan</item>
+        <item>6 Bulan</item>
+        <item>12 Bulan</item>
+    </string-array>
+
+
 </resources>

@@ -18,8 +18,9 @@ import com.bantoo.babooo.Model.FilterSearch;
 import com.bantoo.babooo.Model.Maid;
 import com.bantoo.babooo.Pages.MonthlyServicePage.FilterPage.FilterActivity;
 import com.bantoo.babooo.Pages.MonthlyServicePage.SortPage.SortMaidActivity;
+import com.bantoo.babooo.Pages.UserDetailPage.MaidDetailActivity;
 import com.bantoo.babooo.R;
-import com.bantoo.babooo.Utils.BaseActivity;
+import com.bantoo.babooo.Utilities.BaseActivity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class MonthlyMaidActivity extends BaseActivity implements Serializable {
 
     GridView maidGV;
     EditText searchMaidET;
-    LinearLayout sortOption, filterOption;
+    LinearLayout sortOptionLayout, filterOptionLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +48,8 @@ public class MonthlyMaidActivity extends BaseActivity implements Serializable {
 
         maidGV = findViewById(R.id.maid_GV);
         searchMaidET = findViewById(R.id.search_maid_ET);
-        sortOption = findViewById(R.id.sort_maid_layout);
-        filterOption = findViewById(R.id.filter_maid_ET);
+        sortOptionLayout = findViewById(R.id.sort_maid_layout);
+        filterOptionLayout = findViewById(R.id.filter_maid_ET);
 
         handleSearchET();
         handleButton();
@@ -82,6 +83,7 @@ public class MonthlyMaidActivity extends BaseActivity implements Serializable {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getApplicationContext(), maidList.get(position).name, Toast.LENGTH_SHORT).show();
+                moveToUserPage();
             }
         });
     }
@@ -125,14 +127,14 @@ public class MonthlyMaidActivity extends BaseActivity implements Serializable {
     }
 
     private void handleButton() {
-        sortOption.setOnClickListener(new View.OnClickListener() {
+        sortOptionLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 moveToSortPage();
             }
         });
 
-        filterOption.setOnClickListener(new View.OnClickListener() {
+        filterOptionLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 moveToFilterPage();
@@ -148,5 +150,10 @@ public class MonthlyMaidActivity extends BaseActivity implements Serializable {
     private void moveToFilterPage() {
         Intent intent = new Intent(this, FilterActivity.class);
         startActivityForResult(intent,ACTIVITYTOFILTERPAGE);
+    }
+
+    private void moveToUserPage(){
+        Intent intent = new Intent(this, MaidDetailActivity.class);
+        startActivity(intent);
     }
 }

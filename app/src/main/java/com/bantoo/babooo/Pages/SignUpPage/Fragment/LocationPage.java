@@ -19,7 +19,7 @@ import com.bantoo.babooo.R;
 public class LocationPage extends Fragment {
 
     EditText locationET;
-    String location;
+    private String location;
 
     @Nullable
     @Override

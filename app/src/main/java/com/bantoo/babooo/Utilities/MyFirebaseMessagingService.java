@@ -1,4 +1,4 @@
-package com.bantoo.babooo.Pages;
+package com.bantoo.babooo.Utilities;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;

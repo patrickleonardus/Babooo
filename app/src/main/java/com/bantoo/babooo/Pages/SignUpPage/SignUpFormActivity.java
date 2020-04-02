@@ -1,7 +1,5 @@
 package com.bantoo.babooo.Pages.SignUpPage;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -12,14 +10,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bantoo.babooo.Pages.SignUpPage.Fragment.ApprCodePage;
 import com.bantoo.babooo.Pages.SignUpPage.Fragment.EmailPage;
@@ -29,7 +24,7 @@ import com.bantoo.babooo.Pages.SignUpPage.Fragment.PasswordPage;
 import com.bantoo.babooo.Pages.SignUpPage.Fragment.PhonePage;
 import com.bantoo.babooo.Pages.VerificationPage.VerificationActivity;
 import com.bantoo.babooo.R;
-import com.bantoo.babooo.Utils.BaseActivity;
+import com.bantoo.babooo.Utilities.BaseActivity;
 import com.layer_net.stepindicator.StepIndicator;
 
 import java.util.ArrayList;
@@ -37,15 +32,15 @@ import java.util.List;
 
 public class SignUpFormActivity extends BaseActivity {
 
-    public static ViewPager pager;
+    private static ViewPager pager;
 
-    private TextView role;
+    private TextView roleTV;
     private PagerAdapter pagerAdapter;
     private StepIndicator stepIndicator;
 
     private String userRole;
-    public List<Fragment> list = new ArrayList<>();
-    public Handler handler = new Handler();
+    private List<Fragment> list = new ArrayList<>();
+    private Handler handler = new Handler();
 
     LinearLayout errorValidation;
     ImageView prevBtn, nextBtn, finishBtn;
@@ -69,7 +64,7 @@ public class SignUpFormActivity extends BaseActivity {
         prevBtn = findViewById(R.id.prevBtn);
         nextBtn = findViewById(R.id.nextBtn);
         finishBtn = findViewById(R.id.finishBtn);
-        role = findViewById(R.id.roleTV);
+        roleTV = findViewById(R.id.roleTV);
         errorValidation = findViewById(R.id.validation_sign_up);
         errorMessage = findViewById(R.id.validation_sign_up_TV);
         stepIndicator = findViewById(R.id.stepIndicatorSignUp);
@@ -120,11 +115,11 @@ public class SignUpFormActivity extends BaseActivity {
         userRole = sharedPreferences.getString("role", "Pengguna");
 
         if (userRole.equals("pengguna")) {
-            role.setText("Anda mendaftar sebagai : Pengguna Layanan");
+            roleTV.setText("Anda mendaftar sebagai : Pengguna Layanan");
         } else if (userRole.equals("mitra")) {
-            role.setText("Anda mendaftar sebagai : Mitra ART");
+            roleTV.setText("Anda mendaftar sebagai : Mitra ART");
         } else {
-            role.setText("");
+            roleTV.setText("");
         }
     }
 

@@ -1,15 +1,11 @@
 package com.bantoo.babooo.Pages.HomePage;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 import com.bantoo.babooo.Pages.HomePage.AccountPage.AccountFragment;
@@ -17,7 +13,7 @@ import com.bantoo.babooo.Pages.HomePage.OrderPage.OrdersFragment;
 import com.bantoo.babooo.Pages.HomePage.ServicePage.ServiceFragment;
 import com.bantoo.babooo.Pages.HomePage.Subscription.SubscriptionFragment;
 import com.bantoo.babooo.R;
-import com.bantoo.babooo.Utils.BaseActivity;
+import com.bantoo.babooo.Utilities.BaseActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends BaseActivity {

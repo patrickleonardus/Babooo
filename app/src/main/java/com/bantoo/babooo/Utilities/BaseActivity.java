@@ -1,7 +1,6 @@
-package com.bantoo.babooo.Utils;
+package com.bantoo.babooo.Utilities;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.Window;
 import android.view.WindowManager;
 

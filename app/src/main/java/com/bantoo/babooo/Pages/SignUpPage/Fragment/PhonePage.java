@@ -19,7 +19,7 @@ import com.bantoo.babooo.R;
 public class PhonePage extends Fragment {
 
     EditText phoneET;
-    String phone;
+    private String phone;
 
     @Nullable
     @Override

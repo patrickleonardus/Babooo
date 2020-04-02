@@ -1,12 +1,7 @@
 package com.bantoo.babooo.Pages.MonthlyServicePage.SortPage;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -14,7 +9,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.bantoo.babooo.R;
-import com.bantoo.babooo.Utils.BaseActivity;
+import com.bantoo.babooo.Utilities.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +17,9 @@ import java.util.List;
 public class SortMaidActivity extends BaseActivity {
 
     ListView sortMaidLV;
-    ImageView closeAction;
+    ImageView closeActionIV;
 
-    List<String> sortMenu = new ArrayList<String>();
+    private List<String> sortMenu = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +27,7 @@ public class SortMaidActivity extends BaseActivity {
         setContentView(R.layout.activity_sort_maid);
 
         sortMaidLV = findViewById(R.id.sort_maid_LV);
-        closeAction = findViewById(R.id.close_sort_IV);
+        closeActionIV = findViewById(R.id.close_sort_IV);
 
         sortMenuItem();
         setupSortLV();
@@ -63,7 +58,7 @@ public class SortMaidActivity extends BaseActivity {
     }
 
     private void handleButton() {
-        closeAction.setOnClickListener(new View.OnClickListener() {
+        closeActionIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
