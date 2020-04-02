@@ -1,23 +1,25 @@
 package com.bantoo.babooo.Pages.DailyServicePage;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.bantoo.babooo.Pages.DailyServicePage.DailyConfirmationPage.DailyConfirmationActivity;
 import com.bantoo.babooo.R;
+import com.bantoo.babooo.Utils.BaseActivity;
 
-public class DailyServiceActivity extends AppCompatActivity {
+public class DailyServiceActivity extends BaseActivity {
 
-    LinearLayout serviceOpt1,serviceOpt2,serviceOpt3,serviceOpt4;
-    TextView serviceName1,serviceName2,serviceName3,serviceName4;
-    TextView detailService1,detailService2,detailService3,detailService4;
+    LinearLayout serviceOpt1, serviceOpt2, serviceOpt3, serviceOpt4;
+    TextView serviceName1, serviceName2, serviceName3, serviceName4;
+    TextView detailService1, detailService2, detailService3, detailService4;
+
+    static final String SERVICETYPE = "serviceType";
+    static final String SERVICENAME = "serviceName";
+    static final String SERVICECOINS = "serviceCoin";
+    static final String thisServiceType = "Bantoo Harian";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,21 +41,12 @@ public class DailyServiceActivity extends AppCompatActivity {
         detailService3 = findViewById(R.id.service_detail_daily_TV_3);
         detailService4 = findViewById(R.id.service_detail_daily_TV_4);
 
-        generalStyling();
         initVar();
         handleMenu();
 
     }
 
-    public void generalStyling(){
-        Window window = getWindow();
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(),R.color.orangePrimary));
-        window.setNavigationBarColor(ContextCompat.getColor(getApplicationContext(),R.color.greenPrimary));
-    }
-
-    private void initVar(){
+    private void initVar() {
         serviceName1.setText("Cuci Kering");
         detailService1.setText("Layanan mencuci dan menjemur pakaian maksimal 15kg selama pengerjaan");
         serviceName2.setText("Setrika Baju");
@@ -64,36 +57,44 @@ public class DailyServiceActivity extends AppCompatActivity {
         detailService4.setText("Layanan pembersihan kamar mandi");
     }
 
-    private void handleMenu(){
+    private void handleMenu() {
 
         serviceOpt1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(DailyServiceActivity.this,serviceName1.getText().toString(),Toast.LENGTH_SHORT).show();
+                moveToConfirmationPage(thisServiceType, "Cuci Kering",100);
             }
         });
 
         serviceOpt2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(DailyServiceActivity.this,serviceName2.getText().toString(),Toast.LENGTH_SHORT).show();
+                moveToConfirmationPage(thisServiceType, "Setrika Baju",100);
             }
         });
 
         serviceOpt3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(DailyServiceActivity.this,serviceName3.getText().toString(),Toast.LENGTH_SHORT).show();
+                moveToConfirmationPage(thisServiceType, "Pembersihan Umum",100);
             }
         });
 
         serviceOpt4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(DailyServiceActivity.this,serviceName4.getText().toString(),Toast.LENGTH_SHORT).show();
+                moveToConfirmationPage(thisServiceType, "Pembersihan Kamar Mandi",100);
             }
         });
 
+    }
+
+    private void moveToConfirmationPage(String valueServiceType, String valueServiceName, int coins) {
+        Intent intent = new Intent(DailyServiceActivity.this, DailyConfirmationActivity.class);
+        intent.putExtra(SERVICETYPE, valueServiceType);
+        intent.putExtra(SERVICENAME, valueServiceName);
+        intent.putExtra(SERVICECOINS, coins);
+        startActivity(intent);
     }
 
 }

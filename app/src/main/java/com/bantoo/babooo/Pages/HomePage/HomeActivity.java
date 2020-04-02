@@ -6,7 +6,6 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.Window;
@@ -17,11 +16,11 @@ import com.bantoo.babooo.Pages.HomePage.AccountPage.AccountFragment;
 import com.bantoo.babooo.Pages.HomePage.OrderPage.OrdersFragment;
 import com.bantoo.babooo.Pages.HomePage.ServicePage.ServiceFragment;
 import com.bantoo.babooo.Pages.HomePage.Subscription.SubscriptionFragment;
-import com.bantoo.babooo.Pages.MonthlyServicePage.FilterPage.FilterActivity;
 import com.bantoo.babooo.R;
+import com.bantoo.babooo.Utils.BaseActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends BaseActivity {
     private BottomNavigationView navbar;
     private FrameLayout mainFrame;
 
@@ -38,23 +37,14 @@ public class HomeActivity extends AppCompatActivity {
         mainFrame = findViewById(R.id.mainFrame);
         navbar = findViewById(R.id.menuItem);
 
-        generalStyling();
         fragmentSetup();
 
-    }
-
-    public void generalStyling(){
-        Window window = getWindow();
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(),R.color.orangePrimary));
-        window.setNavigationBarColor(ContextCompat.getColor(getApplicationContext(),R.color.greenPrimary));
     }
 
     //Fragment Handler
     //Below Code is only for fragment handler and setup
 
-    private void fragmentSetup(){
+    private void fragmentSetup() {
         serviceFragment = new ServiceFragment();
         subscriptionFragment = new SubscriptionFragment();
         ordersFragment = new OrdersFragment();
@@ -64,7 +54,7 @@ public class HomeActivity extends AppCompatActivity {
         navbar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch(menuItem.getItemId()) {
+                switch (menuItem.getItemId()) {
                     case R.id.serviceItem:
                         setFragment(serviceFragment);
                         return true;

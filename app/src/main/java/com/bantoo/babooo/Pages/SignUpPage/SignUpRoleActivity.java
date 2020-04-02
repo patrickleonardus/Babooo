@@ -15,9 +15,10 @@ import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
 import com.bantoo.babooo.R;
+import com.bantoo.babooo.Utils.BaseActivity;
 
 
-public class SignUpRoleActivity extends AppCompatActivity {
+public class SignUpRoleActivity extends BaseActivity {
 
     RelativeLayout penggunaView, mitraView;
 
@@ -26,26 +27,17 @@ public class SignUpRoleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_role);
 
-        generalStyling();
         initVar();
         buttonHandler();
 
     }
 
-    public void generalStyling(){
-        Window window = getWindow();
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(),R.color.orangePrimary));
-        window.setNavigationBarColor(ContextCompat.getColor(getApplicationContext(),R.color.greenPrimary));
-    }
-
-    public void initVar(){
+    public void initVar() {
         penggunaView = findViewById(R.id.penggunaView);
         mitraView = findViewById(R.id.mitraView);
     }
 
-    public void buttonHandler(){
+    public void buttonHandler() {
         penggunaView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,12 +50,12 @@ public class SignUpRoleActivity extends AppCompatActivity {
         mitraView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               showAlertForART();
+                showAlertForART();
             }
         });
     }
 
-    private void showAlertForART(){
+    private void showAlertForART() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 this);
         alertDialogBuilder.setTitle("Anda akan mendaftar sebagai Mitra ART");
@@ -75,15 +67,15 @@ public class SignUpRoleActivity extends AppCompatActivity {
                         "untuk itu, pastikan anda sudah memiliki approval code sebelum melanjutkan " +
                         "registrasi.")
                 .setCancelable(false)
-                .setPositiveButton("Lanjutkan Mendaftar",new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
+                .setPositiveButton("Lanjutkan Mendaftar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
                         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("userPref", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("role", "mitra").commit();
                         moveToRegister();
                     }
                 })
-                .setNegativeButton("Batal",new DialogInterface.OnClickListener() {
+                .setNegativeButton("Batal", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                     }
@@ -92,8 +84,8 @@ public class SignUpRoleActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    public void moveToRegister(){
-        Intent i = new Intent(this,SignUpFormActivity.class);
+    public void moveToRegister() {
+        Intent i = new Intent(this, SignUpFormActivity.class);
         startActivity(i);
     }
 }

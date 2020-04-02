@@ -1,8 +1,6 @@
 package com.bantoo.babooo.Pages.LoginPage;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -13,18 +11,16 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bantoo.babooo.Pages.DailyServicePage.DailyServiceActivity;
 import com.bantoo.babooo.Pages.HomePage.HomeActivity;
-import com.bantoo.babooo.Pages.MonthlyServicePage.FilterPage.CityRegionPage.CityRegionActivity;
-import com.bantoo.babooo.Pages.MonthlyServicePage.FilterPage.FilterActivity;
 import com.bantoo.babooo.Pages.SignUpPage.SignUpRoleActivity;
 import com.bantoo.babooo.Pages.VerificationPage.VerificationActivity;
 import com.bantoo.babooo.R;
+import com.bantoo.babooo.Utils.BaseActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -34,7 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
@@ -56,21 +52,19 @@ public class LoginActivity extends AppCompatActivity {
         phoneNumberET = findViewById(R.id.phoneNumber_login_ET);
         loginBtn = findViewById(R.id.login_btn);
         signUpBtn = findViewById(R.id.signUp_btn);
-        progressButton = new LoginProgressButton(LoginActivity.this,loginBtn);
+        progressButton = new LoginProgressButton(LoginActivity.this, loginBtn);
         progressButton.setTextButton("Masuk");
 
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
 
-        Intent intent = new Intent(this, FilterActivity.class);
+        Intent intent = new Intent(this, DailyServiceActivity.class);
         startActivity(intent);
 
         //Check state, klo dah isi uid langsung ke home
-        if (mUser != null){
+        if (mUser != null) {
 //            moveToHome();
-        }
-        else if (mUser == null){
-            generalStyling();
+        } else if (mUser == null) {
             handleLogin();
             phoneChecker();
             signUpAction();
@@ -78,21 +72,13 @@ public class LoginActivity extends AppCompatActivity {
         resetSharedPref();
     }
 
-    public void generalStyling(){
-        Window window = getWindow();
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(),R.color.orangePrimary));
-        window.setNavigationBarColor(ContextCompat.getColor(getApplicationContext(),R.color.greenPrimary));
-    }
-
-    private void moveToHome(){
+    private void moveToHome() {
         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
         startActivity(intent);
         LoginActivity.this.finish();
     }
 
-    private void resetSharedPref(){
+    private void resetSharedPref() {
         //clear semua sharedPreferences
         SharedPreferences userPref = getSharedPreferences("userPref", Context.MODE_PRIVATE);
         SharedPreferences verifPref = getSharedPreferences("verificationPage", Context.MODE_PRIVATE);
@@ -100,14 +86,13 @@ public class LoginActivity extends AppCompatActivity {
         verifPref.edit().clear().commit();
     }
 
-    private void handleLogin(){
+    private void handleLogin() {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (phoneNumberET.getText().toString().isEmpty()){
+                if (phoneNumberET.getText().toString().isEmpty()) {
                     phoneNumberET.setError("Nomor telepon harus diisi");
-                }
-                else if (!restrictLogin){
+                } else if (!restrictLogin) {
                     progressButton.buttonActivated();
 
                     SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("verificationPage", Context.MODE_PRIVATE);
@@ -120,35 +105,33 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void phoneChecker(){
+    private void phoneChecker() {
         phoneNumberET.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!s.toString().startsWith("08")){
+                if (!s.toString().startsWith("08")) {
                     phoneNumberET.setError("Format nomor handphone salah");
                     restrictLogin = true;
-                }
-                else if (s.length() < 10){
+                } else if (s.length() < 10) {
                     phoneNumberET.setError("Nomor handphone terlalu pendek");
                     restrictLogin = true;
-                }
-                else if (s.length() > 13){
+                } else if (s.length() > 13) {
                     phoneNumberET.setError("Nomor handphone terlalu panjang");
                     restrictLogin = true;
-                }
-                else {
+                } else {
                     restrictLogin = false;
                 }
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         });
     }
-
 
 
     private void signUpAction() {
@@ -161,25 +144,23 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void loginAction(){
+    private void loginAction() {
         DatabaseReference userRef = reference.child("Users");
         Query queryRef = userRef.orderByChild("phoneNumber").equalTo(phoneNumberET.getText().toString());
         queryRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
+                if (dataSnapshot.exists()) {
                     progressButton.buttonFinished();
                     Intent moveToVerification = new Intent(LoginActivity.this, VerificationActivity.class);
                     moveToVerification.putExtra("phoneNumber", phoneNumberET.getText().toString());
                     startActivity(moveToVerification);
-                }
-                else if (!dataSnapshot.exists()){
+                } else if (!dataSnapshot.exists()) {
                     progressButton.buttonFinished();
                     unregisteredPhoneNumber();
-                }
-                else {
+                } else {
                     progressButton.buttonFinished();
-                    Toast.makeText(getApplicationContext(),"Terjadi kesalahan, periksa koneksi jaringan anda",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Terjadi kesalahan, periksa koneksi jaringan anda", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -190,20 +171,20 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void unregisteredPhoneNumber(){
+    private void unregisteredPhoneNumber() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 this);
         alertDialogBuilder.setTitle("Nomor anda belum terdaftar");
         alertDialogBuilder
                 .setMessage("Silahkan lakukan registrasi akun terlebih dahulu sebelum melakukan login")
                 .setCancelable(false)
-                .setPositiveButton("Registrasi Sekarang",new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
-                       Intent intent = new Intent(LoginActivity.this,SignUpRoleActivity.class);
-                       startActivity(intent);
+                .setPositiveButton("Registrasi Sekarang", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intent = new Intent(LoginActivity.this, SignUpRoleActivity.class);
+                        startActivity(intent);
                     }
                 })
-                .setNegativeButton("Nanti Dulu",new DialogInterface.OnClickListener() {
+                .setNegativeButton("Nanti Dulu", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                     }

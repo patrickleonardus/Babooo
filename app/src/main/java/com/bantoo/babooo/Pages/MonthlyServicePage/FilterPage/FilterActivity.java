@@ -7,11 +7,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bantoo.babooo.Model.City;
+import com.bantoo.babooo.Model.FilterSearch;
 import com.bantoo.babooo.Pages.MonthlyServicePage.FilterPage.CityRegionPage.CityRegionActivity;
 import com.bantoo.babooo.R;
 import com.bantoo.babooo.Utils.BaseActivity;
@@ -22,34 +24,36 @@ import com.tobiasschuerg.prefixsuffix.PrefixSuffixEditText;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class FilterActivity extends BaseActivity implements Serializable, CityFilterOnItemClickListener {
 
-    MultiSnapRecyclerView cityRV;
-    RangeSeekBar filterAge, filterYears, filterCost;
-    PrefixSuffixEditText maxAgeET, minAgeET, maxYearsET, minYearsET;
-    EditText maxCostET, minCostET;
-    TextView allCityBtn;
-    ImageView closeBtn, popularity1, popularity2, popularity3, popularity4, popularity5;
-    CityFilterRecyclerViewAdapter adapter;
-    LinearLayoutManager manager;
-    List<City> cityList = new ArrayList<City>();
+    private MultiSnapRecyclerView cityRV;
+    private RangeSeekBar filterAge, filterYears, filterCost;
+    private PrefixSuffixEditText maxAgeET, minAgeET, maxYearsET, minYearsET;
+    private EditText maxCostET, minCostET;
+    private TextView allCityBtn;
+    private ImageView closeBtn, popularity1, popularity2, popularity3, popularity4, popularity5;
+    private Button setFilter;
+    private CityFilterRecyclerViewAdapter adapter;
+    private LinearLayoutManager manager;
+    private List<City> cityList = new ArrayList<City>();
+    private List<FilterSearch> filterSearches = new ArrayList<FilterSearch>();
 
-    String SERIALIZEPARAMETER = "choosenCity";
-    static final int CHOOSENCITYACTIVITYRESULT = 1;
+    static final String SERIALIZEPARAMETER = "choosenCity";
     static final String CHOOSENCITYRESULT = "choosenCityResults";
+    static final int CHOOSENCITYACTIVITYRESULT = 1;
+    static final String FILTERINTENT = "filterIntent";
 
-    int defaultMaxAgeValue = 60;
-    int defaultMinAgeValue = 18;
-    int defaultMinYearsValue = 0;
-    int defaultMaxYearsValue = 20;
-    int defaultMinCostValue = 100;
-    int defaultMaxCostValue = 1000;
+    private int defaultMaxAgeValue = 60;
+    private int defaultMinAgeValue = 18;
+    private int defaultMinYearsValue = 0;
+    private int defaultMaxYearsValue = 20;
+    private int defaultMinCostValue = 50;
+    private int defaultMaxCostValue = 1000;
+    private int maidPopularity = 5;
 
-    String maxCost, minCost, maxYears, minYears, minAge, maxAge;
+    private String maxCost, minCost, maxYears, minYears, minAge, maxAge;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +77,7 @@ public class FilterActivity extends BaseActivity implements Serializable, CityFi
         popularity3 = findViewById(R.id.star_popularity3);
         popularity4 = findViewById(R.id.star_popularity4);
         popularity5 = findViewById(R.id.star_popularity5);
+        setFilter = findViewById(R.id.setFilter_BTN);
 
         initVar();
         handleRangeSeekBar();
@@ -137,6 +142,13 @@ public class FilterActivity extends BaseActivity implements Serializable, CityFi
         cityList.add(defaultValue);
         setupCityRecyclerView(cityList);
 
+        //add default value to all variable
+        minAge = String.valueOf(18);
+        maxAge = String.valueOf(60);
+        minYears = String.valueOf(0);
+        maxYears = String.valueOf(20);
+        minCost = String.valueOf(50);
+        maxCost = String.valueOf(1000);
     }
 
     private void handleRangeSeekBar() {
@@ -207,6 +219,7 @@ public class FilterActivity extends BaseActivity implements Serializable, CityFi
         switch (popularity) {
 
             case 5:
+                maidPopularity = 5;
                 popularity1.setImageResource(R.drawable.asset_star_active);
                 popularity2.setImageResource(R.drawable.asset_star_active);
                 popularity3.setImageResource(R.drawable.asset_star_active);
@@ -214,6 +227,7 @@ public class FilterActivity extends BaseActivity implements Serializable, CityFi
                 popularity5.setImageResource(R.drawable.asset_star_active);
                 break;
             case 4:
+                maidPopularity = 4;
                 popularity1.setImageResource(R.drawable.asset_star_active);
                 popularity2.setImageResource(R.drawable.asset_star_active);
                 popularity3.setImageResource(R.drawable.asset_star_active);
@@ -221,6 +235,7 @@ public class FilterActivity extends BaseActivity implements Serializable, CityFi
                 popularity5.setImageResource(R.drawable.asset_star_inactive);
                 break;
             case 3:
+                maidPopularity = 3;
                 popularity1.setImageResource(R.drawable.asset_star_active);
                 popularity2.setImageResource(R.drawable.asset_star_active);
                 popularity3.setImageResource(R.drawable.asset_star_active);
@@ -228,6 +243,7 @@ public class FilterActivity extends BaseActivity implements Serializable, CityFi
                 popularity5.setImageResource(R.drawable.asset_star_inactive);
                 break;
             case 2:
+                maidPopularity = 2;
                 popularity1.setImageResource(R.drawable.asset_star_active);
                 popularity2.setImageResource(R.drawable.asset_star_active);
                 popularity3.setImageResource(R.drawable.asset_star_inactive);
@@ -235,6 +251,7 @@ public class FilterActivity extends BaseActivity implements Serializable, CityFi
                 popularity5.setImageResource(R.drawable.asset_star_inactive);
                 break;
             case 1:
+                maidPopularity = 1;
                 popularity1.setImageResource(R.drawable.asset_star_active);
                 popularity2.setImageResource(R.drawable.asset_star_inactive);
                 popularity3.setImageResource(R.drawable.asset_star_inactive);
@@ -306,6 +323,18 @@ public class FilterActivity extends BaseActivity implements Serializable, CityFi
             }
         });
 
+        setFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FilterSearch filter = new FilterSearch(maxCost, minCost, maxYears, minYears, minAge, maxAge, maidPopularity,cityList);
+                filterSearches.add(filter);
+
+                Intent intent = new Intent();
+                intent.putExtra(FILTERINTENT, (ArrayList<FilterSearch>) filterSearches);
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
     }
 
     private void setupCityRecyclerView(List<City> city) {

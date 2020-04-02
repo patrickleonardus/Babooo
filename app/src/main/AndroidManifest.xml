@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".Pages.DailyServicePage.DailyConfirmationPage.DailyConfirmationActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
             android:name=".Pages.MonthlyServicePage.FilterPage.FilterActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity

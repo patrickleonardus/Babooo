@@ -19,24 +19,22 @@
             android:layout_height="wrap_content"
             android:background="@drawable/border_ellips_green_edit_text"
             android:orientation="horizontal"
-            android:padding="6dp">
+            android:padding="5dp">
 
             <TextView
                 android:id="@+id/city_choosen_TV"
+                android:layout_marginRight="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"
                 android:text="City"
                 android:textColor="@color/greenPrimary"
                 android:textSize="14sp" />
 
             <ImageView
+                android:layout_marginLeft="5dp"
                 android:id="@+id/close_cityChoosen_IV"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"
                 android:clickable="true"
                 android:src="@drawable/asset_rounded_close" />
 

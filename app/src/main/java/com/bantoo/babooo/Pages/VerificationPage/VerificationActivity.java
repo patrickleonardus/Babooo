@@ -25,6 +25,7 @@ import com.bantoo.babooo.Model.FirebaseHelper;
 import com.bantoo.babooo.Model.User;
 import com.bantoo.babooo.Pages.HomePage.HomeActivity;
 import com.bantoo.babooo.R;
+import com.bantoo.babooo.Utils.BaseActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -39,24 +40,24 @@ import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.concurrent.TimeUnit;
 
-public class VerificationActivity extends AppCompatActivity {
+public class VerificationActivity extends BaseActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private FirebaseHelper firebaseHelper = new FirebaseHelper();
 
-    TextView verificationPhone,validationTV;
-    EditText code1ET,code2ET,code3ET,code4ET,code5ET,code6ET;
+    TextView verificationPhone, validationTV;
+    EditText code1ET, code2ET, code3ET, code4ET, code5ET, code6ET;
     LinearLayout validation;
     View verificationBtn;
     VerificationProgressButton progressButton;
 
-    private String codeSent,phoneNumber,numberWithCode;
-    private String apprCode,code1,code2,code3,code4,code5,code6;
-    String sender,buttonTitle;
+    private String codeSent, phoneNumber, numberWithCode;
+    private String apprCode, code1, code2, code3, code4, code5, code6;
+    String sender, buttonTitle;
     private String uid;
-    private String role,name,email,password,address,phoneNum;
+    private String role, name, email, password, address, phoneNum;
 
     Animation animationDown, animationUp;
     Handler handler = new Handler();
@@ -79,15 +80,14 @@ public class VerificationActivity extends AppCompatActivity {
         verificationBtn = findViewById(R.id.verificationBtn);
         validationTV = findViewById(R.id.validation_login_TV);
         validation = findViewById(R.id.validation_login);
-        animationUp = AnimationUtils.loadAnimation(this,R.anim.slide_up);
-        animationDown = AnimationUtils.loadAnimation(this,R.anim.slide_down);
-        progressButton = new VerificationProgressButton(VerificationActivity.this,verificationBtn);
+        animationUp = AnimationUtils.loadAnimation(this, R.anim.slide_up);
+        animationDown = AnimationUtils.loadAnimation(this, R.anim.slide_down);
+        progressButton = new VerificationProgressButton(VerificationActivity.this, verificationBtn);
 
         //check datang dari page mana
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("verificationPage", Context.MODE_PRIVATE);
-        sender = sharedPreferences.getString("from","N/A");
+        sender = sharedPreferences.getString("from", "N/A");
 
-        generalStyling();
         initVar();
         handlePhoneNumber();
         sendVerificationCode();
@@ -97,15 +97,7 @@ public class VerificationActivity extends AppCompatActivity {
         loadData();
     }
 
-    public void generalStyling(){
-        Window window = getWindow();
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(),R.color.orangePrimary));
-        window.setNavigationBarColor(ContextCompat.getColor(getApplicationContext(),R.color.greenPrimary));
-    }
-
-    public void initVar(){
+    public void initVar() {
         code1 = "";
         code2 = "";
         code3 = "";
@@ -114,11 +106,11 @@ public class VerificationActivity extends AppCompatActivity {
         code6 = "";
     }
 
-    private void loadData(){
-        if (sender.equals("register")){
-            SharedPreferences userPref = getSharedPreferences("userPref",Context.MODE_PRIVATE);
+    private void loadData() {
+        if (sender.equals("register")) {
+            SharedPreferences userPref = getSharedPreferences("userPref", Context.MODE_PRIVATE);
 
-            role = userPref.getString("role","N/A");
+            role = userPref.getString("role", "N/A");
             name = userPref.getString("name", "N/A");
             email = userPref.getString("email", "N/A");
             password = userPref.getString("password", "N/A");
@@ -127,9 +119,9 @@ public class VerificationActivity extends AppCompatActivity {
         }
     }
 
-    private void createAccount(){
+    private void createAccount() {
         mUser = mAuth.getInstance().getCurrentUser();
-        if (mUser != null){
+        if (mUser != null) {
             uid = mUser.getUid();
 
             FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
@@ -137,150 +129,155 @@ public class VerificationActivity extends AppCompatActivity {
                 public void onSuccess(InstanceIdResult instanceIdResult) {
                     String token = "";
                     token = instanceIdResult.getToken();
-                    User user = new User(role,name,email,phoneNum,password,address,token);
-                    firebaseHelper.addUser(user,uid);
+                    User user = new User(role, name, email, phoneNum, password, address, token);
+                    firebaseHelper.addUser(user, uid);
                 }
             });
         }
     }
 
-    private void handleVerificationText(){
+    private void handleVerificationText() {
         code1ET.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (code1ET.getText().toString().isEmpty()){
+                if (code1ET.getText().toString().isEmpty()) {
                     code1ET.setError("Harus diisi");
-                }
-                else {
-                    if (code1ET.getText().toString().length() == 1){
+                } else {
+                    if (code1ET.getText().toString().length() == 1) {
                         code1 = code1ET.getText().toString();
-                        apprCode = code1+code2+code3+code4+code5+code6;
+                        apprCode = code1 + code2 + code3 + code4 + code5 + code6;
                         code2ET.requestFocus();
                     }
                 }
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         });
 
         code2ET.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (code2ET.getText().toString().isEmpty()){
+                if (code2ET.getText().toString().isEmpty()) {
                     code2ET.setError("Harus diisi");
-                }
-                else {
-                    if (code2ET.getText().toString().length() == 1){
+                } else {
+                    if (code2ET.getText().toString().length() == 1) {
                         code2 = code2ET.getText().toString();
-                        apprCode = code1+code2+code3+code4+code5+code6;
+                        apprCode = code1 + code2 + code3 + code4 + code5 + code6;
                         code3ET.requestFocus();
                     }
                 }
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         });
 
         code3ET.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (code3ET.getText().toString().isEmpty()){
+                if (code3ET.getText().toString().isEmpty()) {
                     code3ET.setError("Harus diisi");
-                }
-                else {
-                    if (code3ET.getText().toString().length() == 1){
+                } else {
+                    if (code3ET.getText().toString().length() == 1) {
                         code3 = code3ET.getText().toString();
-                        apprCode = code1+code2+code3+code4+code5+code6;
+                        apprCode = code1 + code2 + code3 + code4 + code5 + code6;
                         code4ET.requestFocus();
                     }
                 }
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         });
 
         code4ET.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (code4ET.getText().toString().isEmpty()){
+                if (code4ET.getText().toString().isEmpty()) {
                     code4ET.setError("Harus diisi");
-                }
-                else {
-                    if (code4ET.getText().toString().length() == 1){
+                } else {
+                    if (code4ET.getText().toString().length() == 1) {
                         code4 = code4ET.getText().toString();
-                        apprCode = code1+code2+code3+code4+code5+code6;
+                        apprCode = code1 + code2 + code3 + code4 + code5 + code6;
                         code5ET.requestFocus();
                     }
                 }
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         });
 
         code5ET.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (code5ET.getText().toString().isEmpty()){
+                if (code5ET.getText().toString().isEmpty()) {
                     code5ET.setError("Harus diisi");
-                }
-                else {
-                    if (code5ET.getText().toString().length() == 1){
+                } else {
+                    if (code5ET.getText().toString().length() == 1) {
                         code5 = code5ET.getText().toString();
-                        apprCode = code1+code2+code3+code4+code5+code6;
+                        apprCode = code1 + code2 + code3 + code4 + code5 + code6;
                         code6ET.requestFocus();
                     }
                 }
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         });
 
         code6ET.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (code6ET.getText().toString().isEmpty()){
+                if (code6ET.getText().toString().isEmpty()) {
                     code6ET.setError("Harus diisi");
-                }
-                else {
+                } else {
                     code6 = code6ET.getText().toString();
-                    apprCode = code1+code2+code3+code4+code5+code6;
+                    apprCode = code1 + code2 + code3 + code4 + code5 + code6;
                     code6ET.clearFocus();
                 }
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         });
     }
 
-    private void handleButton(){
-        if (sender.equals("N/A")){
+    private void handleButton() {
+        if (sender.equals("N/A")) {
             displayError("Terjadi kesalahan, silahkan reload ulang page ini");
-        }
-        else {
+        } else {
             verificationBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -291,26 +288,24 @@ public class VerificationActivity extends AppCompatActivity {
         }
     }
 
-    private void handlePhoneNumber(){
-        if (sender.equals("login")){
+    private void handlePhoneNumber() {
+        if (sender.equals("login")) {
             phoneNumber = getIntent().getStringExtra("phoneNumber");
             verificationPhone.setText(phoneNumber);
-            numberWithCode = "+62"+phoneNumber.substring(1);
-        }
-        else if (sender.equals("register")){
-            SharedPreferences phonePref =  getSharedPreferences("userPref", Context.MODE_PRIVATE);
-            phoneNumber = phonePref.getString("phone","N/A");
+            numberWithCode = "+62" + phoneNumber.substring(1);
+        } else if (sender.equals("register")) {
+            SharedPreferences phonePref = getSharedPreferences("userPref", Context.MODE_PRIVATE);
+            phoneNumber = phonePref.getString("phone", "N/A");
             verificationPhone.setText(phoneNumber);
-            numberWithCode = "+62"+phoneNumber.substring(1);
+            numberWithCode = "+62" + phoneNumber.substring(1);
         }
     }
 
-    public void displayButton(){
-        if (sender.equals("login")){
+    public void displayButton() {
+        if (sender.equals("login")) {
             progressButton.setTextButton("Masuk");
             buttonTitle = "Masuk";
-        }
-        else if (sender.equals("register")){
+        } else if (sender.equals("register")) {
             progressButton.setTextButton("Verifikasi");
             buttonTitle = "Verifikasi";
         }
@@ -318,30 +313,29 @@ public class VerificationActivity extends AppCompatActivity {
 
     private void resendCode(View v) {
         resendVerificationCode(mResendToken);
-        Toast.makeText(getApplicationContext(),"Kode verifikasi telah dikirim",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Kode verifikasi telah dikirim", Toast.LENGTH_SHORT).show();
     }
 
     private void verification() {
-        if (    code1ET.getText().toString().isEmpty() ||
+        if (code1ET.getText().toString().isEmpty() ||
                 code2ET.getText().toString().isEmpty() ||
                 code3ET.getText().toString().isEmpty() ||
                 code4ET.getText().toString().isEmpty() ||
                 code5ET.getText().toString().isEmpty() ||
                 code6ET.getText().toString().isEmpty()) {
 
-         displayError("Periksa kembali kode verifikasi anda");
-         progressButton.buttonFinished(buttonTitle);
-        }
-        else {
+            displayError("Periksa kembali kode verifikasi anda");
+            progressButton.buttonFinished(buttonTitle);
+        } else {
             verifySignInCode();
         }
     }
 
-    public void displayError(String message){
+    public void displayError(String message) {
         validation.setVisibility(View.VISIBLE);
         validation.startAnimation(animationDown);
         validationTV.setText(message);
-        handler.postDelayed(removeError,3500);
+        handler.postDelayed(removeError, 3500);
 
     }
 
@@ -355,7 +349,7 @@ public class VerificationActivity extends AppCompatActivity {
         }
     };
 
-    private void moveToHome(){
+    private void moveToHome() {
         Intent intent = new Intent(VerificationActivity.this, HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
@@ -364,21 +358,20 @@ public class VerificationActivity extends AppCompatActivity {
     //FIREBASE AUTH
     //BELOW CODE HANDLE AUTHENTICATION METHOD
 
-    private void sendVerificationCode(){
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(numberWithCode,60,TimeUnit.SECONDS,this,mCallbacks);
+    private void sendVerificationCode() {
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(numberWithCode, 60, TimeUnit.SECONDS, this, mCallbacks);
     }
 
-    private void resendVerificationCode(PhoneAuthProvider.ForceResendingToken token){
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(numberWithCode,60,TimeUnit.SECONDS,this,mCallbacks,token);
+    private void resendVerificationCode(PhoneAuthProvider.ForceResendingToken token) {
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(numberWithCode, 60, TimeUnit.SECONDS, this, mCallbacks, token);
     }
 
-    private void verifySignInCode(){
-        if (codeSent == null){
+    private void verifySignInCode() {
+        if (codeSent == null) {
             displayError("Mohon tunggu sampai kode SMS masuk dan coba lagi");
             progressButton.buttonFinished(buttonTitle);
-        }
-        else {
-            PhoneAuthCredential credential = PhoneAuthProvider.getCredential(codeSent,apprCode);
+        } else {
+            PhoneAuthCredential credential = PhoneAuthProvider.getCredential(codeSent, apprCode);
             signInWithPhoneAuthCredential(credential);
         }
     }
@@ -403,7 +396,7 @@ public class VerificationActivity extends AppCompatActivity {
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
         @Override
         public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-            Toast.makeText(getApplicationContext(),"Sukses kirim kode verifikasi",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Sukses kirim kode verifikasi", Toast.LENGTH_SHORT).show();
         }
 
         @Override

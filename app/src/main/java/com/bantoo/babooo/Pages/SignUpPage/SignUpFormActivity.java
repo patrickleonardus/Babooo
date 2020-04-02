@@ -29,12 +29,13 @@ import com.bantoo.babooo.Pages.SignUpPage.Fragment.PasswordPage;
 import com.bantoo.babooo.Pages.SignUpPage.Fragment.PhonePage;
 import com.bantoo.babooo.Pages.VerificationPage.VerificationActivity;
 import com.bantoo.babooo.R;
+import com.bantoo.babooo.Utils.BaseActivity;
 import com.layer_net.stepindicator.StepIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SignUpFormActivity extends AppCompatActivity {
+public class SignUpFormActivity extends BaseActivity {
 
     public static ViewPager pager;
 
@@ -57,19 +58,11 @@ public class SignUpFormActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_form);
-        generalStyling();
+
         setupPage();
         initVar();
         handleUserRole();
         handleButton();
-    }
-
-    public void generalStyling() {
-        Window window = getWindow();
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.orangePrimary));
-        window.setNavigationBarColor(ContextCompat.getColor(getApplicationContext(), R.color.greenPrimary));
     }
 
     public void initVar() {
@@ -218,7 +211,7 @@ public class SignUpFormActivity extends AppCompatActivity {
         }
     }
 
-    private void moveToVerification(){
+    private void moveToVerification() {
         Intent intent = new Intent(SignUpFormActivity.this, VerificationActivity.class);
         startActivity(intent);
     }
