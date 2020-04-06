@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -347,6 +348,10 @@ public class VerificationActivity extends BaseActivity {
 
     private void moveToHome() {
         Intent intent = new Intent(VerificationActivity.this, HomeActivity.class);
+        SharedPreferences accountData = getApplicationContext().getSharedPreferences("accountData", MODE_PRIVATE);
+        SharedPreferences.Editor editor = accountData.edit();
+        editor.putString("phoneNumber", phoneNumber);
+        editor.apply();
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
@@ -378,7 +383,7 @@ public class VerificationActivity extends BaseActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            createAccount();
+                            if (sender.equals("register")) { createAccount(); }
                             progressButton.buttonFinished(buttonTitle);
                             moveToHome();
                         } else {
@@ -397,6 +402,7 @@ public class VerificationActivity extends BaseActivity {
 
         @Override
         public void onVerificationFailed(@NonNull FirebaseException e) {
+            Log.d("TAG", "onVerificationFailed: "+e);
             displayError("Gagal mengirimkan kode verifikasi, periksa nomor telepon dan koneksi jaringan anda");
         }
 

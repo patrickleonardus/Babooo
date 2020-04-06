@@ -1,11 +1,13 @@
 package com.bantoo.babooo.Pages.HomePage.ServicePage;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 
 import com.bantoo.babooo.Model.ServiceSchedule;
 import com.bantoo.babooo.Pages.DailyServicePage.DailyServiceActivity;
+import com.bantoo.babooo.Pages.HomePage.HomeActivity;
 import com.bantoo.babooo.Pages.MonthlyServicePage.MonthlyMaidActivity;
 import com.bantoo.babooo.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,27 +27,38 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class ServiceFragment extends Fragment implements ServiceItemClickListener{
 
     //FIREBASE INIT
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference userReference;
+    private Query orderReference;
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
     private String uid;
+    private String phoneNumber;
 
+    SharedPreferences accountDataSharedPreferences;
+
+    //Recycler View
     private MultiSnapRecyclerView scheduleRV;
     private LinearLayoutManager scheduleLayoutManager;
     private ServiceRecyclerViewAdapter serviceRecyclerViewAdapter;
+
+    //Array of Service
     private List<ServiceSchedule> serviceScheduleList = new ArrayList<ServiceSchedule>();
     private String username;
 
+    //Object View
     LinearLayout dailyServiceOption,monthlyServiceOption,topUpOption;
     TextView usernameTV,coinsTV;
     ProgressBar usernamePB,coinsPB;
@@ -64,14 +78,43 @@ public class ServiceFragment extends Fragment implements ServiceItemClickListene
 
         showUserProgressBar(true);
         showCoinProgressBar(true);
-        dummyData();
-        setupScheduleView();
+        retrieveScheduleData();
+        //dummyData();
         menuHandler();
         loadUserData();
 
         return rootView;
     }
 
+    private void retrieveScheduleData() {
+        serviceScheduleList.clear();
+        accountDataSharedPreferences = getActivity().getSharedPreferences("accountData", MODE_PRIVATE);
+        phoneNumber = accountDataSharedPreferences.getString("phoneNumber", "");
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        orderReference = firebaseDatabase.getReference().child("Order").orderByChild("phoneNumber").equalTo(phoneNumber);
+        orderReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    String orderDate = snapshot.child("orderDate").getValue().toString();
+                    String serviceType = snapshot.child("serviceType").getValue().toString();
+                    String maid = snapshot.child("maid").getValue().toString();
+                    String orderMonth = snapshot.child("orderMonth").getValue().toString();
+                    String status = snapshot.child("status").getValue().toString();
+                    String orderTime = snapshot.child("orderTime").getValue().toString();
+                    String address = snapshot.child("address").getValue().toString();
+                    ServiceSchedule serviceSchedule = new ServiceSchedule(orderDate, serviceType, maid, orderMonth, status, orderTime, address);
+                    serviceScheduleList.add(serviceSchedule);
+                }
+                setupScheduleView();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 
     public void dummyData(){
 
@@ -90,7 +133,7 @@ public class ServiceFragment extends Fragment implements ServiceItemClickListene
     }
 
     //SETUP RECYCLER VIEW (JADWAL PESANAN)
-    //Code below is only for recyclerview hanlder
+    //Code below is only for recyclerview handler
     private void setupScheduleView(){
         serviceRecyclerViewAdapter = new ServiceRecyclerViewAdapter(getContext(),serviceScheduleList,this);
         scheduleLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
@@ -178,8 +221,19 @@ public class ServiceFragment extends Fragment implements ServiceItemClickListene
 
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
-        uid = mUser.getUid();
 
+        accountDataSharedPreferences = getActivity().getSharedPreferences("accountData", MODE_PRIVATE);
+        String text = accountDataSharedPreferences.getString("uid", "");
+
+        if(text=="") {
+            uid = mUser.getUid();
+            SharedPreferences accountData = getActivity().getSharedPreferences("accountData", MODE_PRIVATE);
+            SharedPreferences.Editor editor = accountData.edit();
+            editor.putString("uid", uid);
+            editor.apply();
+        } else {
+            uid = text;
+        }
         firebaseDatabase = FirebaseDatabase.getInstance();
         userReference = firebaseDatabase.getReference("Users").child(uid);
 

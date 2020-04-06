@@ -30,4 +30,9 @@ public class AccountFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_home_account, container, false);
     }
 
+    public void signOut() {
+        //HAPUS SHAREDPREFERENCES ACCOUNT
+
+    }
+
 }

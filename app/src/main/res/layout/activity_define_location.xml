@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:mapbox="http://schemas.android.com/apk/res-auto"
     tools:context="com.bantoo.babooo.Pages.LocationPage.DefineLocationActivity">
 
     <!--Header-->
@@ -59,16 +60,15 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/footer_location_layout"
         android:layout_below="@+id/header_location_layout"
-        android:background="@color/orangePrimary"
         android:gravity="center">
 
-        <TextView
+        <com.mapbox.mapboxsdk.maps.MapView
+            android:id="@+id/mapView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="MAPS"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="50sp" />
+            android:layout_height="match_parent"
+            mapbox:mapbox_cameraTargetLng="-43.334931"
+            mapbox:mapbox_cameraZoom="0.346515"
+            />
 
     </LinearLayout>
 
@@ -88,10 +88,9 @@
             android:id="@+id/search_location_ET"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@drawable/border_rounded_green_edit_text"
-            android:drawableStart="@drawable/drawable_location_start_edit_text"
-            android:drawableEnd="@drawable/drawable_end_search_edit_text"
+            android:hint="Select a place"
             android:paddingLeft="8dp"
+            android:inputType="none"
             android:paddingRight="8dp" />
 
         <Button

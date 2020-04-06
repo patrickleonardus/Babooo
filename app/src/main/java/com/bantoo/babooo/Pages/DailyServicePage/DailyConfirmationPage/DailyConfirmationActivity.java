@@ -1,9 +1,13 @@
 package com.bantoo.babooo.Pages.DailyServicePage.DailyConfirmationPage;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.Service;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -12,14 +16,18 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.bantoo.babooo.Model.ServiceSchedule;
 import com.bantoo.babooo.Pages.LocationPage.DefineLocationActivity;
 import com.bantoo.babooo.Pages.MonthlyServicePage.MonthlyConfirmationPage.MonthlyConfirmationActivity;
 import com.bantoo.babooo.R;
 import com.bantoo.babooo.Utilities.BaseActivity;
 import com.bantoo.babooo.Utilities.DatePickerFragment;
 import com.bantoo.babooo.Utilities.TimePickerFragment;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,6 +35,12 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class DailyConfirmationActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+
+    //FIREBASE INIT
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference orderReference;
+
+    private SharedPreferences accountDataSharedPreferences;
 
     private static final String SERVICETYPE = "serviceType";
     private static final String SERVICENAME = "serviceName";
@@ -36,11 +50,14 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
     private static final String NIGHTHOUR = "nightHour";
     private static final String MORNINGHOUR = "morningHour";
 
+    private static final int REQUEST_LOCATION = 1;
+
     private Date timeChoosen, dateChoosen, today, now;
     private SimpleDateFormat dateFormat;
     private SimpleDateFormat format = new SimpleDateFormat("kk:mm");
 
     private String estimatedFinishTime, selectedTime;
+    private Double latitude, longitude;
 
     LinearLayout dateLayout, hourLayout, locationLayout;
     TextView serviceNameTV, detailServiceNameTV, coinsServiceTV, dateServiceTV, startHourTV, estimatedHourTV, locationServiceTV;
@@ -55,6 +72,23 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_confirmation);
 
+        initView();
+        getServiceData();
+        initVar();
+        initFirebase();
+        handleAction();
+    }
+
+    private void initFirebase() {
+        firebaseDatabase = FirebaseDatabase.getInstance();
+
+        accountDataSharedPreferences = getApplicationContext().getSharedPreferences("accountData", MODE_PRIVATE);
+        String uid = accountDataSharedPreferences.getString("uid", "");
+
+        orderReference = firebaseDatabase.getReference().child("Order");
+    }
+
+    private void initView() {
         serviceNameTV = findViewById(R.id.service_name_daily_confirmation_TV);
         detailServiceNameTV = findViewById(R.id.service_name_detail_daily_confirmation_TV);
         coinsServiceTV = findViewById(R.id.coins_daily_confirmation_TV);
@@ -66,11 +100,6 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
         hourLayout = findViewById(R.id.hour_service_daily_confirmation_layout);
         locationLayout = findViewById(R.id.location_service_daily_confirmation_layout);
         setOrder = findViewById(R.id.order_daily_confirmation_BTN);
-
-        getServiceData();
-        initVar();
-        handleAction();
-
     }
 
     private void getServiceData() {
@@ -143,12 +172,29 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
             estimatedTimeToConvert = format.parse(time);
             //assign date ke selected time
             timeChoosen = selectedTimeToConvert;
+            //to make timechoosen and datechoosen value same. here I set the date,month and year of datechoosen into timeChoosen.
+            //actually dateChoosen isn't necessary. But I'm too lazy to edit the code :p
+            timeChoosen.setDate(dateChoosen.getDate());
+            timeChoosen.setMonth(dateChoosen.getMonth());
+            timeChoosen.setYear(dateChoosen.getYear());
             selectedTime = format.format(selectedTimeToConvert);
             //convert selected time ke estimated time
             estimatedTimeToConvert.setTime(estimatedTimeToConvert.getTime() + 60 * 60 * 4000);
             estimatedFinishTime = format.format(estimatedTimeToConvert);
 
-        } catch (ParseException e) {
+        } catch (ParseException e) { }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case (REQUEST_LOCATION) :
+                if(resultCode == Activity.RESULT_OK) {
+                    locationServiceTV.setText(data.getStringExtra("address"));
+                    latitude = data.getDoubleExtra("latitude", 0);
+                    longitude = data.getDoubleExtra("longitude", 0);
+                }
         }
     }
 
@@ -173,7 +219,7 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DailyConfirmationActivity.this, DefineLocationActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_LOCATION);
             }
         });
 
@@ -189,24 +235,35 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
                 //intinya di else if kedua dan ketiga masih salah, lu ganti aja pake logic lu
                 //CEK LAGI TOM CEK LAGI YA
                 //CEK LAGI TOM CEK LAGI YA
-                //CEK LAGI TOM CEK LAGI YA
-                //CEK LAGI TOM CEK LAGI YA
 
-                if (dateChoosen.before(today)) {
-                    Toast.makeText(getApplicationContext(), "Tanggal yang anda pilih sudah terlewat, silahkan periksa kembali", Toast.LENGTH_LONG).show();
-                } else if (timeChoosen.after(nightHour)) {
-                    Toast.makeText(getApplicationContext(), "Anda tidak dapat memesan diatas jam 9 malam dan dibawah jam 5 pagi", Toast.LENGTH_LONG).show();
-                } else if(timeChoosen.before(morningHour)){
-                    Toast.makeText(getApplicationContext(), "Anda tidak dapat memesan diatas jam 9 malam dan dibawah jam 5 pagi", Toast.LENGTH_LONG).show();
+                //SIAP BOSQ NTR GW BENERIN LOGIC LU
+                //error nya kurang 1 if buat yg ngehandle waktu besok2
+                Log.d("DailyConfirmation", "onClick: date= "+new Date());
+                Log.d("DailyConfirmation", "onClick: datechoosen= "+dateChoosen);
+                Log.d("DailyConfirmation", "onClick: timeChoosen = "+timeChoosen);
+                if (dateChoosen.before(today)) { //if the dateChoosen < current date
+                    Toast.makeText(getApplicationContext(), "Waktu yang anda pilih sudah terlewat, silahkan periksa kembali", Toast.LENGTH_LONG).show();
+                } else if (timeChoosen.getHours() >= 21 || timeChoosen.getHours() < 6) { //if the time hours >=21 or <6
+                    Toast.makeText(DailyConfirmationActivity.this, "Layanan tidak tersedia pada pukul 21.00 sampai 05.59, silahkan pilih waktu lain", Toast.LENGTH_SHORT).show();
+                } else {
+                    if(timeChoosen.before(new Date())) { //if the timeChoosen before current time. new Date() is current time.
+                        Toast.makeText(DailyConfirmationActivity.this, "Waktu sudah terlewat, silahkan periksa kembali", Toast.LENGTH_SHORT).show();
+                    } else {
+                        processOrder();
+                        Toast.makeText(DailyConfirmationActivity.this, "make order", Toast.LENGTH_SHORT).show();
+                    }
                 }
-                else {
-                    //DISINI FUNGSI BUAT BIKIN ORDERNYA, PARAMETER UNTUK PASSING DATA SUDAH SIAP DIATAS.
-                    //PARAMETER buat data ordernya dah siap diatas, tinggal assign ke valuenya sama pake doang
-                    Toast.makeText(getApplicationContext(), "Make an order", Toast.LENGTH_LONG).show();
-                }
-
             }
         });
+    }
+
+    private void findMaid() {
+
+    }
+
+    private void processOrder() {
+        ServiceSchedule order = new ServiceSchedule(""+timeChoosen.getDate(), serviceType, "maid", ""+timeChoosen.getMonth(), "Akan Datang", timeChoosen.getHours()+":"+timeChoosen.getMinutes(), "alamat");
+        orderReference.push().setValue(order);
     }
 
     private Date validateInputTime(String hour) {
@@ -220,14 +277,12 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
                 nightHour = format.parse(night);
                 date = nightHour;
 
-            } catch (Exception e) {
-            }
+            } catch (Exception e) { Log.e("DailyConfirmation", "validateInputTime: "+e, new Throwable()); }
         } else if (hour.equals(MORNINGHOUR)) {
             try {
                 morningHour = format.parse(morning);
                 date = morningHour;
-            } catch (Exception e) {
-            }
+            } catch (Exception e) { Log.e("DailyConfirmation", "validateInputTime: "+e, new Throwable()); }
         }
         return date;
     }

@@ -150,6 +150,13 @@ public class LoginActivity extends BaseActivity {
                     progressBTN.buttonFinished();
                     Intent moveToVerification = new Intent(LoginActivity.this, VerificationActivity.class);
                     moveToVerification.putExtra("phoneNumber", phoneNumberET.getText().toString());
+                    SharedPreferences accountData = getApplicationContext().getSharedPreferences("accountData", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = accountData.edit();
+                    for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                        editor.putString("uid", snapshot.getKey());
+                        editor.apply();
+                        break;
+                    }
                     startActivity(moveToVerification);
                 } else if (!dataSnapshot.exists()) {
                     progressBTN.buttonFinished();

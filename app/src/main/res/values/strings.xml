@@ -8,6 +8,7 @@
         <item>6 Bulan</item>
         <item>12 Bulan</item>
     </string-array>
+    <string name="mapbox_access_token">pk.eyJ1IjoidG9tbXlyeWFudG8iLCJhIjoiY2s2ZnowMTRjMDB4aTNlbzVscDdydGMxayJ9.n7FVQhItEHA1fYDBycqEpg</string>
 
 
 </resources>
