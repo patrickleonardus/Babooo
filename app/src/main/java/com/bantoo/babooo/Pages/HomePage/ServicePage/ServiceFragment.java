@@ -103,7 +103,8 @@ public class ServiceFragment extends Fragment implements ServiceItemClickListene
                     String status = snapshot.child("status").getValue().toString();
                     String orderTime = snapshot.child("orderTime").getValue().toString();
                     String address = snapshot.child("address").getValue().toString();
-                    ServiceSchedule serviceSchedule = new ServiceSchedule(orderDate, serviceType, maid, orderMonth, status, orderTime, address);
+                    String maidPhoneNumber = snapshot.child("maidPhoneNumber").getValue().toString();
+                    ServiceSchedule serviceSchedule = new ServiceSchedule(orderDate, serviceType, maid, orderMonth, status, orderTime, address, maidPhoneNumber);
                     serviceScheduleList.add(serviceSchedule);
                 }
                 setupScheduleView();
@@ -120,15 +121,17 @@ public class ServiceFragment extends Fragment implements ServiceItemClickListene
 
         serviceScheduleList.clear();
 
+        /*
         ServiceSchedule dummy1 = new ServiceSchedule("10","Cuci Setrika Baju","Ningsih","Jan","Berlangsung","10.00-14.00","Jl Margonda Raya Blok NF9 N0.2");
         ServiceSchedule dummy2 = new ServiceSchedule("12","Membersihkan Kamar Mandi","Inem","Feb","Akan Datang","10.00-14.00","Jl Margonda Raya Blok NF9 N0.2");
         ServiceSchedule dummy3 = new ServiceSchedule("9","Setrika Baju","Purwati","Feb","Akan Datang","10.00-14.00","Jl Margonda Raya Blok NF9 N0.2");
         ServiceSchedule dummy4 = new ServiceSchedule("2","Menyapu dan Mengepel","Angel","Mar","Akan Datang","10.00-14.00","Jl Margonda Raya Blok NF9 N0.2");
 
+
         serviceScheduleList.add(dummy1);
         serviceScheduleList.add(dummy2);
         serviceScheduleList.add(dummy3);
-        serviceScheduleList.add(dummy4);
+        serviceScheduleList.add(dummy4);*/
 
     }
 

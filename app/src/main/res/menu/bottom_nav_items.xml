@@ -7,10 +7,6 @@
         android:icon="@drawable/bottom_nav_maid"
         android:title="Layanan" />
     <item
-        android:id="@+id/subsItem"
-        android:icon="@drawable/bottom_nav_subs"
-        android:title="Subscriptions" />
-    <item
         android:id="@+id/ordersItem"
         android:icon="@drawable/bottom_nav_order"
         android:title="Order" />

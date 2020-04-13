@@ -11,7 +11,6 @@ import android.widget.FrameLayout;
 import com.bantoo.babooo.Pages.HomePage.AccountPage.AccountFragment;
 import com.bantoo.babooo.Pages.HomePage.OrderPage.OrdersFragment;
 import com.bantoo.babooo.Pages.HomePage.ServicePage.ServiceFragment;
-import com.bantoo.babooo.Pages.HomePage.Subscription.SubscriptionFragment;
 import com.bantoo.babooo.R;
 import com.bantoo.babooo.Utilities.BaseActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -21,7 +20,6 @@ public class HomeActivity extends BaseActivity {
     private FrameLayout mainFrame;
 
     private ServiceFragment serviceFragment;
-    private SubscriptionFragment subscriptionFragment;
     private OrdersFragment ordersFragment;
     private AccountFragment accountFragment;
 
@@ -42,7 +40,6 @@ public class HomeActivity extends BaseActivity {
 
     private void fragmentSetup() {
         serviceFragment = new ServiceFragment();
-        subscriptionFragment = new SubscriptionFragment();
         ordersFragment = new OrdersFragment();
         accountFragment = new AccountFragment();
         setFragment(serviceFragment);
@@ -53,9 +50,6 @@ public class HomeActivity extends BaseActivity {
                 switch (menuItem.getItemId()) {
                     case R.id.serviceItem:
                         setFragment(serviceFragment);
-                        return true;
-                    case R.id.subsItem:
-                        setFragment(subscriptionFragment);
                         return true;
                     case R.id.ordersItem:
                         setFragment(ordersFragment);

@@ -105,6 +105,7 @@ public class DefineLocationActivity extends BaseActivity implements OnMapReadyCa
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_AUTOCOMPLETE) {
             // Retrieve selected location's CarmenFeature
+            //CarmenFeature is place information. Data type from mapbox SDK
             CarmenFeature selectedCarmenFeature = PlaceAutocomplete.getPlace(data);
 
             //stop getting current location
@@ -259,15 +260,16 @@ public class DefineLocationActivity extends BaseActivity implements OnMapReadyCa
         longitudeLocation = location.getLongitude();
         MapboxGeocoding reverseGeocode = MapboxGeocoding.builder()
                 .accessToken(getString(R.string.mapbox_access_token))
-                .query(Point.fromLngLat(-77.03655, 38.89770))
+                .query(Point.fromLngLat(location.getLongitude(), location.getLatitude()))
                 .geocodingTypes(GeocodingCriteria.TYPE_ADDRESS)
                 .build();
         reverseGeocode.enqueueCall(new Callback<GeocodingResponse>() {
             @Override
             public void onResponse(Call<GeocodingResponse> call, Response<GeocodingResponse> response) {
                 if (response.body() != null) {
+                    //CarmenFeature is a place information
                     List<CarmenFeature> results = response.body().features();
-                    if (results.size() > 0) {
+                    if (results.size() > 0) { //place name recognized by mapbox
                         for(int i = 0; i<results.size(); i++) {
                             Log.d("DefineLocation", "onResponse: carmenFeature= "+results.get(i).address());
                         }
@@ -276,8 +278,10 @@ public class DefineLocationActivity extends BaseActivity implements OnMapReadyCa
                         CarmenFeature feature = results.get(0);
 
                         // Get the address string from the CarmenFeature
-                        String carmenFeatureAddress = feature.matchingPlaceName();
+                        String carmenFeatureAddress = feature.placeName();
                         searchLocationET.setText(carmenFeatureAddress);
+                    } else { //place not detected by mapbox
+                        searchLocationET.setText(location.getLongitude()+", "+location.getLatitude());
                     }
                 }
             }

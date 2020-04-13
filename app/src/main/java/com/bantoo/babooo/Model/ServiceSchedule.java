@@ -1,5 +1,7 @@
 package com.bantoo.babooo.Model;
 
+import java.util.Date;
+
 public class ServiceSchedule {
     private String orderDate;
     private String serviceType;
@@ -8,8 +10,28 @@ public class ServiceSchedule {
     private String status;
     private String orderTime;
     private String address;
+    private String maidPhoneNumber;
+    private String phoneNumber;
+    private String orderYear;
 
-    public ServiceSchedule(String orderDate, String serviceType, String maid, String orderMonth, String status, String orderTime, String address) {
+    public String getOrderYear() {
+        return orderYear;
+    }
+
+    public void setOrderYear(String orderYear) {
+        this.orderYear = orderYear;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public ServiceSchedule(String orderDate, String serviceType, String maid, String orderMonth, String status, String orderTime, String address,
+                           String maidPhoneNumber) {
         this.orderDate = orderDate;
         this.serviceType = serviceType;
         this.maid = maid;
@@ -17,6 +39,7 @@ public class ServiceSchedule {
         this.status = status;
         this.orderTime = orderTime;
         this.address = address;
+        this.maidPhoneNumber = maidPhoneNumber;
     }
 
     public String getStatus() {
@@ -73,6 +96,14 @@ public class ServiceSchedule {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getMaidPhoneNumber() {
+        return maidPhoneNumber;
+    }
+
+    public void setMaidPhoneNumber(String maidPhoneNumber) {
+        this.maidPhoneNumber = maidPhoneNumber;
     }
 
 }

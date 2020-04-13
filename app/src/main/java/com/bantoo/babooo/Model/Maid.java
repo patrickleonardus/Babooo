@@ -1,10 +1,19 @@
 package com.bantoo.babooo.Model;
 
-public class Maid extends User{
+public class Maid extends User {
 
     public int cost;
     public int rating;
     public long dateOfBirth;
+    private String maidUniqueKey;
+
+    public String getMaidUniqueKey() {
+        return maidUniqueKey;
+    }
+
+    public void setMaidUniqueKey(String maidUniqueKey) {
+        this.maidUniqueKey = maidUniqueKey;
+    }
 
     public Maid(String role, String name, String email, String phoneNumber, String password, String address, String token, long dateOfBirth, int cost, int rating) {
         super(role, name, email, phoneNumber, password, address, token);

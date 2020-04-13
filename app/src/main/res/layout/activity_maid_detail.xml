@@ -4,6 +4,180 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.bantoo.babooo.Pages.UserDetailPage.MaidDetailActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="vertical"
+            android:background="@drawable/background_home">
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Profil ART"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="76px"/>
+            <ImageView
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="60dp"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/logo_bantoo"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/maid_name_TV_maid_detail"
+            android:textSize="78px"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Siti Sajanah"/>
+        <TextView
+            android:id="@+id/maid_age_TV_maid_detail"
+            android:textSize="48px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="32 Tahun"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/rating_image1_maid_detail"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginRight="4dp"
+            android:layout_weight="1"
+            android:src="@color/orangePrimary" />
+        <ImageView
+            android:id="@+id/rating_image2_maid_detail"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginRight="4dp"
+            android:layout_weight="1"
+            android:src="@color/orangePrimary" />
+        <ImageView
+            android:id="@+id/rating_image3_maid_detail"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginRight="4dp"
+            android:layout_weight="1"
+            android:src="@color/orangePrimary" />
+        <ImageView
+            android:id="@+id/rating_image4_maid_detail"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginRight="4dp"
+            android:layout_weight="1"
+            android:src="@color/orangePrimary" />
+        <ImageView
+            android:id="@+id/rating_image5_maid_detail"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginRight="4dp"
+            android:layout_weight="1"
+            android:src="@color/orangePrimary" />
+        <TextView
+            android:id="@+id/rating_tv_maid_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4.0"/>
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:textStyle="bold"
+            android:textSize="48px"
+            android:layout_height="wrap_content"
+            android:text="Alamat"/>
+        <TextView
+            android:id="@+id/maid_address_TV_maid_detail"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/greenPrimary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jl. Tanah Baru no. 34, Sidoarjo, Jawa Timur \n13445"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kemampuan"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/maid_skill_TV1_maid_detail"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cuci Kering"
+            android:textColor="@color/greenPrimary"/>
+        <TextView
+            android:id="@+id/maid_skill_TV2_maid_detail"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Setrika Baju"
+            android:textColor="@color/greenPrimary"/>
+        <TextView
+            android:id="@+id/maid_skill_TV3_maid_detail"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sapu Pel"
+            android:textColor="@color/greenPrimary"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/order_daily_confirmation_BTN"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/rounded_button_green"
+            android:text="Rekrut Sekarang"
+            android:textColor="@color/white" />
+    </LinearLayout>
 
 </LinearLayout>

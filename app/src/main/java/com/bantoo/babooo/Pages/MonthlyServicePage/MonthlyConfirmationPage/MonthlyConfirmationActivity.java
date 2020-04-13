@@ -23,6 +23,11 @@ import com.bantoo.babooo.Utilities.BaseActivity;
 import com.bantoo.babooo.Utilities.DatePickerFragment;
 import com.bantoo.babooo.Utilities.TimePickerFragment;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class MonthlyConfirmationActivity extends BaseActivity implements AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private static final String DATEPICKER = "datePicker";
@@ -32,6 +37,12 @@ public class MonthlyConfirmationActivity extends BaseActivity implements Adapter
     LinearLayout serviceDateLayout, serviceTimeLayout, serviceLocationLayout;
     Button setOrderBTN;
     Spinner durationSP;
+    Date timeChoosen, dateChoosen;
+
+    private SimpleDateFormat dateFormat;
+    private SimpleDateFormat format = new SimpleDateFormat("kk:mm");
+    private String estimatedFinishTime, selectedTime;
+    private Date today, now;
 
     //VARIABLE YANG BISA DI PASS KE FIREBASE
     private String duration;
@@ -57,8 +68,39 @@ public class MonthlyConfirmationActivity extends BaseActivity implements Adapter
         setOrderBTN = findViewById(R.id.order_month_confirmation_BTN);
         durationSP = findViewById(R.id.spinner_duration_confirmation_SP);
         durationSP.setOnItemSelectedListener(this);
+        dateFormat = new SimpleDateFormat("dd MMMM yyyy");
+        initVar();
 
         handleAction();
+    }
+
+    private void initVar() {
+        Calendar calendar, estimatedTimeCal;
+        SimpleDateFormat timeFormat;
+        String currDate, currTime;
+
+        //handle default current date and time
+        calendar = Calendar.getInstance();
+        dateFormat = new SimpleDateFormat("dd MMMM yyyy");
+        timeFormat = new SimpleDateFormat("HH:mm");
+        today = calendar.getTime();
+        now = calendar.getTime();
+        dateChoosen = calendar.getTime();
+        timeChoosen = calendar.getTime();
+        currDate = dateFormat.format(calendar.getTime());
+        currTime = timeFormat.format(calendar.getTime());
+
+        //handle default estimated time
+        estimatedTimeCal = Calendar.getInstance();
+        estimatedTimeCal.add(Calendar.HOUR, 4);
+        estimatedFinishTime = timeFormat.format(estimatedTimeCal.getTime());
+
+        /*serviceNameTV.setText(serviceType + " | " + serviceName);
+        serviceDetailNameTV.setText(serviceName);*/
+        serviceDateTV.setText(currDate);
+        serviceTimeTV.setText(currTime);
+        estimatedTimeTV.setText(estimatedFinishTime);
+        //coinsServiceTV.setText(String.valueOf(serviceCost));
     }
 
     private void handleAction() {
@@ -111,17 +153,58 @@ public class MonthlyConfirmationActivity extends BaseActivity implements Adapter
     //HANDLE SAAT DATE DI SET
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        dateChoosen = c.getTime();
 
+        timeChoosen.setDate(dateChoosen.getDate());
+        timeChoosen.setMonth(dateChoosen.getMonth());
+        timeChoosen.setYear(dateChoosen.getYear());
+
+        String selectedDate;
+        selectedDate = dateFormat.format(c.getTime());
+        serviceDateTV.setText(selectedDate);
     }
 
     //HANDLE SAAT TIME DI SET
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        selectedTime = String.format("%02d:%02d", hourOfDay, minute);
 
+        convertToTime();
+
+        serviceTimeTV.setText(selectedTime);
+        estimatedTimeTV.setText(estimatedFinishTime);
     }
 
     private void moveToMonthlyDetailConfirmationPage(){
         Intent intent = new Intent(this, DetailMonthlyConfirmationActivity.class);
         startActivity(intent);
+    }
+
+    private void convertToTime() {
+        //Func ini buat convert int dari timepicker ke date, jadi mudah bandingin antar datenya
+
+        String time = selectedTime;
+        Date selectedTimeToConvert, estimatedTimeToConvert;
+
+        try {
+            selectedTimeToConvert = format.parse(time);
+            estimatedTimeToConvert = format.parse(time);
+            //assign date ke selected time
+            timeChoosen = selectedTimeToConvert;
+            //to make timechoosen and datechoosen value same. here I set the date,month and year of datechoosen into timeChoosen.
+            //actually dateChoosen isn't necessary. But I'm too lazy to edit the code :p
+            timeChoosen.setDate(dateChoosen.getDate());
+            timeChoosen.setMonth(dateChoosen.getMonth());
+            timeChoosen.setYear(dateChoosen.getYear());
+            selectedTime = format.format(selectedTimeToConvert);
+            //convert selected time ke estimated time
+            estimatedTimeToConvert.setTime(estimatedTimeToConvert.getTime() + 60 * 60 * 4000);
+            estimatedFinishTime = format.format(estimatedTimeToConvert);
+
+        } catch (ParseException e) { }
     }
 }

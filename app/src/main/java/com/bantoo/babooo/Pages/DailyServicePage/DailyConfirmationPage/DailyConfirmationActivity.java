@@ -2,10 +2,10 @@ package com.bantoo.babooo.Pages.DailyServicePage.DailyConfirmationPage;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.app.Service;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,18 +16,23 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.bantoo.babooo.Model.MaidRequest;
 import com.bantoo.babooo.Model.ServiceSchedule;
+import com.bantoo.babooo.Pages.DailyServicePage.SearchingDailyMaidPage.SearchingDailyMaidActivity;
 import com.bantoo.babooo.Pages.LocationPage.DefineLocationActivity;
-import com.bantoo.babooo.Pages.MonthlyServicePage.MonthlyConfirmationPage.MonthlyConfirmationActivity;
 import com.bantoo.babooo.R;
 import com.bantoo.babooo.Utilities.BaseActivity;
 import com.bantoo.babooo.Utilities.DatePickerFragment;
 import com.bantoo.babooo.Utilities.TimePickerFragment;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,6 +40,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class DailyConfirmationActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+
+    private static final String TAG = "DailyConfirmation";
 
     //FIREBASE INIT
     private FirebaseDatabase firebaseDatabase;
@@ -57,7 +64,7 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
     private SimpleDateFormat format = new SimpleDateFormat("kk:mm");
 
     private String estimatedFinishTime, selectedTime;
-    private Double latitude, longitude;
+    private Double userLatitude, userLongitude;
 
     LinearLayout dateLayout, hourLayout, locationLayout;
     TextView serviceNameTV, detailServiceNameTV, coinsServiceTV, dateServiceTV, startHourTV, estimatedHourTV, locationServiceTV;
@@ -146,6 +153,10 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         dateChoosen = c.getTime();
 
+        timeChoosen.setDate(dateChoosen.getDate());
+        timeChoosen.setMonth(dateChoosen.getMonth());
+        timeChoosen.setYear(dateChoosen.getYear());
+
         String selectedDate;
         selectedDate = dateFormat.format(c.getTime());
         dateServiceTV.setText(selectedDate);
@@ -192,8 +203,9 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
             case (REQUEST_LOCATION) :
                 if(resultCode == Activity.RESULT_OK) {
                     locationServiceTV.setText(data.getStringExtra("address"));
-                    latitude = data.getDoubleExtra("latitude", 0);
-                    longitude = data.getDoubleExtra("longitude", 0);
+                    userLatitude = data.getDoubleExtra("latitude", 0);
+                    userLongitude = data.getDoubleExtra("longitude", 0);
+                    Log.d(TAG, "onActivityResult: latitude= "+ userLatitude +", longitude = "+ userLongitude);
                 }
         }
     }
@@ -237,7 +249,6 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
                 //CEK LAGI TOM CEK LAGI YA
 
                 //SIAP BOSQ NTR GW BENERIN LOGIC LU
-                //error nya kurang 1 if buat yg ngehandle waktu besok2
                 Log.d("DailyConfirmation", "onClick: date= "+new Date());
                 Log.d("DailyConfirmation", "onClick: datechoosen= "+dateChoosen);
                 Log.d("DailyConfirmation", "onClick: timeChoosen = "+timeChoosen);
@@ -249,21 +260,37 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
                     if(timeChoosen.before(new Date())) { //if the timeChoosen before current time. new Date() is current time.
                         Toast.makeText(DailyConfirmationActivity.this, "Waktu sudah terlewat, silahkan periksa kembali", Toast.LENGTH_SHORT).show();
                     } else {
-                        processOrder();
-                        Toast.makeText(DailyConfirmationActivity.this, "make order", Toast.LENGTH_SHORT).show();
+                        if (userLatitude==null) {
+                            Toast.makeText(DailyConfirmationActivity.this, "Please input your address", Toast.LENGTH_SHORT).show();
+                        } else {
+                            processOrder();
+                            Toast.makeText(DailyConfirmationActivity.this, "make order", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             }
         });
     }
 
-    private void findMaid() {
-
-    }
-
     private void processOrder() {
-        ServiceSchedule order = new ServiceSchedule(""+timeChoosen.getDate(), serviceType, "maid", ""+timeChoosen.getMonth(), "Akan Datang", timeChoosen.getHours()+":"+timeChoosen.getMinutes(), "alamat");
-        orderReference.push().setValue(order);
+        SharedPreferences accountDataSharedPreferences = getSharedPreferences("accountData", MODE_PRIVATE);
+        String phoneNumber = accountDataSharedPreferences.getString("phoneNumber", "");
+        String year, date, month, hours, minutes;
+        if(timeChoosen.getDate() < 10) { date = "0"+timeChoosen.getDate(); } else { date = ""+timeChoosen.getDate(); }
+        if(timeChoosen.getMonth() < 10) { month = "0"+(timeChoosen.getMonth()+1); } else { month = ""+(timeChoosen.getMonth()+1); }
+        if(timeChoosen.getHours() < 10) { hours = "0"+timeChoosen.getHours(); } else { hours = ""+timeChoosen.getHours(); }
+        if(timeChoosen.getMinutes() < 10) { minutes = "0"+timeChoosen.getMinutes(); } else { minutes = ""+timeChoosen.getMinutes(); }
+        ServiceSchedule order = new ServiceSchedule(""+date, serviceType, "maid", ""+month, "Akan Datang", hours+":"+minutes, locationServiceTV.getText().toString(), "maidPhoneNumber");
+        order.setPhoneNumber(phoneNumber);
+        order.setOrderYear(""+(timeChoosen.getYear()+1900));
+        String orderUniqueKey = orderReference.push().getKey();
+        orderReference.child(orderUniqueKey).setValue(order);
+        Intent moveToSearchingPage = new Intent(this, SearchingDailyMaidActivity.class);
+        moveToSearchingPage.putExtra("orderUniqueKey", orderUniqueKey);
+        moveToSearchingPage.putExtra("userLatitude", userLatitude);
+        moveToSearchingPage.putExtra("userLongitude", userLongitude);
+        moveToSearchingPage.putExtra("timeChoosen", timeChoosen);
+        startActivity(moveToSearchingPage);
     }
 
     private Date validateInputTime(String hour) {

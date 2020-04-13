@@ -12,6 +12,7 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.bantoo.babooo.Model.FilterSearch;
@@ -21,12 +22,21 @@ import com.bantoo.babooo.Pages.MonthlyServicePage.SortPage.SortMaidActivity;
 import com.bantoo.babooo.Pages.UserDetailPage.MaidDetailActivity;
 import com.bantoo.babooo.R;
 import com.bantoo.babooo.Utilities.BaseActivity;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MonthlyMaidActivity extends BaseActivity implements Serializable {
+
+    //FIREBASE
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference monthlyMaidReference;
 
     static final int ACTIVITYTOFILTERPAGE = 1;
     static final String FILTERINTENT = "filterIntent";
@@ -53,9 +63,8 @@ public class MonthlyMaidActivity extends BaseActivity implements Serializable {
 
         handleSearchET();
         handleButton();
-        dummyData();
-        setupGridView();
-        handleGridViewAction();
+        receiveMonthlyMaidData();
+        //dummyData();
     }
 
     @Override
@@ -83,13 +92,40 @@ public class MonthlyMaidActivity extends BaseActivity implements Serializable {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getApplicationContext(), maidList.get(position).name, Toast.LENGTH_SHORT).show();
-                moveToUserPage();
+                moveToUserPage(maidList.get(position).getMaidUniqueKey());
+            }
+        });
+    }
+
+    private void receiveMonthlyMaidData() {
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        monthlyMaidReference = firebaseDatabase.getReference().child("ARTBulanan");
+        monthlyMaidReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    String name = snapshot.child("name").getValue().toString();
+                    String email = snapshot.child("email").getValue().toString();
+                    String phoneNumber = snapshot.child("phoneNumber").getValue().toString();
+                    String address = snapshot.child("address").getValue().toString();
+                    int cost = Integer.parseInt(snapshot.child("cost").getValue().toString());
+                    int rating = Integer.parseInt(snapshot.child("rating").getValue().toString());
+                    Maid maid = new Maid(role, name, email, phoneNumber, "-", address, "-", 1571489529, cost, rating);
+                    maid.setMaidUniqueKey(snapshot.getKey());
+                    maidList.add(maid);
+                }
+                setupGridView();
+                handleGridViewAction();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
     }
 
     public void dummyData() {
-
         Maid dummy1 = new Maid(role, "Sadikin", "sadikin@gmail", "08131888888", "-", "Bogor", "-", 1571489529, 1000, 3);
         Maid dummy2 = new Maid(role, "Munir", "sadikin@gmail", "08131888888", "-", "Bogor", "-", 1571489529, 500, 2);
         Maid dummy3 = new Maid(role, "Hasan", "sadikin@gmail", "08131888888", "-", "Bogor", "-", 1571489529, 1000, 5);
@@ -152,8 +188,9 @@ public class MonthlyMaidActivity extends BaseActivity implements Serializable {
         startActivityForResult(intent,ACTIVITYTOFILTERPAGE);
     }
 
-    private void moveToUserPage(){
+    private void moveToUserPage(String uniqueKey){
         Intent intent = new Intent(this, MaidDetailActivity.class);
+        intent.putExtra("maidUniqueKey", uniqueKey);
         startActivity(intent);
     }
 }
