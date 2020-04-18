@@ -40,10 +40,10 @@ public class EmailPage extends Fragment {
                 if (email.length() < 3){
                     emailET.setError("Masukan format email yang benar");
                 }
-                else if (!email.contains("@")){
+                else if (!email.contains("@")) {
                     emailET.setError("Masukan format email yang benar");
                 }
-                else if (!email.contains(".com") && !email.contains(".co.id")){
+                else if (!email.contains(".com") && !email.contains(".co.id")) {
                     emailET.setError("Masukan format email yang benar");
                 }
                 else {

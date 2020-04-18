@@ -30,6 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MonthlyMaidActivity extends BaseActivity implements Serializable {
@@ -38,7 +39,8 @@ public class MonthlyMaidActivity extends BaseActivity implements Serializable {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference monthlyMaidReference;
 
-    static final int ACTIVITYTOFILTERPAGE = 1;
+    static final int REQUEST_FILTER = 1;
+    static final int REQUEST_SORT = 2;
     static final String FILTERINTENT = "filterIntent";
 
     private String role = "mitra";
@@ -48,6 +50,7 @@ public class MonthlyMaidActivity extends BaseActivity implements Serializable {
     private List<FilterSearch> filterSearches = new ArrayList<FilterSearch>();
 
     GridView maidGV;
+    private MonthlyMaidGridViewAdapter adapter;
     EditText searchMaidET;
     LinearLayout sortOptionLayout, filterOptionLayout;
 
@@ -70,20 +73,34 @@ public class MonthlyMaidActivity extends BaseActivity implements Serializable {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == ACTIVITYTOFILTERPAGE){
+        if(requestCode == REQUEST_FILTER){
             if(resultCode == RESULT_OK){
                 filterSearches = (ArrayList<FilterSearch>) data.getSerializableExtra(FILTERINTENT);
                 for(int i=0;i<filterSearches.size();i++){
                     Log.e("tester",filterSearches.get(i).getPopularity()+" ");
                 }
             }
+        } else if(requestCode == REQUEST_SORT) {
+            if(resultCode == RESULT_OK) {
+                String sortBy = data.getStringExtra("sortBy");
+                sortMaid(sortBy);
+            }
         }
 
     }
 
+    private void sortMaid(String by) {
+        if(by.equals("salaryAscending")) {
+            Collections.sort(maidList, Maid.salaryAscending);
+        } else if (by.equals("salaryDescending")) {
+            Collections.sort(maidList, Maid.salaryDescending);
+        }
+        adapter.notifyDataSetChanged();
+    }
+
     //GRID VIEW HANDLER
     private void setupGridView() {
-        MonthlyMaidGridViewAdapter adapter = new MonthlyMaidGridViewAdapter(MonthlyMaidActivity.this, maidList);
+        adapter = new MonthlyMaidGridViewAdapter(MonthlyMaidActivity.this, maidList);
         maidGV.setAdapter(adapter);
     }
 
@@ -104,15 +121,19 @@ public class MonthlyMaidActivity extends BaseActivity implements Serializable {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                    String name = snapshot.child("name").getValue().toString();
-                    String email = snapshot.child("email").getValue().toString();
-                    String phoneNumber = snapshot.child("phoneNumber").getValue().toString();
-                    String address = snapshot.child("address").getValue().toString();
-                    int cost = Integer.parseInt(snapshot.child("cost").getValue().toString());
-                    int rating = Integer.parseInt(snapshot.child("rating").getValue().toString());
-                    Maid maid = new Maid(role, name, email, phoneNumber, "-", address, "-", 1571489529, cost, rating);
-                    maid.setMaidUniqueKey(snapshot.getKey());
-                    maidList.add(maid);
+                    if (snapshot.child("working").getValue().toString() == "false") {
+                        String name = snapshot.child("name").getValue().toString();
+                        String email = snapshot.child("email").getValue().toString();
+                        String phoneNumber = snapshot.child("phoneNumber").getValue().toString();
+                        String address = snapshot.child("address").getValue().toString();
+                        int cost = Integer.parseInt(snapshot.child("cost").getValue().toString());
+                        int rating = Integer.parseInt(snapshot.child("rating").getValue().toString());
+                        int salary = Integer.parseInt(snapshot.child("salary").getValue().toString());
+                        Maid maid = new Maid(role, name, email, phoneNumber, "-", address, "-", 1571489529, cost, rating);
+                        maid.setMaidUniqueKey(snapshot.getKey());
+                        maid.setSalary(salary);
+                        maidList.add(maid);
+                    }
                 }
                 setupGridView();
                 handleGridViewAction();
@@ -180,12 +201,12 @@ public class MonthlyMaidActivity extends BaseActivity implements Serializable {
 
     private void moveToSortPage() {
         Intent intent = new Intent(this, SortMaidActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_SORT);
     }
 
     private void moveToFilterPage() {
         Intent intent = new Intent(this, FilterActivity.class);
-        startActivityForResult(intent,ACTIVITYTOFILTERPAGE);
+        startActivityForResult(intent, REQUEST_FILTER);
     }
 
     private void moveToUserPage(String uniqueKey){

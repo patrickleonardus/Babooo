@@ -1,5 +1,6 @@
 package com.bantoo.babooo.Pages.MonthlyServicePage.SortPage;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -51,6 +52,13 @@ public class SortMaidActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 sortMaidLV.setSelection(position);
+                Intent intent = new Intent();
+                if (sortMenu.get(position).equals("Coin Tinggi ke Rendah")) {
+                    intent.putExtra("sortBy", "salaryDescending");
+                } else if (sortMenu.get(position).equals("Coin Rendah ke Tinggi")) {
+                    intent.putExtra("sortBy", "salaryAscending");
+                }
+                setResult(RESULT_OK, intent);
                 finish();
                 Toast.makeText(getApplicationContext(), sortMenu.get(position), Toast.LENGTH_SHORT).show();
             }

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:clickable="true"
+    android:layout_marginBottom="20dp"
+    android:background="@drawable/border_rounded_edit_text">
+
+    <RelativeLayout
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tanggal_TV_history_order"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="10 Jan"/>
+        <LinearLayout
+            android:layout_toRightOf="@id/tanggal_TV_history_order"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="40dp"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Layanan Bantoo Harian"/>
+            <TextView
+                android:id="@+id/service_name_TV_history_cell"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Setrika Baju"
+                android:textColor="@color/greenPrimary"/>
+            <TextView
+                android:id="@+id/status_order_TV_history_cell"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pesanan Selesai"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/time_TV_cell_history"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:text="14 : 00"/>
+    </RelativeLayout>
+
+</LinearLayout>

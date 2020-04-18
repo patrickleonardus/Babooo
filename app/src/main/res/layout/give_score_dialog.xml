@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border_rounded_edit_text">
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@color/quantum_yellow800"
+        android:gravity="center">
+        <TextView
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_marginLeft="20dp"
+            android:textSize="56px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Beri Penilaian"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Penilaian Anda untuk pesanan ini"
+        android:textSize="48px"
+        android:layout_gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@color/white">
+        <ImageView
+            android:id="@+id/star1IV_give_dialog"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/asset_star_inactive"/>
+        <ImageView
+            android:id="@+id/star2IV_give_dialog"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/asset_star_inactive"/>
+        <ImageView
+            android:id="@+id/star3IV_give_dialog"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/asset_star_inactive"/>
+        <ImageView
+            android:id="@+id/star4IV_give_dialog"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/asset_star_inactive"/>
+        <ImageView
+            android:id="@+id/star5IV_give_dialog"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/asset_star_inactive"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/darker_gray" />
+    <Button
+        android:background="@color/white"
+        android:textColor="@color/greenPrimary"
+        android:id="@+id/save_score_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Simpan"/>
+
+</LinearLayout>

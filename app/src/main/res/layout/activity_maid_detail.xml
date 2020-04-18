@@ -65,39 +65,39 @@
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/rating_image1_maid_detail"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_marginRight="4dp"
             android:layout_weight="1"
-            android:src="@color/orangePrimary" />
+            android:src="@drawable/asset_star_active" />
         <ImageView
             android:id="@+id/rating_image2_maid_detail"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_marginRight="4dp"
             android:layout_weight="1"
-            android:src="@color/orangePrimary" />
+            android:src="@drawable/asset_star_active" />
         <ImageView
             android:id="@+id/rating_image3_maid_detail"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_marginRight="4dp"
             android:layout_weight="1"
-            android:src="@color/orangePrimary" />
+            android:src="@drawable/asset_star_active" />
         <ImageView
             android:id="@+id/rating_image4_maid_detail"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_marginRight="4dp"
             android:layout_weight="1"
-            android:src="@color/orangePrimary" />
+            android:src="@drawable/asset_star_active" />
         <ImageView
             android:id="@+id/rating_image5_maid_detail"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_marginRight="4dp"
             android:layout_weight="1"
-            android:src="@color/orangePrimary" />
+            android:src="@drawable/asset_star_active" />
         <TextView
             android:id="@+id/rating_tv_maid_detail"
             android:layout_width="wrap_content"
@@ -126,40 +126,128 @@
             android:layout_height="wrap_content"
             android:text="Jl. Tanah Baru no. 34, Sidoarjo, Jawa Timur \n13445"/>
     </LinearLayout>
-
-    <LinearLayout
+    <TextView
         android:layout_marginTop="20dp"
         android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:orientation="vertical"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kemampuan"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
+        <LinearLayout
+            android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Kemampuan"
-            android:textStyle="bold"/>
-        <TextView
-            android:id="@+id/maid_skill_TV1_maid_detail"
-            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+            <ProgressBar
+                android:id="@+id/progress_bar_cuci_kering_maid_detail"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:indeterminate="false"
+                android:progressDrawable="@drawable/circular_progress_bar"
+                android:background="@drawable/circle_shape"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:max="100"
+                android:progress="50" />
+            <ImageView
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="-60dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/asset_icon_cuci1"/>
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cuci Kering"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cuci Kering"
-            android:textColor="@color/greenPrimary"/>
-        <TextView
-            android:id="@+id/maid_skill_TV2_maid_detail"
-            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+            <ProgressBar
+                android:id="@+id/progress_bar_setrika_maid_detail"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:indeterminate="false"
+                android:progressDrawable="@drawable/circular_progress_bar"
+                android:background="@drawable/circle_shape"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:max="100"
+                android:progress="50" />
+            <ImageView
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="-60dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/asset_icon_strika1"/>
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Setrika Baju"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Setrika Baju"
-            android:textColor="@color/greenPrimary"/>
-        <TextView
-            android:id="@+id/maid_skill_TV3_maid_detail"
-            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+            <ProgressBar
+                android:id="@+id/progress_bar_sapu_maid_detail"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:indeterminate="false"
+                android:progressDrawable="@drawable/circular_progress_bar"
+                android:background="@drawable/circle_shape"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:max="100"
+                android:progress="50" />
+            <ImageView
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="-60dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/asset_icon_sapu1"/>
+            <TextView
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sapu Pel"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sapu Pel"
-            android:textColor="@color/greenPrimary"/>
+            android:orientation="vertical">
+            <ProgressBar
+                android:id="@+id/progress_bar_kmrmandi_maid_detail"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:indeterminate="false"
+                android:progressDrawable="@drawable/circular_progress_bar"
+                android:background="@drawable/circle_shape"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:max="100"
+                android:progress="50" />
+            <ImageView
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="-60dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/asset_icon_kmrmandi1"/>
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kamar Mandi"/>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout

@@ -1,9 +1,14 @@
 package com.bantoo.babooo.Pages.MonthlyServicePage.MonthlyConfirmationPage;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -14,14 +19,24 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.bantoo.babooo.Model.FirebaseHelper;
+import com.bantoo.babooo.Model.ServiceSchedule;
+import com.bantoo.babooo.Pages.DailyServicePage.DailyConfirmationPage.DailyConfirmationActivity;
 import com.bantoo.babooo.Pages.LocationPage.DefineLocationActivity;
 import com.bantoo.babooo.Pages.MonthlyServicePage.DetailMonthlyConfirmationPage.DetailMonthlyConfirmationActivity;
 import com.bantoo.babooo.R;
 import com.bantoo.babooo.Utilities.BaseActivity;
 import com.bantoo.babooo.Utilities.DatePickerFragment;
 import com.bantoo.babooo.Utilities.TimePickerFragment;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,6 +47,8 @@ public class MonthlyConfirmationActivity extends BaseActivity implements Adapter
 
     private static final String DATEPICKER = "datePicker";
     private static final String TIMEPICKER = "timePicker";
+    private static final int REQUEST_LOCATION = 1;
+    private static final String TAG = "MonthlyConfirmation";
 
     TextView serviceNameTV, serviceDateTV, serviceTimeTV, estimatedTimeTV, locationTV, serviceDetailNameTV, serviceCostTV;
     LinearLayout serviceDateLayout, serviceTimeLayout, serviceLocationLayout;
@@ -45,7 +62,13 @@ public class MonthlyConfirmationActivity extends BaseActivity implements Adapter
     private Date today, now;
 
     //VARIABLE YANG BISA DI PASS KE FIREBASE
-    private String duration;
+    private String duration, maidUniqueKey, orderUniqueKey;
+    private int serviceCost;
+    private Double userLatitude, userLongitude;
+
+    SharedPreferences accountDataSharedPreferences;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference userReference, monthlyMaidReference;
 
     //CLASS INI SAMA SEKALI BELOM DI VALIDASI
     //HARUS VALIDASI TANGGAL,WAKTU MULAI DAN SEMUA KOMPONENNYA
@@ -55,6 +78,13 @@ public class MonthlyConfirmationActivity extends BaseActivity implements Adapter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_monthly_confirmation);
 
+        initView();
+        initVar();
+
+        handleAction();
+    }
+
+    private void initView() {
         serviceNameTV = findViewById(R.id.serice_name_monthly_confirmation_TV);
         serviceDateTV = findViewById(R.id.date_service_monthly_confirmation_TV);
         serviceDateLayout = findViewById(R.id.date_service_monthly_confirmation_layout);
@@ -68,13 +98,11 @@ public class MonthlyConfirmationActivity extends BaseActivity implements Adapter
         setOrderBTN = findViewById(R.id.order_month_confirmation_BTN);
         durationSP = findViewById(R.id.spinner_duration_confirmation_SP);
         durationSP.setOnItemSelectedListener(this);
-        dateFormat = new SimpleDateFormat("dd MMMM yyyy");
-        initVar();
-
-        handleAction();
     }
 
     private void initVar() {
+        maidUniqueKey = getIntent().getStringExtra("maidUniqueKey");
+        dateFormat = new SimpleDateFormat("dd MMMM yyyy");
         Calendar calendar, estimatedTimeCal;
         SimpleDateFormat timeFormat;
         String currDate, currTime;
@@ -101,6 +129,26 @@ public class MonthlyConfirmationActivity extends BaseActivity implements Adapter
         serviceTimeTV.setText(currTime);
         estimatedTimeTV.setText(estimatedFinishTime);
         //coinsServiceTV.setText(String.valueOf(serviceCost));
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        accountDataSharedPreferences = getApplicationContext().getSharedPreferences("accountData", MODE_PRIVATE);
+        String uid = accountDataSharedPreferences.getString("uid", "");
+        userReference = firebaseDatabase.getReference().child("Users").child(uid);
+        monthlyMaidReference = firebaseDatabase.getReference().child("ARTBulanan").child(maidUniqueKey);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case (REQUEST_LOCATION) :
+                if(resultCode == Activity.RESULT_OK) {
+                    locationTV.setText(data.getStringExtra("address"));
+                    userLatitude = data.getDoubleExtra("latitude", 0);
+                    userLongitude = data.getDoubleExtra("longitude", 0);
+                    Log.d(TAG, "onActivityResult: latitude= "+ userLatitude +", longitude = "+ userLongitude);
+                }
+        }
     }
 
     private void handleAction() {
@@ -112,19 +160,19 @@ public class MonthlyConfirmationActivity extends BaseActivity implements Adapter
             }
         });
 
-        serviceTimeLayout.setOnClickListener(new View.OnClickListener() {
+        /*serviceTimeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogFragment fragment = new TimePickerFragment();
                 fragment.show(getSupportFragmentManager(), TIMEPICKER);
             }
-        });
+        });*/
 
         serviceLocationLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MonthlyConfirmationActivity.this, DefineLocationActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_LOCATION);
             }
         });
 
@@ -134,15 +182,102 @@ public class MonthlyConfirmationActivity extends BaseActivity implements Adapter
                 //SET ORDER
                 //BELUM DIVALIDASI DAN BELUM ADA PASSING DATA KE PAGE SELANJUTNYA
                 //set order jika semua validasi terpenuhi
-                moveToMonthlyDetailConfirmationPage();
+
+                if (dateChoosen.before(today)) { //if the dateChoosen < current date
+                    Toast.makeText(getApplicationContext(), "Waktu yang anda pilih sudah terlewat, silahkan periksa kembali", Toast.LENGTH_LONG).show();
+                } else if (userLatitude==null) {
+                    Toast.makeText(MonthlyConfirmationActivity.this, "Please input your address", Toast.LENGTH_SHORT).show();
+                } else {
+                    checkCoins();
+                }
             }
         });
+    }
+
+    private void checkCoins() {
+        userReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int coinsAmount = Integer.parseInt(dataSnapshot.child("coins").getValue().toString());
+                if(coinsAmount < serviceCost) {
+                    new AlertDialog.Builder(MonthlyConfirmationActivity.this)
+                            .setTitle("Coins not Enough")
+                            .setMessage("Your coins aren't enough to use this service")
+                            .setPositiveButton("Buy Coins", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //move to purchase coins page
+                                }
+                            })
+                            .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            })
+                            .show();
+                } else {
+                    dataSnapshot.child("coins").getRef().setValue(Integer.parseInt(dataSnapshot.child("coins").getValue().toString()) - serviceCost);
+                    processOrder();
+                    Toast.makeText(MonthlyConfirmationActivity.this, "make order", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+    
+    private void processOrder() {
+        monthlyMaidReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                dataSnapshot.getRef().child("working").setValue(true);
+                String phoneNumber = accountDataSharedPreferences.getString("phoneNumber", "");
+                String date, month, hours, minutes;
+                if(timeChoosen.getDate() < 10) { date = "0"+timeChoosen.getDate(); } else { date = ""+timeChoosen.getDate(); }
+                if(timeChoosen.getMonth() < 10) { month = "0"+(timeChoosen.getMonth()+1); } else { month = ""+(timeChoosen.getMonth()+1); }
+                String maid = dataSnapshot.child("name").getValue().toString();
+                String maidPhoneNumber = dataSnapshot.child("phoneNumber").getValue().toString();
+                ServiceSchedule order = new ServiceSchedule(""+date, "Bantoo Bulanan", maid, ""+month, "Akan Datang", 0+":"+0, locationTV.getText().toString(), maidPhoneNumber);
+                order.setPhoneNumber(phoneNumber);
+                order.setServiceCost(serviceCost);
+                order.setOrderYear(""+(timeChoosen.getYear()+1900));
+                order.setAccepted(false);
+                FirebaseHelper firebaseHelper = new FirebaseHelper();
+                orderUniqueKey = firebaseHelper.addMonthlyOrder(order);
+                moveToMonthlyDetailConfirmationPage();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     //HANDLE SPINNER DURATION
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         duration = parent.getSelectedItem().toString();
+
+        //convertToTime();
+
+        String duration = "";
+        int counter = 0;
+        while (durationSP.getSelectedItem().toString().charAt(counter) != ' ') {
+            duration += durationSP.getSelectedItem().toString().charAt(counter);
+            counter++;
+        }
+        Calendar c = Calendar.getInstance();
+        c.setTime(dateChoosen);
+        c.add(Calendar.DATE, 1);
+        serviceTimeTV.setText(dateFormat.format(c.getTime()));
+        c.add(Calendar.MONTH, Integer.parseInt(duration));
+        estimatedTimeTV.setText(dateFormat.format(c.getTime()));
     }
 
     @Override
@@ -166,6 +301,17 @@ public class MonthlyConfirmationActivity extends BaseActivity implements Adapter
         String selectedDate;
         selectedDate = dateFormat.format(c.getTime());
         serviceDateTV.setText(selectedDate);
+
+        c.add(Calendar.DATE, 1);
+        serviceTimeTV.setText(dateFormat.format(c.getTime()));
+        String duration = "";
+        int counter = 0;
+        while(durationSP.getSelectedItem().toString().charAt(counter) != ' ') {
+            duration += durationSP.getSelectedItem().toString().charAt(counter);
+            counter++;
+        }
+        c.add(Calendar.MONTH, Integer.parseInt(duration));
+        estimatedTimeTV.setText(dateFormat.format(c.getTime()));
     }
 
     //HANDLE SAAT TIME DI SET
@@ -181,6 +327,7 @@ public class MonthlyConfirmationActivity extends BaseActivity implements Adapter
 
     private void moveToMonthlyDetailConfirmationPage(){
         Intent intent = new Intent(this, DetailMonthlyConfirmationActivity.class);
+        intent.putExtra("orderUniqueKey", orderUniqueKey);
         startActivity(intent);
     }
 

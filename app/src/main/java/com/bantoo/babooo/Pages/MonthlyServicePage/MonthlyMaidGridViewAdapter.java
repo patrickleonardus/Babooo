@@ -11,7 +11,9 @@ import android.widget.TextView;
 import com.bantoo.babooo.Model.Maid;
 import com.bantoo.babooo.R;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class MonthlyMaidGridViewAdapter extends BaseAdapter {
 
@@ -43,7 +45,7 @@ public class MonthlyMaidGridViewAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         ImageView maidImage,star1,star2,star3,star4,star5;
-        TextView maidName,maidCoins;
+        TextView maidName, maidSalary;
 
         if(layoutInflater == null){
             layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -54,13 +56,12 @@ public class MonthlyMaidGridViewAdapter extends BaseAdapter {
         }
 
         String name = maidList.get(position).name;
-        int coins = maidList.get(position).cost;
         int rating = maidList.get(position).rating;
+        int salary = maidList.get(position).getSalary();
 
-
+        maidSalary = convertView.findViewById(R.id.salary_maid_TV);
         maidImage = convertView.findViewById(R.id.image_maid_IV);
         maidName = convertView.findViewById(R.id.name_maid_TV);
-        maidCoins = convertView.findViewById(R.id.coins_maid_TV);
         star1 = convertView.findViewById(R.id.star_rating1);
         star2 = convertView.findViewById(R.id.star_rating2);
         star3 = convertView.findViewById(R.id.star_rating3);
@@ -68,7 +69,7 @@ public class MonthlyMaidGridViewAdapter extends BaseAdapter {
         star5 = convertView.findViewById(R.id.star_rating5);
 
         maidName.setText(name);
-        maidCoins.setText(String.valueOf(coins));
+        maidSalary.setText("Rp. "+ NumberFormat.getNumberInstance(Locale.GERMAN).format(salary));
 
         switch (rating){
             case 5:

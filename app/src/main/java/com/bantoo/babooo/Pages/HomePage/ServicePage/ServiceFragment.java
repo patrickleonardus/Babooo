@@ -18,9 +18,12 @@ import android.widget.Toast;
 
 import com.bantoo.babooo.Model.ServiceSchedule;
 import com.bantoo.babooo.Pages.DailyServicePage.DailyServiceActivity;
+import com.bantoo.babooo.Pages.DailyServicePage.DetailDailyConfirmationPage.DetailDailyConfirmationActivity;
 import com.bantoo.babooo.Pages.HomePage.HomeActivity;
 import com.bantoo.babooo.Pages.MonthlyServicePage.MonthlyMaidActivity;
 import com.bantoo.babooo.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,6 +32,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView;
 
 import java.util.ArrayList;
@@ -37,6 +42,8 @@ import java.util.List;
 import static android.content.Context.MODE_PRIVATE;
 
 public class ServiceFragment extends Fragment implements ServiceItemClickListener{
+
+    private static final String TAG = "ServiceFragment";
 
     //FIREBASE INIT
     private FirebaseDatabase firebaseDatabase;
@@ -57,6 +64,7 @@ public class ServiceFragment extends Fragment implements ServiceItemClickListene
     //Array of Service
     private List<ServiceSchedule> serviceScheduleList = new ArrayList<ServiceSchedule>();
     private String username;
+    private int coins;
 
     //Object View
     LinearLayout dailyServiceOption,monthlyServiceOption,topUpOption;
@@ -82,8 +90,24 @@ public class ServiceFragment extends Fragment implements ServiceItemClickListene
         //dummyData();
         menuHandler();
         loadUserData();
+        checkUserToken();
 
         return rootView;
+    }
+
+    private void checkUserToken() {
+        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+            @Override
+            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                if (!task.isSuccessful()) {
+                    Log.w(TAG, "onComplete: ", task.getException());
+                    return;
+                }
+                String token = task.getResult().getToken();
+                Log.d(TAG, "checkUserToken: "+token);
+                userReference.child("token").setValue(token);
+            }
+        });
     }
 
     private void retrieveScheduleData() {
@@ -105,6 +129,8 @@ public class ServiceFragment extends Fragment implements ServiceItemClickListene
                     String address = snapshot.child("address").getValue().toString();
                     String maidPhoneNumber = snapshot.child("maidPhoneNumber").getValue().toString();
                     ServiceSchedule serviceSchedule = new ServiceSchedule(orderDate, serviceType, maid, orderMonth, status, orderTime, address, maidPhoneNumber);
+                    String orderID = snapshot.getKey();
+                    serviceSchedule.setOrderID(orderID);
                     serviceScheduleList.add(serviceSchedule);
                 }
                 setupScheduleView();
@@ -148,6 +174,9 @@ public class ServiceFragment extends Fragment implements ServiceItemClickListene
     @Override
     public void onItemClick(int position) {
         Toast.makeText(getContext(),serviceScheduleList.get(position).getServiceType(),Toast.LENGTH_SHORT).show();
+        Intent moveToDetailPage = new Intent(getContext(), DetailDailyConfirmationActivity.class);
+        moveToDetailPage.putExtra("orderUniqueKey", serviceScheduleList.get(position).getOrderID());
+        startActivity(moveToDetailPage);
     }
 
     //SETUP RECYCLER VIEW (JADWAL PESANAN)
@@ -244,6 +273,11 @@ public class ServiceFragment extends Fragment implements ServiceItemClickListene
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 username = dataSnapshot.child("name").getValue().toString();
+                if (dataSnapshot.child("coins").getValue() != null) {
+                    coins = Integer.parseInt(dataSnapshot.child("coins").getValue().toString());
+                } else { coins = 0; }
+                coinsTV.setText(coins+" Coins");
+                showCoinProgressBar(false);
                 trimName(username);
                 showUserProgressBar(false);
             }

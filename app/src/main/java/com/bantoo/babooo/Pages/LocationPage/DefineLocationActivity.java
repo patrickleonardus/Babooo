@@ -10,6 +10,8 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.location.LocationListener;
@@ -50,7 +52,9 @@ import com.mapbox.mapboxsdk.plugins.places.autocomplete.model.PlaceOptions;
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer;
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -87,6 +91,19 @@ public class DefineLocationActivity extends BaseActivity implements OnMapReadyCa
         mapView.onCreate(savedInstanceState);
         //real-time update the location.
         mapView.getMapAsync(this);
+    }
+
+    private String getCountryName() {
+        Geocoder geocoder = new Geocoder(DefineLocationActivity.this, Locale.getDefault());
+        List<Address> addresses = null;
+        try {
+            addresses = geocoder.getFromLocation(latitudeLocation, longitudeLocation, 1);
+            if(addresses != null && !addresses.isEmpty()) {
+                return addresses.get(0).getCountryName();
+            }
+            return null;
+        } catch (IOException ignores) {}
+        return "";
     }
 
     private void getCurrentLocation() {
@@ -172,12 +189,18 @@ public class DefineLocationActivity extends BaseActivity implements OnMapReadyCa
             @Override
             public void onClick(View v) {
                 //Apply location
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("address", searchLocationET.getText().toString());
-                resultIntent.putExtra("latitude", latitudeLocation);
-                resultIntent.putExtra("longitude", longitudeLocation);
-                setResult(Activity.RESULT_OK, resultIntent);
-                finish();
+                if(longitudeLocation == null && latitudeLocation == null) {
+                    Toast.makeText(DefineLocationActivity.this, "Harap masukan lokasi anda", Toast.LENGTH_SHORT).show();
+                } else if (getCountryName().contains("Indonesia")) {
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("address", searchLocationET.getText().toString());
+                    resultIntent.putExtra("latitude", latitudeLocation);
+                    resultIntent.putExtra("longitude", longitudeLocation);
+                    setResult(Activity.RESULT_OK, resultIntent);
+                    finish();
+                } else {
+                    Toast.makeText(DefineLocationActivity.this, "Bantoo tidak tersedia di luar Indonesia", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

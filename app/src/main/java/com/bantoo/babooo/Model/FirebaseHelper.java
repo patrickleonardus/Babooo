@@ -16,4 +16,16 @@ public class FirebaseHelper {
         userReferefence.setValue(user);
     }
 
+    public void addDailyOrder(ServiceSchedule order, String orderUniqueKey) {
+        DatabaseReference orderReference = reference.child("Order").child(orderUniqueKey);
+        orderReference.setValue(order);
+    }
+
+    public String addMonthlyOrder(ServiceSchedule order) {
+        DatabaseReference monthlyOrderReference = reference.child("Rent");
+        String orderUniqueKey = monthlyOrderReference.push().getKey();
+        monthlyOrderReference.child(orderUniqueKey).setValue(order);
+        return orderUniqueKey;
+    }
+
 }

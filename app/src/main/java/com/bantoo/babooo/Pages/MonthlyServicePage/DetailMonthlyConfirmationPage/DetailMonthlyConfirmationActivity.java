@@ -1,11 +1,14 @@
 package com.bantoo.babooo.Pages.MonthlyServicePage.DetailMonthlyConfirmationPage;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bantoo.babooo.Pages.DailyServicePage.DetailDailyConfirmationPage.DetailDailyConfirmationActivity;
+import com.bantoo.babooo.Pages.HomePage.HomeActivity;
 import com.bantoo.babooo.R;
 import com.bantoo.babooo.Utilities.BaseActivity;
 
@@ -17,6 +20,9 @@ public class DetailMonthlyConfirmationActivity extends BaseActivity {
             serviceFeeCostTV, totalCostTV;
     ImageView maidProfilePictureIV, closeIV;
     Button helpBantooBTN;
+
+    @Override
+    public void onBackPressed() { }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +57,9 @@ public class DetailMonthlyConfirmationActivity extends BaseActivity {
         closeIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent intent = new Intent(DetailMonthlyConfirmationActivity.this, HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
     }

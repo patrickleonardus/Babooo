@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bantoo.babooo.Pages.MonthlyServicePage.MonthlyConfirmationPage.MonthlyConfirmationActivity;
@@ -27,8 +28,9 @@ public class MaidDetailActivity extends BaseActivity {
     private String maidUniqueKey;
 
     ImageView rating1IV, rating2IV, rating3IV, rating4IV, rating5IV;
-    TextView maidNameTV, maidAgeTV, maidAddressTV, maidSkillTV1, maidSkillTV2, maidSkillTV3, ratingTV;
+    TextView maidNameTV, maidAgeTV, maidAddressTV, ratingTV;
     Button recruitButton;
+    ProgressBar cuciPB, setrikaPB, sapuPB, kmrmandiPB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,16 @@ public class MaidDetailActivity extends BaseActivity {
                     case 1:
                         rating1IV.setVisibility(View.VISIBLE);
                 }
+                int cuciScore = Integer.parseInt(dataSnapshot.child("cuciScore").getValue().toString());
+                int setrikaScore = Integer.parseInt(dataSnapshot.child("setrikaScore").getValue().toString());
+                int sapuScore = Integer.parseInt(dataSnapshot.child("sapuScore").getValue().toString());
+                int kmrmandiScore = Integer.parseInt(dataSnapshot.child("kmrmandiScore").getValue().toString());
+
+                cuciPB.setProgress(cuciScore);
+                setrikaPB.setProgress(setrikaScore);
+                sapuPB.setProgress(sapuScore);
+                kmrmandiPB.setProgress(kmrmandiScore);
+
                 /*maidSkillTV1.setText(dataSnapshot.child("skill1").getValue().toString());
                 maidSkillTV2.setText(dataSnapshot.child("skill2").getValue().toString());
                 maidSkillTV3.setText(dataSnapshot.child("skill3").getValue().toString());*/
@@ -100,11 +112,12 @@ public class MaidDetailActivity extends BaseActivity {
         maidNameTV = findViewById(R.id.maid_name_TV_maid_detail);
         maidAgeTV = findViewById(R.id.maid_age_TV_maid_detail);
         maidAddressTV = findViewById(R.id.maid_address_TV_maid_detail);
-        maidSkillTV1 = findViewById(R.id.maid_skill_TV1_maid_detail);
-        maidSkillTV2 = findViewById(R.id.maid_skill_TV2_maid_detail);
-        maidSkillTV3 = findViewById(R.id.maid_skill_TV3_maid_detail);
         ratingTV = findViewById(R.id.rating_tv_maid_detail);
         recruitButton = findViewById(R.id.order_daily_confirmation_BTN);
+        cuciPB = findViewById(R.id.progress_bar_cuci_kering_maid_detail);
+        setrikaPB = findViewById(R.id.progress_bar_setrika_maid_detail);
+        sapuPB = findViewById(R.id.progress_bar_sapu_maid_detail);
+        kmrmandiPB = findViewById(R.id.progress_bar_kmrmandi_maid_detail);
 
         rating1IV.setVisibility(View.GONE);
         rating2IV.setVisibility(View.GONE);

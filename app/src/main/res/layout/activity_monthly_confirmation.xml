@@ -148,7 +148,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Tanggal Pengerjaan"
+                    android:text="Tanggal Kedatangan"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
 
@@ -203,7 +203,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Waktu Pengerjaan"
+                    android:text="Estimasi Periode Kerja"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
 
@@ -221,7 +221,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Mulai"
+                            android:text="Mulai Dari"
                             android:textColor="@color/black"
                             android:textSize="13sp"
                             android:textStyle="bold" />
@@ -261,7 +261,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Estimasi Selesai"
+                            android:text="Sampai Dengan"
                             android:textColor="@color/black"
                             android:textSize="13sp"
                             android:textStyle="bold" />

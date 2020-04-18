@@ -10,36 +10,114 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/asset_error"/>
+        android:layout_height="300dp"
+        android:src="@drawable/gbr_waiting"/>
 
     <LinearLayout
-        android:background="@drawable/rounded_layout_bg"
+        android:background="@drawable/border_rounded_edit_text"
         android:layout_width="match_parent"
         android:layout_gravity="center"
         android:orientation="vertical"
+        android:layout_marginTop="50dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center">
         <TextView
-            android:layout_marginTop="10dp"
+            android:textSize="48px"
+            android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mencarikan Mitra Terdekat"
-            android:layout_gravity="center"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:text="Mencarikan mitra terdekat"/>
         <TextView
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Harap tunggu beberapa saat"/>
+            android:text="Mitra akan segera hadir membantu" />
 
-        <TextView
-            android:textAlignment="center"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="Kami sedang mencarikan anda mitra terdekat yang sesuai dengan kebutuhan anda"/>
-
+        <RelativeLayout
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Layanan"/>
+            <TextView
+                android:textColor="@color/greenPrimary"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tipe Layanan"/>
+        </RelativeLayout>
+        <View
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/lightGrey" />
+        <LinearLayout
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="50dp">
+            <TextView
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Saldo Anda"/>
+            <ImageView
+                android:layout_marginLeft="10dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/drawable_start_coins_edit_text"/>
+            <TextView
+                android:id="@+id/user_coins_TV_searching"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="1000"
+                android:layout_marginRight="20dp"/>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/lightGrey"/>
+            <TextView
+                android:layout_marginLeft="20dp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pembayaran"/>
+            <ImageView
+                android:layout_marginLeft="10dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/drawable_start_coins_edit_text"/>
+            <TextView
+                android:id="@+id/cost_service_TV_searching_daily"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="100"
+                android:layout_marginRight="20dp"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/lightGrey" />
+        <LinearLayout
+            android:id="@+id/cancel_layout_searching_daily"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Batalkan"/>
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

@@ -13,6 +13,33 @@ public class ServiceSchedule {
     private String maidPhoneNumber;
     private String phoneNumber;
     private String orderYear;
+    private String orderID;
+    private int serviceCost;
+    private boolean accepted;
+
+    public boolean isAccepted() {
+        return accepted;
+    }
+
+    public void setAccepted(boolean accepted) {
+        this.accepted = accepted;
+    }
+
+    public int getServiceCost() {
+        return serviceCost;
+    }
+
+    public void setServiceCost(int serviceCost) {
+        this.serviceCost = serviceCost;
+    }
+
+    public String getOrderID() {
+        return orderID;
+    }
+
+    public void setOrderID(String orderID) {
+        this.orderID = orderID;
+    }
 
     public String getOrderYear() {
         return orderYear;

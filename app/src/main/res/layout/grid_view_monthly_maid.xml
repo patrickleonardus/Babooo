@@ -79,6 +79,23 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/rating_maid_layout">
+            <TextView
+                android:id="@+id/salary_maid_TV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rp. 2.000.000"/>
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/bulan"/>
+        </LinearLayout>
+
+        <!-- <LinearLayout
             android:id="@+id/coins_maid_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -103,7 +120,7 @@
                 android:textColor="@color/greenPrimary"
                 android:textStyle="bold" />
 
-        </LinearLayout>
+        </LinearLayout> -->
 
 
     </RelativeLayout>

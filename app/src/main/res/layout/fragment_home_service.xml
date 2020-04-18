@@ -50,13 +50,14 @@
 
             </LinearLayout>
 
+            <!--background_dotted_line_white-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="-60dp"
                 android:layout_marginRight="30dp"
-                android:background="@drawable/background_dotted_line_white"
+                android:background="@drawable/border_rounded_edit_text"
                 android:gravity="center"
                 android:weightSum="2">
 

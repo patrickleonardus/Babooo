@@ -12,10 +12,11 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:orientation="vertical"
             android:layout_height="wrap_content">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="270dp"
+                android:layout_height="150dp"
                 android:orientation="vertical"
                 android:background="@drawable/background_home">
                 <RelativeLayout
@@ -48,16 +49,17 @@
                         android:layout_height="20dp"
                         android:layout_alignParentRight="true"/>
                 </RelativeLayout>
-                <ImageView
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="60dp"
-                    android:layout_width="130dp"
-                    android:layout_height="150dp"
-                    android:src="@drawable/logo_bantoo"/>
             </LinearLayout>
+            <ImageView
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="-80dp"
+                android:layout_width="130dp"
+                android:layout_height="150dp"
+                android:src="@drawable/logo_bantoo"/>
         </LinearLayout>
 
         <LinearLayout
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_gravity="center_horizontal"
             android:layout_height="wrap_content">

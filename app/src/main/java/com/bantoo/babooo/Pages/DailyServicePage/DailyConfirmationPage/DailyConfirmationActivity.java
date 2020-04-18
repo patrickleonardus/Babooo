@@ -1,8 +1,10 @@
 package com.bantoo.babooo.Pages.DailyServicePage.DailyConfirmationPage;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
@@ -45,7 +47,7 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
 
     //FIREBASE INIT
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference orderReference;
+    private DatabaseReference orderReference, userReference;
 
     private SharedPreferences accountDataSharedPreferences;
 
@@ -93,6 +95,7 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
         String uid = accountDataSharedPreferences.getString("uid", "");
 
         orderReference = firebaseDatabase.getReference().child("Order");
+        userReference = firebaseDatabase.getReference().child("Users").child(uid);
     }
 
     private void initView() {
@@ -263,11 +266,47 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
                         if (userLatitude==null) {
                             Toast.makeText(DailyConfirmationActivity.this, "Please input your address", Toast.LENGTH_SHORT).show();
                         } else {
-                            processOrder();
-                            Toast.makeText(DailyConfirmationActivity.this, "make order", Toast.LENGTH_SHORT).show();
+                            checkCoins();
                         }
                     }
                 }
+            }
+        });
+    }
+
+    private void checkCoins() {
+        userReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d(TAG, "coinsCheck: snapshot= "+dataSnapshot);
+                coinsAmount = Integer.parseInt(dataSnapshot.child("coins").getValue().toString());
+                if(coinsAmount < serviceCost) {
+                   new AlertDialog.Builder(DailyConfirmationActivity.this)
+                           .setTitle("Coins not Enough")
+                           .setMessage("Your coins aren't enough to use this service")
+                           .setPositiveButton("Buy Coins", new DialogInterface.OnClickListener() {
+                               @Override
+                               public void onClick(DialogInterface dialog, int which) {
+                                    //move to purchase coins page
+                               }
+                           })
+                           .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                               @Override
+                               public void onClick(DialogInterface dialog, int which) {
+
+                               }
+                           })
+                           .show();
+                } else {
+                    dataSnapshot.child("coins").getRef().setValue(Integer.parseInt(dataSnapshot.child("coins").getValue().toString()) - serviceCost);
+                    processOrder();
+                    Toast.makeText(DailyConfirmationActivity.this, "make order", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
     }
@@ -282,6 +321,7 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
         if(timeChoosen.getMinutes() < 10) { minutes = "0"+timeChoosen.getMinutes(); } else { minutes = ""+timeChoosen.getMinutes(); }
         ServiceSchedule order = new ServiceSchedule(""+date, serviceType, "maid", ""+month, "Akan Datang", hours+":"+minutes, locationServiceTV.getText().toString(), "maidPhoneNumber");
         order.setPhoneNumber(phoneNumber);
+        order.setServiceCost(serviceCost);
         order.setOrderYear(""+(timeChoosen.getYear()+1900));
         String orderUniqueKey = orderReference.push().getKey();
         orderReference.child(orderUniqueKey).setValue(order);
@@ -290,6 +330,8 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
         moveToSearchingPage.putExtra("userLatitude", userLatitude);
         moveToSearchingPage.putExtra("userLongitude", userLongitude);
         moveToSearchingPage.putExtra("timeChoosen", timeChoosen);
+        moveToSearchingPage.putExtra("serviceCost", serviceCost);
+        moveToSearchingPage.putExtra("coinsAmount", coinsAmount);
         startActivity(moveToSearchingPage);
     }
 
