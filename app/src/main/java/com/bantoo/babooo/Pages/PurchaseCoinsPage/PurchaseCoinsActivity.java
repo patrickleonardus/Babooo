@@ -35,13 +35,13 @@ public class PurchaseCoinsActivity extends BaseActivity implements PurchasesUpda
         setContentView(R.layout.activity_purchase_coins);
         setupProductName();
         setupBillingClient();
-        purchaseBtn = findViewById(R.id.purchaseButton);
+        /*purchaseBtn = findViewById(R.id.purchaseButton);
         purchaseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 productClicked();
             }
-        });
+        });*/
     }
 
     private void setupProductName() {
