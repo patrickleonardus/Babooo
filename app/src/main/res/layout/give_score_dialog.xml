@@ -60,6 +60,18 @@
             android:layout_height="30dp"
             android:src="@drawable/asset_star_inactive"/>
     </LinearLayout>
+
+    <EditText
+        android:id="@+id/comment_ET_give_dialog"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:textAlignment="center"
+        android:hint="Input your comment"
+        android:layout_height="50dp"
+        android:background="@drawable/border_rounded_edit_text"/>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

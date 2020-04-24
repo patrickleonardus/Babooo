@@ -70,7 +70,7 @@ public class DefineLocationActivity extends BaseActivity implements OnMapReadyCa
     //make it private so other classes can't access these variables
     //prevent bugs or crashed
     private ImageView closeLocationIV;
-    private EditText searchLocationET;
+    private EditText searchLocationET, notesLocationET;
     private Button searchLocationBTN;
     private MapView mapView;
     private MapboxMap mapboxMap;
@@ -159,6 +159,7 @@ public class DefineLocationActivity extends BaseActivity implements OnMapReadyCa
         closeLocationIV = findViewById(R.id.close_location_IV);
         searchLocationET = findViewById(R.id.search_location_ET);
         searchLocationBTN = findViewById(R.id.search_loaction_BTN);
+        notesLocationET = findViewById(R.id.notes_location_ET);
         mapView = findViewById(R.id.mapView);
     }
 
@@ -196,6 +197,7 @@ public class DefineLocationActivity extends BaseActivity implements OnMapReadyCa
                     resultIntent.putExtra("address", searchLocationET.getText().toString());
                     resultIntent.putExtra("latitude", latitudeLocation);
                     resultIntent.putExtra("longitude", longitudeLocation);
+                    resultIntent.putExtra("notes", notesLocationET.getText().toString());
                     setResult(Activity.RESULT_OK, resultIntent);
                     finish();
                 } else {

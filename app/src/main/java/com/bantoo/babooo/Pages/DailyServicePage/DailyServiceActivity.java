@@ -26,6 +26,13 @@ public class DailyServiceActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_service);
 
+        initView();
+        initVar();
+        initVar();
+        handleMenu();
+    }
+
+    private void initView() {
         serviceOpt1Layout = findViewById(R.id.first_daily_service_layout);
         serviceOpt2Layout = findViewById(R.id.second_daily_service_layout);
         serviceOpt3Layout = findViewById(R.id.third_daily_service_layout);
@@ -40,9 +47,6 @@ public class DailyServiceActivity extends BaseActivity {
         detailService2TV = findViewById(R.id.service_detail_daily_TV_2);
         detailService3TV = findViewById(R.id.service_detail_daily_TV_3);
         detailService4TV = findViewById(R.id.service_detail_daily_TV_4);
-
-        initVar();
-        handleMenu();
 
     }
 

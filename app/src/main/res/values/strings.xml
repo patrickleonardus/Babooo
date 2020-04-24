@@ -3,12 +3,26 @@
 
     <string-array name="Duration">
         <item>1 Bulan</item>
-        <item>2 Bulan</item>
         <item>3 Bulan</item>
         <item>6 Bulan</item>
         <item>12 Bulan</item>
     </string-array>
     <string name="mapbox_access_token">pk.eyJ1IjoidG9tbXlyeWFudG8iLCJhIjoiY2s2ZnowMTRjMDB4aTNlbzVscDdydGMxayJ9.n7FVQhItEHA1fYDBycqEpg</string>
 
+    <string-array name="Kota">
+        <item>Jakarta</item>
+        <item>Tangerang</item>
+        <item>Depok</item>
+        <item>Bekasi</item>
+        <item>Bogor</item>
+        <item>Banten</item>
+        <item>Jawa Barat</item>
+        <item>Jawa Tengah</item>
+        <item>D.I.Y. Jogjakarta</item>
+        <item>Jawa Timur</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

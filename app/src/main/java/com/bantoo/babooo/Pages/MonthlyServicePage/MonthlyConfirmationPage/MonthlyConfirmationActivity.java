@@ -65,6 +65,7 @@ public class MonthlyConfirmationActivity extends BaseActivity implements Adapter
     private String duration, maidUniqueKey, orderUniqueKey;
     private int serviceCost;
     private Double userLatitude, userLongitude;
+    private String notesLocation;
 
     SharedPreferences accountDataSharedPreferences;
     private FirebaseDatabase firebaseDatabase;
@@ -146,8 +147,10 @@ public class MonthlyConfirmationActivity extends BaseActivity implements Adapter
                     locationTV.setText(data.getStringExtra("address"));
                     userLatitude = data.getDoubleExtra("latitude", 0);
                     userLongitude = data.getDoubleExtra("longitude", 0);
+                    notesLocation = data.getStringExtra("notes");
                     Log.d(TAG, "onActivityResult: latitude= "+ userLatitude +", longitude = "+ userLongitude);
                 }
+                break;
         }
     }
 
@@ -245,8 +248,13 @@ public class MonthlyConfirmationActivity extends BaseActivity implements Adapter
                 order.setPhoneNumber(phoneNumber);
                 order.setServiceCost(serviceCost);
                 order.setOrderYear(""+(timeChoosen.getYear()+1900));
-                order.setAccepted(false);
+                order.setAccepted("none");
+                order.setDuration(duration);
+                order.setNotesLocation(notesLocation);
+                order.setLongitude(userLongitude);
+                order.setLatitude(userLatitude);
                 FirebaseHelper firebaseHelper = new FirebaseHelper();
+                //add order to firebase and assign orderID
                 orderUniqueKey = firebaseHelper.addMonthlyOrder(order);
                 moveToMonthlyDetailConfirmationPage();
             }
@@ -262,11 +270,11 @@ public class MonthlyConfirmationActivity extends BaseActivity implements Adapter
     //HANDLE SPINNER DURATION
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        duration = parent.getSelectedItem().toString();
+        //duration = parent.getSelectedItem().toString();
 
         //convertToTime();
 
-        String duration = "";
+        duration = "";
         int counter = 0;
         while (durationSP.getSelectedItem().toString().charAt(counter) != ' ') {
             duration += durationSP.getSelectedItem().toString().charAt(counter);
@@ -328,6 +336,7 @@ public class MonthlyConfirmationActivity extends BaseActivity implements Adapter
     private void moveToMonthlyDetailConfirmationPage(){
         Intent intent = new Intent(this, DetailMonthlyConfirmationActivity.class);
         intent.putExtra("orderUniqueKey", orderUniqueKey);
+        intent.putExtra("maidUniqueKey", maidUniqueKey);
         startActivity(intent);
     }
 

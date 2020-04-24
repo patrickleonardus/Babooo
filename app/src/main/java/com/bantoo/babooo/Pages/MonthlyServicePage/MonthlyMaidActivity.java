@@ -76,9 +76,7 @@ public class MonthlyMaidActivity extends BaseActivity implements Serializable {
         if(requestCode == REQUEST_FILTER){
             if(resultCode == RESULT_OK){
                 filterSearches = (ArrayList<FilterSearch>) data.getSerializableExtra(FILTERINTENT);
-                for(int i=0;i<filterSearches.size();i++){
-                    Log.e("tester",filterSearches.get(i).getPopularity()+" ");
-                }
+                applyFilter();
             }
         } else if(requestCode == REQUEST_SORT) {
             if(resultCode == RESULT_OK) {
@@ -86,7 +84,16 @@ public class MonthlyMaidActivity extends BaseActivity implements Serializable {
                 sortMaid(sortBy);
             }
         }
+    }
 
+    private void applyFilter() {
+        for(int i = 0; i < maidList.size(); i++) {
+            //check cost
+            if(maidList.get(i).getCost() < Integer.parseInt(filterSearches.get(0).getMinCost()) || maidList.get(i).getCost() > Integer.parseInt(filterSearches.get(0).getMaxCost())) {
+                maidList.remove(i);
+            }
+        }
+        adapter.notifyDataSetChanged();
     }
 
     private void sortMaid(String by) {

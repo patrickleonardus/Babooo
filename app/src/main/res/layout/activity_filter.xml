@@ -470,7 +470,6 @@
                         android:id="@+id/minimumCost_filter_ET"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/drawable_start_coins_edit_text"
                         android:enabled="false"
                         android:textColor="@color/greenPrimary"
                         android:textSize="14sp" />
@@ -494,7 +493,6 @@
                         android:id="@+id/maximumCost_filter_ET"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/drawable_start_coins_edit_text"
                         android:enabled="false"
                         android:textColor="@color/greenPrimary"
                         android:textSize="14sp" />

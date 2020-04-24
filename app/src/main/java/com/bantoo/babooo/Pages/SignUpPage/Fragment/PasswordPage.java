@@ -20,6 +20,11 @@ public class PasswordPage extends Fragment {
 
     EditText pass1ET,pass2ET;
     private String pass1,pass2;
+    public static boolean correct;
+
+    public boolean getCorrect() {
+        return correct;
+    }
 
     @Nullable
     @Override
@@ -39,6 +44,7 @@ public class PasswordPage extends Fragment {
                 pass1 = pass1ET.getText().toString();
 
                 if (pass1.length() < 5){
+                    correct = false;
                     pass1ET.setError("Password terlalu singkat");
                 }
 
@@ -58,13 +64,16 @@ public class PasswordPage extends Fragment {
                 pass2 = pass2ET.getText().toString();
 
                 if (pass1.isEmpty()){
+                    correct = false;
                     pass1ET.setError("Harus diisi");
                     pass2ET.setError("Isi kata sandi diatas terlebih dahulu");
                 }
                 else if (!pass2.equals(pass1)){
+                    correct = false;
                     pass2ET.setError("Konfirmasi password tidak sama");
                 }
                 else {
+                    correct = true;
                     SharedPreferences sharedPreferences = getContext().getSharedPreferences("userPref", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("password", pass2).commit();

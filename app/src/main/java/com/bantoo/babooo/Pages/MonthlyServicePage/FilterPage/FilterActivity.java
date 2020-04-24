@@ -328,7 +328,6 @@ public class FilterActivity extends BaseActivity implements Serializable, CityFi
             public void onClick(View v) {
                 FilterSearch filter = new FilterSearch(maxCost, minCost, maxYears, minYears, minAge, maxAge, maidPopularity,cityList);
                 filterSearches.add(filter);
-
                 Intent intent = new Intent();
                 intent.putExtra(FILTERINTENT, (ArrayList<FilterSearch>) filterSearches);
                 setResult(RESULT_OK, intent);

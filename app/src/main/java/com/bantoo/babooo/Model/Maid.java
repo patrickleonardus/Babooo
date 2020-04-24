@@ -10,6 +10,14 @@ public class Maid extends User {
     private String maidUniqueKey;
     private int salary;
 
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+
     public int getSalary() {
         return salary;
     }

@@ -18,10 +18,12 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
 
     private List<ServiceSchedule> serviceSchedule;
     private Context context;
+    private OrderItemClickListener orderItemClickListener;
 
-    public HistoryRecyclerViewAdapter(Context context, List<ServiceSchedule> serviceSchedule) {
+    public HistoryRecyclerViewAdapter(Context context, List<ServiceSchedule> serviceSchedule, OrderItemClickListener orderItemClickListener) {
         this.context = context;
         this.serviceSchedule = serviceSchedule;
+        this.orderItemClickListener = orderItemClickListener;
     }
 
     @NonNull
@@ -58,6 +60,14 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
             serviceNameTV = itemView.findViewById(R.id.service_name_TV_history_cell);
             statusOrderTV = itemView.findViewById(R.id.status_order_TV_history_cell);
             timeOrderTV = itemView.findViewById(R.id.time_TV_cell_history);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    orderItemClickListener.onItemClick(position);
+                }
+            });
         }
     }
 }

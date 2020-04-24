@@ -47,6 +47,7 @@
                 android:layout_height="wrap_content"
                 android:text="Layanan"/>
             <TextView
+                android:id="@+id/tipeLayanan_TV_searching"
                 android:textColor="@color/greenPrimary"
                 android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"

@@ -9,16 +9,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bantoo.babooo.Pages.SignUpPage.Fragment.ApprCodePage;
 import com.bantoo.babooo.Pages.SignUpPage.Fragment.EmailPage;
 import com.bantoo.babooo.Pages.SignUpPage.Fragment.LocationPage;
+import com.bantoo.babooo.Pages.SignUpPage.Fragment.MaidDataFragment;
 import com.bantoo.babooo.Pages.SignUpPage.Fragment.NamePage;
 import com.bantoo.babooo.Pages.SignUpPage.Fragment.PasswordPage;
 import com.bantoo.babooo.Pages.SignUpPage.Fragment.PhonePage;
@@ -31,6 +34,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SignUpFormActivity extends BaseActivity {
+
+    private static final String TAG = "SignUpForm";
+    private static final int NAME_PAGE_INDEX = 0;
+    private static final int EMAIL_PAGE_INDEX = 1;
+    private static final int LOCATION_PAGE_INDEX = 2;
+    private static final int PHONE_PAGE_INDEX = 3;
+    private static final int PASSWORD_PAGE_INDEX = 4;
 
     private static ViewPager pager;
 
@@ -92,12 +102,66 @@ public class SignUpFormActivity extends BaseActivity {
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean correct = true;
                 int index = pager.getCurrentItem();
-                pager.setCurrentItem(index + 1);
+                if(userRole.equals("pengguna")) {
+                    switch (index) {
+                        case NAME_PAGE_INDEX:
+                            NamePage namePage = new NamePage();
+                            correct = namePage.getCorrect();
+                            if (!correct) {
+                                displayError("Nama tidak sesuai");
+                            }
+                            break;
+                        case EMAIL_PAGE_INDEX:
+                            EmailPage emailPage = new EmailPage();
+                            correct = emailPage.getCorrect();
+                            if (!correct) {
+                                displayError("Masukan email dengan format yang benar");
+                            }
+                            break;
+                        case LOCATION_PAGE_INDEX:
+                            LocationPage locationPage = new LocationPage();
+                            correct = locationPage.getCorrect();
+                            if (!correct) {
+                                displayError("Masukan lokasi yang benar!");
+                            }
+                            break;
+                        case PHONE_PAGE_INDEX:
+                            PhonePage phonePage = new PhonePage();
+                            correct = phonePage.getCorrect();
+                            if (!correct && phonePage.getUserExist()) {
+                                displayError("Nomor hp sudah terdaftar");
+                            }
+                            Log.d(TAG, "onClick: correct: " + correct);
+                            break;
+                        case PASSWORD_PAGE_INDEX:
+                            PasswordPage passwordPage = new PasswordPage();
+                            correct = passwordPage.getCorrect();
+                            break;
+                    }
+                } else if(userRole.equals("mitra")) {
+                    switch (index) {
+                        case 0:
+                            ApprCodePage apprCodePage = new ApprCodePage();
+                            correct = apprCodePage.checkApprovalCode();
+                            if(!correct) {
+                                displayError("User not found!");
+                            } else if(correct) {
 
-                if (index == list.size() - 2) {
-                    finishBtn.setVisibility(View.VISIBLE);
-                    nextBtn.setVisibility(View.INVISIBLE);
+                            }
+                            break;
+                        case 1:
+
+                            break;
+                    }
+                }
+                if(correct) {
+                    pager.setCurrentItem(index + 1);
+                    if (index == list.size() - 2) {
+                        finishBtn.setVisibility(View.VISIBLE);
+                        nextBtn.setVisibility(View.INVISIBLE);
+                    }
                 }
             }
         });
@@ -131,16 +195,13 @@ public class SignUpFormActivity extends BaseActivity {
         if (userRole.equals("pengguna")) {
             list.add(new NamePage());
             list.add(new EmailPage());
-            list.add(new PasswordPage());
             list.add(new LocationPage());
             list.add(new PhonePage());
+            list.add(new PasswordPage());
         } else if (userRole.equals("mitra")) {
             list.add(new ApprCodePage());
-            list.add(new NamePage());
-            list.add(new EmailPage());
             list.add(new PasswordPage());
-            list.add(new LocationPage());
-            list.add(new PhonePage());
+            list.add(new MaidDataFragment());
         }
 
         pager = findViewById(R.id.pager);
@@ -201,9 +262,17 @@ public class SignUpFormActivity extends BaseActivity {
             } else if (apprCode.equals("N/A")) {
                 displayError("Periksa kembali approval code anda");
             } else {
-                moveToVerification();
+                moveToDetailInformation();
             }
         }
+    }
+
+    private void moveToDetailInformation() {
+        SharedPreferences fromSharePref = getSharedPreferences("verificationPage", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = fromSharePref.edit();
+        editor.putString("from", "maidRegister").commit();
+        //Intent
+
     }
 
     private void moveToVerification() {

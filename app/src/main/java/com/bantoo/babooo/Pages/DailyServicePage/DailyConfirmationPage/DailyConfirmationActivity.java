@@ -67,6 +67,7 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
 
     private String estimatedFinishTime, selectedTime;
     private Double userLatitude, userLongitude;
+    private String notesLocation;
 
     LinearLayout dateLayout, hourLayout, locationLayout;
     TextView serviceNameTV, detailServiceNameTV, coinsServiceTV, dateServiceTV, startHourTV, estimatedHourTV, locationServiceTV;
@@ -208,8 +209,10 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
                     locationServiceTV.setText(data.getStringExtra("address"));
                     userLatitude = data.getDoubleExtra("latitude", 0);
                     userLongitude = data.getDoubleExtra("longitude", 0);
+                    notesLocation = data.getStringExtra("notes");
                     Log.d(TAG, "onActivityResult: latitude= "+ userLatitude +", longitude = "+ userLongitude);
                 }
+                break;
         }
     }
 
@@ -319,8 +322,11 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
         if(timeChoosen.getMonth() < 10) { month = "0"+(timeChoosen.getMonth()+1); } else { month = ""+(timeChoosen.getMonth()+1); }
         if(timeChoosen.getHours() < 10) { hours = "0"+timeChoosen.getHours(); } else { hours = ""+timeChoosen.getHours(); }
         if(timeChoosen.getMinutes() < 10) { minutes = "0"+timeChoosen.getMinutes(); } else { minutes = ""+timeChoosen.getMinutes(); }
-        ServiceSchedule order = new ServiceSchedule(""+date, serviceType, "maid", ""+month, "Akan Datang", hours+":"+minutes, locationServiceTV.getText().toString(), "maidPhoneNumber");
+        ServiceSchedule order = new ServiceSchedule(""+date, serviceName, "maid", ""+month, "Akan Datang", hours+":"+minutes, locationServiceTV.getText().toString(), "maidPhoneNumber");
         order.setPhoneNumber(phoneNumber);
+        order.setLatitude(userLatitude);
+        order.setLongitude(userLongitude);
+        order.setNotesLocation(notesLocation);
         order.setServiceCost(serviceCost);
         order.setOrderYear(""+(timeChoosen.getYear()+1900));
         String orderUniqueKey = orderReference.push().getKey();

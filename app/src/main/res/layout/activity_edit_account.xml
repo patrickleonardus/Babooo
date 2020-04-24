@@ -59,12 +59,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <ImageView
+        <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/profile_photo_account_edit"
             android:layout_centerHorizontal="true"
             android:layout_width="150dp"
             android:layout_height="200dp"
-            android:src="@drawable/logo_bantoo"/>
+            android:src="@drawable/asset_maid"
+            app:civ_border_color="#EEEEEE"
+            app:civ_border_width="4dp"
+            app:civ_shadow="true"
+            app:civ_shadow_radius="10"
+            app:civ_shadow_color="#8BC34A" />
         <ImageView
             android:layout_marginLeft="-30dp"
             android:layout_marginTop="140dp"

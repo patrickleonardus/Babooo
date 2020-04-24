@@ -15,13 +15,48 @@ public class ServiceSchedule {
     private String orderYear;
     private String orderID;
     private int serviceCost;
-    private boolean accepted;
+    private String accepted;
+    private String notesLocation;
+    private Double longitude, latitude;
+    private String duration;
 
-    public boolean isAccepted() {
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public String getNotesLocation() {
+        return notesLocation;
+    }
+
+    public void setNotesLocation(String notesLocation) {
+        this.notesLocation = notesLocation;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getAccepted() {
         return accepted;
     }
 
-    public void setAccepted(boolean accepted) {
+    public void setAccepted(String accepted) {
         this.accepted = accepted;
     }
 

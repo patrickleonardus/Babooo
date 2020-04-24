@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 
@@ -20,6 +21,7 @@ public class GiveScoreDialog extends Dialog {
 
     Button saveBtn;
     ImageView star1IV, star2IV, star3IV, star4IV, star5IV;
+    EditText commentET;
     int starChoosen;
     String orderUniqueKey;
     FirebaseDatabase firebaseDatabase;
@@ -60,6 +62,7 @@ public class GiveScoreDialog extends Dialog {
         firebaseDatabase = FirebaseDatabase.getInstance();
         orderReference = firebaseDatabase.getReference().child("Order").child(orderUniqueKey);
 
+        commentET = findViewById(R.id.comment_ET_give_dialog);
         star1IV = findViewById(R.id.star1IV_give_dialog);
         star2IV = findViewById(R.id.star2IV_give_dialog);
         star3IV = findViewById(R.id.star3IV_give_dialog);
@@ -112,6 +115,7 @@ public class GiveScoreDialog extends Dialog {
             @Override
             public void onClick(View v) {
                 orderReference.child("rating").setValue(starChoosen);
+                orderReference.child("comment").setValue(commentET.getText().toString());
                 Intent intent = new Intent(getContext(), HomeActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 activity.startActivity(intent);

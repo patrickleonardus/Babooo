@@ -88,10 +88,20 @@
             android:id="@+id/search_location_ET"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Select a place"
-            android:paddingLeft="8dp"
+            android:paddingLeft="10dp"
             android:inputType="none"
-            android:paddingRight="8dp" />
+            android:paddingRight="8dp"
+            android:hint="Input location"
+            android:background="@drawable/border_rounded_edit_text"/>
+
+        <EditText
+            android:id="@+id/notes_location_ET"
+            android:paddingLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="catatan:"
+            android:background="@drawable/border_rounded_edit_text"/>
 
         <Button
             android:id="@+id/search_loaction_BTN"

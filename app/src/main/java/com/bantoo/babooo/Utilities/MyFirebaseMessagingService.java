@@ -12,8 +12,10 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.TaskStackBuilder;
 
 import com.bantoo.babooo.Pages.DailyServicePage.DetailDailyConfirmationPage.DetailDailyConfirmationActivity;
+import com.bantoo.babooo.Pages.DailyServicePage.OrderDone.OrderDoneActivity;
 import com.bantoo.babooo.Pages.HomePage.HomeActivity;
 import com.bantoo.babooo.Pages.LoginPage.LoginActivity;
+import com.bantoo.babooo.Pages.MonthlyServicePage.ExtendContractReminderPage.ExtendContractReminderActivity;
 import com.bantoo.babooo.Pages.MonthlyServicePage.SalaryConfirmationPage.SalaryConfirmationActivity;
 import com.bantoo.babooo.R;
 import com.google.firebase.database.DatabaseReference;
@@ -52,15 +54,39 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         builder.setContentTitle(payload.get("username"));
         builder.setContentText(payload.get("text"));
 
-        String notificationType = payload.get("type");
+        String notificationType = payload.get("notificationType");
         Intent resultIntent = new Intent(this, HomeActivity.class);
-        if(notificationType.equals("maidFound")) {
+        /*if(notificationType.equals("maidFound")) {
             String orderUniqueKey = payload.get("orderUniqueKey");
             resultIntent = new Intent(this, DetailDailyConfirmationActivity.class);
             resultIntent.putExtra("orderUniqueKey", orderUniqueKey);
         } else if (notificationType.equals("payMonthlyMaid")) {
             resultIntent = new Intent(this, SalaryConfirmationActivity.class);
+        }*/
+        if(notificationType != null) {
+            if (notificationType.equals("orderDone")) {
+                String orderUniqueKey = payload.get("orderID");
+                resultIntent = new Intent(this, OrderDoneActivity.class);
+                resultIntent.putExtra("orderUniqueKey", orderUniqueKey);
+            } else if (notificationType.equals("artFound")) {
+                String orderUniqueKey = payload.get("orderID");
+                resultIntent = new Intent(this, DetailDailyConfirmationActivity.class);
+                resultIntent.putExtra("orderUniqueKey", orderUniqueKey);
+            } else if (notificationType.equals("extendMonthlyMaidReminder")) {
+                String rentUniqueKey = payload.get("rentID");
+                resultIntent = new Intent(this, ExtendContractReminderActivity.class);
+                resultIntent.putExtra("rentUniqueKey", rentUniqueKey);
+            } else if (notificationType.equals("payMonthlyMaidSalary")) {
+                String rentUniqueKey = payload.get("rentID");
+                resultIntent = new Intent(this, SalaryConfirmationActivity.class);
+                resultIntent.putExtra("rentUniqueKey", rentUniqueKey);
+            } else if (notificationType.equals("requestDailyOrder")) {
+                //app ART kalo ada yang order daily
+            } else if (notificationType.equals("requestMonthlyOrder")) {
+                //app ART kalo ada yg order monthly
+            }
         }
+
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
         stackBuilder.addNextIntent(resultIntent);
         PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);

@@ -93,6 +93,7 @@ public class DetailDailyConfirmationActivity extends BaseActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.d(TAG, "setInformation: "+snapshot);
+                orderNumberTV.setText(orderUniqueKey);
                 maidNameTV.setText(snapshot.child("maid").getValue().toString());
                 String status = snapshot.child("status").getValue().toString();
                 maidStatusTV.setText(status);

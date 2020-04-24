@@ -8,7 +8,7 @@
         android:title="Layanan" />
     <item
         android:id="@+id/ordersItem"
-        android:icon="@drawable/bottom_nav_order"
+        android:icon="@drawable/asset_logo_history"
         android:title="Order" />
     <item
         android:id="@+id/accountItem"

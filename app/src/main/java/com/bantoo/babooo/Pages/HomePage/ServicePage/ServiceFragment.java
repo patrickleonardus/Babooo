@@ -21,6 +21,7 @@ import com.bantoo.babooo.Pages.DailyServicePage.DailyServiceActivity;
 import com.bantoo.babooo.Pages.DailyServicePage.DetailDailyConfirmationPage.DetailDailyConfirmationActivity;
 import com.bantoo.babooo.Pages.HomePage.HomeActivity;
 import com.bantoo.babooo.Pages.MonthlyServicePage.MonthlyMaidActivity;
+import com.bantoo.babooo.Pages.PurchaseCoinsPage.PurchaseCoinsActivity;
 import com.bantoo.babooo.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -38,6 +39,8 @@ import com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -120,18 +123,20 @@ public class ServiceFragment extends Fragment implements ServiceItemClickListene
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                    String orderDate = snapshot.child("orderDate").getValue().toString();
-                    String serviceType = snapshot.child("serviceType").getValue().toString();
-                    String maid = snapshot.child("maid").getValue().toString();
-                    String orderMonth = snapshot.child("orderMonth").getValue().toString();
-                    String status = snapshot.child("status").getValue().toString();
-                    String orderTime = snapshot.child("orderTime").getValue().toString();
-                    String address = snapshot.child("address").getValue().toString();
-                    String maidPhoneNumber = snapshot.child("maidPhoneNumber").getValue().toString();
-                    ServiceSchedule serviceSchedule = new ServiceSchedule(orderDate, serviceType, maid, orderMonth, status, orderTime, address, maidPhoneNumber);
-                    String orderID = snapshot.getKey();
-                    serviceSchedule.setOrderID(orderID);
-                    serviceScheduleList.add(serviceSchedule);
+                    if(!snapshot.child("status").getValue().toString().equals("Pesanan Selesai")) {
+                        String orderDate = snapshot.child("orderDate").getValue().toString();
+                        String serviceType = snapshot.child("serviceType").getValue().toString();
+                        String maid = snapshot.child("maid").getValue().toString();
+                        String orderMonth = snapshot.child("orderMonth").getValue().toString();
+                        String status = snapshot.child("status").getValue().toString();
+                        String orderTime = snapshot.child("orderTime").getValue().toString();
+                        String address = snapshot.child("address").getValue().toString();
+                        String maidPhoneNumber = snapshot.child("maidPhoneNumber").getValue().toString();
+                        ServiceSchedule serviceSchedule = new ServiceSchedule(orderDate, serviceType, maid, orderMonth, status, orderTime, address, maidPhoneNumber);
+                        String orderID = snapshot.getKey();
+                        serviceSchedule.setOrderID(orderID);
+                        serviceScheduleList.add(serviceSchedule);
+                    }
                 }
                 setupScheduleView();
             }
@@ -187,6 +192,8 @@ public class ServiceFragment extends Fragment implements ServiceItemClickListene
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(),"Top Up Menu",Toast.LENGTH_SHORT).show();
+                Intent moveToPurchaseCoins = new Intent(getContext(), PurchaseCoinsActivity.class);
+                startActivity(moveToPurchaseCoins);
             }
         });
 

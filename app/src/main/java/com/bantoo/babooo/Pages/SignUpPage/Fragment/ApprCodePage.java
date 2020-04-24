@@ -18,6 +18,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.bantoo.babooo.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class ApprCodePage extends Fragment {
 
@@ -25,12 +30,18 @@ public class ApprCodePage extends Fragment {
     EditText codeET1, codeET2, codeET3, codeET4, codeET5, codeET6;
     private String codeTemp1, codeTemp2, codeTemp3, codeTemp4, codeTemp5, codeTemp6;
     private String apprCode;
+    private static boolean correct = false;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference dailyMaidReference, monthlyMaidReference;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_sign_up_apprcode, container, false);
 
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        dailyMaidReference = firebaseDatabase.getReference().child("ART");
+        monthlyMaidReference = firebaseDatabase.getReference().child("ARTBulanan");
         infoBTN = rootView.findViewById(R.id.infoBtn);
         codeET1 = rootView.findViewById(R.id.code1ET);
         codeET2 = rootView.findViewById(R.id.code2ET);
@@ -91,6 +102,7 @@ public class ApprCodePage extends Fragment {
                         editor.putString("apprCode", "N/A").commit();
                     }
                     else {
+                        checkDailyApprovalCode();
                         editor.putString("apprCode", apprCode).commit();
                     }
                 }
@@ -123,6 +135,7 @@ public class ApprCodePage extends Fragment {
                         editor.putString("apprCode", "N/A").commit();
                     }
                     else {
+                        checkDailyApprovalCode();
                         editor.putString("apprCode", apprCode).commit();
                     }
                 }
@@ -154,6 +167,7 @@ public class ApprCodePage extends Fragment {
                         editor.putString("apprCode", "N/A").commit();
                     }
                     else {
+                        checkDailyApprovalCode();
                         editor.putString("apprCode", apprCode).commit();
                     }
                 }
@@ -185,6 +199,7 @@ public class ApprCodePage extends Fragment {
                         editor.putString("apprCode", "N/A").commit();
                     }
                     else {
+                        checkDailyApprovalCode();
                         editor.putString("apprCode", apprCode).commit();
                     }
                 }
@@ -216,6 +231,7 @@ public class ApprCodePage extends Fragment {
                         editor.putString("apprCode", "N/A").commit();
                     }
                     else {
+                        checkDailyApprovalCode();
                         editor.putString("apprCode", apprCode).commit();
                     }
                 }
@@ -246,6 +262,7 @@ public class ApprCodePage extends Fragment {
                         editor.putString("apprCode", "N/A").commit();
                     }
                     else {
+                        checkDailyApprovalCode();
                         editor.putString("apprCode", apprCode).commit();
                     }
                 }
@@ -255,6 +272,46 @@ public class ApprCodePage extends Fragment {
             public void afterTextChanged(Editable s) {}
         });
 
+    }
+
+    public boolean checkApprovalCode() {
+        return correct;
+    }
+
+    private void checkDailyApprovalCode() {
+        dailyMaidReference.orderByChild("approvalCode").equalTo(apprCode).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) {
+                    correct = true;
+                } else {
+                    checkMonthlyApprovalCode();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void checkMonthlyApprovalCode() {
+        monthlyMaidReference.orderByChild("approvalCode").equalTo(apprCode).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) {
+                    correct = true;
+                } else {
+                    correct = false;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void showAlertInfo() {

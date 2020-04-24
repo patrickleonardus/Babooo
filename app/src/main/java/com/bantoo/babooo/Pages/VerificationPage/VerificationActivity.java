@@ -383,7 +383,9 @@ public class VerificationActivity extends BaseActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            if (sender.equals("register")) { createAccount(); }
+                            if (sender.equals("register")) {
+                                createAccount();
+                            }
                             progressButton.buttonFinished(buttonTitle);
                             moveToHome();
                         } else {

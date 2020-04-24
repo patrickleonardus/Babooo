@@ -8,12 +8,13 @@
     tools:context="com.bantoo.babooo.Pages.DailyServicePage.DetailDailyConfirmationPage.DetailDailyConfirmationActivity">
 
     <!--Header-->
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/header_layout_detail_monthly"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="18dp"
@@ -40,10 +41,16 @@
                     android:textColor="@color/greenPrimary"
                     android:textSize="18dp"
                     android:textStyle="bold" />
-
             </LinearLayout>
 
-        </LinearLayout>
+            <ImageView
+                android:id="@+id/options_menu_detail_monthly"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/asset_close"/>
+
+        </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
@@ -51,7 +58,7 @@
             android:layout_alignParentTop="true"
             android:background="@android:color/darker_gray" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <!--Parent Layout-->
     <LinearLayout
@@ -166,18 +173,25 @@
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/maid_call_detail_monthly_confirmation_TV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerInParent="true"
-                    android:layout_marginRight="5dp"
-                    android:layout_toRightOf="@+id/detail_maid_detail_daily_confirmation_layout"
-                    android:text="Hubungi"
-                    android:textAlignment="viewEnd"
-                    android:textColor="@color/greenPrimary"
-                    android:textSize="13sp" />
+            <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_alignParentRight="true">
+            <ImageView
+                android:id="@+id/call_IV_detail_monthly"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/asset_hp_hubungi"/>
+            <ImageView
+                android:layout_marginRight="10dp"
+                android:id="@+id/message_IV_detail_monthly"
+                android:layout_marginLeft="10dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/asset_message"/>
+        </LinearLayout>
 
             </RelativeLayout>
 
@@ -249,7 +263,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Tanggal Pengerjaan"
+                    android:text="Tanggal Kedatangan"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
 

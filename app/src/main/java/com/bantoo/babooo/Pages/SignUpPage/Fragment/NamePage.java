@@ -20,6 +20,11 @@ public class NamePage extends Fragment {
 
     EditText nameET;
     private String name;
+    public static boolean correct;
+
+    public boolean getCorrect() {
+        return correct;
+    }
 
     @Nullable
     @Override
@@ -39,9 +44,11 @@ public class NamePage extends Fragment {
                 name = nameET.getText().toString();
 
                 if (name.length() < 4){
+                    correct = false;
                     nameET.setError("Nama anda terlalu singkat");
                 }
                 else {
+                    correct = true;
                     SharedPreferences sharedPreferences = getContext().getSharedPreferences("userPref", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("name", name).commit();

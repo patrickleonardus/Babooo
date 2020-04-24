@@ -124,5 +124,8 @@ public class MaidDetailActivity extends BaseActivity {
         rating3IV.setVisibility(View.GONE);
         rating4IV.setVisibility(View.GONE);
         rating5IV.setVisibility(View.GONE);
+        if(getIntent().getStringExtra("sender") != null) {
+            recruitButton.setVisibility(View.GONE);
+        }
     }
 }

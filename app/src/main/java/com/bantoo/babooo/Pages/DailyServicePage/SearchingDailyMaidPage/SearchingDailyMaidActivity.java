@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
@@ -13,9 +15,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bantoo.babooo.Model.MaidRequest;
 import com.bantoo.babooo.Pages.DailyServicePage.DetailDailyConfirmationPage.DetailDailyConfirmationActivity;
+import com.bantoo.babooo.Pages.LoginPage.LoginActivity;
+import com.bantoo.babooo.Pages.SignUpPage.SignUpRoleActivity;
 import com.bantoo.babooo.R;
 import com.bantoo.babooo.Utilities.BaseActivity;
 import com.google.firebase.database.DataSnapshot;
@@ -29,21 +34,25 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class SearchingDailyMaidActivity extends BaseActivity {
 
     private static final String TAG = "SearchingDailyMaid";
-    private String orderUniqueKey, uid;
+    private String orderUniqueKey, uid, userPhoneNumber;
     private Double userLatitude, userLongitude;
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference artReference;
+    private DatabaseReference artReference, userReference;
     private int maidCounter = 0, distanceMax = 2000, serviceCost, coinsAmount;
-    private DatabaseReference orderReference, userReference;
+    private DatabaseReference orderReference;
     private ValueEventListener maidEventListener;
     private Date timeChoosen;
     private SharedPreferences accountDataSharedPreferences;
     private LinearLayout cancelLayout;
-    private TextView userCoinsTV, serviceCostTV;
+    private TextView userCoinsTV, serviceCostTV, serviceTypeTV;
+    private Timer timeout;
+    private long timerRunning = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,21 +61,103 @@ public class SearchingDailyMaidActivity extends BaseActivity {
 
         initView();
         handleAction();
-        initData();
-        findMaid();
+        if(getIntent().getStringExtra("sender") != null &&
+                getIntent().getStringExtra("sender").equals("orders")) {
+            firebaseDatabase = FirebaseDatabase.getInstance();
+            orderReference = firebaseDatabase.getReference().child("Order");
+            orderUniqueKey = getIntent().getStringExtra("orderUniqueKey");
+            userReference = firebaseDatabase.getReference().child("Users");
+            initView();
+            handleAction();
+            showOrderInfo();
+            checkARTAssigned();
+        } else {
+            configureTimeout();
+            initData();
+            findMaid();
+        }
+    }
+
+    private void showOrderInfo() {
+        orderReference.child(orderUniqueKey).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                serviceCost = Integer.parseInt(dataSnapshot.child("serviceCost").getValue().toString());
+                serviceCostTV.setText(dataSnapshot.child("serviceCost").getValue().toString());
+                serviceTypeTV.setText(dataSnapshot.child("serviceType").getValue().toString());
+                userPhoneNumber = dataSnapshot.child("phoneNumber").getValue().toString();
+                showUserCoins();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void showUserCoins() {
+        userReference.orderByChild("phoneNumber").equalTo(userPhoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    userCoinsTV.setText(snapshot.child("coins").getValue().toString());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void configureTimeout() {
+        timeout = new Timer();
+        timeout.scheduleAtFixedRate(new TimerTask(){
+            @Override
+            public void run(){
+                timerRunning += 60;
+                Log.d(TAG, "run timing: "+timerRunning);
+                if(timerRunning == 300) {
+                    cancelOrder();
+                    Intent moveToARTNotFound = new Intent(SearchingDailyMaidActivity.this, MaidNotFoundActivity.class);
+                    startActivityForResult(moveToARTNotFound, 1);
+                    this.cancel();
+                }
+            }
+        },0,60*1000);
     }
 
     private void initView() {
         cancelLayout = findViewById(R.id.cancel_layout_searching_daily);
         userCoinsTV = findViewById(R.id.user_coins_TV_searching);
         serviceCostTV = findViewById(R.id.cost_service_TV_searching_daily);
+        serviceTypeTV = findViewById(R.id.tipeLayanan_TV_searching);
     }
 
     private void handleAction() {
         cancelLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cancelOrder();
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        SearchingDailyMaidActivity.this);
+                alertDialogBuilder.setTitle("Apakah anda ingin membatalkan pesanan?");
+                alertDialogBuilder
+                        .setMessage("Pesanan tidak akan dilanjutkan kembali")
+                        .setCancelable(false)
+                        .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                cancelOrder();
+                            }
+                        })
+                        .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
             }
         });
     }
@@ -119,6 +210,7 @@ public class SearchingDailyMaidActivity extends BaseActivity {
                             .show();*/
                     maidCounter = -1;
                     cancelOrder();
+                    timeout.cancel();
                     Intent moveToARTNotFound = new Intent(SearchingDailyMaidActivity.this, MaidNotFoundActivity.class);
                     startActivityForResult(moveToARTNotFound, 1);
                 }
@@ -145,18 +237,35 @@ public class SearchingDailyMaidActivity extends BaseActivity {
         orderReference.child(orderUniqueKey).removeEventListener(maidEventListener);
         orderReference.child(orderUniqueKey).removeValue();
         //balikin coinnya ya.
-        userReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                dataSnapshot.getRef().child("coins").setValue(Integer.parseInt(dataSnapshot.child("coins").getValue().toString()) + serviceCost);
-                finish();
-            }
+        if(getIntent().getStringExtra("sender") == null) {
+            userReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    dataSnapshot.getRef().child("coins").setValue(Integer.parseInt(dataSnapshot.child("coins").getValue().toString()) + serviceCost);
+                    finish();
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        } else {
+            userReference.orderByChild("phoneNumber").equalTo(userPhoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                        snapshot.getRef().child("coins").setValue(Integer.parseInt(snapshot.child("coins").getValue().toString()) + serviceCost);
+                        finish();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
     }
 
     private void checkARTWorkingHours(String maidPhoneNumber, DataSnapshot snapshot, Location userLoc) {
@@ -223,6 +332,7 @@ public class SearchingDailyMaidActivity extends BaseActivity {
                 if(dataSnapshot.child("maid").getValue() == null) {
                     orderReference.child(orderUniqueKey).removeEventListener(maidEventListener);
                 } else if (dataSnapshot.child("maid").getValue().toString().equals("maid") == false) {
+                    timeout.cancel();
                     orderReference.child(orderUniqueKey).removeEventListener(maidEventListener);
                     Log.d(TAG, "onDataChange: "+dataSnapshot.child("maid").getValue().toString());
                     Intent moveToDetail = new Intent(SearchingDailyMaidActivity.this, DetailDailyConfirmationActivity.class);

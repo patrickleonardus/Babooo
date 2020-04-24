@@ -29,15 +29,16 @@
             android:textColor="@color/black"
             android:textSize="20sp" />
 
-        <EditText
-            android:id="@+id/location_sign_up_ET"
+
+        <Spinner
+            android:layout_marginTop="12dp"
+            android:background="@drawable/border_rounded_edit_text"
+            android:id="@+id/spinner_city_signup"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="12sp"
-            android:background="@drawable/border_rounded_edit_text"
-            android:hint="Masukan lokasi anda tinggal"
-            android:paddingLeft="8sp"
-            android:paddingRight="8sp" />
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:entries="@array/Kota" />
 
     </LinearLayout>
 

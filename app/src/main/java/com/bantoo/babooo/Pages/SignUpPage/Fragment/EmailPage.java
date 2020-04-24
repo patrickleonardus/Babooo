@@ -20,6 +20,7 @@ public class EmailPage extends Fragment {
 
     EditText emailET;
     private String email;
+    public static boolean correct = false;
 
     @Nullable
     @Override
@@ -38,15 +39,19 @@ public class EmailPage extends Fragment {
                 email = emailET.getText().toString();
 
                 if (email.length() < 3){
+                    correct = false;
                     emailET.setError("Masukan format email yang benar");
                 }
                 else if (!email.contains("@")) {
+                    correct = false;
                     emailET.setError("Masukan format email yang benar");
                 }
                 else if (!email.contains(".com") && !email.contains(".co.id")) {
+                    correct = false;
                     emailET.setError("Masukan format email yang benar");
                 }
                 else {
+                    correct = true;
                     SharedPreferences sharedPreferences = getContext().getSharedPreferences("userPref", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("email",email).commit();
@@ -59,5 +64,8 @@ public class EmailPage extends Fragment {
         });
 
         return rootView;
+    }
+    public boolean getCorrect() {
+        return correct;
     }
 }

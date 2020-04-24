@@ -66,7 +66,7 @@
         android:layout_marginTop="-40dp"
         android:layout_marginRight="25dp"
         android:background="@drawable/border_ellips_grey_edit_text"
-        android:drawableEnd="@drawable/drawable_end_search_edit_text"
+        android:drawableEnd="@drawable/smaller_search_icon"
         android:hint="Cari"
         android:paddingLeft="20dp"
         android:paddingRight="20dp" />
