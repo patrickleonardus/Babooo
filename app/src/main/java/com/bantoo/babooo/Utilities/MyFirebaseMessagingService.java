@@ -44,7 +44,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         SharedPreferences accountDataSharedPreferences = getApplicationContext().getSharedPreferences("accountData", MODE_PRIVATE);
         String uid = accountDataSharedPreferences.getString("uid", "");
         Log.d("ON NEW TOKEN", "onNewToken: created new token");
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(uid);
+        DatabaseReference reference;
+        if(accountDataSharedPreferences.getString("role", "").equals("art")) {
+            reference = FirebaseDatabase.getInstance().getReference("ART").child(uid);
+        } else if(accountDataSharedPreferences.getString("role", "").equals("artBulanan")) {
+            reference = FirebaseDatabase.getInstance().getReference("ARTBulanan").child(uid);
+        } else {
+            reference = FirebaseDatabase.getInstance().getReference("Users").child(uid);
+        }
         reference.child("token").setValue(s);
     }
 

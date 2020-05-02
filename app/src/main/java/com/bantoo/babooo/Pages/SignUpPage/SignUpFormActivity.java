@@ -16,7 +16,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bantoo.babooo.Pages.SignUpPage.Fragment.ApprCodePage;
 import com.bantoo.babooo.Pages.SignUpPage.Fragment.EmailPage;
@@ -272,7 +271,8 @@ public class SignUpFormActivity extends BaseActivity {
         SharedPreferences.Editor editor = fromSharePref.edit();
         editor.putString("from", "maidRegister").commit();
         //Intent
-
+        Intent moveToDetailInformation = new Intent(SignUpFormActivity.this, MaidDetailRegisterInformationActivity.class);
+        startActivity(moveToDetailInformation);
     }
 
     private void moveToVerification() {

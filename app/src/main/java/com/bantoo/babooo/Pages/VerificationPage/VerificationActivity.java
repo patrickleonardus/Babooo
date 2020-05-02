@@ -127,7 +127,13 @@ public class VerificationActivity extends BaseActivity {
                     String token = "";
                     token = instanceIdResult.getToken();
                     User user = new User(role, name, email, phoneNum, password, address, token);
-                    firebaseHelper.addUser(user, uid);
+                    if(role.equals("pengguna")) {
+                        firebaseHelper.addUser(user, uid);
+                    } else if(role.equals("art")) {
+
+                    } else if(role.equals("artBulanan")) {
+
+                    }
                 }
             });
         }
@@ -387,7 +393,13 @@ public class VerificationActivity extends BaseActivity {
                                 createAccount();
                             }
                             progressButton.buttonFinished(buttonTitle);
-                            moveToHome();
+                            if(getIntent().getStringExtra("role").equals("art")) {
+                                Toast.makeText(VerificationActivity.this, "Ini ART", Toast.LENGTH_SHORT).show();
+                            } else if(getIntent().getStringExtra("role").equals("artBulanan")) {
+                                Toast.makeText(VerificationActivity.this, "ini ART Bulanan", Toast.LENGTH_SHORT).show();
+                            } else {
+                                moveToHome();
+                            }
                         } else {
                             displayError("Kode verifikasi salah, mohon periksa kembali");
                             progressButton.buttonFinished(buttonTitle);

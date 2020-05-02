@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context="com.bantoo.babooo.Pages.SignUpPage.Fragment.MaidDataFragment">
 
     <LinearLayout
@@ -12,7 +13,67 @@
         android:layout_marginRight="20dp"
         android:gravity="center_vertical"
         android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Konfirmasi Data Mitra"
+            android:textStyle="bold"
+            android:textSize="16sp" />
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Silahkan periksa kembali data-data Anda\ndi bawah ini sebelum melanjutkan"
+            android:textSize="16sp"/>
 
+        <TextView
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nama"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tempat tanggal lahir"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No. KTP"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Alamat"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No. HP"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pengalaman Kerja"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gaji Perbulan"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Preferensi Kota bekerja"
+            android:textStyle="bold"/>
     </LinearLayout>
 
 </FrameLayout>

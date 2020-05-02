@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".Pages.HomePage.HomeActivity">
+    tools:context="com.bantoo.babooo.Pages.MaidPages.MaidHomePages.MaidHomeActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -29,7 +28,7 @@
             android:layout_alignParentBottom="true"
             app:itemBackground="@color/white"
             app:labelVisibilityMode="labeled"
-            app:menu="@menu/bottom_nav_items">
+            app:menu="@menu/bottom_nav_maid_items">
 
         </com.google.android.material.bottomnavigation.BottomNavigationView>
 

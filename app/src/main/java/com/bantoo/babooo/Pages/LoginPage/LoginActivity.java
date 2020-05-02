@@ -150,8 +150,10 @@ public class LoginActivity extends BaseActivity {
                     progressBTN.buttonFinished();
                     Intent moveToVerification = new Intent(LoginActivity.this, VerificationActivity.class);
                     moveToVerification.putExtra("phoneNumber", phoneNumberET.getText().toString());
+                    moveToVerification.putExtra("role", "user");
                     SharedPreferences accountData = getApplicationContext().getSharedPreferences("accountData", MODE_PRIVATE);
                     SharedPreferences.Editor editor = accountData.edit();
+                    editor.putString("role", "user");
                     for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
                         editor.putString("uid", snapshot.getKey());
                         editor.apply();
@@ -160,10 +162,70 @@ public class LoginActivity extends BaseActivity {
                     startActivity(moveToVerification);
                 } else if (!dataSnapshot.exists()) {
                     progressBTN.buttonFinished();
-                    unregisteredPhoneNumber();
+                    checkARTAccount();
                 } else {
                     progressBTN.buttonFinished();
                     Toast.makeText(getApplicationContext(), "Terjadi kesalahan, periksa koneksi jaringan anda", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void checkARTAccount() {
+        DatabaseReference artReference = reference.child("ART");
+        artReference.orderByChild("phoneNumber").equalTo(phoneNumberET.getText().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) {
+                    Intent moveToVerification = new Intent(LoginActivity.this, VerificationActivity.class);
+                    moveToVerification.putExtra("phoneNumber", phoneNumberET.getText().toString());
+                    moveToVerification.putExtra("role", "art");
+                    SharedPreferences accountData = getApplicationContext().getSharedPreferences("accountData", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = accountData.edit();
+                    editor.putString("role", "art");
+                    for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                        editor.putString("uid", snapshot.getKey());
+                        editor.apply();
+                        break;
+                    }
+                    startActivity(moveToVerification);
+                } else {
+                    checkMonthlyARTAccount();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void checkMonthlyARTAccount() {
+        DatabaseReference monthlyARTReference = reference.child("ARTBulanan");
+        monthlyARTReference.orderByChild("phoneNumber").equalTo(phoneNumberET.getText().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) {
+                    Intent moveToVerification = new Intent(LoginActivity.this, VerificationActivity.class);
+                    moveToVerification.putExtra("phoneNumber", phoneNumberET.getText().toString());
+                    moveToVerification.putExtra("role", "artBulanan");
+                    SharedPreferences accountData = getApplicationContext().getSharedPreferences("accountData", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = accountData.edit();
+                    editor.putString("role", "artBulanan");
+                    for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                        editor.putString("uid", snapshot.getKey());
+                        editor.apply();
+                        break;
+                    }
+                    startActivity(moveToVerification);
+                } else {
+                    unregisteredPhoneNumber();
                 }
             }
 

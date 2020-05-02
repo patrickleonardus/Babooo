@@ -29,7 +29,7 @@ public class ApprCodePage extends Fragment {
     ImageView infoBTN;
     EditText codeET1, codeET2, codeET3, codeET4, codeET5, codeET6;
     private String codeTemp1, codeTemp2, codeTemp3, codeTemp4, codeTemp5, codeTemp6;
-    private String apprCode;
+    private static String apprCode;
     private static boolean correct = false;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference dailyMaidReference, monthlyMaidReference;
@@ -282,8 +282,11 @@ public class ApprCodePage extends Fragment {
         dailyMaidReference.orderByChild("approvalCode").equalTo(apprCode).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                SharedPreferences sharedPreferences = getContext().getSharedPreferences("userPref", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
                 if(dataSnapshot.exists()) {
                     correct = true;
+                    editor.putString("artType", "daily").commit();
                 } else {
                     checkMonthlyApprovalCode();
                 }
@@ -300,8 +303,11 @@ public class ApprCodePage extends Fragment {
         monthlyMaidReference.orderByChild("approvalCode").equalTo(apprCode).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                SharedPreferences sharedPreferences = getContext().getSharedPreferences("userPref", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
                 if(dataSnapshot.exists()) {
                     correct = true;
+                    editor.putString("artType", "monthly").commit();
                 } else {
                     correct = false;
                 }

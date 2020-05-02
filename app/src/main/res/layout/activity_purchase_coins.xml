@@ -39,6 +39,7 @@
             android:layout_height="40dp"
             android:src="@drawable/drawable_start_coins_edit_text"/>
         <TextView
+            android:id="@+id/coins_TV_purchase"
             android:layout_marginLeft="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,7 +48,13 @@
             android:textSize="26sp"/>
     </LinearLayout>
 
-    <RelativeLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/in_app_purchase_RV"
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!--<RelativeLayout
         android:layout_marginTop="50dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
@@ -255,6 +262,6 @@
             android:background="@drawable/rounded_button_green"
             android:text="Rp. 880.000"
             android:textColor="@color/white"/>
-    </RelativeLayout>
+    </RelativeLayout> -->
 
 </LinearLayout>

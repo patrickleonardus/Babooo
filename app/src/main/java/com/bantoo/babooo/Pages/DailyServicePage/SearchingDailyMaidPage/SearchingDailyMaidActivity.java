@@ -285,9 +285,9 @@ public class SearchingDailyMaidActivity extends BaseActivity {
                         Date orderDate = format.parse(fullTime);
                         //in minutes
                         long difference = (orderDate.getTime() - timeChoosen.getTime())/60000;
-                        //if working time and order time below 4 hours
+                        //if working time and order time below 2 hours
                         Log.d(TAG, "artworkinghours: timeDifference: "+difference);
-                        if(Math.abs(difference) < 240) {
+                        if(Math.abs(difference) < 120) {
                             workingValid = false;
                         }
                     } catch (ParseException e) {

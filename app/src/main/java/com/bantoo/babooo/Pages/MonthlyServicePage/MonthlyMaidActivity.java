@@ -3,6 +3,8 @@ package com.bantoo.babooo.Pages.MonthlyServicePage;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -89,7 +91,8 @@ public class MonthlyMaidActivity extends BaseActivity implements Serializable {
     private void applyFilter() {
         for(int i = 0; i < maidList.size(); i++) {
             //check cost
-            if(maidList.get(i).getCost() < Integer.parseInt(filterSearches.get(0).getMinCost()) || maidList.get(i).getCost() > Integer.parseInt(filterSearches.get(0).getMaxCost())) {
+            if(maidList.get(i).getCost() < Integer.parseInt(filterSearches.get(0).getMinCost())
+                    || maidList.get(i).getCost() > Integer.parseInt(filterSearches.get(0).getMaxCost())) {
                 maidList.remove(i);
             }
         }
@@ -122,13 +125,14 @@ public class MonthlyMaidActivity extends BaseActivity implements Serializable {
     }
 
     private void receiveMonthlyMaidData() {
+        maidList.clear();
         firebaseDatabase = FirebaseDatabase.getInstance();
         monthlyMaidReference = firebaseDatabase.getReference().child("ARTBulanan");
         monthlyMaidReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                    if (snapshot.child("working").getValue().toString() == "false") {
+                    if (snapshot.child("working").getValue().toString() == "false" && snapshot.child("activate").getValue().toString() == "true") {
                         String name = snapshot.child("name").getValue().toString();
                         String email = snapshot.child("email").getValue().toString();
                         String phoneNumber = snapshot.child("phoneNumber").getValue().toString();
@@ -188,6 +192,38 @@ public class MonthlyMaidActivity extends BaseActivity implements Serializable {
                 return false;
             }
         });
+        searchMaidET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                searchMaid();
+            }
+        });
+    }
+
+    private void searchMaid() {
+        if(searchMaidET.getText().toString().equals("")){
+            receiveMonthlyMaidData();
+        } else {
+            for (int i = 0; i < maidList.size(); i++) {
+                if(!maidList.get(i).name.contains(searchMaidET.getText().toString())) {
+                    maidList.remove(i);
+                }
+                /*for(int j = 0; j < searchMaidET.getText().toString().length(); j++) {
+
+                }*/
+            }
+            adapter.notifyDataSetChanged();
+        }
     }
 
     private void handleButton() {

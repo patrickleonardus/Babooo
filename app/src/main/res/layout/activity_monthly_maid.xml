@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context="com.bantoo.babooo.Pages.MonthlyServicePage.MonthlyMaidActivity">
 
@@ -66,7 +67,6 @@
         android:layout_marginTop="-40dp"
         android:layout_marginRight="25dp"
         android:background="@drawable/border_ellips_grey_edit_text"
-        android:drawableEnd="@drawable/smaller_search_icon"
         android:hint="Cari"
         android:paddingLeft="20dp"
         android:paddingRight="20dp" />

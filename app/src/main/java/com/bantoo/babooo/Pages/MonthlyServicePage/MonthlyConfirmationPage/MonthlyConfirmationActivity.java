@@ -83,6 +83,7 @@ public class MonthlyConfirmationActivity extends BaseActivity implements Adapter
         initVar();
 
         handleAction();
+        calculateCoins();
     }
 
     private void initView() {
@@ -232,6 +233,45 @@ public class MonthlyConfirmationActivity extends BaseActivity implements Adapter
             }
         });
     }
+
+    private void calculateCoins() {
+        monthlyMaidReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int maidSalary = Integer.parseInt(dataSnapshot.child("salary").getValue().toString());
+                int feePercentage = 0;
+                Log.d(TAG, "calculateCoins: duration: "+duration);
+                switch (Integer.parseInt(duration)) {
+                    case 1:
+                    case 3:
+                        feePercentage = 20;
+                        break;
+                    case 6:
+                        feePercentage = 15;
+                        break;
+                    case 12:
+                        feePercentage = 12;
+                        break;
+                    default:
+                        feePercentage = 0;
+                        break;
+                }
+                Log.d(TAG, "calculateCoins: salary: "+maidSalary);
+                Log.d(TAG, "calculateCoins: feePercent: "+feePercentage);
+                float totalSalary = maidSalary * Integer.parseInt(duration);
+                float totalFeeInIDR = totalSalary * feePercentage / 100;
+                Log.d(TAG, "calculateCoins: totalFeeIDR: "+totalFeeInIDR);
+                serviceCost = (int) totalFeeInIDR / 300;
+                Log.d(TAG, "calculateCoins: serviceCost"+serviceCost);
+                serviceCostTV.setText(""+serviceCost);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
     
     private void processOrder() {
         monthlyMaidReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -286,6 +326,7 @@ public class MonthlyConfirmationActivity extends BaseActivity implements Adapter
         serviceTimeTV.setText(dateFormat.format(c.getTime()));
         c.add(Calendar.MONTH, Integer.parseInt(duration));
         estimatedTimeTV.setText(dateFormat.format(c.getTime()));
+        calculateCoins();
     }
 
     @Override
