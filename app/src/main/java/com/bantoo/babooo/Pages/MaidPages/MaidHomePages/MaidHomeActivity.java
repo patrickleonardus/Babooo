@@ -31,6 +31,7 @@ public class MaidHomeActivity extends BaseActivity {
 
     private void fragmentSetup() {
         pendapatanFragment = new PendapatanFragment();
+        setFragment(pendapatanFragment);
         navbar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {

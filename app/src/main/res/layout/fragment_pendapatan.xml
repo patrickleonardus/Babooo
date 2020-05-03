@@ -24,10 +24,11 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"/>
             <TextView
+                android:id="@+id/type_maid_TV"
                 android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mitra Bantoo Bulanan"
+                android:text="Mitra Bantoo Harian"
                 android:textColor="@color/greenPrimary"/>
         </LinearLayout>
 
@@ -102,6 +103,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <ImageView
+                        android:id="@+id/coins_logo_pendapatan_IV"
                         android:src="@drawable/drawable_start_coins_edit_text"
                         android:layout_width="50dp"
                         android:layout_height="50dp"/>
@@ -133,10 +135,11 @@
                         android:id="@+id/withdraw_salary_IV"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="20dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:src="@drawable/drawable_start_coins_edit_text"/>
                     <TextView
+                        android:id="@+id/cairkan_koin_TV"
                         android:layout_marginRight="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -283,6 +286,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/border_rounded_edit_text">
                 <TextView
+                    android:id="@+id/pendapatan_TV"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="15dp"
                     android:layout_width="wrap_content"
@@ -297,6 +301,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <ImageView
+                        android:id="@+id/coins_logo_hari_ini_IV"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@drawable/drawable_start_coins_edit_text"/>

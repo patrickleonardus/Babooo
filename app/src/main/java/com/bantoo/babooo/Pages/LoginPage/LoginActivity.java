@@ -10,12 +10,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bantoo.babooo.Pages.HomePage.HomeActivity;
+import com.bantoo.babooo.Pages.MaidPages.MaidHomePages.MaidHomeActivity;
 import com.bantoo.babooo.Pages.SignUpPage.SignUpRoleActivity;
 import com.bantoo.babooo.Pages.VerificationPage.VerificationActivity;
 import com.bantoo.babooo.R;
@@ -69,8 +71,15 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void moveToHome() {
-        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-        startActivity(intent);
+        SharedPreferences sharedPreferences = getSharedPreferences("accountData", Context.MODE_PRIVATE);
+        Log.d("Login", "moveToHome: role: "+sharedPreferences.getString("artType", ""));
+        if(sharedPreferences.getString("artType", "").equals("")) {
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            startActivity(intent);
+        } else if(!sharedPreferences.getString("artType", "").isEmpty()) {
+            Intent intent = new Intent(LoginActivity.this, MaidHomeActivity.class);
+            startActivity(intent);
+        }
         LoginActivity.this.finish();
     }
 

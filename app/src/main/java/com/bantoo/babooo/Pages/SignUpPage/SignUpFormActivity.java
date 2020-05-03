@@ -271,8 +271,9 @@ public class SignUpFormActivity extends BaseActivity {
         SharedPreferences.Editor editor = fromSharePref.edit();
         editor.putString("from", "maidRegister").commit();
         //Intent
+        /*
         Intent moveToDetailInformation = new Intent(SignUpFormActivity.this, MaidDetailRegisterInformationActivity.class);
-        startActivity(moveToDetailInformation);
+        startActivity(moveToDetailInformation);*/
     }
 
     private void moveToVerification() {

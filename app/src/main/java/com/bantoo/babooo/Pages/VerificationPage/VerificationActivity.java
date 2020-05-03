@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.bantoo.babooo.Model.FirebaseHelper;
 import com.bantoo.babooo.Model.User;
 import com.bantoo.babooo.Pages.HomePage.HomeActivity;
+import com.bantoo.babooo.Pages.MaidPages.MaidHomePages.MaidHomeActivity;
 import com.bantoo.babooo.R;
 import com.bantoo.babooo.Utilities.BaseActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -362,6 +363,27 @@ public class VerificationActivity extends BaseActivity {
         startActivity(intent);
     }
 
+    private void moveToARTBulanan() {
+        Intent intent = new Intent(VerificationActivity.this, MaidHomeActivity.class);
+        SharedPreferences sharedPreferences = getSharedPreferences("accountData", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("phoneNumber", phoneNumber);
+        editor.putString("artType", "monthly");
+        editor.apply();
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    private void moveToART() {
+        Intent intent = new Intent(VerificationActivity.this, MaidHomeActivity.class);
+        SharedPreferences sharedPreferences = getSharedPreferences("accountData", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("phoneNumber", phoneNumber).commit();
+        editor.putString("artType", "daily").commit();
+        editor.apply();
+        startActivity(intent);
+    }
+
     //FIREBASE AUTH
     //BELOW CODE HANDLE AUTHENTICATION METHOD
 
@@ -395,8 +417,10 @@ public class VerificationActivity extends BaseActivity {
                             progressButton.buttonFinished(buttonTitle);
                             if(getIntent().getStringExtra("role").equals("art")) {
                                 Toast.makeText(VerificationActivity.this, "Ini ART", Toast.LENGTH_SHORT).show();
+                                moveToART();
                             } else if(getIntent().getStringExtra("role").equals("artBulanan")) {
                                 Toast.makeText(VerificationActivity.this, "ini ART Bulanan", Toast.LENGTH_SHORT).show();
+                                moveToARTBulanan();
                             } else {
                                 moveToHome();
                             }

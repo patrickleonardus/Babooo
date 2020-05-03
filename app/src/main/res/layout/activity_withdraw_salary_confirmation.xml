@@ -63,11 +63,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nomor Pengajuan"
-            android:textStyle="bold"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nomor Pengajuan"
+                android:textStyle="bold"/>
             <TextView
+                android:id="@+id/nomor_pengajuan_TV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="COVID-19"/>
@@ -84,6 +85,7 @@
                 android:text="Tanggal Pengajuan"
                 android:textStyle="bold"/>
             <TextView
+                android:id="@+id/tanggal_pengajuan_TV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="textEnd"
@@ -111,6 +113,7 @@
             android:layout_height="50dp"
             android:src="@drawable/drawable_start_coins_edit_text"/>
         <TextView
+            android:id="@+id/coins_TV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -128,6 +131,7 @@
         android:textStyle="bold"/>
 
     <TextView
+        android:id="@+id/rupiah_nominal_TV"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
         android:textSize="28sp"

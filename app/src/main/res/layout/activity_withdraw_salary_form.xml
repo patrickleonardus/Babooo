@@ -76,6 +76,7 @@
                 android:layout_height="30dp"
                 android:src="@drawable/asset_topup"/>
             <TextView
+                android:id="@+id/current_coins_TV"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
                 android:layout_marginRight="10dp"
@@ -108,11 +109,11 @@
             android:layout_height="50dp"
             android:src="@drawable/drawable_start_coins_edit_text"/>
         <EditText
+            android:id="@+id/coins_withdraw_ET"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="7dp"
             android:hint="0 koin"
-            android:background="none"
             android:textColor="@color/quantum_yellow800"
             android:textStyle="bold"
             android:textSize="26sp"/>
@@ -123,10 +124,11 @@
         android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Jumlah koin yang ingin ditarik"
+        android:text="Nominal dalam rupiah"
         android:textStyle="bold"/>
 
     <TextView
+        android:id="@+id/rupiah_nominal_TV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Rp 270.000"
@@ -144,6 +146,7 @@
         android:textStyle="bold"/>
 
     <TextView
+        android:id="@+id/current_date_TV"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
         android:layout_width="wrap_content"

@@ -21,11 +21,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Pages.MaidPages.ReceiveSalaryConfirmationActivity"></activity>
-        <activity android:name=".Pages.MaidPages.WithdrawSalaryConfirmationActivity" />
-        <activity android:name=".Pages.MaidPages.WithdrawSalaryFormActivity" />
-        <activity android:name=".Pages.MaidPages.MaidHomePages.MaidHomeActivity" />
-        <activity android:name=".Pages.PurchaseCoinsPage.PurchaseCoinsActivity" />
+        <activity android:name=".Pages.MaidPages.ReceiveSalaryConfirmationActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity android:name=".Pages.MaidPages.WithdrawSalaryConfirmationActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".Pages.MaidPages.WithdrawSalaryFormActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".Pages.MaidPages.MaidHomePages.MaidHomeActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".Pages.PurchaseCoinsPage.PurchaseCoinsActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".Pages.MonthlyServicePage.ExtendContractReminderPage.ExtendContractReminderActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

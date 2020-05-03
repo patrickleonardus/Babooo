@@ -141,8 +141,8 @@ public class SalaryConfirmationActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Map<String, Object> salaryConfirmMap = new HashMap<String, Object>();
-                salaryConfirmMap.put("Gaji "+monthSpinner.getSelectedItem(), "Sudah Dibayar");
-                rentReference.updateChildren(salaryConfirmMap);
+                salaryConfirmMap.put("user", "Sudah Dibayar");
+                rentReference.child("gaji "+monthSpinner.getSelectedItem()).updateChildren(salaryConfirmMap);
             }
         });
     }

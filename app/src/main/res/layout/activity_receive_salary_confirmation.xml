@@ -34,6 +34,7 @@
             android:text="Telah diterima dari"
             android:textStyle="bold"/>
         <TextView
+            android:id="@+id/boss_TV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Merliana"
@@ -53,6 +54,7 @@
             android:text="Pada Tanggal"
             android:textStyle="bold"/>
         <TextView
+            android:id="@+id/tanggal_pemberian_gaji_TV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="19 Maret 2020"
@@ -90,6 +92,7 @@
             android:text="Nomor Pesanan"
             android:textStyle="bold"/>
         <TextView
+            android:id="@+id/nomor_pesanan_TV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="BCU18-192192193199"
@@ -109,6 +112,7 @@
             android:text="Gaji Bulanan"
             android:textStyle="bold"/>
         <TextView
+            android:id="@+id/gaji_bulanan_status_TV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bulan ke 2 dari 3"
@@ -129,6 +133,7 @@
             android:text="Periode"
             android:textStyle="bold"/>
         <TextView
+            android:id="@+id/periode_TV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="19 Feb - 19 Mar 2020"
@@ -157,6 +162,7 @@
             android:text="Gaji Pokok"
             android:textStyle="bold"/>
         <TextView
+            android:id="@+id/gajiPokok_TV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -193,12 +199,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/gaji_total_TV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Rp 3.000.000"
                 android:textAlignment="textEnd"
                 android:textColor="@color/greenPrimary"/>
             <TextView
+                android:id="@+id/gaji_total_tersebut_TV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="tiga juta rupiah"
@@ -219,11 +227,13 @@
             android:layout_alignParentRight="true"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/tanggal_sekarang_TV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="19 Maret 2020"/>
             <TextView
-                android:textAlignment="textEnd"
+                android:id="@+id/name_maid_TV"
+                android:textAlignment="viewEnd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
