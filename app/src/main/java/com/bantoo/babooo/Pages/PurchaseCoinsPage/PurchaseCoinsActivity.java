@@ -44,7 +44,6 @@ public class PurchaseCoinsActivity extends BaseActivity implements PurchasesUpda
         initView();
         setupProductName();
         setupBillingClient();
-        loadProduct();
         /*purchaseBtn = findViewById(R.id.purchaseButton);
         purchaseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +75,7 @@ public class PurchaseCoinsActivity extends BaseActivity implements PurchasesUpda
             public void onBillingSetupFinished(int responseCode) {
                 if (responseCode == BillingClient.BillingResponse.OK) {
                     Log.d(TAG, "onBillingSetupFinished: BILLING | startConnection | RESULT OK");
+                    loadProduct();
                 } else {
                     Log.d(TAG, "onBillingSetupFinished: BILLING | startConnection | RESULT: "+responseCode);
                 }
@@ -111,6 +111,7 @@ public class PurchaseCoinsActivity extends BaseActivity implements PurchasesUpda
     }
 
     private void configureRecyclerView(List<SkuDetails> skuDetailsList) {
+        Log.d(TAG, "configureRecyclerView: count skudetail: "+skuDetailsList.size());
         InAppPurchaseAdapter inAppPurchaseAdapter = new InAppPurchaseAdapter(this, skuDetailsList, this);
         inAppRV.setAdapter(inAppPurchaseAdapter);
     }

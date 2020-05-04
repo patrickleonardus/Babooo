@@ -37,6 +37,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView;
 
+import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -127,7 +128,8 @@ public class ServiceFragment extends Fragment implements ServiceItemClickListene
                         String orderDate = snapshot.child("orderDate").getValue().toString();
                         String serviceType = snapshot.child("serviceType").getValue().toString();
                         String maid = snapshot.child("maid").getValue().toString();
-                        String orderMonth = snapshot.child("orderMonth").getValue().toString();
+                        int month = Integer.parseInt(snapshot.child("orderMonth").getValue().toString());
+                        String orderMonth = new DateFormatSymbols().getMonths()[month-1];
                         String status = snapshot.child("status").getValue().toString();
                         String orderTime = snapshot.child("orderTime").getValue().toString();
                         String address = snapshot.child("address").getValue().toString();

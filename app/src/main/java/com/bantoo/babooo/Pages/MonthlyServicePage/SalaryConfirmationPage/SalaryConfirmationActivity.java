@@ -143,6 +143,7 @@ public class SalaryConfirmationActivity extends BaseActivity {
                 Map<String, Object> salaryConfirmMap = new HashMap<String, Object>();
                 salaryConfirmMap.put("user", "Sudah Dibayar");
                 rentReference.child("gaji "+monthSpinner.getSelectedItem()).updateChildren(salaryConfirmMap);
+                finish();
             }
         });
     }
