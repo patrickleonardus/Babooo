@@ -82,6 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
             android:layout_below="@id/rating_maid_layout">
             <TextView
                 android:id="@+id/salary_maid_TV"
