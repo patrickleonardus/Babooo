@@ -1,7 +1,10 @@
 package com.bantoo.babooo.Model;
 
 
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
+import androidx.room.Database;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -15,6 +18,62 @@ public class FirebaseHelper {
 
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference reference = database.getReference();
+
+    public static String maidUniqueKey = "";
+
+    public void acceptOrder(String type, String orderID, String maidName, String maidPhoneNumber) {
+        DatabaseReference orderReference = database.getReference();
+        if(type.equals("daily")) {
+            orderReference = database.getReference().child("Order");
+        } else if(type.equals("monthly")) {
+            orderReference = database.getReference().child("Rent");
+        }
+        orderReference.child(orderID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.child("maid").getValue().toString().equals("maid")
+                        && !dataSnapshot.child("maidPhoneNuber").getValue().toString().equals("maidPhoneNumber")) {
+                    dataSnapshot.child("maid").getRef().setValue(maidName);
+                    dataSnapshot.child("maidPhoneNumber").getRef().setValue(maidPhoneNumber);
+                } else {
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void activateMaid(String type, String apprCode) {
+        DatabaseReference maidReference = database.getReference();
+        if(type.equals("daily")) {
+            maidReference = database.getReference().child("ART");
+        } else if(type.equals("monthly")) {
+            maidReference = database.getReference().child("ARTBulanan");
+        }
+        maidReference.orderByChild("approvalCode").equalTo(apprCode).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    maidUniqueKey = snapshot.getKey();
+                    snapshot.child("activate").getRef().setValue(true);
+                    snapshot.child("approvalCode").getRef().removeValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public String getMaidUniqueKey() {
+        return maidUniqueKey;
+    }
 
     public void addUser(User user, String uid) {
         DatabaseReference userReferefence = reference.child("Users").child(uid);
@@ -31,6 +90,13 @@ public class FirebaseHelper {
         String orderUniqueKey = monthlyOrderReference.push().getKey();
         monthlyOrderReference.child(orderUniqueKey).setValue(order);
         return orderUniqueKey;
+    }
+
+    public String addSalaryRequest(SalaryRequest salaryRequest) {
+        DatabaseReference withdrawReference = reference.child("WithdrawRequest");
+        String withdrawUniqueKey = withdrawReference.push().getKey();
+        withdrawReference.child(withdrawUniqueKey).setValue(salaryRequest);
+        return withdrawUniqueKey;
     }
 
     public void updateUserData(String uid, String oldPhoneNumber, String noHandphone,

@@ -15,6 +15,7 @@ import com.bantoo.babooo.Pages.DailyServicePage.DetailDailyConfirmationPage.Deta
 import com.bantoo.babooo.Pages.DailyServicePage.OrderDone.OrderDoneActivity;
 import com.bantoo.babooo.Pages.HomePage.HomeActivity;
 import com.bantoo.babooo.Pages.LoginPage.LoginActivity;
+import com.bantoo.babooo.Pages.MaidPages.MaidHomePages.MaidHomeActivity;
 import com.bantoo.babooo.Pages.MonthlyServicePage.ExtendContractReminderPage.ExtendContractReminderActivity;
 import com.bantoo.babooo.Pages.MonthlyServicePage.SalaryConfirmationPage.SalaryConfirmationActivity;
 import com.bantoo.babooo.R;
@@ -89,8 +90,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 resultIntent.putExtra("rentUniqueKey", rentUniqueKey);
             } else if (notificationType.equals("requestDailyOrder")) {
                 //app ART kalo ada yang order daily
+                String orderUniqueKey = payload.get("orderID");
+                resultIntent = new Intent(this, MaidHomeActivity.class);
+                //resultIntent.putExtra("orderID")
             } else if (notificationType.equals("requestMonthlyOrder")) {
                 //app ART kalo ada yg order monthly
+                String orderUniqueKey = payload.get("orderID");
+                resultIntent = new Intent(this, MaidHomeActivity.class);
             }
         }
 

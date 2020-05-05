@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bantoo.babooo.Model.FirebaseHelper;
+import com.bantoo.babooo.Model.SalaryRequest;
 import com.bantoo.babooo.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,8 +33,8 @@ public class WithdrawSalaryFormActivity extends AppCompatActivity {
     Button withdrawSalaryBtn;
 
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference maidRefence;
-    String phoneNumber;
+    DatabaseReference maidReference, withdrawReference;
+    String phoneNumber, maidName, requestUniqueKey;
     String currentCoins = "0";
 
     @Override
@@ -70,10 +72,34 @@ public class WithdrawSalaryFormActivity extends AppCompatActivity {
                 if(Integer.parseInt(currentCoins) < Integer.parseInt(coinsWithdrawET.getText().toString()) ) {
                     Toast.makeText(WithdrawSalaryFormActivity.this, "Not Enough Coins", Toast.LENGTH_SHORT).show();
                 } else {
+                    addRequestToFirebase();
                     Intent intent = new Intent(WithdrawSalaryFormActivity.this, WithdrawSalaryConfirmationActivity.class);
                     intent.putExtra("coinsWithdraw", Integer.parseInt(coinsWithdrawET.getText().toString()));
+                    intent.putExtra("requestUniqueKey", requestUniqueKey);
                     startActivity(intent);
                 }
+            }
+        });
+    }
+
+    private void addRequestToFirebase() {
+        withdrawReference.orderByChild("maidPhoneNumber").equalTo(phoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                        snapshot.child("coinsRequest").getRef().setValue(coinsWithdrawET.getText().toString());
+                    }
+                } else {
+                    SalaryRequest salaryRequest = new SalaryRequest(maidName, phoneNumber, coinsWithdrawET.getText().toString());
+                    FirebaseHelper firebaseHelper = new FirebaseHelper();
+                    requestUniqueKey = firebaseHelper.addSalaryRequest(salaryRequest);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
     }
@@ -81,11 +107,12 @@ public class WithdrawSalaryFormActivity extends AppCompatActivity {
     private void showData() {
         Date now = new Date();
 
-        maidRefence.orderByChild("phoneNumber").equalTo(phoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
+        maidReference.orderByChild("phoneNumber").equalTo(phoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
                     if(snapshot.child("coins").getValue() != null) {
+                        maidName = snapshot.child("name").getValue().toString();
                         currentCoins = snapshot.child("coins").getValue().toString();
                         currentCoinsTV.setText(currentCoins);
                     } else {
@@ -103,7 +130,8 @@ public class WithdrawSalaryFormActivity extends AppCompatActivity {
 
     private void initFirebase() {
         firebaseDatabase = FirebaseDatabase.getInstance();
-        maidRefence = firebaseDatabase.getReference().child("ART");
+        maidReference = firebaseDatabase.getReference().child("ART");
+        withdrawReference = firebaseDatabase.getReference().child("WithdrawRequest");
         SharedPreferences sharedPreferences = getSharedPreferences("accountData", Context.MODE_PRIVATE);
         phoneNumber = sharedPreferences.getString("phoneNumber", "");
     }

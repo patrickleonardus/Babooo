@@ -1,9 +1,11 @@
 package com.bantoo.babooo.Pages.PurchaseCoinsPage;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +23,11 @@ import com.android.billingclient.api.SkuDetailsParams;
 import com.android.billingclient.api.SkuDetailsResponseListener;
 import com.bantoo.babooo.R;
 import com.bantoo.babooo.Utilities.BaseActivity;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +42,9 @@ public class PurchaseCoinsActivity extends BaseActivity implements PurchasesUpda
 
     private RecyclerView inAppRV;
     private TextView coinsTV;
+
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference userReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +129,31 @@ public class PurchaseCoinsActivity extends BaseActivity implements PurchasesUpda
     @Override
     public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
         Log.d(TAG, "onPurchasesUpdated: "+responseCode);
+        int purchasedCoins = 0;
+        if(purchases.get(purchases.size()-1).getSku().equals("coins_100")) {
+            purchasedCoins = 100;
+        }
+        topupCoins(purchasedCoins);
         allowMultiplePurchases(purchases);
+    }
+
+    private void topupCoins(int purchaseCoins) {
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        SharedPreferences accountData = getSharedPreferences("accountData", MODE_PRIVATE);
+        String uid = accountData.getString("uid", "");
+        userReference = firebaseDatabase.getReference().child("Users").child(uid);
+        userReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int currentCoins = Integer.parseInt(dataSnapshot.child("coins").getValue().toString());
+                dataSnapshot.child("coins").getRef().setValue(currentCoins + purchaseCoins);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void allowMultiplePurchases(List<Purchase> purchases) {

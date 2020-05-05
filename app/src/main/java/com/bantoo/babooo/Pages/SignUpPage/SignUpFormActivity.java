@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bantoo.babooo.Model.FirebaseHelper;
 import com.bantoo.babooo.Pages.SignUpPage.Fragment.ApprCodePage;
 import com.bantoo.babooo.Pages.SignUpPage.Fragment.EmailPage;
 import com.bantoo.babooo.Pages.SignUpPage.Fragment.LocationPage;
@@ -47,7 +48,7 @@ public class SignUpFormActivity extends BaseActivity {
     private PagerAdapter pagerAdapter;
     private StepIndicator stepIndicator;
 
-    private String userRole;
+    private String userRole, artType;
     private List<Fragment> list = new ArrayList<>();
     private Handler handler = new Handler();
 
@@ -246,30 +247,19 @@ public class SignUpFormActivity extends BaseActivity {
                 moveToVerification();
             }
         } else if (userRole.equals("mitra")) {
-            if (apprCode.equals("N/A")) {
-                displayError("Periksa kembali approval code anda");
-            } else if (name.equals("N/A")) {
-                displayError("Nama belum diisi");
-            } else if (email.equals("N/A")) {
-                displayError("Email belum diisi");
-            } else if (password.equals("N/A")) {
-                displayError("Cek kembali password anda");
-            } else if (alamat.equals("N/A")) {
-                displayError("Alamat belum diisi");
-            } else if (phone.equals("N/A")) {
-                displayError("Nomor handphone belum diisi");
-            } else if (apprCode.equals("N/A")) {
-                displayError("Periksa kembali approval code anda");
-            } else {
-                moveToDetailInformation();
-            }
+            artType = userSharePref.getString("artType", "");
+            moveToDetailInformation();
         }
     }
+
 
     private void moveToDetailInformation() {
         SharedPreferences fromSharePref = getSharedPreferences("verificationPage", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = fromSharePref.edit();
         editor.putString("from", "maidRegister").commit();
+        FirebaseHelper firebaseHelper = new FirebaseHelper();
+        firebaseHelper.activateMaid(artType, apprCode);
+        editor.putString("uid", firebaseHelper.getMaidUniqueKey());
         //Intent
         /*
         Intent moveToDetailInformation = new Intent(SignUpFormActivity.this, MaidDetailRegisterInformationActivity.class);

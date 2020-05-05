@@ -36,7 +36,7 @@ public class SignUpRoleActivity extends BaseActivity {
         penggunaView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("userPref", Context.MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("accountData", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("role", "pengguna").commit();
                 moveToRegister();
@@ -64,7 +64,7 @@ public class SignUpRoleActivity extends BaseActivity {
                 .setCancelable(false)
                 .setPositiveButton("Lanjutkan Mendaftar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("userPref", Context.MODE_PRIVATE);
+                        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("accountData", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("role", "mitra").commit();
                         moveToRegister();

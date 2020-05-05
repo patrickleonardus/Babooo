@@ -27,48 +27,56 @@
             android:textSize="16sp"/>
 
         <TextView
+            android:id="@+id/name_TV"
             android:layout_marginTop="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nama"
             android:textStyle="bold"/>
         <TextView
+            android:id="@+id/ttl_TV"
             android:layout_marginTop="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tempat tanggal lahir"
             android:textStyle="bold"/>
         <TextView
+            android:id="@+id/noKTP_TV"
             android:layout_marginTop="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="No. KTP"
             android:textStyle="bold"/>
         <TextView
+            android:id="@+id/address_TV"
             android:layout_marginTop="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Alamat"
             android:textStyle="bold"/>
         <TextView
+            android:id="@+id/noHP_TV"
             android:layout_marginTop="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="No. HP"
             android:textStyle="bold"/>
         <TextView
+            android:id="@+id/experience_TV"
             android:layout_marginTop="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Pengalaman Kerja"
             android:textStyle="bold"/>
         <TextView
+            android:id="@+id/gaji_bulanan_TV"
             android:layout_marginTop="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Gaji Perbulan"
             android:textStyle="bold"/>
         <TextView
+            android:id="@+id/preferensi_kota_kerja_TV"
             android:layout_marginTop="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
