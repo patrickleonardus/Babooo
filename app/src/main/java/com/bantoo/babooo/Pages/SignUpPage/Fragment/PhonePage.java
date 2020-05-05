@@ -123,15 +123,18 @@ public class PhonePage extends Fragment {
                     correct = false;
                     Toast.makeText(getContext(), "Phone number registered", Toast.LENGTH_SHORT).show();
                 } else {
-                    if(!maidExist && !userExist) {
+                    if(maidExist && userExist) {
                         correct = false;
                         Log.d(TAG, "onDataChange: data phone number exist");
                     } else {
                         Log.d(TAG, "onTextChanged: correct: " + correct);
+                        userExist = false;
                         correct = true;
-                        SharedPreferences sharedPreferences = getContext().getSharedPreferences("userPref", Context.MODE_PRIVATE);
+                        Log.d(TAG, "onDataChange: updating sharedpref phone");
+                        SharedPreferences sharedPreferences = getContext().getSharedPreferences("accountData", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("phone", phone).commit();
+                        editor.putString("phone", phone);
+                        editor.apply();
                     }
                 }
             }

@@ -85,7 +85,7 @@ public class LoginActivity extends BaseActivity {
 
     private void resetSharedPref() {
         //clear semua sharedPreferences
-        SharedPreferences userPref = getSharedPreferences("userPref", Context.MODE_PRIVATE);
+        SharedPreferences userPref = getSharedPreferences("accountData", Context.MODE_PRIVATE);
         SharedPreferences verifPref = getSharedPreferences("verificationPage", Context.MODE_PRIVATE);
         userPref.edit().clear().commit();
         verifPref.edit().clear().commit();

@@ -106,7 +106,7 @@ public class VerificationActivity extends BaseActivity {
 
     private void loadData() {
         if (sender.equals("register")) {
-            SharedPreferences userPref = getSharedPreferences("userPref", Context.MODE_PRIVATE);
+            SharedPreferences userPref = getSharedPreferences("accountData", Context.MODE_PRIVATE);
 
             role = userPref.getString("role", "N/A");
             name = userPref.getString("name", "N/A");
@@ -298,7 +298,7 @@ public class VerificationActivity extends BaseActivity {
             verificationPhoneTV.setText(phoneNumber);
             numberWithCode = "+62" + phoneNumber.substring(1);
         } else if (sender.equals("register")) {
-            SharedPreferences phonePref = getSharedPreferences("userPref", Context.MODE_PRIVATE);
+            SharedPreferences phonePref = getSharedPreferences("accountData", Context.MODE_PRIVATE);
             phoneNumber = phonePref.getString("phone", "N/A");
             verificationPhoneTV.setText(phoneNumber);
             numberWithCode = "+62" + phoneNumber.substring(1);
@@ -415,12 +415,14 @@ public class VerificationActivity extends BaseActivity {
                                 createAccount();
                             }
                             progressButton.buttonFinished(buttonTitle);
-                            if(getIntent().getStringExtra("role").equals("art")) {
-                                Toast.makeText(VerificationActivity.this, "Ini ART", Toast.LENGTH_SHORT).show();
-                                moveToART();
-                            } else if(getIntent().getStringExtra("role").equals("artBulanan")) {
-                                Toast.makeText(VerificationActivity.this, "ini ART Bulanan", Toast.LENGTH_SHORT).show();
-                                moveToARTBulanan();
+                            if(getIntent().getStringExtra("role") != null) {
+                                if(getIntent().getStringExtra("role").equals("art")) {
+                                    Toast.makeText(VerificationActivity.this, "Ini ART", Toast.LENGTH_SHORT).show();
+                                    moveToART();
+                                } else if(getIntent().getStringExtra("role").equals("artBulanan")) {
+                                    Toast.makeText(VerificationActivity.this, "ini ART Bulanan", Toast.LENGTH_SHORT).show();
+                                    moveToARTBulanan();
+                                }
                             } else {
                                 moveToHome();
                             }

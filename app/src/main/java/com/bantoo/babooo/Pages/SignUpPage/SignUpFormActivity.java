@@ -122,7 +122,7 @@ public class SignUpFormActivity extends BaseActivity {
                             break;
                         case LOCATION_PAGE_INDEX:
                             LocationPage locationPage = new LocationPage();
-                            correct = locationPage.getCorrect();
+                            correct = locationPage.getCorrect(SignUpFormActivity.this);
                             if (!correct) {
                                 displayError("Masukan lokasi yang benar!");
                             }
@@ -158,6 +158,7 @@ public class SignUpFormActivity extends BaseActivity {
                 }
                 if(correct) {
                     pager.setCurrentItem(index + 1);
+                    Log.d(TAG, "onClick: indexfragment: "+index+" out of"+(list.size()-1));
                     if (index == list.size() - 2) {
                         finishBtn.setVisibility(View.VISIBLE);
                         nextBtn.setVisibility(View.INVISIBLE);

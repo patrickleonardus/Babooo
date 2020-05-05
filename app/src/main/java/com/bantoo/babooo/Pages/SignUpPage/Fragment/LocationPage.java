@@ -19,13 +19,14 @@ import com.bantoo.babooo.R;
 
 public class LocationPage extends Fragment {
 
-    private Spinner citySpinner;
-    public static boolean correct;
+    private static Spinner citySpinner;
+    public static boolean correct = true;
 
-    public boolean getCorrect() {
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("userPref", Context.MODE_PRIVATE);
+    public boolean getCorrect(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("accountData", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("location", citySpinner.getSelectedItem().toString()).commit();
+        editor.putString("location", citySpinner.getSelectedItem().toString());
+        editor.apply();
         return correct;
     }
 

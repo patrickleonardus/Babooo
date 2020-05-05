@@ -74,7 +74,7 @@ public class PasswordPage extends Fragment {
                 }
                 else {
                     correct = true;
-                    SharedPreferences sharedPreferences = getContext().getSharedPreferences("userPref", Context.MODE_PRIVATE);
+                    SharedPreferences sharedPreferences = getContext().getSharedPreferences("accountData", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("password", pass2).commit();
                 }

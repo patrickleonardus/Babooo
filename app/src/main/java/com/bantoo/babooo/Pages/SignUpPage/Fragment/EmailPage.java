@@ -52,7 +52,7 @@ public class EmailPage extends Fragment {
                 }
                 else {
                     correct = true;
-                    SharedPreferences sharedPreferences = getContext().getSharedPreferences("userPref", Context.MODE_PRIVATE);
+                    SharedPreferences sharedPreferences = getContext().getSharedPreferences("accountData", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("email",email).commit();
                 }

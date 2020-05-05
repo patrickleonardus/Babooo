@@ -220,7 +220,6 @@ public class ServiceFragment extends Fragment implements ServiceItemClickListene
             usernameTV.setText("Halo, " + name);
         }
         else {
-            name = name.substring(0,10);
             usernameTV.setText("Halo, " + name);
         }
     }
