@@ -203,8 +203,9 @@ public class PendapatanFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
                     statusTV.setText(snapshot.child("activate").getValue().toString());
-                    String totalKoin = snapshot.child("coins").getValue().toString();
-                    if(snapshot.child("coins") != null) {
+                    String totalKoin = "0";
+                    if(snapshot.child("coins").getValue() != null) {
+                        totalKoin = snapshot.child("coins").getValue().toString();
                         totalKoinTV.setText(totalKoin+" koin");
                     } else { totalKoinTV.setText("0 koin"); }
                     setaraRupiahTV.setText("Setara dengan Rp. "+(Integer.parseInt(totalKoin)*3000));
@@ -239,6 +240,7 @@ public class PendapatanFragment extends Fragment {
                         counter++;
                     }
                 }
+                if(counter == 0) counter = 1;
                 float averageRating = totalRating / counter;
                 koinHarianTV.setText(totalFee+" koin");
                 ratingMaidTV.setText(""+averageRating);

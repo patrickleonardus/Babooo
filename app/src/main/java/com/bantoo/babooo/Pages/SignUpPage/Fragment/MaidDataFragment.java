@@ -57,18 +57,19 @@ public class MaidDataFragment extends Fragment {
     }
 
     private void checkArt() {
+
         maidReference.orderByChild("approvalCode").equalTo(apprCode).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                    nameTV.setText(dataSnapshot.child("name").getValue().toString());
-                    ttlTV.setText(dataSnapshot.child("ttl").getValue().toString());
-                    noKTPTV.setText(dataSnapshot.child("noKTP").getValue().toString());
-                    noHPTV.setText(dataSnapshot.child("phoneNumber").getValue().toString());
-                    if(dataSnapshot.child("experience").getValue() != null) {
+                    nameTV.setText(snapshot.child("name").getValue().toString());
+                    ttlTV.setText(snapshot.child("ttl").getValue().toString());
+                    noKTPTV.setText(snapshot.child("noKTP").getValue().toString());
+                    noHPTV.setText(snapshot.child("phoneNumber").getValue().toString());
+                    if(snapshot.child("experience").getValue() != null) {
                         experienceTV.setText(dataSnapshot.child("phoneNumber").getValue().toString());
                     }
-                    if(dataSnapshot.child("cityPreference").getValue() != null) {
+                    if(snapshot.child("cityPreference").getValue() != null) {
                         cityPreferenceTV.setText(dataSnapshot.child("cityPreference").getValue().toString());
                     }
                 }

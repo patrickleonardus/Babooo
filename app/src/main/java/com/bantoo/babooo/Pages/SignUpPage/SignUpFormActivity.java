@@ -175,7 +175,7 @@ public class SignUpFormActivity extends BaseActivity {
 
     public void handleUserRole() {
 
-        SharedPreferences sharedPreferences = getSharedPreferences("userPref", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("accountData", Context.MODE_PRIVATE);
         userRole = sharedPreferences.getString("role", "Pengguna");
 
         if (userRole.equals("pengguna")) {
@@ -189,9 +189,9 @@ public class SignUpFormActivity extends BaseActivity {
 
     private void setupPage() {
 
-        SharedPreferences sharedPreferences = getSharedPreferences("userPref", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("accountData", Context.MODE_PRIVATE);
         userRole = sharedPreferences.getString("role", "Pengguna");
-
+        Log.d(TAG, "setupPage: ");
         if (userRole.equals("pengguna")) {
             list.add(new NamePage());
             list.add(new EmailPage());
@@ -211,7 +211,7 @@ public class SignUpFormActivity extends BaseActivity {
     }
 
     private void handleUserData() {
-        SharedPreferences sharedPreferences = getSharedPreferences("userPref", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("accountData", Context.MODE_PRIVATE);
 
         name = sharedPreferences.getString("name", "N/A");
         email = sharedPreferences.getString("email", "N/A");
@@ -225,7 +225,7 @@ public class SignUpFormActivity extends BaseActivity {
 
     private void checkUserData() {
 
-        SharedPreferences userSharePref = getSharedPreferences("userPref", Context.MODE_PRIVATE);
+        SharedPreferences userSharePref = getSharedPreferences("accountData", Context.MODE_PRIVATE);
         userRole = userSharePref.getString("role", "N/A");
 
         SharedPreferences fromSharePref = getSharedPreferences("verificationPage", Context.MODE_PRIVATE);

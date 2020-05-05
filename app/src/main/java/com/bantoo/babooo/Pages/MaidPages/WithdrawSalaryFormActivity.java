@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -73,10 +74,6 @@ public class WithdrawSalaryFormActivity extends AppCompatActivity {
                     Toast.makeText(WithdrawSalaryFormActivity.this, "Not Enough Coins", Toast.LENGTH_SHORT).show();
                 } else {
                     addRequestToFirebase();
-                    Intent intent = new Intent(WithdrawSalaryFormActivity.this, WithdrawSalaryConfirmationActivity.class);
-                    intent.putExtra("coinsWithdraw", Integer.parseInt(coinsWithdrawET.getText().toString()));
-                    intent.putExtra("requestUniqueKey", requestUniqueKey);
-                    startActivity(intent);
                 }
             }
         });
@@ -94,6 +91,11 @@ public class WithdrawSalaryFormActivity extends AppCompatActivity {
                     SalaryRequest salaryRequest = new SalaryRequest(maidName, phoneNumber, coinsWithdrawET.getText().toString());
                     FirebaseHelper firebaseHelper = new FirebaseHelper();
                     requestUniqueKey = firebaseHelper.addSalaryRequest(salaryRequest);
+                    Log.d("WithdrawSalaryForm", "onDataChange: requestUniqueKey: "+requestUniqueKey);
+                    Intent intent = new Intent(WithdrawSalaryFormActivity.this, WithdrawSalaryConfirmationActivity.class);
+                    intent.putExtra("coinsWithdraw", Integer.parseInt(coinsWithdrawET.getText().toString()));
+                    intent.putExtra("requestUniqueKey", requestUniqueKey);
+                    startActivity(intent);
                 }
             }
 
