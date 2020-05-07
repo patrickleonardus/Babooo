@@ -19,13 +19,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class MaidDataFragment extends Fragment {
+public class MaidDataPage extends Fragment {
 
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference maidReference;
-    String apprCode;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference maidReference;
+    private String apprCode;
 
-    TextView nameTV, ttlTV, noKTPTV, alamatTV, noHPTV, experienceTV, salaryTV, cityPreferenceTV;
+    TextView nameTV, ttlTV, noKTPTV, addressTV, noHPTV, experienceTV, salaryTV, cityPreferenceTV;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,7 +35,7 @@ public class MaidDataFragment extends Fragment {
         nameTV = rootView.findViewById(R.id.name_TV);
         ttlTV = rootView.findViewById(R.id.ttl_TV);
         noKTPTV = rootView.findViewById(R.id.noKTP_TV);
-        alamatTV = rootView.findViewById(R.id.address_TV);
+        addressTV = rootView.findViewById(R.id.address_TV);
         noHPTV = rootView.findViewById(R.id.noHP_TV);
         experienceTV = rootView.findViewById(R.id.experience_TV);
         salaryTV = rootView.findViewById(R.id.gaji_bulanan_TV);

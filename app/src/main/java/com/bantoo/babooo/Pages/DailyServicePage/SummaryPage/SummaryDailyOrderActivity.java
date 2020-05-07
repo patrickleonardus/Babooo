@@ -1,11 +1,10 @@
 package com.bantoo.babooo.Pages.DailyServicePage.SummaryPage;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import com.bantoo.babooo.R;
+import com.bantoo.babooo.Utilities.BaseActivity;
 
-public class SummaryDailyOrderActivity extends AppCompatActivity {
+public class SummaryDailyOrderActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

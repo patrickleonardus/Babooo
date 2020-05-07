@@ -2,7 +2,6 @@ package com.bantoo.babooo.Pages.MaidPages;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Database;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -22,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class WithdrawSalaryConfirmationActivity extends AppCompatActivity {
 
-    TextView nomorPengajuanTV, tanggalPengajuanTV, coinsTV, nominalRupiahTV;
+    TextView proposeNumberTV, proposeDateTV, coinsTV, inRupiahTV;
     EditText code1ET, code2ET, code3ET, code4ET, code5ET, code6ET;
     Button withdrawBtn;
 
@@ -73,7 +72,7 @@ public class WithdrawSalaryConfirmationActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.child("verifCode").getValue() != null) {
                     if(dataSnapshot.child("verifCode").getValue().toString().equals(verifCode)) {
-                        topupCoins();
+                        reduceCoins();
                     } else {
                         Toast.makeText(WithdrawSalaryConfirmationActivity.this, "Kode Verifikasi salah", Toast.LENGTH_SHORT).show();
                     }
@@ -89,7 +88,7 @@ public class WithdrawSalaryConfirmationActivity extends AppCompatActivity {
         });
     }
 
-    private void topupCoins() {
+    private void reduceCoins() {
         maidReference.orderByChild("phoneNumber").equalTo(phoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -112,14 +111,14 @@ public class WithdrawSalaryConfirmationActivity extends AppCompatActivity {
     private void showData() {
         coinsWithdraw = getIntent().getIntExtra("coinsWithdraw", 0);
         coinsTV.setText(coinsWithdraw+"");
-        nominalRupiahTV.setText((coinsWithdraw*3000)+"");
+        inRupiahTV.setText((coinsWithdraw*3000)+"");
     }
 
     private void initView() {
-        nomorPengajuanTV = findViewById(R.id.nomor_pengajuan_TV);
-        tanggalPengajuanTV = findViewById(R.id.tanggal_pengajuan_TV);
+        proposeNumberTV = findViewById(R.id.nomor_pengajuan_TV);
+        proposeDateTV = findViewById(R.id.tanggal_pengajuan_TV);
         coinsTV = findViewById(R.id.coins_TV);
-        nominalRupiahTV = findViewById(R.id.rupiah_nominal_TV);
+        inRupiahTV = findViewById(R.id.rupiah_nominal_TV);
         code1ET = findViewById(R.id.code1_withdraw_ET);
         code2ET = findViewById(R.id.code2_withdraw_ET);
         code3ET = findViewById(R.id.code3_withdraw_ET);

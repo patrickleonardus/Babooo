@@ -16,7 +16,7 @@ public class MaidHomeActivity extends BaseActivity {
     private BottomNavigationView navbar;
     private FrameLayout mainFrame;
 
-    private PendapatanFragment pendapatanFragment;
+    private MaidIncomeFragment maidIncomeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +30,14 @@ public class MaidHomeActivity extends BaseActivity {
     }
 
     private void fragmentSetup() {
-        pendapatanFragment = new PendapatanFragment();
-        setFragment(pendapatanFragment);
+        maidIncomeFragment = new MaidIncomeFragment();
+        setFragment(maidIncomeFragment);
         navbar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.pendapatan_item:
-                        setFragment(pendapatanFragment);
+                        setFragment(maidIncomeFragment);
                         return true;
                     case R.id.pesanan_item:
                         return true;
