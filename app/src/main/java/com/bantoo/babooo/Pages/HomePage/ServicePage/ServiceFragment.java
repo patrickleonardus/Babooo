@@ -14,12 +14,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bantoo.babooo.Model.ServiceSchedule;
 import com.bantoo.babooo.Pages.DailyServicePage.DailyServiceActivity;
 import com.bantoo.babooo.Pages.DailyServicePage.DetailDailyConfirmationPage.DetailDailyConfirmationActivity;
-import com.bantoo.babooo.Pages.HomePage.HomeActivity;
 import com.bantoo.babooo.Pages.MonthlyServicePage.MonthlyMaidActivity;
 import com.bantoo.babooo.Pages.PurchaseCoinsPage.PurchaseCoinsActivity;
 import com.bantoo.babooo.R;
@@ -40,8 +38,6 @@ import com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView;
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -71,7 +67,7 @@ public class ServiceFragment extends Fragment implements ServiceItemClickListene
     private int coins;
 
     //Object View
-    LinearLayout dailyServiceOption,monthlyServiceOption,topUpOption;
+    LinearLayout dailyServiceOption,monthlyServiceOption,topUpOption,noDataLayout;
     TextView usernameTV,coinsTV;
     ProgressBar usernamePB,coinsPB;
 
@@ -87,6 +83,7 @@ public class ServiceFragment extends Fragment implements ServiceItemClickListene
         topUpOption = rootView.findViewById(R.id.topUp_home_layout);
         usernamePB = rootView.findViewById(R.id.username_home_PB);
         coinsPB = rootView.findViewById(R.id.coins_home_PB);
+        noDataLayout = rootView.findViewById(R.id.noServiceScheduleLayout);
 
         showUserProgressBar(true);
         showCoinProgressBar(true);
@@ -141,6 +138,7 @@ public class ServiceFragment extends Fragment implements ServiceItemClickListene
                     }
                 }
                 setupScheduleView();
+                checkData();
             }
 
             @Override
@@ -148,6 +146,17 @@ public class ServiceFragment extends Fragment implements ServiceItemClickListene
 
             }
         });
+    }
+
+    private void checkData(){
+        if (serviceScheduleList.isEmpty()){
+            scheduleRV.setVisibility(View.GONE);
+            noDataLayout.setVisibility(View.VISIBLE);
+        }
+        else {
+            scheduleRV.setVisibility(View.VISIBLE);
+            noDataLayout.setVisibility(View.GONE);
+        }
     }
 
     public void dummyData(){
@@ -180,7 +189,6 @@ public class ServiceFragment extends Fragment implements ServiceItemClickListene
 
     @Override
     public void onItemClick(int position) {
-        Toast.makeText(getContext(),serviceScheduleList.get(position).getServiceType(),Toast.LENGTH_SHORT).show();
         Intent moveToDetailPage = new Intent(getContext(), DetailDailyConfirmationActivity.class);
         moveToDetailPage.putExtra("orderUniqueKey", serviceScheduleList.get(position).getOrderID());
         startActivity(moveToDetailPage);
@@ -193,7 +201,6 @@ public class ServiceFragment extends Fragment implements ServiceItemClickListene
         topUpOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),"Top Up Menu",Toast.LENGTH_SHORT).show();
                 Intent moveToPurchaseCoins = new Intent(getContext(), PurchaseCoinsActivity.class);
                 startActivity(moveToPurchaseCoins);
             }

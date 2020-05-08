@@ -51,505 +51,512 @@
         android:layout_alignParentTop="true"
         android:background="@android:color/darker_gray" />
 
-    <!--Layout Wrapper-->
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="6">
+        android:layout_height="match_parent">
 
-        <!--Section 1-->
+
+        <!--Layout Wrapper-->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="6">
 
-            <TextView
+            <!--Section 1-->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="20dp"
-                android:text="Usia"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="20dp">
-
-                <LinearLayout
-                    android:layout_width="90sp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Minimum"
-                        android:textColor="@color/black"
-                        android:textSize="14sp" />
-
-                    <com.tobiasschuerg.prefixsuffix.PrefixSuffixEditText
-                        android:id="@+id/minimumAge_filter_ET"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:inputType="numberDecimal"
-                        android:text="18"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/black"
-                        android:textSize="14sp"
-                        app:suffix="  tahun" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="90sp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Maximum"
-                        android:textColor="@color/black"
-                        android:textSize="14sp" />
-
-                    <com.tobiasschuerg.prefixsuffix.PrefixSuffixEditText
-                        android:id="@+id/maximumAge_filter_ET"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:inputType="numberDecimal"
-                        android:text="32"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/black"
-                        android:textSize="14sp"
-                        app:suffix="  tahun" />
-
-                </LinearLayout>
-
-
-            </RelativeLayout>
-
-
-            <com.jaygoo.widget.RangeSeekBar
-                android:id="@+id/filterAge_search_RSB"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                app:rsb_gravity="center"
-                app:rsb_max="100"
-                app:rsb_min="0"
-                app:rsb_mode="range"
-                app:rsb_progress_color="@color/greenPrimary"
-                app:rsb_thumb_drawable="@drawable/thumb_range_seek_bar_green" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginRight="20dp"
-                android:background="@android:color/darker_gray" />
-
-        </LinearLayout>
-
-        <!--Section 2-->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:text="Kota Asal"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="20dp"
+                    android:text="Usia"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="20dp">
+
+                    <LinearLayout
+                        android:layout_width="90sp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Minimum"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                        <com.tobiasschuerg.prefixsuffix.PrefixSuffixEditText
+                            android:id="@+id/minimumAge_filter_ET"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:enabled="false"
+                            android:inputType="numberDecimal"
+                            android:text="18"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/black"
+                            android:textSize="14sp"
+                            app:suffix="  tahun" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="90sp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Maximum"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                        <com.tobiasschuerg.prefixsuffix.PrefixSuffixEditText
+                            android:id="@+id/maximumAge_filter_ET"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:enabled="false"
+                            android:inputType="numberDecimal"
+                            android:text="32"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/black"
+                            android:textSize="14sp"
+                            app:suffix="  tahun" />
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+
+                <com.jaygoo.widget.RangeSeekBar
+                    android:id="@+id/filterAge_search_RSB"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    app:rsb_gravity="center"
+                    app:rsb_max="100"
+                    app:rsb_min="0"
+                    app:rsb_mode="range"
+                    app:rsb_progress_color="@color/greenPrimary"
+                    app:rsb_thumb_drawable="@drawable/thumb_range_seek_bar_green" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@android:color/darker_gray" />
+
+            </LinearLayout>
+
+            <!--Section 2-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="Kota Asal"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/allCity_filter_TV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:clickable="true"
+                        android:text="Lihat Semua"
+                        android:textColor="@color/greenPrimary"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
+                    android:id="@+id/cityChoosenRV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_weight="1"
+                    android:elevation="0dp"
+                    android:orientation="horizontal"
+                    app:msrv_gravity="start"
+                    app:msrv_ms_per_inch="100"
+                    app:msrv_snap_count="1" />
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@android:color/darker_gray" />
+
+
+            </LinearLayout>
+
+            <!--Section 3-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
                 <TextView
-                    android:id="@+id/allCity_filter_TV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerInParent="true"
-                    android:clickable="true"
-                    android:text="Lihat Semua"
-                    android:textColor="@color/greenPrimary"
-                    android:textSize="14sp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="20dp"
+                    android:text="Popularitas"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
-            </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginRight="20dp"
+                    android:clickable="false"
+                    android:orientation="horizontal">
 
-            <com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
-                android:id="@+id/cityChoosenRV"
+                    <ImageView
+                        android:id="@+id/star_popularity1"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginRight="4dp"
+                        android:clickable="true"
+                        android:src="@drawable/asset_star_active" />
+
+                    <ImageView
+                        android:id="@+id/star_popularity2"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        android:clickable="true"
+                        android:src="@drawable/asset_star_active" />
+
+                    <ImageView
+                        android:id="@+id/star_popularity3"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        android:clickable="true"
+                        android:src="@drawable/asset_star_active" />
+
+                    <ImageView
+                        android:id="@+id/star_popularity4"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        android:clickable="true"
+                        android:src="@drawable/asset_star_active" />
+
+                    <ImageView
+                        android:id="@+id/star_popularity5"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        android:clickable="true"
+                        android:src="@drawable/asset_star_active" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@android:color/darker_gray" />
+
+            </LinearLayout>
+
+            <!--Section 4-->
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="4dp"
                 android:layout_weight="1"
-                android:elevation="0dp"
-                android:orientation="horizontal"
-                app:msrv_gravity="start"
-                app:msrv_ms_per_inch="100"
-                app:msrv_snap_count="1" />
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="20dp"
+                    android:text="Pengalaman Bekerja"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="20dp">
+
+                    <LinearLayout
+                        android:layout_width="90sp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Minimum"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                        <com.tobiasschuerg.prefixsuffix.PrefixSuffixEditText
+                            android:id="@+id/minimumYears_filter_ET"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:enabled="false"
+                            android:inputType="numberDecimal"
+                            android:text="18"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/black"
+                            android:textSize="14sp"
+                            app:suffix="  tahun" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="90sp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Maximum"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                        <com.tobiasschuerg.prefixsuffix.PrefixSuffixEditText
+                            android:id="@+id/maximumYears_filter_ET"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:enabled="false"
+                            android:inputType="numberDecimal"
+                            android:text="32"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/black"
+                            android:textSize="14sp"
+                            app:suffix="  tahun" />
+
+                    </LinearLayout>
 
 
-            <View
+                </RelativeLayout>
+
+                <com.jaygoo.widget.RangeSeekBar
+                    android:id="@+id/filterYears_search_RSB"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    app:rsb_gravity="center"
+                    app:rsb_max="100"
+                    app:rsb_min="0"
+                    app:rsb_mode="range"
+                    app:rsb_progress_color="@color/greenPrimary"
+                    app:rsb_thumb_drawable="@drawable/thumb_range_seek_bar_green" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@android:color/darker_gray" />
+
+            </LinearLayout>
+
+            <!--Section5-->
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginRight="20dp"
-                android:background="@android:color/darker_gray" />
-
-
-        </LinearLayout>
-
-        <!--Section 3-->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginRight="20dp"
-                android:text="Popularitas"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="20dp"
+                    android:text="Biaya Administrasi"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="20dp">
+
+                    <LinearLayout
+                        android:layout_width="90sp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Minimum"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/minimumCost_filter_ET"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:enabled="false"
+                            android:textColor="@color/greenPrimary"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="90sp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Maximum"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/maximumCost_filter_ET"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:enabled="false"
+                            android:textColor="@color/greenPrimary"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+
+                <com.jaygoo.widget.RangeSeekBar
+                    android:id="@+id/filterCost_search_RSB"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    app:rsb_gravity="center"
+                    app:rsb_max="100"
+                    app:rsb_min="0"
+                    app:rsb_mode="range"
+                    app:rsb_progress_color="@color/greenPrimary"
+                    app:rsb_thumb_drawable="@drawable/thumb_range_seek_bar_green" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@android:color/darker_gray" />
+
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginRight="20dp"
-                android:clickable="false"
-                android:orientation="horizontal">
+                android:layout_marginBottom="8dp"
+                android:layout_weight="1"
+                android:gravity="center">
 
-                <ImageView
-                    android:id="@+id/star_popularity1"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginRight="4dp"
-                    android:clickable="true"
-                    android:src="@drawable/asset_star_active" />
+                <Button
+                    android:id="@+id/setFilter_BTN"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_button_green"
+                    android:text="Terapkan"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
 
-                <ImageView
-                    android:id="@+id/star_popularity2"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:clickable="true"
-                    android:src="@drawable/asset_star_active" />
-
-                <ImageView
-                    android:id="@+id/star_popularity3"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:clickable="true"
-                    android:src="@drawable/asset_star_active" />
-
-                <ImageView
-                    android:id="@+id/star_popularity4"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:clickable="true"
-                    android:src="@drawable/asset_star_active" />
-
-                <ImageView
-                    android:id="@+id/star_popularity5"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:clickable="true"
-                    android:src="@drawable/asset_star_active" />
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginRight="20dp"
-                android:background="@android:color/darker_gray" />
-
         </LinearLayout>
 
-        <!--Section 4-->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginRight="20dp"
-                android:text="Pengalaman Bekerja"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="20dp">
-
-                <LinearLayout
-                    android:layout_width="90sp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Minimum"
-                        android:textColor="@color/black"
-                        android:textSize="14sp" />
-
-                    <com.tobiasschuerg.prefixsuffix.PrefixSuffixEditText
-                        android:id="@+id/minimumYears_filter_ET"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:inputType="numberDecimal"
-                        android:text="18"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/black"
-                        android:textSize="14sp"
-                        app:suffix="  tahun" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="90sp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Maximum"
-                        android:textColor="@color/black"
-                        android:textSize="14sp" />
-
-                    <com.tobiasschuerg.prefixsuffix.PrefixSuffixEditText
-                        android:id="@+id/maximumYears_filter_ET"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:inputType="numberDecimal"
-                        android:text="32"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/black"
-                        android:textSize="14sp"
-                        app:suffix="  tahun" />
-
-                </LinearLayout>
-
-
-            </RelativeLayout>
-
-            <com.jaygoo.widget.RangeSeekBar
-                android:id="@+id/filterYears_search_RSB"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                app:rsb_gravity="center"
-                app:rsb_max="100"
-                app:rsb_min="0"
-                app:rsb_mode="range"
-                app:rsb_progress_color="@color/greenPrimary"
-                app:rsb_thumb_drawable="@drawable/thumb_range_seek_bar_green" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginRight="20dp"
-                android:background="@android:color/darker_gray" />
-
-        </LinearLayout>
-
-        <!--Section5-->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginRight="20dp"
-                android:text="Biaya Administrasi"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="20dp">
-
-                <LinearLayout
-                    android:layout_width="90sp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Minimum"
-                        android:textColor="@color/black"
-                        android:textSize="14sp" />
-
-                    <EditText
-                        android:id="@+id/minimumCost_filter_ET"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:textColor="@color/greenPrimary"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="90sp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Maximum"
-                        android:textColor="@color/black"
-                        android:textSize="14sp" />
-
-                    <EditText
-                        android:id="@+id/maximumCost_filter_ET"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:textColor="@color/greenPrimary"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-
-
-            </RelativeLayout>
-
-
-            <com.jaygoo.widget.RangeSeekBar
-                android:id="@+id/filterCost_search_RSB"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                app:rsb_gravity="center"
-                app:rsb_max="100"
-                app:rsb_min="0"
-                app:rsb_mode="range"
-                app:rsb_progress_color="@color/greenPrimary"
-                app:rsb_thumb_drawable="@drawable/thumb_range_seek_bar_green" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginRight="20dp"
-                android:background="@android:color/darker_gray" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="8dp"
-            android:layout_weight="1"
-            android:gravity="center">
-
-            <Button
-                android:id="@+id/setFilter_BTN"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rounded_button_green"
-                android:text="Terapkan"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-    </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

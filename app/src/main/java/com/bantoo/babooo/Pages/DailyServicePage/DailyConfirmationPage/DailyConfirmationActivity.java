@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -71,6 +72,7 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
     LinearLayout dateLayout, hourLayout, locationLayout;
     TextView serviceNameTV, detailServiceNameTV, coinsServiceTV, dateServiceTV, startHourTV, estimatedHourTV, locationServiceTV;
     Button setOrder;
+    ImageView closeBtn;
 
     //VARIABLE UNTUK PASSING KE FIREBASE
     private String serviceName, serviceType, serviceDate, serviceHour;
@@ -110,6 +112,7 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
         hourLayout = findViewById(R.id.hour_service_daily_confirmation_layout);
         locationLayout = findViewById(R.id.location_service_daily_confirmation_layout);
         setOrder = findViewById(R.id.order_daily_confirmation_BTN);
+        closeBtn = findViewById(R.id.close_daily_IV);
     }
 
     private void getServiceData() {
@@ -216,6 +219,13 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
     }
 
     private void handleAction() {
+        closeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         dateLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -302,7 +312,6 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
                 } else {
                     dataSnapshot.child("coins").getRef().setValue(Integer.parseInt(dataSnapshot.child("coins").getValue().toString()) - serviceCost);
                     processOrder();
-                    Toast.makeText(DailyConfirmationActivity.this, "make order", Toast.LENGTH_SHORT).show();
                 }
             }
 

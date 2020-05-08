@@ -27,7 +27,7 @@ public class MaidDetailActivity extends BaseActivity {
 
     private String maidUniqueKey;
 
-    ImageView rating1IV, rating2IV, rating3IV, rating4IV, rating5IV;
+    ImageView rating1IV, rating2IV, rating3IV, rating4IV, rating5IV, closeBtn;
     TextView maidNameTV, maidAgeTV, maidAddressTV, ratingTV;
     Button recruitButton;
     ProgressBar cuciPB, setrikaPB, sapuPB, kmrmandiPB;
@@ -101,6 +101,13 @@ public class MaidDetailActivity extends BaseActivity {
                 startActivity(moveToConfirmation);
             }
         });
+
+        closeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void initView() {
@@ -118,6 +125,7 @@ public class MaidDetailActivity extends BaseActivity {
         setrikaPB = findViewById(R.id.progress_bar_setrika_maid_detail);
         sapuPB = findViewById(R.id.progress_bar_sapu_maid_detail);
         kmrmandiPB = findViewById(R.id.progress_bar_kmrmandi_maid_detail);
+        closeBtn = findViewById(R.id.close_maid_detail_IV);
 
         rating1IV.setVisibility(View.GONE);
         rating2IV.setVisibility(View.GONE);

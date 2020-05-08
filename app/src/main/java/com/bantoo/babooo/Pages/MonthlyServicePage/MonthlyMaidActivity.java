@@ -118,7 +118,6 @@ public class MonthlyMaidActivity extends BaseActivity implements Serializable {
         maidGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), maidList.get(position).name, Toast.LENGTH_SHORT).show();
                 moveToUserPage(maidList.get(position).getMaidUniqueKey());
             }
         });
@@ -194,19 +193,13 @@ public class MonthlyMaidActivity extends BaseActivity implements Serializable {
         });
         searchMaidET.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {searchMaid();}
 
             @Override
-            public void afterTextChanged(Editable s) {
-                searchMaid();
-            }
+            public void afterTextChanged(Editable s) {}
         });
     }
 

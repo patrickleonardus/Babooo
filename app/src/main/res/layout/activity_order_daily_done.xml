@@ -5,60 +5,65 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:gravity="center"
     android:orientation="vertical"
     tools:context="com.bantoo.babooo.Pages.DailyServicePage.OrderDone.OrderDoneActivity">
 
     <ImageView
-        android:layout_marginTop="100dp"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:src="@drawable/asset_thankyou"/>
-
-    <TextView
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Terima kasih telah menggunakan layanan Bantoo"
-        android:textSize="56px"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Layanan Bantoo Harian Anda telah selesai"/>
-    
-    <TextView
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="20dp"
-        android:textStyle="bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="36px"
-        android:text="Kami senang dapat membantu anda dalam mempermudah menjaga kebersihan rumah. Jika ada keluhan, komentar, kritik maupun saran yang ingin disampaikan, Anda dapat menghubungi pusat layanan Bantoo"/>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_height="260dp"
+        android:src="@drawable/asset_thankyou" />
 
     <LinearLayout
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
-        android:layout_weight="1"
-        android:gravity="center">
-        <Button
-            android:id="@+id/give_score_done_daily_activity"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/border_rounded_edit_text"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/rounded_button_green"
-            android:text="Beri penilaian"
-            android:textColor="@color/white" />
+            android:layout_height="wrap_content"
+            android:text="Terima kasih telah menggunakan layanan Bantoo"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Layanan Bantoo Harian Anda telah selesai"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Kami senang dapat membantu anda dalam mempermudah menjaga kebersihan rumah. Jika ada keluhan, komentar, kritik maupun saran yang ingin disampaikan, Anda dapat menghubungi pusat layanan Bantoo"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+
     </LinearLayout>
+
+    <Button
+        android:id="@+id/give_score_done_daily_activity"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/rounded_button_green"
+        android:text="Berikan penilaian"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
 
 </LinearLayout>

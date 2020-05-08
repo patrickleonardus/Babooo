@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context="com.bantoo.babooo.Pages.DailyServicePage.DailyServiceActivity">
 
     <LinearLayout
@@ -63,281 +63,280 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="8dp"
         android:layout_marginRight="20dp"
         android:text="PILIH LAYANAN HARIAN"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingBottom="12dp"
-        android:weightSum="4">
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/first_daily_service_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="12dp">
 
-            <RelativeLayout
+            <LinearLayout
+                android:id="@+id/first_daily_service_layout"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/gradient_background_blue">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/image_daily_service_1"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="12dp"
-                    android:src="@drawable/asset_service_wash" />
-
-                <LinearLayout
-                    android:id="@+id/detail_daily_service_1"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_toLeftOf="@+id/next_daily_service_IV_1"
-                    android:layout_toRightOf="@id/image_daily_service_1"
-                    android:orientation="vertical">
+                    android:padding="12dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/gradient_background_blue">
 
-                    <TextView
-                        android:id="@+id/service_name_daily_TV_1"
+                    <ImageView
+                        android:id="@+id/image_daily_service_1"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/asset_service_wash" />
+
+                    <LinearLayout
+                        android:id="@+id/detail_daily_service_1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Nama Layanan"
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_toLeftOf="@+id/next_daily_service_IV_1"
+                        android:layout_toRightOf="@id/image_daily_service_1"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/service_detail_daily_TV_1"
+                        <TextView
+                            android:id="@+id/service_name_daily_TV_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nama Layanan"
+                            android:textColor="@color/white"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/service_detail_daily_TV_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Detail Layanan"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/next_daily_service_IV_1"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/nav_next_alpha" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/second_daily_service_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:padding="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/gradient_background_red">
+
+                    <ImageView
+                        android:id="@+id/image_daily_service_2"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/asset_service_ironing" />
+
+                    <LinearLayout
+                        android:id="@+id/detail_daily_service_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Detail Layanan"
-                        android:textColor="@color/white" />
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_toLeftOf="@+id/next_daily_service_IV_2"
+                        android:layout_toRightOf="@id/image_daily_service_2"
+                        android:orientation="vertical">
 
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/service_name_daily_TV_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nama Layanan"
+                            android:textColor="@color/white"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
 
-                <ImageView
-                    android:id="@+id/next_daily_service_IV_1"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerInParent="true"
-                    android:layout_marginRight="12dp"
-                    android:src="@drawable/nav_next_alpha" />
+                        <TextView
+                            android:id="@+id/service_detail_daily_TV_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Detail Layanan"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
 
-            </RelativeLayout>
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/next_daily_service_IV_2"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/nav_next_alpha" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/third_daily_service_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:padding="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/gradient_background_orange">
+
+                    <ImageView
+                        android:id="@+id/image_daily_service_3"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/asset_service_cleaning" />
+
+                    <LinearLayout
+                        android:id="@+id/detail_daily_service_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_toLeftOf="@+id/next_daily_service_IV_3"
+                        android:layout_toRightOf="@id/image_daily_service_3"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/service_name_daily_TV_3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nama Layanan"
+                            android:textColor="@color/white"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/service_detail_daily_TV_3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Detail Layanan"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/next_daily_service_IV_3"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/nav_next_alpha" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/fourth_daily_service_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:padding="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/gradient_background_green">
+
+                    <ImageView
+                        android:id="@+id/image_daily_service_4"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/asset_service_bathroom" />
+
+                    <LinearLayout
+                        android:id="@+id/detail_daily_service_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_toLeftOf="@+id/next_daily_service_IV_4"
+                        android:layout_toRightOf="@id/image_daily_service_4"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/service_name_daily_TV_4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nama Layanan"
+                            android:textColor="@color/white"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/service_detail_daily_TV_4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Detail Layanan"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/next_daily_service_IV_4"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/nav_next_alpha" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/second_daily_service_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/gradient_background_red">
-
-                <ImageView
-                    android:id="@+id/image_daily_service_2"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="12dp"
-                    android:src="@drawable/asset_service_ironing" />
-
-                <LinearLayout
-                    android:id="@+id/detail_daily_service_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_toLeftOf="@+id/next_daily_service_IV_2"
-                    android:layout_toRightOf="@id/image_daily_service_2"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/service_name_daily_TV_2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Nama Layanan"
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/service_detail_daily_TV_2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Detail Layanan"
-                        android:textColor="@color/white" />
-
-                </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/next_daily_service_IV_2"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerInParent="true"
-                    android:layout_marginRight="12dp"
-                    android:src="@drawable/nav_next_alpha" />
-
-            </RelativeLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/third_daily_service_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/gradient_background_orange">
-
-                <ImageView
-                    android:id="@+id/image_daily_service_3"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="12dp"
-                    android:src="@drawable/asset_service_cleaning" />
-
-                <LinearLayout
-                    android:id="@+id/detail_daily_service_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_toLeftOf="@+id/next_daily_service_IV_3"
-                    android:layout_toRightOf="@id/image_daily_service_3"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/service_name_daily_TV_3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Nama Layanan"
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/service_detail_daily_TV_3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Detail Layanan"
-                        android:textColor="@color/white" />
-
-                </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/next_daily_service_IV_3"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerInParent="true"
-                    android:layout_marginRight="12dp"
-                    android:src="@drawable/nav_next_alpha" />
-
-            </RelativeLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/fourth_daily_service_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/gradient_background_green">
-
-                <ImageView
-                    android:id="@+id/image_daily_service_4"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="12dp"
-                    android:src="@drawable/asset_service_bathroom" />
-
-                <LinearLayout
-                    android:id="@+id/detail_daily_service_4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_toLeftOf="@+id/next_daily_service_IV_4"
-                    android:layout_toRightOf="@id/image_daily_service_4"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/service_name_daily_TV_4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Nama Layanan"
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/service_detail_daily_TV_4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Detail Layanan"
-                        android:textColor="@color/white" />
-
-                </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/next_daily_service_IV_4"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerInParent="true"
-                    android:layout_marginRight="12dp"
-                    android:src="@drawable/nav_next_alpha" />
-
-            </RelativeLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
+    </ScrollView>
 
 </LinearLayout>

@@ -92,7 +92,7 @@
             android:paddingLeft="10dp"
             android:inputType="none"
             android:paddingRight="8dp"
-            android:hint="Input location"
+            android:hint="Tekan untuk memasukan lokasi"
             android:background="@drawable/border_rounded_edit_text"/>
 
         <EditText
@@ -101,7 +101,7 @@
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="catatan:"
+            android:hint="Catatan lokasi pengerjaan"
             android:background="@drawable/border_rounded_edit_text"/>
 
         <Button

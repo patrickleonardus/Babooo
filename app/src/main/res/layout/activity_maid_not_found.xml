@@ -5,62 +5,66 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:gravity="center"
     android:orientation="vertical"
     tools:context="com.bantoo.babooo.Pages.DailyServicePage.SearchingDailyMaidPage.MaidNotFoundActivity">
 
     <ImageView
-        android:layout_marginTop="100dp"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:src="@drawable/asset_gbr_failed"/>
+        android:layout_height="260dp"
+        android:src="@drawable/asset_gbr_failed" />
 
-    <TextView
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="48px"
-        android:textStyle="bold"
-        android:text="Nampaknya saat ini Mitra Bantoo sedang sibuk"/>
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/border_rounded_edit_text"
+        android:orientation="vertical"
+        android:padding="15dp">
 
-    <TextView
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Harap tunggu sebentar dan coba beberapa saat lagi."/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nampaknya saat ini Mitra Bantoo sedang sibuk"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:text="Kami mengupayakan Mitra terbaik kami untuk mengerjakan layanan pilihan Anda."/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Harap tunggu sebentar dan coba beberapa saat lagi"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
 
-    <TextView
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:text="Berikan beberapa waktu lagi untuk Mitra Bantoo."/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Kami mengupayakan Mitra terbaik kami untuk mengerjakan layanan pilihan Anda"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            android:textStyle="bold" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/backToOrderBtn_artNotFound"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
         android:background="@drawable/rounded_button_green"
         android:text="Kembali ke pesanan"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:textStyle="bold" />
 
 </LinearLayout>

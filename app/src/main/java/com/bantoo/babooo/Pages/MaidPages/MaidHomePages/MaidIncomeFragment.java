@@ -53,7 +53,7 @@ public class MaidIncomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_pendapatan, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_income, container, false);
 
         statusTV = rootView.findViewById(R.id.status_TV);
         totalCoinsTV = rootView.findViewById(R.id.total_koin_TV);

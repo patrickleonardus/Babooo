@@ -56,127 +56,161 @@
 
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:gravity="center"
+        android:orientation="vertical">
+
         <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/profile_photo_account_edit"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             android:layout_centerHorizontal="true"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
             android:src="@drawable/asset_maid"
-            app:civ_border_color="#EEEEEE"
-            app:civ_border_width="4dp"
             app:civ_shadow="true"
-            app:civ_shadow_radius="10"
-            app:civ_shadow_color="#8BC34A" />
-        <ImageView
-            android:layout_marginLeft="-50dp"
-            android:layout_marginTop="100dp"
-            android:layout_toRightOf="@id/profile_photo_account_edit"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/asset_cam"/>
-    </RelativeLayout>
+            app:civ_shadow_color="@color/orangePrimary"
+            app:civ_shadow_radius="4" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/user_name_TV_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nama Pengguna"/>
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="-35dp"
+            android:layout_marginRight="-35dp"
+            android:src="@drawable/asset_cam" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:orientation="vertical"
-        android:layout_marginRight="40dp">
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
         <TextView
-            android:textColor="@color/greenPrimary"
+            android:id="@+id/user_name_TV_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="No. Handphone"/>
+            android:text="Nama Pengguna"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No. Handphone"
+            android:textColor="@color/greenPrimary"
+            android:textSize="17sp" />
+
         <EditText
             android:id="@+id/phoneNumber_ET_edit_account"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="08129313123132"/>
+            android:layout_marginTop="4dp"
+            android:background="@drawable/border_rounded_edit_text"
+            android:hint="08...."
+            android:inputType="number"
+            android:padding="10dp" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:orientation="vertical"
-        android:layout_marginRight="40dp">
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical">
+
         <TextView
-            android:textColor="@color/greenPrimary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Alamat"/>
+            android:text="Alamat"
+            android:textColor="@color/greenPrimary"
+            android:textSize="17sp" />
+
         <EditText
             android:id="@+id/address_ET_edit_account"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Binus University, Anggrek Campus, Palmerah, Jakarta Barat"/>
+            android:layout_marginTop="4dp"
+            android:background="@drawable/border_rounded_edit_text"
+            android:hint="Alamat lengkap"
+            android:padding="10dp" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:orientation="vertical"
-        android:layout_marginRight="40dp">
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical">
+
         <TextView
-            android:textColor="@color/greenPrimary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="E-mail"/>
+            android:text="E-mail"
+            android:textColor="@color/greenPrimary"
+            android:textSize="17sp" />
+
         <EditText
             android:id="@+id/email_ET_edit_account"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="email.com"/>
+            android:layout_marginTop="4dp"
+            android:background="@drawable/border_rounded_edit_text"
+            android:hint="Alamat Email"
+            android:inputType="textEmailAddress"
+            android:padding="10dp" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:orientation="vertical"
-        android:layout_marginRight="40dp">
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical">
+
         <TextView
-            android:textColor="@color/greenPrimary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Kata Sandi"/>
+            android:text="Kata Sandi"
+            android:textColor="@color/greenPrimary"
+            android:textSize="17sp" />
+
         <EditText
             android:id="@+id/password_ET_edit_account"
-            android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="*********"/>
+            android:layout_marginTop="4dp"
+            android:background="@drawable/border_rounded_edit_text"
+            android:hint="Kata sandi"
+            android:inputType="textPassword"
+            android:padding="10dp" />
     </LinearLayout>
 
     <Button
         android:id="@+id/saveButton_edit_account"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="12dp"
+        android:layout_marginRight="20dp"
         android:background="@drawable/rounded_button_green"
         android:text="Simpan"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:textStyle="bold" />
 
 </LinearLayout>
