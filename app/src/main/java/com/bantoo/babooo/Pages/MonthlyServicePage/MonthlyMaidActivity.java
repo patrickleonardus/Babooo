@@ -208,12 +208,10 @@ public class MonthlyMaidActivity extends BaseActivity implements Serializable {
             receiveMonthlyMaidData();
         } else {
             for (int i = 0; i < maidList.size(); i++) {
-                if(!maidList.get(i).name.contains(searchMaidET.getText().toString())) {
+                if(!maidList.get(i).name.toLowerCase().contains(searchMaidET.getText().toString().toLowerCase())) {
                     maidList.remove(i);
                 }
-                /*for(int j = 0; j < searchMaidET.getText().toString().length(); j++) {
 
-                }*/
             }
             adapter.notifyDataSetChanged();
         }
