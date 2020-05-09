@@ -29,7 +29,6 @@
             app:itemBackground="@color/white"
             app:labelVisibilityMode="labeled"
             app:menu="@menu/bottom_nav_maid_items">
-
         </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     </RelativeLayout>

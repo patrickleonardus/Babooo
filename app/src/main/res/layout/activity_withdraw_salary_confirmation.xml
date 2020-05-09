@@ -44,123 +44,163 @@
             </LinearLayout>
 
         </LinearLayout>
+
         <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignParentTop="true"
-        android:background="@android:color/darker_gray" />
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/darker_gray" />
 
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="20dp"
+        android:weightSum="2">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="vertical">
+
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Nomor Pengajuan"
-                android:textStyle="bold"/>
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/nomor_pengajuan_TV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="COVID-19"/>
+                android:text="XXXXXX"
+                android:textColor="@color/black" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_weight="1"
             android:orientation="vertical">
+
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
                 android:text="Tanggal Pengajuan"
-                android:textStyle="bold"/>
+                android:textAlignment="textEnd"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/tanggal_pengajuan_TV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="DD MMMM YYYY"
                 android:textAlignment="textEnd"
-                android:text="2 Maret 2020"/>
+                android:textColor="@color/black" />
         </LinearLayout>
-    </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/lightGrey" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Jumlah koin yang ditarik"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="40dp"
-        android:textStyle="bold"/>
+        android:layout_marginTop="15dp"
+        android:text="Jumlah koin yang ditarik"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
 
     <LinearLayout
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
+
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/drawable_start_coins_edit_text"/>
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/drawable_start_coins_edit_text" />
+
         <TextView
             android:id="@+id/coins_TV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:text="300 Koin"
-            android:textStyle="bold"
-            android:textSize="26sp"/>
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="Nominal dalam Rupiah"
-        android:textStyle="bold"/>
+        android:textColor="@color/black"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/rupiah_nominal_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
-        android:textSize="28sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Rp 270.000"
-        android:textStyle="bold"/>
+        android:textColor="@color/black"
+        android:textSize="28sp"
+        android:textStyle="bold" />
 
-    <TextView
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="40dp"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Konfirmasi Admin Bantoo"/>
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/lightGrey" />
 
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="20dp"
+        android:text="Konfirmasi Admin Bantoo"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Masukan kode admin"/>
+        android:layout_marginRight="20dp"
+        android:text="Masukan kode admin"
+        android:textColor="@color/black" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal"
         android:weightSum="6">
 
@@ -168,7 +208,7 @@
             android:id="@+id/code1_withdraw_ET"
             android:layout_width="50sp"
             android:layout_height="50sp"
-            android:layout_marginRight="6dp"
+            android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:background="@drawable/border_rounded_edit_text"
             android:inputType="number"
@@ -180,7 +220,7 @@
             android:id="@+id/code2_withdraw_ET"
             android:layout_width="50sp"
             android:layout_height="50sp"
-            android:layout_marginRight="6dp"
+            android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:background="@drawable/border_rounded_edit_text"
             android:clickable="false"
@@ -193,7 +233,7 @@
             android:id="@+id/code3_withdraw_ET"
             android:layout_width="50sp"
             android:layout_height="50sp"
-            android:layout_marginRight="6dp"
+            android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:background="@drawable/border_rounded_edit_text"
             android:clickable="false"
@@ -206,7 +246,7 @@
             android:id="@+id/code4_withdraw_ET"
             android:layout_width="50sp"
             android:layout_height="50sp"
-            android:layout_marginRight="6dp"
+            android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:background="@drawable/border_rounded_edit_text"
             android:clickable="false"
@@ -219,7 +259,7 @@
             android:id="@+id/code5_withdraw_ET"
             android:layout_width="50sp"
             android:layout_height="50sp"
-            android:layout_marginRight="6dp"
+            android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:background="@drawable/border_rounded_edit_text"
             android:clickable="false"
@@ -243,38 +283,44 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="25dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/background_rounded_yellow"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
+
         <TextView
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Penting!"
-            android:textColor="@color/black"
-            android:textStyle="bold"/>
-        <TextView
-            android:layout_marginLeft="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:text="Penting!"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="8dp"
+            android:text="Kunjungi kantor Bantoo untuk melakukan penarikan. Mintalah Admin Bantoo untuk memasukkan kode pada perangkat anda untuk memproses penarikan gaji dalam bentuk uang."
             android:textColor="@color/quantum_yellow800"
-            android:textSize="11sp"
-            android:textStyle="bold"
-            android:text="Kunjungi kantor Bantoo untuk melakukan penarikan. Mintalah Admin Bantoo untuk memasukkan kode pada perangkat anda untuk memproses penarikan gaji dalam bentuk uang."/>
+            android:textSize="13sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
-        android:layout_weight="1"
         android:gravity="center">
 
         <Button
@@ -283,7 +329,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_button_green"
             android:text="Ajukan penarikan gaji"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

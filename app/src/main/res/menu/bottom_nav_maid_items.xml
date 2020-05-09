@@ -3,11 +3,14 @@
 
     <item
         android:id="@+id/pendapatan_item"
+        android:icon="@drawable/bottom_nav_maid"
         android:title="Pendapatan" />
     <item
         android:id="@+id/pesanan_item"
+        android:icon="@drawable/asset_logo_history"
         android:title="Pesanan" />
     <item
         android:id="@+id/profile_item"
+        android:icon="@drawable/bottom_nav_acc"
         android:title="Profile" />
 </menu>

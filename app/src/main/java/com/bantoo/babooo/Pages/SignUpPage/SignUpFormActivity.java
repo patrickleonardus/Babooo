@@ -146,13 +146,17 @@ public class SignUpFormActivity extends BaseActivity {
                             ApprCodePage apprCodePage = new ApprCodePage();
                             correct = apprCodePage.checkApprovalCode();
                             if(!correct) {
-                                displayError("User not found!");
+                                displayError("Data tidak ditemukan");
                             } else if(correct) {
 
                             }
                             break;
                         case 1:
-
+                            PasswordPage passwordPage = new PasswordPage();
+                            correct = passwordPage.getCorrect();
+                            if(!correct){
+                                displayError("Periksa kembali password anda");
+                            }
                             break;
                     }
                 }

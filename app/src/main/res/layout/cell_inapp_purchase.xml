@@ -1,39 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <RelativeLayout
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:padding="5dp">
+
         <ImageView
-            android:layout_centerVertical="true"
             android:id="@+id/coins_IV"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/drawable_start_coins_edit_text"/>
+            android:layout_centerVertical="true"
+            android:src="@drawable/drawable_start_coins_edit_text" />
+
         <TextView
             android:id="@+id/coins_TV"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="100"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/coins_IV"
-            android:textStyle="bold"
-            android:textSize="20sp"/>
+            android:text="100"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
         <Button
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
             android:id="@+id/buy_coins_Btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:background="@drawable/rounded_button_green"
             android:text="Rp. 30.000"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
     </RelativeLayout>
 
 </LinearLayout>

@@ -64,7 +64,7 @@ public class ApprCodePage extends Fragment {
         codeTemp4 = "";
         codeTemp5 = "";
         codeTemp6 = "";
-
+        correct = false;
     }
 
     public void handleButton() {
@@ -92,6 +92,7 @@ public class ApprCodePage extends Fragment {
                 if (codeET1.getText().toString().isEmpty()){
                     codeET1.setError("Harus diisi");
                     editor.putString("apprCode", "N/A").commit();
+                    correct = false;
                 }
                 else {
                     codeTemp1 = codeET1.getText().toString();
@@ -125,6 +126,7 @@ public class ApprCodePage extends Fragment {
                 if (codeET2.getText().toString().isEmpty()){
                     codeET2.setError("Harus diisi");
                     editor.putString("apprCode", "N/A").commit();
+                    correct = false;
                 }
                 else {
                     codeTemp2 = codeET2.getText().toString();
@@ -157,6 +159,7 @@ public class ApprCodePage extends Fragment {
                 if (codeET3.getText().toString().isEmpty()){
                     codeET3.setError("Harus diisi");
                     editor.putString("apprCode", "N/A").commit();
+                    correct = false;
                 }
                 else {
                     codeTemp3 = codeET3.getText().toString();
@@ -189,6 +192,7 @@ public class ApprCodePage extends Fragment {
                 if (codeET4.getText().toString().isEmpty()){
                     codeET4.setError("Harus diisi");
                     editor.putString("apprCode", "N/A").commit();
+                    correct = false;
                 }
                 else {
                     codeTemp4 = codeET4.getText().toString();
@@ -221,6 +225,7 @@ public class ApprCodePage extends Fragment {
                 if (codeET5.getText().toString().isEmpty()){
                     codeET5.setError("Harus diisi");
                     editor.putString("apprCode", "N/A").commit();
+                    correct = false;
                 }
                 else {
                     codeTemp5 = codeET5.getText().toString();
@@ -253,6 +258,7 @@ public class ApprCodePage extends Fragment {
                 if (codeET6.getText().toString().isEmpty()){
                     codeET6.setError("Harus diisi");
                     editor.putString("apprCode", "N/A").commit();
+                    correct = false;
                 }
                 else {
                     codeTemp6 = codeET6.getText().toString();

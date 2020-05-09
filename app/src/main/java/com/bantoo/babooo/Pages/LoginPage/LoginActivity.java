@@ -66,17 +66,17 @@ public class LoginActivity extends BaseActivity {
             handleLogin();
             phoneChecker();
             signUpAction();
+            resetSharedPref();
         }
-        resetSharedPref();
     }
 
     private void moveToHome() {
         SharedPreferences sharedPreferences = getSharedPreferences("accountData", Context.MODE_PRIVATE);
         Log.d("Login", "moveToHome: role: "+sharedPreferences.getString("artType", ""));
-        if(sharedPreferences.getString("artType", "").equals("")) {
+        if(sharedPreferences.getString("artType", "").equals("pengguna")) {
             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(intent);
-        } else if(!sharedPreferences.getString("artType", "").isEmpty()) {
+        } else if(!sharedPreferences.getString("artType", "").equals("mitra")) {
             Intent intent = new Intent(LoginActivity.this, MaidHomeActivity.class);
             startActivity(intent);
         }
@@ -159,10 +159,10 @@ public class LoginActivity extends BaseActivity {
                     progressBTN.buttonFinished();
                     Intent moveToVerification = new Intent(LoginActivity.this, VerificationActivity.class);
                     moveToVerification.putExtra("phoneNumber", phoneNumberET.getText().toString());
-                    moveToVerification.putExtra("role", "user");
+                    moveToVerification.putExtra("role", "pengguna");
                     SharedPreferences accountData = getApplicationContext().getSharedPreferences("accountData", MODE_PRIVATE);
                     SharedPreferences.Editor editor = accountData.edit();
-                    editor.putString("role", "user");
+                    editor.putString("role", "pengguna");
                     for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
                         editor.putString("uid", snapshot.getKey());
                         editor.apply();
