@@ -56,50 +56,55 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="40dp"
-        android:layout_marginLeft="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
         android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nomor Pesanan"/>
 
         <TextView
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nomor Pesanan" />
+
+        <TextView
+            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="Kode Pesanan"/>
+            android:text="Kode Pesanan" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
         android:background="@drawable/border_rounded_green_edit_text"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/imageART_monthly_summary"
-            android:layout_marginLeft="20dp"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:src="@drawable/logo_bantoo"/>
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/logo_bantoo" />
 
         <LinearLayout
             android:id="@+id/dataART_summary"
-            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/imageART_monthly_summary"
             android:orientation="vertical">
 
             <TextView
+                android:textColor="@color/black"
+                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:text="Nama ART" />
@@ -107,18 +112,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Status"/>
+                android:text="Status" />
 
         </LinearLayout>
 
         <TextView
+            android:textColor="@color/greenPrimary"
             android:id="@+id/hubungi_summary_monthly"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="Hubungi"/>
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="10dp"
+            android:text="Hubungi" />
 
     </RelativeLayout>
 
@@ -126,68 +132,67 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_marginLeft="8dp"
-            android:layout_alignParentLeft="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Periode Layanan"
-            android:textColor="@color/black"
-            android:textStyle="bold"/>
+        android:layout_marginRight="20dp">
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="Periode Layanan"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:textColor="@color/black"
             android:id="@+id/periode_layanan_monthly_summary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3 bulan"
-            android:layout_marginRight="8dp"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true"
+            android:text="3 bulan" />
     </RelativeLayout>
 
 
     <View
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:layout_width="match_parent"
         android:layout_height="0.8dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="12dp"
+        android:layout_marginRight="20dp"
         android:background="@color/lightGrey" />
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical">
 
         <TextView
-            android:layout_marginLeft="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tanggal Kedatangan"
             android:textColor="@color/black"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="18 Januari 2020"/>
+            android:layout_marginTop="10dp"
+            android:text="18 Januari 2020" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
         android:orientation="vertical">
 
         <View
@@ -200,18 +205,16 @@
 
     <!--Section 3-->
     <LinearLayout
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="12dp"
+        android:layout_marginRight="20dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
             android:orientation="vertical">
 
             <TextView
@@ -298,18 +301,16 @@
 
     <!--Section 4-->
     <LinearLayout
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="12dp"
+        android:layout_marginRight="20dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
             android:orientation="vertical">
 
             <TextView
@@ -355,18 +356,16 @@
 
     <!--Section 4-->
     <LinearLayout
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="12dp"
+        android:layout_marginRight="20dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
             android:orientation="vertical">
 
             <TextView
@@ -378,37 +377,38 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <TextView
+                    android:textColor="@color/black"
                     android:id="@+id/layanan_bantoo_harian_monthly_summary"
-                    android:layout_marginTop="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Layanan Bantoo harian"/>
+                    android:layout_marginTop="20dp"
+                    android:text="Layanan Bantoo harian" />
 
                 <TextView
-                    android:layout_below="@id/layanan_bantoo_harian_monthly_summary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/greenPrimary"
-                    android:text="Biaya Administrasi"/>
+                    android:layout_below="@id/layanan_bantoo_harian_monthly_summary"
+                    android:text="Biaya Administrasi"
+                    android:textColor="@color/greenPrimary" />
 
                 <ImageView
-                    android:layout_marginTop="20dp"
-                    android:layout_toLeftOf="@id/coins_monthly_summary_TV"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_toLeftOf="@id/coins_monthly_summary_TV"
                     android:src="@drawable/asset_coin" />
 
                 <TextView
-                    android:layout_marginTop="20dp"
-                    android:layout_alignParentRight="true"
                     android:id="@+id/coins_monthly_summary_TV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
                     android:layout_marginLeft="4dp"
+                    android:layout_marginTop="20dp"
                     android:text="Coins"
                     android:textColor="@color/greenPrimary" />
             </RelativeLayout>
@@ -423,16 +423,15 @@
             android:background="@color/lightGrey" />
 
         <RelativeLayout
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/greenPrimary"
-                android:text="Total Pembayaran"/>
+                android:text="Total Pembayaran"
+                android:textColor="@color/greenPrimary" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -445,9 +444,9 @@
                     android:src="@drawable/asset_coin" />
 
                 <TextView
-                    android:layout_alignParentRight="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
                     android:layout_marginLeft="4dp"
                     android:text="Coins"
                     android:textColor="@color/greenPrimary" />
@@ -459,11 +458,11 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
         android:layout_weight="1"
         android:gravity="center">

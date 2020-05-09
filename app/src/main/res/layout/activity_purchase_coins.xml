@@ -11,48 +11,73 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:background="@drawable/background_home">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="5dp"
             android:text="Tambah Koin"
             android:textColor="@color/white"
-            android:textSize="68px"
-            android:textStyle="bold"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"/>
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="-65dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/border_rounded_edit_text"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:padding="8dp">
+
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Saldo saat ini"
-            android:textStyle="bold"
-            android:textSize="18sp"/>
-        <ImageView
-            android:layout_marginLeft="10dp"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/drawable_start_coins_edit_text"/>
-        <TextView
-            android:id="@+id/coins_TV_purchase"
-            android:layout_marginLeft="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="500 coins"
-            android:textStyle="bold"
-            android:textSize="26sp"/>
+            android:text="Total Coins Anda"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/drawable_start_coins_edit_text" />
+
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/black"
+                android:id="@+id/coins_TV_purchase"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0 Coin"
+                android:textAlignment="center"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/in_app_purchase_RV"
-        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp" />
 
     <!--<RelativeLayout
         android:layout_marginTop="50dp"

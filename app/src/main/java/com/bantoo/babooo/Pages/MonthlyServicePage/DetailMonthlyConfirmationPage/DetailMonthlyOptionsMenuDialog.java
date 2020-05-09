@@ -17,7 +17,7 @@ import com.bantoo.babooo.R;
 
 public class DetailMonthlyOptionsMenuDialog extends Dialog {
 
-    LinearLayout lihatProfileLL, konfirmasiGajiLL, perpanjangKontrakLL;
+    LinearLayout seeProfileLayout, incomeConfirmationLayout, extendContractLayout;
     String maidUniqueKey, rentUniqueKey;
     boolean showExtendedContract;
     Context context;
@@ -36,13 +36,13 @@ public class DetailMonthlyOptionsMenuDialog extends Dialog {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.detail_monthly_options_menu_dialog);
 
-        lihatProfileLL = findViewById(R.id.lihat_profile_mitra_monthly_options);
-        konfirmasiGajiLL = findViewById(R.id.konfirmasi_gaji_mitra_monthly_options);
-        perpanjangKontrakLL = findViewById(R.id.perpanjang_kontrak_mitra_monthly_options);
+        seeProfileLayout = findViewById(R.id.lihat_profile_mitra_monthly_options);
+        incomeConfirmationLayout = findViewById(R.id.konfirmasi_gaji_mitra_monthly_options);
+        extendContractLayout = findViewById(R.id.perpanjang_kontrak_mitra_monthly_options);
         if(!showExtendedContract) {
-            perpanjangKontrakLL.setVisibility(View.GONE);
+            extendContractLayout.setVisibility(View.GONE);
         }
-        lihatProfileLL.setOnClickListener(new View.OnClickListener() {
+        seeProfileLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent moveToProfile = new Intent(getContext(), MaidDetailActivity.class);
@@ -51,7 +51,7 @@ public class DetailMonthlyOptionsMenuDialog extends Dialog {
                 context.startActivity(moveToProfile);
             }
         });
-        konfirmasiGajiLL.setOnClickListener(new View.OnClickListener() {
+        incomeConfirmationLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent moveToSalaryConfirmation = new Intent(getContext(), SalaryConfirmationActivity.class);
@@ -59,7 +59,7 @@ public class DetailMonthlyOptionsMenuDialog extends Dialog {
                 context.startActivity(moveToSalaryConfirmation);
             }
         });
-        perpanjangKontrakLL.setOnClickListener(new View.OnClickListener() {
+        extendContractLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent moveToExtendContract = new Intent(getContext(), ExtendContractReminderActivity.class);

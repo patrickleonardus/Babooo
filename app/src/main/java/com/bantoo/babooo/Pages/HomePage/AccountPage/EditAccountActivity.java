@@ -65,15 +65,15 @@ public class EditAccountActivity extends BaseActivity {
     }
 
     private boolean isDataValid() {
-        if(!noHandphoneET.getText().toString().startsWith("08") || noHandphoneET.getText().toString().length() <=10) {
-            Toast.makeText(this, "No Handphone tidak benar", Toast.LENGTH_SHORT).show();
+        if(!noHandphoneET.getText().toString().startsWith("08") || noHandphoneET.getText().toString().length() <10 || noHandphoneET.getText().toString().length()>13) {
+            noHandphoneET.setError("Format nomor handphone salah");
             return false;
         } else if(!emailET.getText().toString().contains("@") || (!emailET.getText().toString().endsWith(".com") &&
             !emailET.getText().toString().endsWith(".co.id")) ) {
-            Toast.makeText(this, "Email tidak benar", Toast.LENGTH_SHORT).show();
+            emailET.setError("Format email salah");
             return false;
         } else if(passwordET.getText().toString().length() < 6) {
-            Toast.makeText(this, "Panjang password harus lebih dari 6 karakter", Toast.LENGTH_SHORT).show();
+            passwordET.setError("Password terlalu singkat");
             return false;
         }
         return true;

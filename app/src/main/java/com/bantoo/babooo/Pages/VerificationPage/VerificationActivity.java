@@ -417,14 +417,13 @@ public class VerificationActivity extends BaseActivity {
                             progressButton.buttonFinished(buttonTitle);
                             if(getIntent().getStringExtra("role") != null) {
                                 if(getIntent().getStringExtra("role").equals("art")) {
-                                    Toast.makeText(VerificationActivity.this, "Ini ART", Toast.LENGTH_SHORT).show();
                                     moveToART();
                                 } else if(getIntent().getStringExtra("role").equals("artBulanan")) {
-                                    Toast.makeText(VerificationActivity.this, "ini ART Bulanan", Toast.LENGTH_SHORT).show();
                                     moveToARTBulanan();
                                 }
-                            } else {
-                                moveToHome();
+                                else {
+                                    moveToHome();
+                                }
                             }
                         } else {
                             displayError("Kode verifikasi salah, mohon periksa kembali");

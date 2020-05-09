@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/border_rounded_edit_text">
+    android:background="@drawable/border_rounded_edit_text"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/lihat_profile_mitra_monthly_options"
         android:layout_width="150dp"
         android:layout_height="50dp">
+
         <TextView
-            android:textAlignment="center"
-            android:textSize="16sp"
-            android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Lihat Profile Mitra"/>
+            android:layout_gravity="center"
+            android:text="Lihat Profile Mitra"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <View
@@ -28,26 +30,30 @@
         android:id="@+id/konfirmasi_gaji_mitra_monthly_options"
         android:layout_width="150dp"
         android:layout_height="50dp">
+
         <TextView
-            android:textAlignment="center"
-            android:textSize="16sp"
-            android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Konfirmasi Gaji"/>
+            android:layout_gravity="center"
+            android:text="Konfirmasi Gaji"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/perpanjang_kontrak_mitra_monthly_options"
         android:layout_width="150dp"
         android:layout_height="50dp">
+
         <TextView
-            android:textAlignment="center"
-            android:textSize="16sp"
-            android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Perpanjang Kontrak"/>
+            android:layout_gravity="center"
+            android:text="Perpanjang Kontrak"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
     </LinearLayout>
 
 </LinearLayout>

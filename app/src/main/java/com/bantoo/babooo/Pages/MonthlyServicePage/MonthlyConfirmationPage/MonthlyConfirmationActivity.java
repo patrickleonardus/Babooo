@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -55,6 +56,7 @@ public class MonthlyConfirmationActivity extends BaseActivity implements Adapter
     Button setOrderBTN;
     Spinner durationSP;
     Date timeChoosen, dateChoosen;
+    ImageView closeBtn;
 
     private SimpleDateFormat dateFormat;
     private SimpleDateFormat format = new SimpleDateFormat("kk:mm");
@@ -99,6 +101,7 @@ public class MonthlyConfirmationActivity extends BaseActivity implements Adapter
         serviceCostTV = findViewById(R.id.coins_month_confirmation_TV);
         setOrderBTN = findViewById(R.id.order_month_confirmation_BTN);
         durationSP = findViewById(R.id.spinner_duration_confirmation_SP);
+        closeBtn = findViewById(R.id.close_monthly_confirmation_IV);
         durationSP.setOnItemSelectedListener(this);
     }
 
@@ -156,6 +159,14 @@ public class MonthlyConfirmationActivity extends BaseActivity implements Adapter
     }
 
     private void handleAction() {
+
+        closeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         serviceDateLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -223,7 +234,6 @@ public class MonthlyConfirmationActivity extends BaseActivity implements Adapter
                 } else {
                     dataSnapshot.child("coins").getRef().setValue(Integer.parseInt(dataSnapshot.child("coins").getValue().toString()) - serviceCost);
                     processOrder();
-                    Toast.makeText(MonthlyConfirmationActivity.this, "make order", Toast.LENGTH_SHORT).show();
                 }
             }
 

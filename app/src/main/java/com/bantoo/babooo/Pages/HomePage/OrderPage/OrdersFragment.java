@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bantoo.babooo.Model.ServiceSchedule;
@@ -51,6 +52,7 @@ public class OrdersFragment extends Fragment implements OrderItemClickListener {
 
     private TextView runningOrderTV, previousOrderTV;
     private View runningOrderLine, previousOrderLine;
+    private LinearLayout noDataLayout, runningOrderLayout, previousTransactionLayout;
 
     SharedPreferences accountDataSharedPreferences;
     private FirebaseDatabase firebaseDatabase;
@@ -70,9 +72,12 @@ public class OrdersFragment extends Fragment implements OrderItemClickListener {
         View rootView = inflater.inflate(R.layout.fragment_home_orders, container, false);
         historyRV = rootView.findViewById(R.id.history_RV);
         runningOrderLine = rootView.findViewById(R.id.running_order_line_order);
+        runningOrderLayout = rootView.findViewById(R.id.running_order_layout);
         previousOrderLine = rootView.findViewById(R.id.previous_transaction_line_order);
+        previousTransactionLayout = rootView.findViewById(R.id.previous_transaction_layout);
         runningOrderTV = rootView.findViewById(R.id.running_order_TV_order);
         previousOrderTV = rootView.findViewById(R.id.previous_transaction_TV_order);
+        noDataLayout = rootView.findViewById(R.id.noDataOrderLayout);
         previousOrderLine.setVisibility(View.GONE);
         currentTypeOrder = RUNNING_ORDER;
 
@@ -81,6 +86,8 @@ public class OrdersFragment extends Fragment implements OrderItemClickListener {
 
         retrieveRentData();
         setupRecyclerView();
+
+        checkData();
 
         return rootView;
     }
@@ -95,22 +102,24 @@ public class OrdersFragment extends Fragment implements OrderItemClickListener {
     }
 
     private void setClickListener() {
-        runningOrderTV.setOnClickListener(new View.OnClickListener() {
+        runningOrderLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 previousOrderLine.setVisibility(View.GONE);
                 runningOrderLine.setVisibility(View.VISIBLE);
                 currentTypeOrder = RUNNING_ORDER;
                 retrieveRentData();
+                checkData();
             }
         });
-        previousOrderTV.setOnClickListener(new View.OnClickListener() {
+        previousTransactionLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 runningOrderLine.setVisibility(View.GONE);
                 previousOrderLine.setVisibility(View.VISIBLE);
                 currentTypeOrder = PREVIOUS_ORDER;
                 retrieveRentData();
+                checkData();
             }
         });
     }
@@ -246,6 +255,17 @@ public class OrdersFragment extends Fragment implements OrderItemClickListener {
 
             }
         });
+    }
+
+    private void checkData(){
+        if (serviceScheduleList.isEmpty()){
+            noDataLayout.setVisibility(View.VISIBLE);
+            historyRV.setVisibility(View.GONE);
+        }
+        else {
+            noDataLayout.setVisibility(View.GONE);
+            historyRV.setVisibility(View.VISIBLE);
+        }
     }
 
     private void addDummyData() {

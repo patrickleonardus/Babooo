@@ -21,7 +21,7 @@ import com.bantoo.babooo.Model.FirebaseHelper;
 import com.bantoo.babooo.Pages.SignUpPage.Fragment.ApprCodePage;
 import com.bantoo.babooo.Pages.SignUpPage.Fragment.EmailPage;
 import com.bantoo.babooo.Pages.SignUpPage.Fragment.LocationPage;
-import com.bantoo.babooo.Pages.SignUpPage.Fragment.MaidDataFragment;
+import com.bantoo.babooo.Pages.SignUpPage.Fragment.MaidDataPage;
 import com.bantoo.babooo.Pages.SignUpPage.Fragment.NamePage;
 import com.bantoo.babooo.Pages.SignUpPage.Fragment.PasswordPage;
 import com.bantoo.babooo.Pages.SignUpPage.Fragment.PhonePage;
@@ -146,13 +146,17 @@ public class SignUpFormActivity extends BaseActivity {
                             ApprCodePage apprCodePage = new ApprCodePage();
                             correct = apprCodePage.checkApprovalCode();
                             if(!correct) {
-                                displayError("User not found!");
+                                displayError("Data tidak ditemukan");
                             } else if(correct) {
 
                             }
                             break;
                         case 1:
-
+                            PasswordPage passwordPage = new PasswordPage();
+                            correct = passwordPage.getCorrect();
+                            if(!correct){
+                                displayError("Periksa kembali password anda");
+                            }
                             break;
                     }
                 }
@@ -202,7 +206,7 @@ public class SignUpFormActivity extends BaseActivity {
         } else if (userRole.equals("mitra")) {
             list.add(new ApprCodePage());
             list.add(new PasswordPage());
-            list.add(new MaidDataFragment());
+            list.add(new MaidDataPage());
         }
 
         pager = findViewById(R.id.pager);

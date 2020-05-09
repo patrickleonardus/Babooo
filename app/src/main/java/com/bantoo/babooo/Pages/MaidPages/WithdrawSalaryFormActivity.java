@@ -29,7 +29,7 @@ import java.util.Date;
 
 public class WithdrawSalaryFormActivity extends AppCompatActivity {
 
-    TextView currentCoinsTV, rupiahNominalTV, currentDateTV;
+    TextView currentCoinsTV, inRupiahTV, currentDateTV;
     EditText coinsWithdrawET;
     Button withdrawSalaryBtn;
 
@@ -64,7 +64,7 @@ public class WithdrawSalaryFormActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 int coinsValue = Integer.parseInt(coinsWithdrawET.getText().toString());
-                rupiahNominalTV.setText("Rp "+(coinsValue*3000));
+                inRupiahTV.setText("Rp "+(coinsValue*3000));
             }
         });
         withdrawSalaryBtn.setOnClickListener(new View.OnClickListener() {
@@ -140,7 +140,7 @@ public class WithdrawSalaryFormActivity extends AppCompatActivity {
 
     private void initView() {
         currentCoinsTV = findViewById(R.id.current_coins_TV);
-        rupiahNominalTV = findViewById(R.id.rupiah_nominal_TV);
+        inRupiahTV = findViewById(R.id.rupiah_nominal_TV);
         currentDateTV = findViewById(R.id.current_date_TV);
         coinsWithdrawET = findViewById(R.id.coins_withdraw_ET);
         withdrawSalaryBtn = findViewById(R.id.withdraw_coins_BTN);

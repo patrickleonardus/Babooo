@@ -10,271 +10,365 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:orientation="vertical"
-            android:background="@drawable/background_home">
-            <TextView
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Profil ART"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:textSize="76px"/>
+            android:layout_height="wrap_content"
+            android:layout_margin="18dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
             <ImageView
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="60dp"
-                android:layout_width="200dp"
+                android:id="@+id/close_maid_detail_IV"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/asset_back" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/logo_bantoo"/>
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="Profile ART"
+                    android:textColor="@color/greenPrimary"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/darker_gray" />
+
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/maid_name_TV_maid_detail"
-            android:textSize="78px"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Siti Sajanah"/>
-        <TextView
-            android:id="@+id/maid_age_TV_maid_detail"
-            android:textSize="48px"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="32 Tahun"/>
-    </LinearLayout>
-
-    <TextView
-        android:textStyle="bold"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:text="Rp. 3.000.000 /bulan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <LinearLayout
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_width="wrap_content"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/rating_image1_maid_detail"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginRight="4dp"
-            android:layout_weight="1"
-            android:src="@drawable/asset_star_active" />
-        <ImageView
-            android:id="@+id/rating_image2_maid_detail"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginRight="4dp"
-            android:layout_weight="1"
-            android:src="@drawable/asset_star_active" />
-        <ImageView
-            android:id="@+id/rating_image3_maid_detail"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginRight="4dp"
-            android:layout_weight="1"
-            android:src="@drawable/asset_star_active" />
-        <ImageView
-            android:id="@+id/rating_image4_maid_detail"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginRight="4dp"
-            android:layout_weight="1"
-            android:src="@drawable/asset_star_active" />
-        <ImageView
-            android:id="@+id/rating_image5_maid_detail"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginRight="4dp"
-            android:layout_weight="1"
-            android:src="@drawable/asset_star_active" />
-        <TextView
-            android:id="@+id/rating_tv_maid_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="4.0"/>
-    </LinearLayout>
-    
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
         android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:textStyle="bold"
-            android:textSize="48px"
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Alamat"/>
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/logo_bantoo_bg"
+                app:civ_shadow="true"
+                app:civ_shadow_color="@color/orangePrimary"
+                app:civ_shadow_radius="2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/maid_name_TV_maid_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Maid Name"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/maid_age_TV_maid_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Maid Age"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="5">
+
+                    <ImageView
+                        android:id="@+id/rating_image1_maid_detail"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginRight="4dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/asset_star_active" />
+
+                    <ImageView
+                        android:id="@+id/rating_image2_maid_detail"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginRight="4dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/asset_star_active" />
+
+                    <ImageView
+                        android:id="@+id/rating_image3_maid_detail"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginRight="4dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/asset_star_active" />
+
+                    <ImageView
+                        android:id="@+id/rating_image4_maid_detail"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginRight="4dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/asset_star_active" />
+
+                    <ImageView
+                        android:id="@+id/rating_image5_maid_detail"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginRight="4dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/asset_star_active" />
+
+                    <TextView
+                        android:id="@+id/rating_tv_maid_detail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="5.0"
+                        android:textColor="@color/black" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/lightGrey" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Gaji"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Rp. 3.000.000 /bulan"
+            android:textColor="@color/black" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Alamat"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/maid_address_TV_maid_detail"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/greenPrimary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Jl. Tanah Baru no. 34, Sidoarjo, Jawa Timur \n13445"/>
+            android:text="Jl. Tanah Baru no. 34, Sidoarjo, Jawa Timur \n13445"
+            android:textColor="@color/black" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/lightGrey" />
+
     </LinearLayout>
+
     <TextView
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="40dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="20dp"
         android:text="Kemampuan"
-        android:textStyle="bold"/>
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
         <LinearLayout
-            android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
             android:orientation="vertical">
+
             <ProgressBar
                 android:id="@+id/progress_bar_cuci_kering_maid_detail"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:indeterminate="false"
-                android:progressDrawable="@drawable/circular_progress_bar"
-                android:background="@drawable/circle_shape"
                 style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/circle_shape"
+                android:indeterminate="false"
                 android:max="100"
-                android:progress="50" />
+                android:progress="50"
+                android:progressDrawable="@drawable/circular_progress_bar" />
+
             <ImageView
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="-60dp"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/asset_icon_cuci1"/>
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="-39dp"
+                android:src="@drawable/asset_icon_cuci1" />
+
             <TextView
-                android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cuci Kering"/>
+                android:layout_marginTop="20dp"
+                android:text="Cuci Kering" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
             android:orientation="vertical">
+
             <ProgressBar
                 android:id="@+id/progress_bar_setrika_maid_detail"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:indeterminate="false"
-                android:progressDrawable="@drawable/circular_progress_bar"
-                android:background="@drawable/circle_shape"
                 style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/circle_shape"
+                android:indeterminate="false"
                 android:max="100"
-                android:progress="50" />
+                android:progress="50"
+                android:progressDrawable="@drawable/circular_progress_bar" />
+
             <ImageView
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="-60dp"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/asset_icon_strika1"/>
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="-39dp"
+                android:src="@drawable/asset_icon_strika1" />
+
             <TextView
-                android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Setrika Baju"/>
+                android:layout_marginTop="20dp"
+                android:text="Setrika Baju" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
             android:orientation="vertical">
+
             <ProgressBar
                 android:id="@+id/progress_bar_sapu_maid_detail"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:indeterminate="false"
-                android:progressDrawable="@drawable/circular_progress_bar"
-                android:background="@drawable/circle_shape"
                 style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/circle_shape"
+                android:indeterminate="false"
                 android:max="100"
-                android:progress="50" />
+                android:progress="50"
+                android:progressDrawable="@drawable/circular_progress_bar" />
+
             <ImageView
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="-60dp"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/asset_icon_sapu1"/>
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="-39dp"
+                android:src="@drawable/asset_icon_sapu1" />
+
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sapu Pel"/>
+                android:text="Sapu Pel" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
             android:orientation="vertical">
+
             <ProgressBar
                 android:id="@+id/progress_bar_kmrmandi_maid_detail"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:indeterminate="false"
-                android:progressDrawable="@drawable/circular_progress_bar"
-                android:background="@drawable/circle_shape"
                 style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/circle_shape"
+                android:indeterminate="false"
                 android:max="100"
-                android:progress="50" />
+                android:progress="50"
+                android:progressDrawable="@drawable/circular_progress_bar" />
+
             <ImageView
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="-60dp"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/asset_icon_kmrmandi1"/>
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="-39dp"
+                android:src="@drawable/asset_icon_kmrmandi1" />
+
             <TextView
-                android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Kamar Mandi"/>
+                android:layout_marginTop="20dp"
+                android:text="Kamar Mandi" />
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
+    <Button
+        android:layout_marginTop="12dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:id="@+id/order_daily_confirmation_BTN"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_weight="1"
-        android:gravity="center">
-
-        <Button
-            android:id="@+id/order_daily_confirmation_BTN"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/rounded_button_green"
-            android:text="Rekrut Sekarang"
-            android:textColor="@color/white" />
-    </LinearLayout>
+        android:layout_height="50dp"
+        android:background="@drawable/rounded_button_green"
+        android:text="Rekrut Sekarang"
+        android:textColor="@color/white" />
 
 </LinearLayout>

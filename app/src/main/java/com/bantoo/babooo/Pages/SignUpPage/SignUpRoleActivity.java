@@ -36,6 +36,9 @@ public class SignUpRoleActivity extends BaseActivity {
         penggunaView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                resetSharedPref();
+
                 SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("accountData", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("role", "pengguna").commit();
@@ -45,6 +48,8 @@ public class SignUpRoleActivity extends BaseActivity {
         mitraView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                resetSharedPref();
+
                 showAlertForART();
             }
         });
@@ -77,6 +82,14 @@ public class SignUpRoleActivity extends BaseActivity {
                 });
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
+    }
+
+    private void resetSharedPref() {
+        //clear semua sharedPreferences
+        SharedPreferences userPref = getSharedPreferences("accountData", Context.MODE_PRIVATE);
+        SharedPreferences verifPref = getSharedPreferences("verificationPage", Context.MODE_PRIVATE);
+        userPref.edit().clear().commit();
+        verifPref.edit().clear().commit();
     }
 
     public void moveToRegister() {

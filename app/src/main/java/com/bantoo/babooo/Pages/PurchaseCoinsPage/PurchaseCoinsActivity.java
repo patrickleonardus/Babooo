@@ -38,7 +38,7 @@ public class PurchaseCoinsActivity extends BaseActivity implements PurchasesUpda
 
     private static final String TAG = "PurchaseCoins";
     private BillingClient billingClient;
-    List<String> skuList = new ArrayList<String>();
+    private List<String> skuList = new ArrayList<String>();
 
     private RecyclerView inAppRV;
     private TextView coinsTV;

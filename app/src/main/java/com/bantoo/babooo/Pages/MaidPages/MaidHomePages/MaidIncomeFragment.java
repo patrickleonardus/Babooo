@@ -35,14 +35,14 @@ import java.util.concurrent.TimeUnit;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class PendapatanFragment extends Fragment {
+public class MaidIncomeFragment extends Fragment {
 
     private static final String TAG = "PendapatanFragment";
 
-    TextView statusTV, totalKoinTV, setaraRupiahTV, koinHarianTV, percentageHarianTV, ratingMaidTV, targetKoinHarianTV;
+    TextView statusTV, totalCoinsTV, inRupiahTV, dailyCoinsTV, dailyPercentageTV, ratingMaidTV, dailyCoinsTargetTV;
     Switch activeSwitch;
-    ProgressBar pendapatanPB;
-    RelativeLayout penarikanGajiRL;
+    ProgressBar incomePB;
+    RelativeLayout withdrawIncomeLayout;
 
     String phoneNumber;
     FirebaseDatabase firebaseDatabase;
@@ -53,24 +53,24 @@ public class PendapatanFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_pendapatan, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_maid_income, container, false);
 
         statusTV = rootView.findViewById(R.id.status_TV);
-        totalKoinTV = rootView.findViewById(R.id.total_koin_TV);
-        setaraRupiahTV = rootView.findViewById(R.id.setara_rupiah_koin_TV);
-        koinHarianTV = rootView.findViewById(R.id.koin_harian_TV);
-        percentageHarianTV = rootView.findViewById(R.id.percentageTarget_TV);
+        totalCoinsTV = rootView.findViewById(R.id.total_koin_TV);
+        inRupiahTV = rootView.findViewById(R.id.setara_rupiah_koin_TV);
+        dailyCoinsTV = rootView.findViewById(R.id.koin_harian_TV);
+        dailyPercentageTV = rootView.findViewById(R.id.percentageTarget_TV);
         ratingMaidTV = rootView.findViewById(R.id.rating_maid_TV);
-        targetKoinHarianTV = rootView.findViewById(R.id.target_koin_harianTV);
+        dailyCoinsTargetTV = rootView.findViewById(R.id.target_koin_harianTV);
         activeSwitch = rootView.findViewById(R.id.active_switch);
-        pendapatanPB = rootView.findViewById(R.id.pendapatan_PB);
-        penarikanGajiRL = rootView.findViewById(R.id.penarikan_gaji_RL);
+        incomePB = rootView.findViewById(R.id.pendapatan_PB);
+        withdrawIncomeLayout = rootView.findViewById(R.id.penarikan_gaji_RL);
 
         SharedPreferences accountDataSharedPreferences = getActivity().getSharedPreferences("accountData", MODE_PRIVATE);
         String artType = accountDataSharedPreferences.getString("artType", "");
         Log.d(TAG, "onCreateView: arttype: "+artType);
         if(artType.equals("daily")) {
-            penarikanGajiRL.setOnClickListener(new View.OnClickListener() {
+            withdrawIncomeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent withdrawIntent = new Intent(getContext(), WithdrawSalaryFormActivity.class);
@@ -91,7 +91,7 @@ public class PendapatanFragment extends Fragment {
             typeMaidTV.setText("Mitra Bantoo Bulanan");
             kontrakBerlangsung.setText("Kontrak Berlangsung");
             konfirmasiGajiTV.setText("Konfirmasi Terima Gaji");
-            penarikanGajiRL.setOnClickListener(new View.OnClickListener() {
+            withdrawIncomeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent receiveSalaryIntent = new Intent(getContext(), ReceiveSalaryConfirmationActivity.class);
@@ -123,7 +123,7 @@ public class PendapatanFragment extends Fragment {
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
                     String salary = snapshot.child("salary").getValue().toString();
                     String tidySalary = NumberFormat.getNumberInstance(Locale.GERMAN).format(Integer.parseInt(salary));
-                    totalKoinTV.setText("Rp "+tidySalary);
+                    totalCoinsTV.setText("Rp "+tidySalary);
                     showRentData(salary);
                 }
             }
@@ -150,7 +150,7 @@ public class PendapatanFragment extends Fragment {
                         int duration = Integer.parseInt(snapshot.child("duration").getValue().toString());
                         int totalSalary = duration * Integer.parseInt(salary);
                         String tidyTotalSalary = NumberFormat.getNumberInstance(Locale.GERMAN).format(totalSalary);
-                        setaraRupiahTV.setText("dari total kontrak Rp. " + tidyTotalSalary);
+                        inRupiahTV.setText("dari total kontrak Rp. " + tidyTotalSalary);
                         Date now = new Date();
                         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
                         String orderDate = snapshot.child("orderDate").getValue().toString();
@@ -165,12 +165,12 @@ public class PendapatanFragment extends Fragment {
                             diffInMonth = ((int) diffInDays / 30) + 1;
                             Log.d(TAG, "onDataChange: diffinMonth: "+diffInMonth);
                             String periodeBulan = "Bulan ke "+diffInMonth;
-                            koinHarianTV.setText(periodeBulan);
-                            pendapatanPB.setProgress(diffInMonth);
-                            pendapatanPB.setMax(duration);
+                            dailyCoinsTV.setText(periodeBulan);
+                            incomePB.setProgress(diffInMonth);
+                            incomePB.setMax(duration);
                             float percentageDuration = (diffInMonth / duration) * 100;
-                            percentageHarianTV.setText((int) percentageDuration + "%");
-                            targetKoinHarianTV.setText("duration: " + duration + " bulan");
+                            dailyPercentageTV.setText((int) percentageDuration + "%");
+                            dailyCoinsTargetTV.setText("duration: " + duration + " bulan");
                         } catch (Exception e) {}
                         if(rating != 0 && totalOrder != 0) {
                             float averageRating = rating / totalOrder;
@@ -206,9 +206,9 @@ public class PendapatanFragment extends Fragment {
                     String totalKoin = "0";
                     if(snapshot.child("coins").getValue() != null) {
                         totalKoin = snapshot.child("coins").getValue().toString();
-                        totalKoinTV.setText(totalKoin+" koin");
-                    } else { totalKoinTV.setText("0 koin"); }
-                    setaraRupiahTV.setText("Setara dengan Rp. "+(Integer.parseInt(totalKoin)*3000));
+                        totalCoinsTV.setText(totalKoin+" koin");
+                    } else { totalCoinsTV.setText("0 koin"); }
+                    inRupiahTV.setText("Setara dengan Rp. "+(Integer.parseInt(totalKoin)*3000));
                     showDailyData();
                 }
             }
@@ -242,11 +242,11 @@ public class PendapatanFragment extends Fragment {
                 }
                 if(counter == 0) counter = 1;
                 float averageRating = totalRating / counter;
-                koinHarianTV.setText(totalFee+" koin");
+                dailyCoinsTV.setText(totalFee+" koin");
                 ratingMaidTV.setText(""+averageRating);
-                targetKoinHarianTV.setText("target: 300 koin");
-                pendapatanPB.setProgress(totalFee);
-                pendapatanPB.setMax(300);
+                dailyCoinsTargetTV.setText("target: 300 koin");
+                incomePB.setProgress(totalFee);
+                incomePB.setMax(300);
             }
 
             @Override

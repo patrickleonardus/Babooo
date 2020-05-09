@@ -63,6 +63,7 @@
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:background="@drawable/border_rounded_edit_text"
+            android:inputType="textCapSentences"
             android:maxLength="1"
             android:maxLines="1"
             android:textAlignment="center" />
@@ -75,6 +76,7 @@
             android:layout_weight="1"
             android:background="@drawable/border_rounded_edit_text"
             android:clickable="false"
+            android:inputType="textCapSentences"
             android:maxLength="1"
             android:maxLines="1"
             android:textAlignment="center" />
@@ -87,6 +89,7 @@
             android:layout_weight="1"
             android:background="@drawable/border_rounded_edit_text"
             android:clickable="false"
+            android:inputType="textCapSentences"
             android:maxLength="1"
             android:maxLines="1"
             android:textAlignment="center" />
@@ -99,6 +102,7 @@
             android:layout_weight="1"
             android:background="@drawable/border_rounded_edit_text"
             android:clickable="false"
+            android:inputType="textCapSentences"
             android:maxLength="1"
             android:maxLines="1"
             android:textAlignment="center" />
@@ -111,6 +115,7 @@
             android:layout_weight="1"
             android:background="@drawable/border_rounded_edit_text"
             android:clickable="false"
+            android:inputType="textCapSentences"
             android:maxLength="1"
             android:maxLines="1"
             android:textAlignment="center" />
@@ -122,6 +127,7 @@
             android:layout_weight="1"
             android:background="@drawable/border_rounded_edit_text"
             android:clickable="false"
+            android:inputType="textCapSentences"
             android:maxLength="1"
             android:maxLines="1"
             android:textAlignment="center" />

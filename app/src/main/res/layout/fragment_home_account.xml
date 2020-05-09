@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,181 +14,244 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:orientation="vertical"
-                android:background="@drawable/background_home">
+                android:background="@drawable/background_home"
+                android:orientation="vertical">
+
                 <RelativeLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <TextView
-                        android:layout_marginTop="20dp"
-                        android:layout_marginLeft="20dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Profil"
-                        android:textStyle="bold"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="5dp"
+                        android:text="Profile"
                         android:textColor="@color/white"
-                        android:textSize="76px"/>
-                    <ImageButton
-                        android:id="@+id/edit_profile_button_home_account"
-                        android:background="@drawable/asset_btn_editpencil"
+                        android:textSize="28sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
                         android:layout_marginTop="20dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_toLeftOf="@id/settings_button_home_account"/>
-                    <ImageButton
-                        android:background="@drawable/asset_settings"
-                        android:id="@+id/settings_button_home_account"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_alignParentRight="true"/>
+                        android:layout_marginRight="20dp">
+
+                        <ImageButton
+                            android:id="@+id/edit_profile_button_home_account"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginRight="6dp"
+                            android:layout_toLeftOf="@+id/settings_button_home_account"
+                            android:background="@drawable/asset_btn_editpencil" />
+
+                        <ImageButton
+                            android:id="@+id/settings_button_home_account"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginLeft="6dp"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/asset_settings" />
+
+                    </LinearLayout>
+
                 </RelativeLayout>
             </LinearLayout>
+
             <com.mikhaellopez.circularimageview.CircularImageView
+                android:layout_width="135dp"
+                android:layout_height="135dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="-80dp"
-                android:layout_width="130dp"
-                android:layout_height="150dp"
-                android:src="@drawable/logo_bantoo"/>
+                android:layout_marginTop="-90dp"
+                android:src="@drawable/logo_bantoo_bg"
+                app:civ_shadow="true"
+                app:civ_shadow_color="@color/orangePrimary"
+                app:civ_shadow_radius="5" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_height="wrap_content">
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginRight="20dp">
+
             <TextView
                 android:id="@+id/user_name_TV_account"
-                android:textStyle="bold"
-                android:textSize="48px"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Nama Pengguna"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
+
             <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/asset_hp"/>
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/asset_hp" />
+
             <LinearLayout
-                android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="No. Handphone"/>
+                    android:text="No. Handphone"
+                    android:textColor="@color/black"
+                    android:textSize="17sp" />
+
                 <TextView
                     android:id="@+id/phoneNumber_TV_account"
-                    android:textColor="@color/greenPrimary"
-                    android:layout_marginTop="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0811239139139"/>
+                    android:layout_marginTop="4dp"
+                    android:text="08xxxxxxxxx"
+                    android:textColor="@color/greenPrimary"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
+
         <LinearLayout
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
+
             <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/asset_alamat"/>
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/asset_alamat" />
+
             <LinearLayout
-                android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Alamat"/>
+                    android:text="Alamat"
+                    android:textColor="@color/black"
+                    android:textSize="17sp" />
+
                 <TextView
                     android:id="@+id/address_TV_account"
-                    android:textColor="@color/greenPrimary"
-                    android:layout_marginTop="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Binus University, Anggrek Campus, Palmerah, Jakarta Barat"/>
+                    android:layout_marginTop="4dp"
+                    android:text="Alamat"
+                    android:textColor="@color/greenPrimary"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
+
         <LinearLayout
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
+
             <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/asset_mail"/>
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/asset_mail" />
+
             <LinearLayout
-                android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="E-mail"/>
+                    android:text="E-mail"
+                    android:textColor="@color/black"
+                    android:textSize="17sp" />
+
                 <TextView
                     android:id="@+id/email_TV_account"
-                    android:textColor="@color/greenPrimary"
-                    android:layout_marginTop="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="email.com"/>
+                    android:layout_marginTop="4dp"
+                    android:text="email.com"
+                    android:textColor="@color/greenPrimary"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
+
         <LinearLayout
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
+
             <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/asset_password"/>
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/asset_password" />
+
             <LinearLayout
-                android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Kata Sandi"/>
+                    android:text="Kata Sandi"
+                    android:textColor="@color/black"
+                    android:textSize="17sp" />
+
                 <TextView
                     android:id="@+id/password_TV_account"
-                    android:textColor="@color/greenPrimary"
-                    android:layout_marginTop="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="********"/>
+                    android:layout_marginTop="4dp"
+                    android:text="********"
+                    android:textColor="@color/greenPrimary"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
