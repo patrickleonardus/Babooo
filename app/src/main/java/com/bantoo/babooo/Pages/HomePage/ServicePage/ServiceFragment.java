@@ -41,7 +41,7 @@ import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class ServiceFragment extends Fragment implements ServiceItemClickListener{
+public class ServiceFragment extends Fragment implements ServiceItemClickListener {
 
     private static final String TAG = "ServiceFragment";
 

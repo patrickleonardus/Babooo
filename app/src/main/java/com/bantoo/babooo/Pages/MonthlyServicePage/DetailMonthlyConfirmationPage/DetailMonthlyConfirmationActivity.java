@@ -113,6 +113,20 @@ public class DetailMonthlyConfirmationActivity extends BaseActivity {
         helpBantooBTN = findViewById(R.id.help_bantoo_detail_monthly_confirmation_BTN);
     }
 
+    private void updateStatus() {
+        monthlyRentReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                maidStatusTV.setText(dataSnapshot.child("status").getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     private void configureView() {
         monthlyRentReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -151,6 +165,7 @@ public class DetailMonthlyConfirmationActivity extends BaseActivity {
                 orderLocationTV.setText(dataSnapshot.child("address").getValue().toString());
                 serviceNameTV.setText(dataSnapshot.child("serviceType").getValue().toString());
                 serviceCostTV.setText(dataSnapshot.child("serviceCost").getValue().toString());
+                updateStatus();
                 getMaidData();
             }
 

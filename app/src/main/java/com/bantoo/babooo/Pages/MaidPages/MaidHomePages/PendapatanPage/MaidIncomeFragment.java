@@ -1,4 +1,4 @@
-package com.bantoo.babooo.Pages.MaidPages.MaidHomePages;
+package com.bantoo.babooo.Pages.MaidPages.MaidHomePages.PendapatanPage;
 
 import android.content.Context;
 import android.content.Intent;
@@ -48,6 +48,9 @@ public class MaidIncomeFragment extends Fragment {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference maidReference, orderReference;
 
+    SharedPreferences accountDataSharedPreferences;
+    SharedPreferences.Editor editor;
+
     int diffInMonth;
 
     @Override
@@ -66,7 +69,8 @@ public class MaidIncomeFragment extends Fragment {
         incomePB = rootView.findViewById(R.id.pendapatan_PB);
         withdrawIncomeLayout = rootView.findViewById(R.id.penarikan_gaji_RL);
 
-        SharedPreferences accountDataSharedPreferences = getActivity().getSharedPreferences("accountData", MODE_PRIVATE);
+        accountDataSharedPreferences = getActivity().getSharedPreferences("accountData", MODE_PRIVATE);
+        editor = accountDataSharedPreferences.edit();
         String artType = accountDataSharedPreferences.getString("artType", "");
         Log.d(TAG, "onCreateView: arttype: "+artType);
         if(artType.equals("daily")) {
@@ -202,6 +206,8 @@ public class MaidIncomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    editor.putString("maidName", snapshot.child("name").getValue().toString());
+                    editor.apply();
                     statusTV.setText(snapshot.child("activate").getValue().toString());
                     String totalKoin = "0";
                     if(snapshot.child("coins").getValue() != null) {
@@ -234,7 +240,9 @@ public class MaidIncomeFragment extends Fragment {
                     String orderDate = snapshot.child("orderDate").getValue().toString();
                     String orderMonth = snapshot.child("orderMonth").getValue().toString();
                     String orderYear = snapshot.child("orderYear").getValue().toString();
-                    totalRating += Integer.parseInt(snapshot.child("rating").getValue().toString());
+                    if(snapshot.child("rating").getValue() != null) {
+                        totalRating += Integer.parseInt(snapshot.child("rating").getValue().toString());
+                    }
                     if(currentDate == orderDate && currentMonth == orderMonth && currentYear == orderYear) {
                         totalFee += Integer.parseInt(snapshot.child("serviceCost").getValue().toString());
                         counter++;
