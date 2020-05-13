@@ -1,0 +1,241 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.bantoo.babooo.Pages.MaidPages.MaidHomePages.ProfileMaidPage.ProfileFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@drawable/background_home"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="5dp"
+                        android:text="Profil"
+                        android:textColor="@color/white"
+                        android:textSize="28sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="20dp">
+
+                        <ImageButton
+                            android:id="@+id/settings_Btn"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginLeft="6dp"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/asset_settings" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:layout_width="135dp"
+                android:layout_height="135dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="-90dp"
+                android:src="@drawable/logo_bantoo_bg"
+                app:civ_shadow="true"
+                app:civ_shadow_color="@color/orangePrimary"
+                app:civ_shadow_radius="5" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginRight="20dp">
+
+            <TextView
+                android:id="@+id/username_TV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nama Pengguna"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/lightGrey" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/datadirilogo"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/profile"/>
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/datadirilogo"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Data Diri"
+                android:textStyle="bold"
+                android:textSize="16sp"/>
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/nav_next"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_marginLeft="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/lightGrey" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/riwayatlogo"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/profile"/>
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/riwayatlogo"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Riwayat Pesanan &amp; Penilaian"
+                android:textStyle="bold"
+                android:textSize="16sp"/>
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/nav_next"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_marginLeft="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/lightGrey" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/bantuanlogo"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/profile"/>
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/bantuanlogo"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bantuan"
+                android:textStyle="bold"
+                android:textSize="16sp"/>
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/nav_next"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_marginLeft="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/lightGrey" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/perjanjianlogo"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/profile"/>
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/perjanjianlogo"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Perjanjian Kemitraan"
+                android:textStyle="bold"
+                android:textSize="16sp"/>
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/nav_next"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/lightGrey" />
+
+    </LinearLayout>
+
+</FrameLayout>
