@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 
 import com.bantoo.babooo.Pages.MaidPages.MaidHomePages.PendapatanPage.MaidIncomeFragment;
 import com.bantoo.babooo.Pages.MaidPages.MaidHomePages.PesananBaruPage.PesananFragment;
+import com.bantoo.babooo.Pages.MaidPages.MaidHomePages.ProfileMaidPage.ProfileFragment;
 import com.bantoo.babooo.R;
 import com.bantoo.babooo.Utilities.BaseActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -20,6 +21,7 @@ public class MaidHomeActivity extends BaseActivity {
 
     private MaidIncomeFragment maidIncomeFragment;
     private PesananFragment pesananFragment;
+    private ProfileFragment profileFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class MaidHomeActivity extends BaseActivity {
     private void fragmentSetup() {
         maidIncomeFragment = new MaidIncomeFragment();
         pesananFragment = new PesananFragment();
+        profileFragment = new ProfileFragment();
 
         setFragment(maidIncomeFragment);
         navbar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -48,6 +51,7 @@ public class MaidHomeActivity extends BaseActivity {
                         setFragment(pesananFragment);
                         return true;
                     case R.id.profile_item:
+                        setFragment(profileFragment);
                         return true;
                     default:
                         return false;
