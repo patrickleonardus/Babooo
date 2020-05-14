@@ -119,7 +119,9 @@ public class PesananFragment extends Fragment implements PesananBaruClickListene
                         }
                     } catch (Exception e) {}
                 }
-                retrieveIncomingOrderList();
+                if(!tanggalPesananList.isEmpty()) {
+                    retrieveIncomingOrderList();
+                }
             }
 
             @Override

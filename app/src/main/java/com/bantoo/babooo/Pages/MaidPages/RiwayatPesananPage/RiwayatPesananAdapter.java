@@ -1,0 +1,104 @@
+package com.bantoo.babooo.Pages.MaidPages.RiwayatPesananPage;
+
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.bantoo.babooo.Model.ServiceSchedule;
+import com.bantoo.babooo.R;
+
+import org.w3c.dom.Text;
+
+import java.text.DateFormatSymbols;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+public class RiwayatPesananAdapter extends RecyclerView.Adapter<RiwayatPesananAdapter.MyViewHolder> {
+
+    private List<ServiceSchedule> serviceScheduleList;
+    private List<String> bossNameList;
+
+    public RiwayatPesananAdapter(List<ServiceSchedule> serviceScheduleList, List<String> bossNameList) {
+        this.serviceScheduleList = serviceScheduleList;
+        this.bossNameList = bossNameList;
+    }
+
+    @NonNull
+    @Override
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+        View view = LayoutInflater.from(viewGroup.getContext())
+                .inflate(R.layout.recycler_view_riwayat_pesanan, viewGroup, false);
+
+        return new MyViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        int monthNumber = Integer.parseInt(serviceScheduleList.get(position).getOrderMonth());
+        String bulan = new DateFormatSymbols().getMonths()[monthNumber-1];
+        holder.tanggalTV.setText(serviceScheduleList.get(position).getOrderDate());
+        holder.bulanTV.setText(bulan);
+        if(position == 0) {
+            holder.tanggalLL.setVisibility(View.VISIBLE);
+            Log.d("RiwayatPesanan", "onBindViewHolder: position 0");
+        } else if (!serviceScheduleList.get(position).getOrderDate().equals(serviceScheduleList.get(position - 1).getOrderDate())
+                || !serviceScheduleList.get(position).getOrderMonth().equals(serviceScheduleList.get(position - 1).getOrderMonth())) {
+            holder.tanggalLL.setVisibility(View.VISIBLE);
+            Log.d("RiwayatPesanan", "onBindViewHolder: date and month diff");
+        } else if (serviceScheduleList.get(position).getOrderDate().equals(serviceScheduleList.get(position - 1).getOrderDate())
+                && serviceScheduleList.get(position).getOrderMonth().equals(serviceScheduleList.get(position - 1).getOrderMonth())) {
+            holder.tanggalLL.setVisibility(View.INVISIBLE);
+            Log.d("RiwayatPesanan", "onBindViewHolder: date and month same");
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        try {
+            Date estimatedDoneOrder = sdf.parse(serviceScheduleList.get(position).getOrderTime());
+            Calendar c = Calendar.getInstance();
+            c.setTime(estimatedDoneOrder);
+            c.add(Calendar.HOUR, 2);
+            estimatedDoneOrder = c.getTime();
+            String timeDone = estimatedDoneOrder.getHours()+":"+estimatedDoneOrder.getMinutes();
+            holder.jamOrderTV.setText(serviceScheduleList.get(position).getOrderTime() + " - " + timeDone);
+        } catch (Exception e) {
+            holder.jamOrderTV.setText(serviceScheduleList.get(position).getOrderTime());
+        }
+        holder.nameTypeTV.setText(bossNameList.get(position) + " - " + serviceScheduleList.get(position).getServiceType());
+        holder.addressTV.setText(serviceScheduleList.get(position).getAddress());
+        if (serviceScheduleList.get(position).getRating() != null) {
+            holder.ratingTV.setText(serviceScheduleList.get(position).getRating().toString());
+        } else {
+            holder.ratingTV.setText("-");
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        return serviceScheduleList.size();
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+
+        LinearLayout tanggalLL;
+        TextView tanggalTV, bulanTV, jamOrderTV, nameTypeTV, addressTV, ratingTV;
+
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            tanggalLL = itemView.findViewById(R.id.tanggal_LL);
+            tanggalTV = itemView.findViewById(R.id.tanggal_TV);
+            bulanTV = itemView.findViewById(R.id.bulan_TV);
+            jamOrderTV = itemView.findViewById(R.id.jam_order_TV);
+            nameTypeTV = itemView.findViewById(R.id.name_type_TV);
+            addressTV = itemView.findViewById(R.id.address_TV);
+            ratingTV = itemView.findViewById(R.id.rating_TV);
+        }
+    }
+}

@@ -3,6 +3,9 @@ package com.bantoo.babooo.Pages.MaidPages.MaidHomePages.PendapatanPage;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -33,9 +36,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import static android.content.Context.MODE_PRIVATE;
-
-public class MaidIncomeFragment extends Fragment {
+public class MaidIncomeFragment extends Fragment implements LocationListener {
 
     private static final String TAG = "PendapatanFragment";
 
@@ -50,6 +51,7 @@ public class MaidIncomeFragment extends Fragment {
 
     SharedPreferences accountDataSharedPreferences;
     SharedPreferences.Editor editor;
+    LocationManager locationManager;
 
     int diffInMonth;
 
@@ -69,7 +71,7 @@ public class MaidIncomeFragment extends Fragment {
         incomePB = rootView.findViewById(R.id.pendapatan_PB);
         withdrawIncomeLayout = rootView.findViewById(R.id.penarikan_gaji_RL);
 
-        accountDataSharedPreferences = getActivity().getSharedPreferences("accountData", MODE_PRIVATE);
+        accountDataSharedPreferences = getActivity().getSharedPreferences("accountData", Context.MODE_PRIVATE);
         editor = accountDataSharedPreferences.edit();
         String artType = accountDataSharedPreferences.getString("artType", "");
         Log.d(TAG, "onCreateView: arttype: "+artType);
@@ -107,8 +109,36 @@ public class MaidIncomeFragment extends Fragment {
             initFirebaseMonthly();
             showDataMonthly();
         }
+        getCurrentLocation();
 
         return rootView;
+    }
+
+    private void getCurrentLocation() {
+        try {
+            locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, this);
+        }
+        catch(SecurityException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void uploadLocationData(Double latitude, Double longitude) {
+        maidReference.orderByChild("phoneNumber").equalTo(phoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    snapshot.child("latitude").getRef().setValue(latitude);
+                    snapshot.child("longitude").getRef().setValue(longitude);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void initFirebaseMonthly() {
@@ -262,5 +292,27 @@ public class MaidIncomeFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        Double latitudeLocation = location.getLatitude();
+        Double longitudeLocation = location.getLongitude();
+        uploadLocationData(latitudeLocation, longitudeLocation);
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
     }
 }

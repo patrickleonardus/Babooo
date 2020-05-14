@@ -19,6 +19,15 @@ public class ServiceSchedule {
     private String notesLocation;
     private Double longitude, latitude;
     private String duration;
+    private Double rating;
+
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
 
     public String getDuration() {
         return duration;

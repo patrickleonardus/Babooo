@@ -13,13 +13,14 @@ import android.widget.RelativeLayout;
 
 import com.bantoo.babooo.Pages.HomePage.SettingsPage.SettingsActivity;
 import com.bantoo.babooo.Pages.MaidPages.DataDiriActivity;
+import com.bantoo.babooo.Pages.MaidPages.RiwayatPesananPage.RiwayatPesananActivity;
 import com.bantoo.babooo.R;
 
 
 public class ProfileFragment extends Fragment {
 
     ImageView settingsIV;
-    RelativeLayout dataDiriRL;
+    RelativeLayout dataDiriRL, riwayatPesananRL;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -28,6 +29,7 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         settingsIV = view.findViewById(R.id.settings_Btn);
         dataDiriRL = view.findViewById(R.id.datadiriRL);
+        riwayatPesananRL = view.findViewById(R.id.riwayat_pesanan_RL);
         handleAction();
 
         return view;
@@ -40,6 +42,10 @@ public class ProfileFragment extends Fragment {
         });
         dataDiriRL.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), DataDiriActivity.class);
+            startActivity(intent);
+        });
+        riwayatPesananRL.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), RiwayatPesananActivity.class);
             startActivity(intent);
         });
     }
