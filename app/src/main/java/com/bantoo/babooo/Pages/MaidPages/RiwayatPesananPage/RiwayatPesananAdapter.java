@@ -58,6 +58,20 @@ public class RiwayatPesananAdapter extends RecyclerView.Adapter<RiwayatPesananAd
             holder.tanggalLL.setVisibility(View.INVISIBLE);
             Log.d("RiwayatPesanan", "onBindViewHolder: date and month same");
         }
+
+        if(position != serviceScheduleList.size() - 1) {
+            if(serviceScheduleList.get(position).getOrderDate().equals(serviceScheduleList.get(position + 1).getOrderDate())
+                && serviceScheduleList.get(position).getOrderMonth().equals(serviceScheduleList.get(position + 1).getOrderMonth())) {
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
+                params.setMargins(10, 0, 10, 0);
+                holder.tanggalLL.setLayoutParams(params);
+            }
+        }
+
+
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         try {
             Date estimatedDoneOrder = sdf.parse(serviceScheduleList.get(position).getOrderTime());

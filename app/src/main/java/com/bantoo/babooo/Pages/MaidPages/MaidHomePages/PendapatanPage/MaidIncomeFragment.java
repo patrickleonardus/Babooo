@@ -40,7 +40,7 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
 
     private static final String TAG = "PendapatanFragment";
 
-    TextView statusTV, totalCoinsTV, inRupiahTV, dailyCoinsTV, dailyPercentageTV, ratingMaidTV, dailyCoinsTargetTV;
+    TextView statusTV, totalCoinsTV, inRupiahTV, dailyCoinsTV, dailyPercentageTV, ratingMaidTV, dailyCoinsTargetTV, usernameTV;
     Switch activeSwitch;
     ProgressBar incomePB;
     RelativeLayout withdrawIncomeLayout;
@@ -53,7 +53,7 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
     SharedPreferences.Editor editor;
     LocationManager locationManager;
 
-    int diffInMonth;
+    int diffInMonth, targetKoin = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,6 +69,7 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
         dailyCoinsTargetTV = rootView.findViewById(R.id.target_koin_harianTV);
         activeSwitch = rootView.findViewById(R.id.active_switch);
         incomePB = rootView.findViewById(R.id.pendapatan_PB);
+        usernameTV = rootView.findViewById(R.id.username_income_maid_tv);
         withdrawIncomeLayout = rootView.findViewById(R.id.penarikan_gaji_RL);
 
         accountDataSharedPreferences = getActivity().getSharedPreferences("accountData", Context.MODE_PRIVATE);
@@ -155,6 +156,7 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    usernameTV.setText(snapshot.child("name").getValue().toString());
                     String salary = snapshot.child("salary").getValue().toString();
                     String tidySalary = NumberFormat.getNumberInstance(Locale.GERMAN).format(Integer.parseInt(salary));
                     totalCoinsTV.setText("Rp "+tidySalary);
@@ -238,13 +240,21 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
                     editor.putString("maidName", snapshot.child("name").getValue().toString());
                     editor.apply();
-                    statusTV.setText(snapshot.child("activate").getValue().toString());
+                    usernameTV.setText(snapshot.child("name").getValue().toString());
+                    if(snapshot.child("activate").getValue().toString().equals("true")) {
+                        statusTV.setText("Aktif");
+                    } else if (snapshot.child("activate").getValue().toString().equals("false")) {
+                        statusTV.setText("Tidak Aktif");
+                    }
                     String totalKoin = "0";
                     if(snapshot.child("coins").getValue() != null) {
                         totalKoin = snapshot.child("coins").getValue().toString();
                         totalCoinsTV.setText(totalKoin+" koin");
                     } else { totalCoinsTV.setText("0 koin"); }
                     inRupiahTV.setText("Setara dengan Rp. "+(Integer.parseInt(totalKoin)*3000));
+                    if(snapshot.child("target").getValue() != null) {
+                        targetKoin = Integer.parseInt(snapshot.child("target").getValue().toString());
+                    }
                     showDailyData();
                 }
             }
@@ -264,8 +274,8 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
                 int totalRating = 0;
                 int totalFee = 0;
                 String currentDate = ""+new Date().getDate();
-                String currentMonth = ""+new Date().getMonth();
-                String currentYear = ""+new Date().getYear() + 1900;
+                String currentMonth = ""+(new Date().getMonth() + 1);
+                String currentYear = ""+(new Date().getYear() + 1900);
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
                     String orderDate = snapshot.child("orderDate").getValue().toString();
                     String orderMonth = snapshot.child("orderMonth").getValue().toString();
@@ -273,7 +283,11 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
                     if(snapshot.child("rating").getValue() != null) {
                         totalRating += Integer.parseInt(snapshot.child("rating").getValue().toString());
                     }
-                    if(currentDate == orderDate && currentMonth == orderMonth && currentYear == orderYear) {
+                    Log.d(TAG, "showDailyData: now: "+currentDate+currentMonth+currentYear);
+                    Log.d(TAG, "showDailyData: order: "+orderDate+orderMonth+orderYear);
+                    if(Integer.parseInt(currentDate) == Integer.parseInt(orderDate) &&
+                            Integer.parseInt(currentMonth) == Integer.parseInt(orderMonth) &&
+                            Integer.parseInt(currentYear) == Integer.parseInt(orderYear)) {
                         totalFee += Integer.parseInt(snapshot.child("serviceCost").getValue().toString());
                         counter++;
                     }
@@ -282,9 +296,14 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
                 float averageRating = totalRating / counter;
                 dailyCoinsTV.setText(totalFee+" koin");
                 ratingMaidTV.setText(""+averageRating);
-                dailyCoinsTargetTV.setText("target: 300 koin");
+                dailyCoinsTargetTV.setText("target: "+ targetKoin +" koin");
                 incomePB.setProgress(totalFee);
-                incomePB.setMax(300);
+                if (targetKoin == 0) {
+                    dailyPercentageTV.setText("0%");
+                } else {
+                    dailyPercentageTV.setText("" + totalFee / targetKoin * 100);
+                }
+                incomePB.setMax(targetKoin);
             }
 
             @Override
