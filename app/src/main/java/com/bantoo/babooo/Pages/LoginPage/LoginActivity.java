@@ -149,6 +149,13 @@ public class LoginActivity extends BaseActivity {
         });
     }
 
+    private void moveToVerification() {
+        Intent moveToVerification = new Intent(LoginActivity.this, VerificationActivity.class);
+        moveToVerification.putExtra("phoneNumber", phoneNumberET.getText().toString());
+        moveToVerification.putExtra("role", "pengguna");
+        startActivity(moveToVerification);
+    }
+
     private void loginAction() {
         DatabaseReference userRef = reference.child("Users");
         Query queryRef = userRef.orderByChild("phoneNumber").equalTo(phoneNumberET.getText().toString());
@@ -157,9 +164,6 @@ public class LoginActivity extends BaseActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     progressBTN.buttonFinished();
-                    Intent moveToVerification = new Intent(LoginActivity.this, VerificationActivity.class);
-                    moveToVerification.putExtra("phoneNumber", phoneNumberET.getText().toString());
-                    moveToVerification.putExtra("role", "pengguna");
                     SharedPreferences accountData = getApplicationContext().getSharedPreferences("accountData", MODE_PRIVATE);
                     SharedPreferences.Editor editor = accountData.edit();
                     editor.putString("role", "pengguna");
@@ -168,7 +172,7 @@ public class LoginActivity extends BaseActivity {
                         editor.apply();
                         break;
                     }
-                    startActivity(moveToVerification);
+                    moveToVerification();
                 } else if (!dataSnapshot.exists()) {
                     progressBTN.buttonFinished();
                     checkARTAccount();
