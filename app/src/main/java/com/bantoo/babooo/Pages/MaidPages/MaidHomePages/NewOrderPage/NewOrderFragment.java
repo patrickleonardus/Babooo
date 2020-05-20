@@ -1,6 +1,9 @@
 package com.bantoo.babooo.Pages.MaidPages.MaidHomePages.NewOrderPage;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -17,6 +20,8 @@ import android.widget.ImageView;
 
 import com.bantoo.babooo.Model.ServiceSchedule;
 import com.bantoo.babooo.Model.DateOrder;
+import com.bantoo.babooo.Pages.LoginPage.LoginActivity;
+import com.bantoo.babooo.Pages.SignUpPage.SignUpRoleActivity;
 import com.bantoo.babooo.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -263,48 +268,83 @@ public class NewOrderFragment extends Fragment implements NewOrderClickListener,
 
     @Override
     public void onAcceptClick(int position) {
-        orderReference.child(serviceSchedulesList.get(position).getOrderID()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child("maid").getValue().toString().equals("maid")) {
-                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("accountData", MODE_PRIVATE);
-                    String maidName = sharedPreferences.getString("maidName", "");
-                    dataSnapshot.child("maid").getRef().setValue(maidName);
-                    dataSnapshot.child("maidPhoneNumber").getRef().setValue(phoneNumber);
-                    dataSnapshot.child("maidList").getRef().removeValue();
-                    serviceSchedulesList.remove(position);
-                    newOrderAdapter.notifyDataSetChanged();
-                } else {
-                    Log.d("PesananFragment", "onDataChange: order has been taken");
-                }
-            }
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                getContext());
+        alertDialogBuilder.setTitle("Apakah anda ingin menerima pesanan?");
+        alertDialogBuilder
+                .setMessage("Pesanan yang sudah diterima tidak bisa dibatalkan")
+                .setCancelable(false)
+                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        orderReference.child(serviceSchedulesList.get(position).getOrderID()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.child("maid").getValue().toString().equals("maid")) {
+                                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("accountData", MODE_PRIVATE);
+                                    String maidName = sharedPreferences.getString("maidName", "");
+                                    dataSnapshot.child("maid").getRef().setValue(maidName);
+                                    dataSnapshot.child("maidPhoneNumber").getRef().setValue(phoneNumber);
+                                    dataSnapshot.child("maidList").getRef().removeValue();
+                                    serviceSchedulesList.remove(position);
+                                    newOrderAdapter.notifyDataSetChanged();
+                                } else {
+                                    Log.d("PesananFragment", "onDataChange: order has been taken");
+                                }
+                            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                            }
+                        });
+                    }
+                })
+                .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
     @Override
     public void onRejectClick(int position) {
-        orderReference.child(serviceSchedulesList.get(position).getOrderID())
-                .child("maidList").orderByChild("maidPhoneNumber").equalTo(phoneNumber)
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            snapshot.getRef().removeValue();
-                            serviceSchedulesList.remove(position);
-                            newOrderAdapter.notifyDataSetChanged();
-                        }
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                getContext());
+        alertDialogBuilder.setTitle("Apakah anda ingin menolak pesanan?");
+        alertDialogBuilder
+                .setMessage("Pesanan yang sudah ditolak tidak bisa diterima kembali")
+                .setCancelable(false)
+                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        orderReference.child(serviceSchedulesList.get(position).getOrderID())
+                                .child("maidList").orderByChild("maidPhoneNumber").equalTo(phoneNumber)
+                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                            snapshot.getRef().removeValue();
+                                            serviceSchedulesList.remove(position);
+                                            newOrderAdapter.notifyDataSetChanged();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
                     }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                })
+                .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
                     }
                 });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+
     }
 
     @Override
