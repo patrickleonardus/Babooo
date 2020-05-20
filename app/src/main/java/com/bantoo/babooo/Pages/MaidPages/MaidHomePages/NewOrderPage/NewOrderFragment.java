@@ -67,7 +67,7 @@ public class NewOrderFragment extends Fragment implements NewOrderClickListener,
         rightIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(tanggalLayoutManager.findLastCompletelyVisibleItemPosition() < dateOrderList.size() - 1) {
+                if (tanggalLayoutManager.findLastCompletelyVisibleItemPosition() < dateOrderList.size() - 1) {
                     int difference = dateOrderList.size() - 1 - tanggalLayoutManager.findLastCompletelyVisibleItemPosition();
                     if (difference < 4) {
                         tanggalLayoutManager.scrollToPosition(tanggalLayoutManager.findLastVisibleItemPosition() + difference);
@@ -75,37 +75,37 @@ public class NewOrderFragment extends Fragment implements NewOrderClickListener,
                         tanggalLayoutManager.scrollToPosition(tanggalLayoutManager.findLastCompletelyVisibleItemPosition() + 4);
                     }
                 } else {
-                    Log.d(TAG, "onClick: no next data, lastvisible:  "+tanggalLayoutManager.findLastCompletelyVisibleItemPosition());
+                    Log.d(TAG, "onClick: no next data, lastvisible:  " + tanggalLayoutManager.findLastCompletelyVisibleItemPosition());
                 }
             }
         });
         leftIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(tanggalLayoutManager.findFirstCompletelyVisibleItemPosition() > 0) {
-                    if(tanggalLayoutManager.findFirstCompletelyVisibleItemPosition() < 4) {
+                if (tanggalLayoutManager.findFirstCompletelyVisibleItemPosition() > 0) {
+                    if (tanggalLayoutManager.findFirstCompletelyVisibleItemPosition() < 4) {
                         tanggalLayoutManager.scrollToPosition(0);
                     } else {
                         tanggalLayoutManager.scrollToPosition(tanggalLayoutManager.findFirstCompletelyVisibleItemPosition() - 4);
                     }
                 } else {
-                    Log.d(TAG, "onClick: no prev data, first visible: "+ tanggalLayoutManager.findFirstCompletelyVisibleItemPosition());
+                    Log.d(TAG, "onClick: no prev data, first visible: " + tanggalLayoutManager.findFirstCompletelyVisibleItemPosition());
                 }
             }
         });
         retrieveNewOrder();
-        retrieveTanggalOrder();
+        retrieveDateOrder();
 
         return rootView;
     }
 
-    private void retrieveTanggalOrder() {
+    private void retrieveDateOrder() {
         dateOrderList.clear();
         bossNameList.clear();
         orderReference.orderByChild("maidPhoneNumber").equalTo(phoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
                     try {
                         Date orderDate = sdf.parse(snapshot.child("orderYear").getValue().toString()
@@ -117,9 +117,10 @@ public class NewOrderFragment extends Fragment implements NewOrderClickListener,
                             dateOrderList.add(dateOrder);
                             dateIncomingOrderAdapter.notifyDataSetChanged();
                         }
-                    } catch (Exception e) {}
+                    } catch (Exception e) {
+                    }
                 }
-                if(!dateOrderList.isEmpty()) {
+                if (!dateOrderList.isEmpty()) {
                     retrieveIncomingOrderList();
                 }
             }
@@ -134,7 +135,7 @@ public class NewOrderFragment extends Fragment implements NewOrderClickListener,
     private void setRecyclerview() {
         //Pesanan baru RV
         newOrderAdapter = new NewOrderAdapter(serviceSchedulesList, NewOrderFragment.this, bossNameList);
-        pesananBaruRV.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+        pesananBaruRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         pesananBaruRV.setAdapter(newOrderAdapter);
 
         //Pesanan Tanggal RV
@@ -161,17 +162,17 @@ public class NewOrderFragment extends Fragment implements NewOrderClickListener,
         orderReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshotOrder) {
-                for(DataSnapshot snapshot: dataSnapshotOrder.getChildren()) {
+                for (DataSnapshot snapshot : dataSnapshotOrder.getChildren()) {
                     snapshot.child("maidList").getRef().orderByChild("maidPhoneNumber")
                             .equalTo(phoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if(dataSnapshot.exists()) {
+                            if (dataSnapshot.exists()) {
                                 userReference.orderByChild("phoneNumber").equalTo(snapshot.child("phoneNumber")
                                         .getValue().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot userDataSnapshot) {
-                                        for(DataSnapshot userSnapshot: userDataSnapshot.getChildren()) {
+                                        for (DataSnapshot userSnapshot : userDataSnapshot.getChildren()) {
                                             bossNameList.add(userSnapshot.child("name").getValue().toString());
                                             String orderDate = snapshot.child("orderDate").getValue().toString();
                                             String serviceType = snapshot.child("serviceType").getValue().toString();
@@ -218,10 +219,10 @@ public class NewOrderFragment extends Fragment implements NewOrderClickListener,
         orderReference.orderByChild("maidPhoneNumber").equalTo(phoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                    if(snapshot.child("orderDate").getValue().
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    if (snapshot.child("orderDate").getValue().
                             toString().equals(dateOrderList.get(currentDatePosition).getDateOrder()) &&
-                    snapshot.child("orderMonth").getValue().toString().equals(dateOrderList.get(currentDatePosition).getMonthOrder())) {
+                            snapshot.child("orderMonth").getValue().toString().equals(dateOrderList.get(currentDatePosition).getMonthOrder())) {
                         userReference.orderByChild("phoneNumber").equalTo(snapshot.child("phoneNumber").getValue().toString())
                                 .addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
@@ -265,7 +266,7 @@ public class NewOrderFragment extends Fragment implements NewOrderClickListener,
         orderReference.child(serviceSchedulesList.get(position).getOrderID()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.child("maid").getValue().toString().equals("maid")) {
+                if (dataSnapshot.child("maid").getValue().toString().equals("maid")) {
                     SharedPreferences sharedPreferences = getActivity().getSharedPreferences("accountData", MODE_PRIVATE);
                     String maidName = sharedPreferences.getString("maidName", "");
                     dataSnapshot.child("maid").getRef().setValue(maidName);
@@ -290,26 +291,26 @@ public class NewOrderFragment extends Fragment implements NewOrderClickListener,
         orderReference.child(serviceSchedulesList.get(position).getOrderID())
                 .child("maidList").orderByChild("maidPhoneNumber").equalTo(phoneNumber)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                    snapshot.getRef().removeValue();
-                    serviceSchedulesList.remove(position);
-                    newOrderAdapter.notifyDataSetChanged();
-                }
-            }
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            snapshot.getRef().removeValue();
+                            serviceSchedulesList.remove(position);
+                            newOrderAdapter.notifyDataSetChanged();
+                        }
+                    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                    }
+                });
     }
 
     @Override
-    public void onTanggalClick(int position) {
+    public void onDateClick(int position) {
         currentDatePosition = position;
-        Log.d("PesananFragment", "onTanggalClick: tanggalPosition: "+position);
+        Log.d("PesananFragment", "onTanggalClick: tanggalPosition: " + position);
         retrieveIncomingOrderList();
     }
 }

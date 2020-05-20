@@ -74,7 +74,7 @@ public class DateIncomingOrderAdapter extends RecyclerView.Adapter<DateIncomingO
                     int position = getAdapterPosition();
                     underlineView.setVisibility(View.INVISIBLE);
                     currentPosition = position;
-                    dateIncomingOrderClickListener.onTanggalClick(position);
+                    dateIncomingOrderClickListener.onDateClick(position);
                     notifyDataSetChanged();
                 }
             });

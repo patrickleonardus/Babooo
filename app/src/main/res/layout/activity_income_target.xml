@@ -55,23 +55,25 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:layout_marginLeft="30dp"
-        android:textColor="@color/black"
-        android:text="Target pendapatan harian yang ingin dicapai"/>
+        android:layout_marginTop="20dp"
+        android:text="Target pendapatan harian yang ingin dicapai"
+        android:textColor="@color/black" />
 
     <LinearLayout
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="30dp"
         android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Rp"
-            android:textSize="24sp"/>
+            android:textSize="24sp" />
+
         <EditText
             android:id="@+id/rupiah_target_et"
             android:layout_width="match_parent"
@@ -90,10 +92,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Jumlah dalam koin"
-        android:textColor="@color/black"
+        android:layout_marginLeft="30dp"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="30dp"/>
+        android:text="Jumlah dalam koin"
+        android:textColor="@color/black" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -122,36 +124,36 @@
 
     <SeekBar
         android:id="@+id/targetSB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
-        android:thumbTint="@color/greenPrimary"
-        android:progress="50000"
         android:max="180000"
-        android:thumb="@drawable/custom_thumb"
+        android:progress="50000"
         android:progressDrawable="@drawable/custom_seekbar"
-        android:splitTrack="false"
         android:progressTint="@color/greenPrimary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:splitTrack="false"
+        android:thumb="@drawable/custom_thumb"
+        android:thumbTint="@color/greenPrimary" />
 
     <LinearLayout
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:orientation="vertical">
 
         <View
             android:layout_width="wrap_content"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
         <Button
-            android:layout_marginBottom="20dp"
             android:id="@+id/save_target_btn"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/rounded_button_green"
             android:text="Atur Target"
             android:textColor="@color/white" />
