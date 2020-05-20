@@ -9,14 +9,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bantoo.babooo.Model.TanggalPesanan;
+import com.bantoo.babooo.Model.DateOrder;
 import com.bantoo.babooo.R;
 
 import java.util.List;
 
 public class DateIncomingOrderAdapter extends RecyclerView.Adapter<DateIncomingOrderAdapter.MyViewHolder> {
 
-    private List<TanggalPesanan> tanggalPesananList;
+    private List<DateOrder> dateOrderList;
     private DateIncomingOrderClickListener dateIncomingOrderClickListener;
     private static int currentPosition = 0;
 
@@ -24,8 +24,8 @@ public class DateIncomingOrderAdapter extends RecyclerView.Adapter<DateIncomingO
         this.currentPosition = position;
     }
 
-    public DateIncomingOrderAdapter(List<TanggalPesanan> tanggalPesananList, DateIncomingOrderClickListener dateIncomingOrderClickListener) {
-        this.tanggalPesananList = tanggalPesananList;
+    public DateIncomingOrderAdapter(List<DateOrder> dateOrderList, DateIncomingOrderClickListener dateIncomingOrderClickListener) {
+        this.dateOrderList = dateOrderList;
         this.dateIncomingOrderClickListener = dateIncomingOrderClickListener;
     }
 
@@ -45,13 +45,13 @@ public class DateIncomingOrderAdapter extends RecyclerView.Adapter<DateIncomingO
         } else {
             holder.underlineView.setVisibility(View.INVISIBLE);
         }
-        holder.tanggalTV.setText(tanggalPesananList.get(position).getTanggal());
-        holder.bulanTV.setText(tanggalPesananList.get(position).getBulan());
+        holder.tanggalTV.setText(dateOrderList.get(position).getDateOrder());
+        holder.bulanTV.setText(dateOrderList.get(position).getMonthOrder());
     }
 
     @Override
     public int getItemCount() {
-        return tanggalPesananList.size();
+        return dateOrderList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

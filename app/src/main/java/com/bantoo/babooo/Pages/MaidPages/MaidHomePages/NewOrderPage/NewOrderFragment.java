@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bantoo.babooo.Model.ServiceSchedule;
-import com.bantoo.babooo.Model.TanggalPesanan;
+import com.bantoo.babooo.Model.DateOrder;
 import com.bantoo.babooo.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,7 +41,7 @@ public class NewOrderFragment extends Fragment implements NewOrderClickListener,
     private ImageView leftIV, rightIV;
     private String phoneNumber;
     private List<ServiceSchedule> serviceSchedulesList = new ArrayList<>();
-    private List<TanggalPesanan> tanggalPesananList = new ArrayList<>();
+    private List<DateOrder> dateOrderList = new ArrayList<>();
     private List<String> bossNameList = new ArrayList<>();
     private List<ServiceSchedule> upcomingScheduleList = new ArrayList<>();
     private List<String> bossNameUpcomingList = new ArrayList<>();
@@ -67,8 +67,8 @@ public class NewOrderFragment extends Fragment implements NewOrderClickListener,
         rightIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(tanggalLayoutManager.findLastCompletelyVisibleItemPosition() < tanggalPesananList.size() - 1) {
-                    int difference = tanggalPesananList.size() - 1 - tanggalLayoutManager.findLastCompletelyVisibleItemPosition();
+                if(tanggalLayoutManager.findLastCompletelyVisibleItemPosition() < dateOrderList.size() - 1) {
+                    int difference = dateOrderList.size() - 1 - tanggalLayoutManager.findLastCompletelyVisibleItemPosition();
                     if (difference < 4) {
                         tanggalLayoutManager.scrollToPosition(tanggalLayoutManager.findLastVisibleItemPosition() + difference);
                     } else {
@@ -100,7 +100,7 @@ public class NewOrderFragment extends Fragment implements NewOrderClickListener,
     }
 
     private void retrieveTanggalOrder() {
-        tanggalPesananList.clear();
+        dateOrderList.clear();
         bossNameList.clear();
         orderReference.orderByChild("maidPhoneNumber").equalTo(phoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -112,14 +112,14 @@ public class NewOrderFragment extends Fragment implements NewOrderClickListener,
                                 + "/" + snapshot.child("orderMonth").getValue().toString() + "/"
                                 + snapshot.child("orderDate").getValue().toString());
                         if (orderDate.after(new Date())) {
-                            TanggalPesanan tanggalPesanan = new TanggalPesanan(snapshot.child("orderDate").getValue().toString()
+                            DateOrder dateOrder = new DateOrder(snapshot.child("orderDate").getValue().toString()
                                     , snapshot.child("orderMonth").getValue().toString());
-                            tanggalPesananList.add(tanggalPesanan);
+                            dateOrderList.add(dateOrder);
                             dateIncomingOrderAdapter.notifyDataSetChanged();
                         }
                     } catch (Exception e) {}
                 }
-                if(!tanggalPesananList.isEmpty()) {
+                if(!dateOrderList.isEmpty()) {
                     retrieveIncomingOrderList();
                 }
             }
@@ -138,7 +138,7 @@ public class NewOrderFragment extends Fragment implements NewOrderClickListener,
         pesananBaruRV.setAdapter(newOrderAdapter);
 
         //Pesanan Tanggal RV
-        dateIncomingOrderAdapter = new DateIncomingOrderAdapter(tanggalPesananList, this);
+        dateIncomingOrderAdapter = new DateIncomingOrderAdapter(dateOrderList, this);
         tanggalLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         pesananAkanDatangTanggalRV.setLayoutManager(tanggalLayoutManager);
         pesananAkanDatangTanggalRV.setAdapter(dateIncomingOrderAdapter);
@@ -220,8 +220,8 @@ public class NewOrderFragment extends Fragment implements NewOrderClickListener,
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
                     if(snapshot.child("orderDate").getValue().
-                            toString().equals(tanggalPesananList.get(currentDatePosition).getTanggal()) &&
-                    snapshot.child("orderMonth").getValue().toString().equals(tanggalPesananList.get(currentDatePosition).getBulan())) {
+                            toString().equals(dateOrderList.get(currentDatePosition).getDateOrder()) &&
+                    snapshot.child("orderMonth").getValue().toString().equals(dateOrderList.get(currentDatePosition).getMonthOrder())) {
                         userReference.orderByChild("phoneNumber").equalTo(snapshot.child("phoneNumber").getValue().toString())
                                 .addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
