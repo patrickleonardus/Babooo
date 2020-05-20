@@ -68,7 +68,7 @@
         android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
         android:textAlignment="center"
-        android:hint="Berikan komentar anda"
+        android:hint="Beri Saran"
         android:layout_height="50dp"
         android:background="@drawable/border_rounded_edit_text"/>
 

@@ -158,6 +158,13 @@ public class SignUpFormActivity extends BaseActivity {
                                 displayError("Periksa kembali password anda");
                             }
                             break;
+                        case 2:
+                            MaidDataPage maidDataPage = new MaidDataPage();
+                            correct = maidDataPage.isTermsAgree();
+                            if(!correct) {
+                                displayError("Setujui syarat dan ketentuan");
+                            }
+                            break;
                     }
                 }
                 if(correct) {

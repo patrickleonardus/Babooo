@@ -5,213 +5,271 @@
     android:background="@color/white"
     tools:context="com.bantoo.babooo.Pages.SignUpPage.Fragment.MaidDataPage">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Konfirmasi Data Mitra"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Silahkan periksa kembali data-data Anda\ndi bawah ini sebelum melanjutkan"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:orientation="horizontal">
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nama:  "
+                android:text="Konfirmasi Data Mitra"
                 android:textColor="@color/black"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/name_TV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nama Mitra"
-                android:textColor="@color/black" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tempat Tanggal Lahir:  "
+                android:layout_marginTop="20dp"
+                android:text="Silahkan periksa kembali data-data Anda di bawah ini sebelum melanjutkan"
                 android:textColor="@color/black"
-                android:textStyle="bold" />
+                android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/ttl_TV"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tempat tanggal lahir"
-                android:textColor="@color/black" />
+                android:layout_marginTop="30dp"
+                android:orientation="vertical">
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nama:  "
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
 
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/name_TV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nama Mitra"
+                    android:textColor="@color/greenPrimary" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
+            </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="No. KTP:  "
-                android:textColor="@color/black"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/noKTP_TV"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="No. KTP"
-                android:textColor="@color/black" />
+                android:layout_marginTop="30dp"
+                android:orientation="vertical">
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No. KTP:  "
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/noKTP_TV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No. KTP"
+                    android:textColor="@color/greenPrimary" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Alamat:  "
-                android:textColor="@color/black"
-                android:textStyle="bold" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/address_TV"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Alamat"
-                android:textColor="@color/black" />
+                android:layout_marginTop="30dp"
+                android:orientation="vertical">
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tempat Tanggal Lahir:  "
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/ttl_TV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tempat tanggal lahir"
+                    android:textColor="@color/black" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="No. HP:  "
-                android:textColor="@color/black"
-                android:textStyle="bold" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/noHP_TV"
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="No. HP"
-                android:textColor="@color/black" />
+                android:layout_marginTop="30dp"
+                android:orientation="vertical">
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Alamat:  "
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
 
-        <LinearLayout
-            android:id="@+id/experienceLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/address_TV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Alamat"
+                    android:textColor="@color/greenPrimary" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Pengalaman Kerja:  "
-                android:textColor="@color/black"
-                android:textStyle="bold" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/experience_TV"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Pengalaman Kerja"
-                android:textColor="@color/black" />
+                android:layout_marginTop="30dp"
+                android:orientation="vertical">
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email:  "
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
 
-        <LinearLayout
-            android:id="@+id/incomeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/email_TV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Email"
+                    android:textColor="@color/greenPrimary" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Gaji Perbulan:  "
-                android:textColor="@color/black"
-                android:textStyle="bold" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/gaji_bulanan_TV"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Gaji Perbulan"
-                android:textColor="@color/black" />
+                android:layout_marginTop="30dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No. HP:  "
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/noHP_TV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No. HP"
+                    android:textColor="@color/greenPrimary" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/experienceLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pengalaman Kerja:  "
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/experience_TV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Pengalaman Kerja"
+                    android:textColor="@color/greenPrimary" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/workPreferenceLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Preferensi Kota bekerja:  "
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/preferensi_kota_kerja_TV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Preferensi Kota bekerja"
+                    android:textColor="@color/greenPrimary" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/incomeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gaji Perbulan:  "
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/gaji_bulanan_TV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Gaji Perbulan"
+                    android:textColor="@color/greenPrimary" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical">
+
+                <CheckBox
+                    android:id="@+id/termsCheck"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Saya telah membaca dan menyetujui Perjanjian Kemitraan Bantoo"
+                    android:textColor="@color/greenPrimary" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/workPreferenceLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Preferensi Kota bekerja:  "
-                android:textColor="@color/black"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/preferensi_kota_kerja_TV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Preferensi Kota bekerja"
-                android:textColor="@color/black" />
-
-        </LinearLayout>
+    </ScrollView>
 
 
-    </LinearLayout>
 
 </FrameLayout>

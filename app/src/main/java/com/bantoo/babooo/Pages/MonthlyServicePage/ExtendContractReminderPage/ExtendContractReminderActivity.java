@@ -52,7 +52,6 @@ public class ExtendContractReminderActivity extends AppCompatActivity {
 
     private void loadDatabase() {
         rentUniqueKey = getIntent().getStringExtra("rentUniqueKey");
-        rentUniqueKey = "-M5Q-7LepvyPbMsoPBCu";
         firebaseDatabase = FirebaseDatabase.getInstance();
         rentReference = firebaseDatabase.getReference().child("Rent").child(rentUniqueKey);
         monthlyMaidReference = firebaseDatabase.getReference().child("ARTBulanan");

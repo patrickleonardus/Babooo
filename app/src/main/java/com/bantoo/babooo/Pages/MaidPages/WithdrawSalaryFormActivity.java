@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormatSymbols;
 import java.util.Date;
 
 public class WithdrawSalaryFormActivity extends AppCompatActivity {
@@ -63,7 +64,11 @@ public class WithdrawSalaryFormActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                int coinsValue = Integer.parseInt(coinsWithdrawET.getText().toString());
+                int coinsValue = 0;
+                if(!coinsWithdrawET.getText().toString().isEmpty()) {
+                    coinsValue = Integer.parseInt(coinsWithdrawET.getText().toString());
+                }
+
                 inRupiahTV.setText("Rp "+(coinsValue*3000));
             }
         });
@@ -80,23 +85,30 @@ public class WithdrawSalaryFormActivity extends AppCompatActivity {
     }
 
     private void addRequestToFirebase() {
-        withdrawReference.orderByChild("maidPhoneNumber").equalTo(phoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
+        withdrawReference.orderByChild("phoneNumber").equalTo(phoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
                         snapshot.child("coinsRequest").getRef().setValue(coinsWithdrawET.getText().toString());
+                        requestUniqueKey = snapshot.getKey();
+                        if(snapshot.child("status").getValue() != null) {
+                            snapshot.child("status").getRef().removeValue();
+                        }
+                        if(snapshot.child("approvalCode").getValue() != null) {
+                            snapshot.child("approvalCode").getRef().removeValue();
+                        }
                     }
                 } else {
                     SalaryRequest salaryRequest = new SalaryRequest(maidName, phoneNumber, coinsWithdrawET.getText().toString());
                     FirebaseHelper firebaseHelper = new FirebaseHelper();
                     requestUniqueKey = firebaseHelper.addSalaryRequest(salaryRequest);
                     Log.d("WithdrawSalaryForm", "onDataChange: requestUniqueKey: "+requestUniqueKey);
-                    Intent intent = new Intent(WithdrawSalaryFormActivity.this, WithdrawSalaryConfirmationActivity.class);
-                    intent.putExtra("coinsWithdraw", Integer.parseInt(coinsWithdrawET.getText().toString()));
-                    intent.putExtra("requestUniqueKey", requestUniqueKey);
-                    startActivity(intent);
                 }
+                Intent intent = new Intent(WithdrawSalaryFormActivity.this, WithdrawSalaryConfirmationActivity.class);
+                intent.putExtra("coinsWithdraw", Integer.parseInt(coinsWithdrawET.getText().toString()));
+                intent.putExtra("requestUniqueKey", requestUniqueKey);
+                startActivity(intent);
             }
 
             @Override
@@ -109,6 +121,8 @@ public class WithdrawSalaryFormActivity extends AppCompatActivity {
     private void showData() {
         Date now = new Date();
 
+        String month = new DateFormatSymbols().getMonths()[now.getMonth()-1];
+        currentDateTV.setText(""+now.getDate()+" "+month+ (now.getYear()+1900));
         maidReference.orderByChild("phoneNumber").equalTo(phoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

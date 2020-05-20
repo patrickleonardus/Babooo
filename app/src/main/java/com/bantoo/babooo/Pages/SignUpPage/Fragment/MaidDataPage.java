@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -27,7 +28,8 @@ public class MaidDataPage extends Fragment {
     private DatabaseReference maidReference;
     private String apprCode;
 
-    TextView nameTV, ttlTV, noKTPTV, addressTV, noHPTV, experienceTV, salaryTV, cityPreferenceTV;
+    TextView nameTV, ttlTV, noKTPTV, addressTV, noHPTV, experienceTV, salaryTV, cityPreferenceTV, emailTV;
+    CheckBox termsCheck;
     LinearLayout experienceLayout, incomeLayout, workPreferenceLayout;
 
     @Override
@@ -46,6 +48,8 @@ public class MaidDataPage extends Fragment {
         experienceLayout = rootView.findViewById(R.id.experienceLayout);
         incomeLayout = rootView.findViewById(R.id.incomeLayout);
         workPreferenceLayout = rootView.findViewById(R.id.workPreferenceLayout);
+        emailTV = rootView.findViewById(R.id.email_TV);
+        termsCheck = rootView.findViewById(R.id.termsCheck);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
 
@@ -68,8 +72,11 @@ public class MaidDataPage extends Fragment {
         return rootView;
     }
 
-    private void checkArt() {
+    public boolean isTermsAgree() {
+        return termsCheck.isChecked();
+    }
 
+    private void checkArt() {
         if (!apprCode.isEmpty()) {
             if(!apprCode.equals("N/A")){
                 maidReference.orderByChild("approvalCode").equalTo(apprCode).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -81,11 +88,14 @@ public class MaidDataPage extends Fragment {
                             addressTV.setText(snapshot.child("address").getValue().toString());
                             noKTPTV.setText(snapshot.child("noKTP").getValue().toString());
                             noHPTV.setText(snapshot.child("phoneNumber").getValue().toString());
+                            if(snapshot.child("email").getValue() != null) {
+                                emailTV.setText(snapshot.child("email").getValue().toString());
+                            }
                             if (snapshot.child("experience").getValue() != null) {
-                                experienceTV.setText(dataSnapshot.child("phoneNumber").getValue().toString());
+                                experienceTV.setText(snapshot.child("experience").getValue().toString());
                             }
                             if (snapshot.child("cityPreference").getValue() != null) {
-                                cityPreferenceTV.setText(dataSnapshot.child("cityPreference").getValue().toString());
+                                cityPreferenceTV.setText(snapshot.child("cityPreference").getValue().toString());
                             }
                         }
                     }
