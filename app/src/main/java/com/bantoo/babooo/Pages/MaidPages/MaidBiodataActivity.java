@@ -13,18 +13,19 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bantoo.babooo.R;
+import com.bantoo.babooo.Utilities.BaseActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class MaidBiodataActivity extends AppCompatActivity {
+public class MaidBiodataActivity extends BaseActivity {
 
     private static final String TAG = "DataDiri";
 
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference maidReference;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference maidReference;
     private String phoneNumber;
 
     private TextView nameTV, noKTPTV, ttlTV, alamatTV, emailTV, pengalamanKerjaTV, preferensiKotaTV, gajiTV;

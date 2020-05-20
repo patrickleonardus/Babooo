@@ -35,20 +35,20 @@ public class NewOrderFragment extends Fragment implements NewOrderClickListener,
 
     private static final String TAG = "PesananFragment";
 
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference orderReference, userReference;
-    RecyclerView pesananBaruRV, pesananAkanDatangTanggalRV, pesananAkanDatangListRV;
-    ImageView leftIV, rightIV;
-    String phoneNumber;
-    List<ServiceSchedule> serviceSchedulesList = new ArrayList<>();
-    List<TanggalPesanan> tanggalPesananList = new ArrayList<>();
-    List<String> bossNameList = new ArrayList<>();
-    List<ServiceSchedule> upcomingScheduleList = new ArrayList<>();
-    List<String> bossNameUpcomingList = new ArrayList<>();
-    NewOrderAdapter newOrderAdapter;
-    DateIncomingOrderAdapter dateIncomingOrderAdapter;
-    IncomingOrderListAdapter incomingOrderListAdapter;
-    LinearLayoutManager tanggalLayoutManager;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference orderReference, userReference;
+    private RecyclerView pesananBaruRV, pesananAkanDatangTanggalRV, pesananAkanDatangListRV;
+    private ImageView leftIV, rightIV;
+    private String phoneNumber;
+    private List<ServiceSchedule> serviceSchedulesList = new ArrayList<>();
+    private List<TanggalPesanan> tanggalPesananList = new ArrayList<>();
+    private List<String> bossNameList = new ArrayList<>();
+    private List<ServiceSchedule> upcomingScheduleList = new ArrayList<>();
+    private List<String> bossNameUpcomingList = new ArrayList<>();
+    private NewOrderAdapter newOrderAdapter;
+    private DateIncomingOrderAdapter dateIncomingOrderAdapter;
+    private IncomingOrderListAdapter incomingOrderListAdapter;
+    private LinearLayoutManager tanggalLayoutManager;
 
     int currentDatePosition = 0;
 

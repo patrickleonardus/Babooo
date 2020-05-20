@@ -20,7 +20,7 @@ import com.bantoo.babooo.R;
 public class ProfileFragment extends Fragment {
 
     ImageView settingsIV;
-    RelativeLayout dataDiriRL, riwayatPesananRL;
+    RelativeLayout biodataRL, orderHistoryRL;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -28,8 +28,8 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         settingsIV = view.findViewById(R.id.settings_Btn);
-        dataDiriRL = view.findViewById(R.id.datadiriRL);
-        riwayatPesananRL = view.findViewById(R.id.riwayat_pesanan_RL);
+        biodataRL = view.findViewById(R.id.datadiriRL);
+        orderHistoryRL = view.findViewById(R.id.riwayat_pesanan_RL);
         handleAction();
 
         return view;
@@ -40,11 +40,11 @@ public class ProfileFragment extends Fragment {
             Intent intent = new Intent(getContext(), SettingsActivity.class);
             startActivity(intent);
         });
-        dataDiriRL.setOnClickListener(v -> {
+        biodataRL.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), MaidBiodataActivity.class);
             startActivity(intent);
         });
-        riwayatPesananRL.setOnClickListener(v -> {
+        orderHistoryRL.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), OrderHistoryActivity.class);
             startActivity(intent);
         });

@@ -36,7 +36,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference orderReference, userReference;
-    String phoneNumber;
+    private String phoneNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
