@@ -1,4 +1,4 @@
-package com.bantoo.babooo.Pages.MaidPages.RiwayatPesananPage;
+package com.bantoo.babooo.Pages.MaidPages.OrderHistoryPage;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,20 +13,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bantoo.babooo.Model.ServiceSchedule;
 import com.bantoo.babooo.R;
 
-import org.w3c.dom.Text;
-
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class RiwayatPesananAdapter extends RecyclerView.Adapter<RiwayatPesananAdapter.MyViewHolder> {
+public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapter.MyViewHolder> {
 
     private List<ServiceSchedule> serviceScheduleList;
     private List<String> bossNameList;
 
-    public RiwayatPesananAdapter(List<ServiceSchedule> serviceScheduleList, List<String> bossNameList) {
+    public OrderHistoryAdapter(List<ServiceSchedule> serviceScheduleList, List<String> bossNameList) {
         this.serviceScheduleList = serviceScheduleList;
         this.bossNameList = bossNameList;
     }

@@ -19,7 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class DataDiriActivity extends AppCompatActivity {
+public class MaidBiodataActivity extends AppCompatActivity {
 
     private static final String TAG = "DataDiri";
 

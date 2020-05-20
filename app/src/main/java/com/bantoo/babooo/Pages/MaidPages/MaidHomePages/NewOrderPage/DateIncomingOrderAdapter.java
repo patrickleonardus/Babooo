@@ -1,6 +1,5 @@
-package com.bantoo.babooo.Pages.MaidPages.MaidHomePages.PesananBaruPage;
+package com.bantoo.babooo.Pages.MaidPages.MaidHomePages.NewOrderPage;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,22 +12,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bantoo.babooo.Model.TanggalPesanan;
 import com.bantoo.babooo.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class PesananDatangTanggalAdapter extends RecyclerView.Adapter<PesananDatangTanggalAdapter.MyViewHolder> {
+public class DateIncomingOrderAdapter extends RecyclerView.Adapter<DateIncomingOrderAdapter.MyViewHolder> {
 
     private List<TanggalPesanan> tanggalPesananList;
-    private PesananDatangTanggalClickListener pesananDatangTanggalClickListener;
+    private DateIncomingOrderClickListener dateIncomingOrderClickListener;
     private static int currentPosition = 0;
 
     public void setCurrentPosition(int position) {
         this.currentPosition = position;
     }
 
-    public PesananDatangTanggalAdapter(List<TanggalPesanan> tanggalPesananList, PesananDatangTanggalClickListener pesananDatangTanggalClickListener) {
+    public DateIncomingOrderAdapter(List<TanggalPesanan> tanggalPesananList, DateIncomingOrderClickListener dateIncomingOrderClickListener) {
         this.tanggalPesananList = tanggalPesananList;
-        this.pesananDatangTanggalClickListener = pesananDatangTanggalClickListener;
+        this.dateIncomingOrderClickListener = dateIncomingOrderClickListener;
     }
 
     @NonNull
@@ -76,7 +74,7 @@ public class PesananDatangTanggalAdapter extends RecyclerView.Adapter<PesananDat
                     int position = getAdapterPosition();
                     underlineView.setVisibility(View.INVISIBLE);
                     currentPosition = position;
-                    pesananDatangTanggalClickListener.onTanggalClick(position);
+                    dateIncomingOrderClickListener.onTanggalClick(position);
                     notifyDataSetChanged();
                 }
             });

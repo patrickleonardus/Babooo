@@ -22,8 +22,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Pages.MaidPages.IncomeTargetActivity"></activity>
-        <activity android:name=".Pages.MaidPages.RiwayatPesananPage.RiwayatPesananActivity" />
-        <activity android:name=".Pages.MaidPages.DataDiriActivity" />
+        <activity android:name=".Pages.MaidPages.OrderHistoryPage.OrderHistoryActivity" />
+        <activity android:name=".Pages.MaidPages.MaidBiodataActivity" />
         <activity
             android:name=".Pages.MonthlyServicePage.SummaryPage.SummaryMonthlyOrderActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

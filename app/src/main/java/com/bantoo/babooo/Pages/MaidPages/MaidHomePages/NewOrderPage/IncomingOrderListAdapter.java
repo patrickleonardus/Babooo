@@ -1,4 +1,4 @@
-package com.bantoo.babooo.Pages.MaidPages.MaidHomePages.PesananBaruPage;
+package com.bantoo.babooo.Pages.MaidPages.MaidHomePages.NewOrderPage;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,12 +16,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class PesananDatangListAdapter extends RecyclerView.Adapter<PesananDatangListAdapter.MyViewHolder> {
+public class IncomingOrderListAdapter extends RecyclerView.Adapter<IncomingOrderListAdapter.MyViewHolder> {
 
     List<ServiceSchedule> serviceScheduleList;
     List<String> bossName;
 
-    public PesananDatangListAdapter(List<ServiceSchedule> serviceScheduleList, List<String> bossName) {
+    public IncomingOrderListAdapter(List<ServiceSchedule> serviceScheduleList, List<String> bossName) {
         this.serviceScheduleList = serviceScheduleList;
         this.bossName = bossName;
     }

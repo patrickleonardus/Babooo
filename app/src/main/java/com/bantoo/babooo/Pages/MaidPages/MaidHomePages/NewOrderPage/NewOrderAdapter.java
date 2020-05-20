@@ -1,4 +1,4 @@
-package com.bantoo.babooo.Pages.MaidPages.MaidHomePages.PesananBaruPage;
+package com.bantoo.babooo.Pages.MaidPages.MaidHomePages.NewOrderPage;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,15 +14,15 @@ import com.bantoo.babooo.R;
 
 import java.util.List;
 
-public class PesananBaruAdapter extends RecyclerView.Adapter<PesananBaruAdapter.MyViewHolder> {
+public class NewOrderAdapter extends RecyclerView.Adapter<NewOrderAdapter.MyViewHolder> {
 
     private List<ServiceSchedule> serviceScheduleList;
-    private PesananBaruClickListener itemClickListener;
+    private NewOrderClickListener itemClickListener;
     private List<String> bossName;
 
-    public PesananBaruAdapter(List<ServiceSchedule> serviceSchedules, PesananBaruClickListener pesananBaruClickListener, List<String> bossName) {
+    public NewOrderAdapter(List<ServiceSchedule> serviceSchedules, NewOrderClickListener newOrderClickListener, List<String> bossName) {
         this.serviceScheduleList = serviceSchedules;
-        this.itemClickListener = pesananBaruClickListener;
+        this.itemClickListener = newOrderClickListener;
         this.bossName = bossName;
     }
 

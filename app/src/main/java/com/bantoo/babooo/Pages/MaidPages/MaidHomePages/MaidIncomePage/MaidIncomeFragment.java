@@ -1,4 +1,4 @@
-package com.bantoo.babooo.Pages.MaidPages.MaidHomePages.PendapatanPage;
+package com.bantoo.babooo.Pages.MaidPages.MaidHomePages.MaidIncomePage;
 
 import android.content.Context;
 import android.content.Intent;

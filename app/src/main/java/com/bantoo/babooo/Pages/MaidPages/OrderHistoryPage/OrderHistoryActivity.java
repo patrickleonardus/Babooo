@@ -1,4 +1,4 @@
-package com.bantoo.babooo.Pages.MaidPages.RiwayatPesananPage;
+package com.bantoo.babooo.Pages.MaidPages.OrderHistoryPage;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,13 +24,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class RiwayatPesananActivity extends AppCompatActivity {
+public class OrderHistoryActivity extends AppCompatActivity {
 
     private static final String TAG = "RiwayatPesanan";
 
     private RecyclerView orderListRV;
     private ImageView closeIV;
-    private RiwayatPesananAdapter riwayatPesananAdapter;
+    private OrderHistoryAdapter orderHistoryAdapter;
     private List<ServiceSchedule> serviceScheduleList = new ArrayList<>();
     private List<String> bossServiceName = new ArrayList<>();
 
@@ -105,7 +105,7 @@ public class RiwayatPesananActivity extends AppCompatActivity {
                                                 }
                                             }
                                             serviceScheduleList.add(serviceSchedule);
-                                            riwayatPesananAdapter.notifyDataSetChanged();
+                                            orderHistoryAdapter.notifyDataSetChanged();
                                         }
                                     }
 
@@ -126,9 +126,9 @@ public class RiwayatPesananActivity extends AppCompatActivity {
     }
 
     private void configureRecyclerView() {
-        riwayatPesananAdapter = new RiwayatPesananAdapter(serviceScheduleList, bossServiceName);
+        orderHistoryAdapter = new OrderHistoryAdapter(serviceScheduleList, bossServiceName);
         orderListRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        orderListRV.setAdapter(riwayatPesananAdapter);
+        orderListRV.setAdapter(orderHistoryAdapter);
     }
 
     private void initView() {

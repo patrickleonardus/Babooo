@@ -8,8 +8,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
-import com.bantoo.babooo.Pages.MaidPages.MaidHomePages.PendapatanPage.MaidIncomeFragment;
-import com.bantoo.babooo.Pages.MaidPages.MaidHomePages.PesananBaruPage.PesananFragment;
+import com.bantoo.babooo.Pages.MaidPages.MaidHomePages.MaidIncomePage.MaidIncomeFragment;
+import com.bantoo.babooo.Pages.MaidPages.MaidHomePages.NewOrderPage.NewOrderFragment;
 import com.bantoo.babooo.Pages.MaidPages.MaidHomePages.ProfileMaidPage.ProfileFragment;
 import com.bantoo.babooo.R;
 import com.bantoo.babooo.Utilities.BaseActivity;
@@ -20,7 +20,7 @@ public class MaidHomeActivity extends BaseActivity {
     private FrameLayout mainFrame;
 
     private MaidIncomeFragment maidIncomeFragment;
-    private PesananFragment pesananFragment;
+    private NewOrderFragment newOrderFragment;
     private ProfileFragment profileFragment;
 
     @Override
@@ -36,7 +36,7 @@ public class MaidHomeActivity extends BaseActivity {
 
     private void fragmentSetup() {
         maidIncomeFragment = new MaidIncomeFragment();
-        pesananFragment = new PesananFragment();
+        newOrderFragment = new NewOrderFragment();
         profileFragment = new ProfileFragment();
 
         setFragment(maidIncomeFragment);
@@ -48,7 +48,7 @@ public class MaidHomeActivity extends BaseActivity {
                         setFragment(maidIncomeFragment);
                         return true;
                     case R.id.pesanan_item:
-                        setFragment(pesananFragment);
+                        setFragment(newOrderFragment);
                         return true;
                     case R.id.profile_item:
                         setFragment(profileFragment);

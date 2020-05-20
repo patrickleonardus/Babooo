@@ -12,8 +12,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.bantoo.babooo.Pages.HomePage.SettingsPage.SettingsActivity;
-import com.bantoo.babooo.Pages.MaidPages.DataDiriActivity;
-import com.bantoo.babooo.Pages.MaidPages.RiwayatPesananPage.RiwayatPesananActivity;
+import com.bantoo.babooo.Pages.MaidPages.MaidBiodataActivity;
+import com.bantoo.babooo.Pages.MaidPages.OrderHistoryPage.OrderHistoryActivity;
 import com.bantoo.babooo.R;
 
 
@@ -41,11 +41,11 @@ public class ProfileFragment extends Fragment {
             startActivity(intent);
         });
         dataDiriRL.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), DataDiriActivity.class);
+            Intent intent = new Intent(getContext(), MaidBiodataActivity.class);
             startActivity(intent);
         });
         riwayatPesananRL.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), RiwayatPesananActivity.class);
+            Intent intent = new Intent(getContext(), OrderHistoryActivity.class);
             startActivity(intent);
         });
     }

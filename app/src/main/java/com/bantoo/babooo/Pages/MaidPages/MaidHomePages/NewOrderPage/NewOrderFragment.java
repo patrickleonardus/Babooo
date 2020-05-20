@@ -1,4 +1,4 @@
-package com.bantoo.babooo.Pages.MaidPages.MaidHomePages.PesananBaruPage;
+package com.bantoo.babooo.Pages.MaidPages.MaidHomePages.NewOrderPage;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -31,7 +31,7 @@ import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class PesananFragment extends Fragment implements PesananBaruClickListener, PesananDatangTanggalClickListener {
+public class NewOrderFragment extends Fragment implements NewOrderClickListener, DateIncomingOrderClickListener {
 
     private static final String TAG = "PesananFragment";
 
@@ -45,9 +45,9 @@ public class PesananFragment extends Fragment implements PesananBaruClickListene
     List<String> bossNameList = new ArrayList<>();
     List<ServiceSchedule> upcomingScheduleList = new ArrayList<>();
     List<String> bossNameUpcomingList = new ArrayList<>();
-    PesananBaruAdapter pesananBaruAdapter;
-    PesananDatangTanggalAdapter pesananDatangTanggalAdapter;
-    PesananDatangListAdapter pesananDatangListAdapter;
+    NewOrderAdapter newOrderAdapter;
+    DateIncomingOrderAdapter dateIncomingOrderAdapter;
+    IncomingOrderListAdapter incomingOrderListAdapter;
     LinearLayoutManager tanggalLayoutManager;
 
     int currentDatePosition = 0;
@@ -115,7 +115,7 @@ public class PesananFragment extends Fragment implements PesananBaruClickListene
                             TanggalPesanan tanggalPesanan = new TanggalPesanan(snapshot.child("orderDate").getValue().toString()
                                     , snapshot.child("orderMonth").getValue().toString());
                             tanggalPesananList.add(tanggalPesanan);
-                            pesananDatangTanggalAdapter.notifyDataSetChanged();
+                            dateIncomingOrderAdapter.notifyDataSetChanged();
                         }
                     } catch (Exception e) {}
                 }
@@ -133,20 +133,20 @@ public class PesananFragment extends Fragment implements PesananBaruClickListene
 
     private void setRecyclerview() {
         //Pesanan baru RV
-        pesananBaruAdapter = new PesananBaruAdapter(serviceSchedulesList, PesananFragment.this, bossNameList);
+        newOrderAdapter = new NewOrderAdapter(serviceSchedulesList, NewOrderFragment.this, bossNameList);
         pesananBaruRV.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
-        pesananBaruRV.setAdapter(pesananBaruAdapter);
+        pesananBaruRV.setAdapter(newOrderAdapter);
 
         //Pesanan Tanggal RV
-        pesananDatangTanggalAdapter = new PesananDatangTanggalAdapter(tanggalPesananList, this);
+        dateIncomingOrderAdapter = new DateIncomingOrderAdapter(tanggalPesananList, this);
         tanggalLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         pesananAkanDatangTanggalRV.setLayoutManager(tanggalLayoutManager);
-        pesananAkanDatangTanggalRV.setAdapter(pesananDatangTanggalAdapter);
+        pesananAkanDatangTanggalRV.setAdapter(dateIncomingOrderAdapter);
 
         //Pesanan List RV
-        pesananDatangListAdapter = new PesananDatangListAdapter(upcomingScheduleList, bossNameUpcomingList);
+        incomingOrderListAdapter = new IncomingOrderListAdapter(upcomingScheduleList, bossNameUpcomingList);
         pesananAkanDatangListRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        pesananAkanDatangListRV.setAdapter(pesananDatangListAdapter);
+        pesananAkanDatangListRV.setAdapter(incomingOrderListAdapter);
     }
 
     private void firebaseInit() {
@@ -185,7 +185,7 @@ public class PesananFragment extends Fragment implements PesananBaruClickListene
                                                     serviceType, maid, orderMonth, status, orderTime, address, maidPhoneNumber);
                                             serviceSchedule.setOrderID(snapshot.getKey());
                                             serviceSchedulesList.add(serviceSchedule);
-                                            pesananBaruAdapter.notifyDataSetChanged();
+                                            newOrderAdapter.notifyDataSetChanged();
                                         }
                                     }
 
@@ -240,7 +240,7 @@ public class PesananFragment extends Fragment implements PesananBaruClickListene
                                                     serviceType, maid, orderMonth, status, orderTime, address, maidPhoneNumber);
                                             serviceSchedule.setOrderID(snapshot.getKey());
                                             upcomingScheduleList.add(serviceSchedule);
-                                            pesananDatangListAdapter.notifyDataSetChanged();
+                                            incomingOrderListAdapter.notifyDataSetChanged();
                                         }
                                     }
 
@@ -272,7 +272,7 @@ public class PesananFragment extends Fragment implements PesananBaruClickListene
                     dataSnapshot.child("maidPhoneNumber").getRef().setValue(phoneNumber);
                     dataSnapshot.child("maidList").getRef().removeValue();
                     serviceSchedulesList.remove(position);
-                    pesananBaruAdapter.notifyDataSetChanged();
+                    newOrderAdapter.notifyDataSetChanged();
                 } else {
                     Log.d("PesananFragment", "onDataChange: order has been taken");
                 }
@@ -295,7 +295,7 @@ public class PesananFragment extends Fragment implements PesananBaruClickListene
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
                     snapshot.getRef().removeValue();
                     serviceSchedulesList.remove(position);
-                    pesananBaruAdapter.notifyDataSetChanged();
+                    newOrderAdapter.notifyDataSetChanged();
                 }
             }
 
