@@ -21,7 +21,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Pages.MaidPages.IncomeTargetActivity"></activity>
+        <activity android:name=".Pages.MaidPages.MaidDailyDetailOrderActivity"></activity>
+        <activity android:name=".Pages.MaidPages.IncomeTargetActivity" />
         <activity android:name=".Pages.MaidPages.OrderHistoryPage.OrderHistoryActivity" />
         <activity android:name=".Pages.MaidPages.MaidBiodataActivity" />
         <activity

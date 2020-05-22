@@ -4,11 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical"
-    tools:context="com.bantoo.babooo.Pages.DailyServicePage.DetailDailyConfirmationPage.DetailDailyConfirmationActivity">
+    tools:context="com.bantoo.babooo.Pages.MaidPages.MaidDailyDetailOrderActivity">
 
-    <!--Header-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -86,7 +84,7 @@
                     android:textSize="13sp" />
 
                 <TextView
-                    android:id="@+id/maid_order_number_detail_daily_confirmation_TV"
+                    android:id="@+id/order_number_TV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -105,14 +103,17 @@
                 android:orientation="horizontal"
                 android:padding="5dp">
 
-                <ImageView
+                <com.mikhaellopez.circularimageview.CircularImageView
                     android:id="@+id/maid_image_detail_daily_confirmation_IV"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_alignParentLeft="true"
                     android:layout_centerInParent="true"
                     android:layout_marginLeft="4dp"
-                    android:src="@color/greenPrimary" />
+                    android:src="@drawable/logo_bantoo_bg"
+                    app:civ_border="true"
+                    app:civ_border_color="@color/black"
+                    app:civ_border_width="5dp"/>
 
                 <LinearLayout
                     android:id="@+id/detail_maid_detail_daily_confirmation_layout"
@@ -130,41 +131,59 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/maid_name_detail_daily_confirmation_TV"
+                            android:id="@+id/user_name_TV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Nama ART"
+                            android:text="Nama User"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             android:textStyle="bold" />
 
-                        <ImageView
-                            android:layout_width="12dp"
-                            android:layout_height="12dp"
-                            android:layout_marginLeft="6dp"
-                            android:src="@drawable/asset_star_active" />
-
-                        <TextView
-                            android:id="@+id/maid_rating_detail_daily_confirmation_TV"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="4dp"
-                            android:text="Rating ART"
-                            android:textColor="@color/black"
-                            android:textSize="10sp" />
-
-
                     </LinearLayout>
 
-                    <TextView
-                        android:textStyle="bold"
-                        android:id="@+id/maid_status_detail_daily_confirmation_TV"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:text="Sedang dijalan"
-                        android:textColor="@color/quantum_yellow700"
-                        android:textSize="12sp" />
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+                        <TextView
+                            android:textStyle="bold"
+                            android:id="@+id/order_status_TV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Sedang dijalan"
+                            android:textColor="@color/quantum_yellow700"
+                            android:textSize="12sp" />
+
+                        <ImageView
+                            android:id="@+id/progressbar_1"
+                            android:layout_width="20dp"
+                            android:layout_height="10dp"
+                            android:src="@drawable/asset_star_active"/>
+                        <ImageView
+                            android:id="@+id/progressbar_2"
+                            android:layout_width="20dp"
+                            android:layout_height="10dp"
+                            android:src="@drawable/asset_star_active"/>
+                        <ImageView
+                            android:id="@+id/progressbar_3"
+                            android:layout_width="20dp"
+                            android:layout_height="10dp"
+                            android:src="@drawable/asset_star_active"/>
+                        <ImageView
+                            android:id="@+id/progressbar_4"
+                            android:layout_width="20dp"
+                            android:layout_height="10dp"
+                            android:src="@drawable/asset_star_active"/>
+
+                        <ImageView
+                            android:id="@+id/progressbar_5"
+                            android:layout_width="20dp"
+                            android:layout_height="10dp"
+                            android:src="@drawable/asset_star_active"/>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -175,13 +194,13 @@
                     android:layout_centerInParent="true"
                     android:layout_alignParentRight="true">
                     <ImageView
-                        android:id="@+id/call_IV_detail_daily"
+                        android:id="@+id/call_IV"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@drawable/asset_hp_hubungi"/>
                     <ImageView
                         android:layout_marginRight="10dp"
-                        android:id="@+id/message_IV_detail_daily"
+                        android:id="@+id/message_IV"
                         android:layout_marginLeft="10dp"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
@@ -219,7 +238,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/date_detail_daily_confirmation_TV"
+                    android:id="@+id/date_detail_TV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -287,7 +306,7 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:id="@+id/time_start_detail_daily_confirmation_TV"
+                                android:id="@+id/time_start_detailTV"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="-"
@@ -313,7 +332,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/estimatedTime_detail_daily_confirmation_TV"
+                            android:id="@+id/estimated_time_TV"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
@@ -371,7 +390,7 @@
                         android:src="@drawable/asset_location" />
 
                     <TextView
-                        android:id="@+id/location_detail_daily_confirmation_TV"
+                        android:id="@+id/location_TV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
@@ -397,7 +416,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_weight="3"
             android:orientation="vertical">
 
             <LinearLayout
@@ -429,12 +447,12 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/name_service_detail_daily_confirmation_TV"
+                        android:id="@+id/name_service_TV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:text="Layanan Bantoo"
-                        android:textColor="@color/black"
+                        android:textColor="@color/greenPrimary"
                         android:textSize="13sp" />
 
                     <LinearLayout
@@ -449,9 +467,9 @@
                             android:src="@drawable/asset_coin" />
 
                         <TextView
-                            android:id="@+id/cost_service_detail_daily_confirmation_TV"
+                            android:id="@+id/cost_service_TV"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_marginLeft="4dp"
                             android:text="Coin"
                             android:textColor="@color/greenPrimary"
@@ -486,7 +504,7 @@
                             android:src="@drawable/asset_coin" />
 
                         <TextView
-                            android:id="@+id/fee_cost_service_detail_daily_confirmation_TV"
+                            android:id="@+id/fee_cost_TV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="4dp"
@@ -510,12 +528,12 @@
 
         <!--Section6-->
         <LinearLayout
+            android:layout_weight="3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="12dp"
-            android:layout_marginRight="20dp"
-            android:layout_weight="2">
+            android:layout_marginRight="20dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -527,8 +545,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:text="Total Pembayaran"
-                    android:textColor="@color/black"
+                    android:text="Total Pendapatan"
+                    android:textColor="@color/greenPrimary"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -544,7 +562,7 @@
                         android:src="@drawable/asset_coin" />
 
                     <TextView
-                        android:id="@+id/total_cost_service_detail_daily_confirmation_TV"
+                        android:id="@+id/total_income_TV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
@@ -558,22 +576,77 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:layout_marginRight="20dp"
+        <RelativeLayout
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="28dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_height="wrap_content">
 
-            <Button
-                android:id="@+id/help_bantoo_detail_daily_confirmation_BTN"
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Penilaian"
+                android:textStyle="bold"/>
+
+            <LinearLayout
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:background="@color/white">
+                <ImageView
+                    android:id="@+id/star1IV_give_dialog"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/asset_star_inactive"/>
+                <ImageView
+                    android:id="@+id/star2IV_give_dialog"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/asset_star_inactive"/>
+                <ImageView
+                    android:id="@+id/star3IV_give_dialog"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/asset_star_inactive"/>
+                <ImageView
+                    android:id="@+id/star4IV_give_dialog"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/asset_star_inactive"/>
+                <ImageView
+                    android:id="@+id/star5IV_give_dialog"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/asset_star_inactive"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="28dp"
+            android:background="@drawable/border_rounded_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Komentar: "/>
+
+            <TextView
+                android:id="@+id/comment_TV"
+                android:textColor="@color/greenPrimary"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:background="@drawable/rounded_button_green"
-                android:text="Hubungi Bantuan Bantoo"
-                android:textColor="@color/white" />
+                android:text="Pengerjaan CEPAT, HASIL MEMUASKAN. MANTAP POLPengerjaan CEPAT, HASIL MEMUASKANPengerjaan CEPAT, HASIL MEMUASKANPengerjaan CEPAT, HASIL MEMUASKANPengerjaan CEPAT, HASIL MEMUASKAN"/>
 
         </LinearLayout>
 

@@ -117,7 +117,7 @@ public class DetailDailyConfirmationActivity extends BaseActivity {
                 totalCostTV.setText(""+totalCost);
                 dateOfWorkTV.setText(snapshot.child("orderDate").getValue()+"-"+snapshot.child("orderMonth").getValue()+"-"+snapshot.child("orderYear").getValue());
                 timeOfWorkTV.setText(snapshot.child("orderTime").getValue().toString());
-                int finishEstimationHours = Integer.parseInt(snapshot.child("orderTime").getValue().toString().substring(0,2)) + 4;
+                int finishEstimationHours = Integer.parseInt(snapshot.child("orderTime").getValue().toString().substring(0,2)) + 2;
                 String finishEstimationMinutes = snapshot.child("orderTime").getValue().toString().substring(3,5);
                 if(finishEstimationHours < 10) { estimatedFinishTimeOfWorkTV.setText("0"+finishEstimationMinutes+":"+finishEstimationMinutes); }
                 else { estimatedFinishTimeOfWorkTV.setText(finishEstimationHours+":"+finishEstimationMinutes); }
