@@ -23,10 +23,12 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
 
     private List<ServiceSchedule> serviceScheduleList;
     private List<String> bossNameList;
+    private OrderHistoryClickedRV orderHistoryClickedRV;
 
-    public OrderHistoryAdapter(List<ServiceSchedule> serviceScheduleList, List<String> bossNameList) {
+    public OrderHistoryAdapter(List<ServiceSchedule> serviceScheduleList, List<String> bossNameList, OrderHistoryClickedRV orderHistoryClickedRV) {
         this.serviceScheduleList = serviceScheduleList;
         this.bossNameList = bossNameList;
+        this.orderHistoryClickedRV = orderHistoryClickedRV;
     }
 
     @NonNull
@@ -98,12 +100,13 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        LinearLayout tanggalLL;
+        LinearLayout tanggalLL, fullLL;
         TextView tanggalTV, bulanTV, jamOrderTV, nameTypeTV, addressTV, ratingTV;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            fullLL = itemView.findViewById(R.id.fullLL);
             tanggalLL = itemView.findViewById(R.id.tanggal_LL);
             tanggalTV = itemView.findViewById(R.id.tanggal_TV);
             bulanTV = itemView.findViewById(R.id.bulan_TV);
@@ -111,6 +114,14 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
             nameTypeTV = itemView.findViewById(R.id.name_type_TV);
             addressTV = itemView.findViewById(R.id.address_TV);
             ratingTV = itemView.findViewById(R.id.rating_TV);
+
+            fullLL.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    orderHistoryClickedRV.onClickOrderHistory(position);
+                }
+            });
         }
     }
 }

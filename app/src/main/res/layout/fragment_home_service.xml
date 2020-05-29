@@ -22,7 +22,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="160dp"
                 android:background="@drawable/background_home"
                 android:orientation="horizontal">
 
@@ -227,7 +227,7 @@
                         <ImageView
                             android:layout_width="100dp"
                             android:layout_height="100dp"
-                            android:src="@drawable/logo_bantoo_bg" />
+                            android:src="@drawable/asset_harian_icon1" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -256,7 +256,7 @@
                         <ImageView
                             android:layout_width="100dp"
                             android:layout_height="100dp"
-                            android:src="@drawable/logo_bantoo_bg" />
+                            android:src="@drawable/asset_bulanan_icon" />
 
                         <TextView
                             android:layout_width="wrap_content"

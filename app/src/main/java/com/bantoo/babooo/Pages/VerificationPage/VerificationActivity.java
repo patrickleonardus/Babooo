@@ -358,6 +358,7 @@ public class VerificationActivity extends BaseActivity {
         SharedPreferences accountData = getApplicationContext().getSharedPreferences("accountData", MODE_PRIVATE);
         SharedPreferences.Editor editor = accountData.edit();
         editor.putString("phoneNumber", phoneNumber);
+        editor.putString("artType", "pengguna");
         editor.apply();
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

@@ -157,17 +157,20 @@ public class DetailDailyConfirmationActivity extends BaseActivity {
         callIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", maidPhoneNumber, null)));
+                //startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", maidPhoneNumber.replaceFirst("0", "+62"), null)));
+                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                callIntent.setData(Uri.parse("tel:"+maidPhoneNumber.replaceFirst("0", "+62")));
+                startActivity(callIntent);
             }
         });
         messageIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent sendIntent = new Intent(Intent.ACTION_VIEW);
-                sendIntent.putExtra("sms_body", "Bantoo: ");
-                sendIntent.setType("vnd.android-dir/mms-sms");
-                sendIntent.putExtra("address", maidPhoneNumber);
-                startActivity(sendIntent);
+                Uri sms_uri = Uri.parse("smsto:" +maidPhoneNumber.replaceFirst("0", "+62"));
+                Intent sms_intent = new Intent(Intent.ACTION_VIEW, sms_uri);
+                sms_intent.setData(sms_uri);
+                sms_intent.putExtra("sms_body", "Bantoo: ");
+                startActivity(sms_intent);
             }
         });
     }

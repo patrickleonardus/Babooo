@@ -5,13 +5,14 @@
     tools:context="com.bantoo.babooo.Pages.MaidPages.MaidHomePages.MaidIncomePage.MaidIncomeFragment">
 
     <LinearLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="160dp"
             android:background="@drawable/background_home"
             android:orientation="vertical">
 
@@ -105,7 +106,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="Pendapatan bulan Januari"
+                    android:text="Pendapatan sampai bulan Mei"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
@@ -157,7 +158,7 @@
                         android:layout_height="20dp"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="20dp"
-                        android:src="@drawable/drawable_start_coins_edit_text" />
+                        android:src="@drawable/nav_next" />
 
                     <TextView
                         android:id="@+id/cairkan_koin_TV"
@@ -352,7 +353,7 @@
                     android:layout_marginRight="20dp"
                     android:max="100"
                     android:progress="50"
-                    android:progressBackgroundTint="@color/orangePrimaryDark"
+                    android:progressBackgroundTint="@color/greenPrimary"
                     android:progressTint="@color/greenPrimary"
                     android:scaleY="3" />
 

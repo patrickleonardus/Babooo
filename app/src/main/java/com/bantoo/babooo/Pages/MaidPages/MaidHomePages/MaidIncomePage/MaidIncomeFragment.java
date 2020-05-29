@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -76,6 +77,7 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
         editor = accountDataSharedPreferences.edit();
         String artType = accountDataSharedPreferences.getString("artType", "");
         Log.d(TAG, "onCreateView: arttype: "+artType);
+
         if(artType.equals("daily")) {
             withdrawIncomeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -160,6 +162,16 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
                     String salary = snapshot.child("salary").getValue().toString();
                     String tidySalary = NumberFormat.getNumberInstance(Locale.GERMAN).format(Integer.parseInt(salary));
                     totalCoinsTV.setText("Rp "+tidySalary);
+                    if (snapshot.child("activate").getValue() != null) {
+                        activeSwitch.setChecked(Boolean.parseBoolean(snapshot.child("activate").getValue().toString()));
+                    }
+                    activeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                            snapshot.child("activate").getRef().setValue(isChecked);
+                        }
+                    });
+
                     showRentData(salary);
                 }
             }
@@ -251,10 +263,19 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
                         totalKoin = snapshot.child("coins").getValue().toString();
                         totalCoinsTV.setText(totalKoin+" koin");
                     } else { totalCoinsTV.setText("0 koin"); }
-                    inRupiahTV.setText("Setara dengan Rp. "+(Integer.parseInt(totalKoin)*3000));
+                    inRupiahTV.setText("Setara dengan Rp. "+(Integer.parseInt(totalKoin)*300));
                     if(snapshot.child("target").getValue() != null) {
                         targetKoin = Integer.parseInt(snapshot.child("target").getValue().toString());
                     }
+                    if(snapshot.child("activate").getValue() != null) {
+                        activeSwitch.setChecked(Boolean.parseBoolean(snapshot.child("activate").getValue().toString()));
+                    }
+                    activeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                            snapshot.child("activate").getRef().setValue(isChecked);
+                        }
+                    });
                     showDailyData();
                 }
             }

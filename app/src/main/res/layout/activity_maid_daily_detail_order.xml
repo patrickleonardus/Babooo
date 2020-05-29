@@ -20,7 +20,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/close_detail_daily_IV"
+                android:id="@+id/closeIV"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/asset_close" />

@@ -24,7 +24,7 @@ public class MaidDailyDetailOrderActivity extends AppCompatActivity {
             feeCostTV, totalIncomeTV, commentTV;
 
     ImageView progressBar1, progressBar2, progressBar3, progressBar4, progressBar5, callIV, messageIV,
-            star1IV, star2IV, star3IV, star4IV, star5IV;
+            star1IV, star2IV, star3IV, star4IV, star5IV, closeIV;
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference orderReference, userReference;
@@ -83,7 +83,7 @@ public class MaidDailyDetailOrderActivity extends AppCompatActivity {
         orderReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.child("rating") != null) {
+                if(dataSnapshot.child("rating").getValue() != null) {
                     activateStar(Integer.parseInt(dataSnapshot.child("rating").getValue().toString()));
                 }
                 orderNumberTV.setText(dataSnapshot.getKey());
@@ -137,6 +137,7 @@ public class MaidDailyDetailOrderActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        closeIV = findViewById(R.id.close_IV);
         star1IV = findViewById(R.id.star1IV_give_dialog);
         star2IV = findViewById(R.id.star2IV_give_dialog);
         star3IV = findViewById(R.id.star3IV_give_dialog);
@@ -161,5 +162,12 @@ public class MaidDailyDetailOrderActivity extends AppCompatActivity {
         feeCostTV = findViewById(R.id.fee_cost_TV);
         totalIncomeTV = findViewById(R.id.total_income_TV);
         commentTV = findViewById(R.id.comment_TV);
+
+        closeIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }

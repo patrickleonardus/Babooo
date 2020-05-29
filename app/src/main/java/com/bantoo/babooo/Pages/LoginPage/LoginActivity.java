@@ -76,7 +76,7 @@ public class LoginActivity extends BaseActivity {
         if(sharedPreferences.getString("artType", "").equals("pengguna")) {
             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(intent);
-        } else if(!sharedPreferences.getString("artType", "").equals("mitra")) {
+        } else if(sharedPreferences.getString("artType", "").equals("daily") || sharedPreferences.getString("artType", "").equals("monthly")) {
             Intent intent = new Intent(LoginActivity.this, MaidHomeActivity.class);
             startActivity(intent);
         }

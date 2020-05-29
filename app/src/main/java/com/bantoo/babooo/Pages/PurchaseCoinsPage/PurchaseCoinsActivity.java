@@ -108,7 +108,8 @@ public class PurchaseCoinsActivity extends BaseActivity implements PurchasesUpda
                 @Override
                 public void onSkuDetailsResponse(int responseCode, List<SkuDetails> skuDetailsList) {
                     if(responseCode == BillingClient.BillingResponse.OK) {
-                        Log.d(TAG, "onSkuDetailsResponse: querySkuDetailsAsync, responseCode: $responseCode");
+                        Log.d(TAG, "onSkuDetailsResponse: querySkuDetailsAsync, responseCode: "+responseCode);
+                        Log.d(TAG, "onSkuDetailsResponse: skudetailList: "+skuDetailsList);
                         configureRecyclerView(skuDetailsList);
                     } else {
                         Log.d(TAG, "onSkuDetailsResponse: Can't querySkuDetailsAsync, responseCode: $responseCode");

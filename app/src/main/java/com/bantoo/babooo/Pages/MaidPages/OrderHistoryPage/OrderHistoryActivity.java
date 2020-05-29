@@ -6,12 +6,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 
 import com.bantoo.babooo.Model.ServiceSchedule;
+import com.bantoo.babooo.Pages.MaidPages.MaidDailyDetailOrderActivity;
 import com.bantoo.babooo.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class OrderHistoryActivity extends AppCompatActivity {
+public class OrderHistoryActivity extends AppCompatActivity implements OrderHistoryClickedRV {
 
     private static final String TAG = "RiwayatPesanan";
 
@@ -126,7 +128,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
     }
 
     private void configureRecyclerView() {
-        orderHistoryAdapter = new OrderHistoryAdapter(serviceScheduleList, bossServiceName);
+        orderHistoryAdapter = new OrderHistoryAdapter(serviceScheduleList, bossServiceName, this);
         orderListRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         orderListRV.setAdapter(orderHistoryAdapter);
     }
@@ -137,5 +139,12 @@ public class OrderHistoryActivity extends AppCompatActivity {
         closeIV.setOnClickListener(v -> {
             finish();
         });
+    }
+
+    @Override
+    public void onClickOrderHistory(int position) {
+        Intent intent = new Intent(this, MaidDailyDetailOrderActivity.class);
+        intent.putExtra("orderKey", serviceScheduleList.get(position).getOrderID());
+        startActivity(intent);
     }
 }

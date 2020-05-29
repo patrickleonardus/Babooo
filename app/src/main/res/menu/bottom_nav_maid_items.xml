@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/pendapatan_item"
-        android:icon="@drawable/bottom_nav_maid"
+        android:icon="@drawable/wallet_abu"
         android:title="Pendapatan" />
     <item
         android:id="@+id/pesanan_item"
