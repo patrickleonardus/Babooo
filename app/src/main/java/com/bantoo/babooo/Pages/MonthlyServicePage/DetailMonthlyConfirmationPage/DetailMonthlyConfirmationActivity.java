@@ -257,6 +257,11 @@ public class DetailMonthlyConfirmationActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(DetailMonthlyConfirmationActivity.this, HomeActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                if(getIntent().getStringExtra("sender") != null) {
+                    if(getIntent().getStringExtra("sender").equals("orderFragment")) {
+                        intent.putExtra("sender", "orderFragment");
+                    }
+                }
                 startActivity(intent);
             }
         });

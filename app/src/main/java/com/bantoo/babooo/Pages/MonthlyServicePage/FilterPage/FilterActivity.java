@@ -50,8 +50,8 @@ public class FilterActivity extends BaseActivity implements Serializable, CityFi
     private int defaultMinAgeValue = 18;
     private int defaultMinYearsValue = 0;
     private int defaultMaxYearsValue = 20;
-    private int defaultMinCostValue = 50;
-    private int defaultMaxCostValue = 1000;
+    private int defaultMinCostValue = 1500000;
+    private int defaultMaxCostValue = 2500000;
     private int maidPopularity = 5;
 
     private String maxCost, minCost, maxYears, minYears, minAge, maxAge;

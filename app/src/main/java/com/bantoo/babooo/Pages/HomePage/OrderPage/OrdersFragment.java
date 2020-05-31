@@ -87,8 +87,6 @@ public class OrdersFragment extends Fragment implements OrderItemClickListener {
         retrieveRentData();
         setupRecyclerView();
 
-        checkData();
-
         return rootView;
     }
 
@@ -109,7 +107,6 @@ public class OrdersFragment extends Fragment implements OrderItemClickListener {
                 runningOrderLine.setVisibility(View.VISIBLE);
                 currentTypeOrder = RUNNING_ORDER;
                 retrieveRentData();
-                checkData();
             }
         });
         previousTransactionLayout.setOnClickListener(new View.OnClickListener() {
@@ -119,7 +116,6 @@ public class OrdersFragment extends Fragment implements OrderItemClickListener {
                 previousOrderLine.setVisibility(View.VISIBLE);
                 currentTypeOrder = PREVIOUS_ORDER;
                 retrieveRentData();
-                checkData();
             }
         });
     }
@@ -248,6 +244,7 @@ public class OrdersFragment extends Fragment implements OrderItemClickListener {
                         }
                     }
                 }
+                checkData();
             }
 
             @Override
@@ -295,6 +292,7 @@ public class OrdersFragment extends Fragment implements OrderItemClickListener {
             moveToDetail = new Intent(getContext(), DetailMonthlyConfirmationActivity.class);
             moveToDetail.putExtra("orderUniqueKey", serviceScheduleList.get(position).getOrderID());
             moveToDetail.putExtra("maidUniqueKey", maidIDList.get(position));
+            moveToDetail.putExtra("sender", "orderFragment");
         } else {
             if(serviceScheduleList.get(position).getMaid().equals("maid")) {
                 moveToDetail = new Intent(getContext(), SearchingDailyMaidActivity.class);
@@ -303,6 +301,7 @@ public class OrdersFragment extends Fragment implements OrderItemClickListener {
             } else {
                 moveToDetail = new Intent(getContext(), DetailDailyConfirmationActivity.class);
                 moveToDetail.putExtra("orderUniqueKey", serviceScheduleList.get(position).getOrderID());
+                moveToDetail.putExtra("sender", "orderFragment");
             }
         }
         startActivity(moveToDetail);

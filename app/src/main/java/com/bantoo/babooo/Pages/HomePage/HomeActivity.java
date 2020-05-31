@@ -42,7 +42,14 @@ public class HomeActivity extends BaseActivity {
         serviceFragment = new ServiceFragment();
         ordersFragment = new OrdersFragment();
         accountFragment = new AccountFragment();
-        setFragment(serviceFragment);
+        if(getIntent().getStringExtra("sender") != null) {
+            if(getIntent().getStringExtra("sender").equals("orderFragment")) {
+                navbar.setSelectedItemId(R.id.ordersItem);
+                setFragment(ordersFragment);
+            }
+        } else {
+            setFragment(serviceFragment);
+        }
 
         navbar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

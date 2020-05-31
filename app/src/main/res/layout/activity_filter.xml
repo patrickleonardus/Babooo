@@ -447,7 +447,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="12dp"
                     android:layout_marginRight="20dp"
-                    android:text="Biaya Administrasi"
+                    android:text="Gaji Perbulan"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -516,8 +516,8 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     app:rsb_gravity="center"
-                    app:rsb_max="100"
-                    app:rsb_min="0"
+                    app:rsb_max="2500000"
+                    app:rsb_min="1500000"
                     app:rsb_mode="range"
                     app:rsb_progress_color="@color/greenPrimary"
                     app:rsb_thumb_drawable="@drawable/thumb_range_seek_bar_green" />

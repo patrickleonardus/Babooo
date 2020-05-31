@@ -179,9 +179,13 @@ public class DetailDailyConfirmationActivity extends BaseActivity {
         closeIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(DetailDailyConfirmationActivity.this, HomeActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                if(getIntent().getStringExtra("sender") != null) {
+                    if(getIntent().getStringExtra("sender").equals("orderFragment")) {
+                        intent.putExtra("sender", "orderFragment");
+                    }
+                }
                 startActivity(intent);
             }
         });

@@ -3,6 +3,7 @@ package com.bantoo.babooo.Pages.PurchaseCoinsPage;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.SharedPreferences;
@@ -34,8 +35,6 @@ import java.util.List;
 
 public class PurchaseCoinsActivity extends BaseActivity implements PurchasesUpdatedListener, InAppPurchaseClickListener {
 
-    Button coins100Btn;
-
     private static final String TAG = "PurchaseCoins";
     private BillingClient billingClient;
     private List<String> skuList = new ArrayList<String>();
@@ -52,6 +51,8 @@ public class PurchaseCoinsActivity extends BaseActivity implements PurchasesUpda
         setContentView(R.layout.activity_purchase_coins);
 
         initView();
+        initFirebase();
+        showCurrentCoins();
         setupProductName();
         setupBillingClient();
         /*purchaseBtn = findViewById(R.id.purchaseButton);
@@ -61,6 +62,27 @@ public class PurchaseCoinsActivity extends BaseActivity implements PurchasesUpda
                 productClicked();
             }
         });*/
+    }
+
+    private void initFirebase() {
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        SharedPreferences accountData = getSharedPreferences("accountData", MODE_PRIVATE);
+        String uid = accountData.getString("uid", "");
+        userReference = firebaseDatabase.getReference().child("Users").child(uid);
+    }
+
+    private void showCurrentCoins() {
+        userReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                coinsTV.setText(dataSnapshot.child("coins").getValue() + " coin");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void initView() {
@@ -124,30 +146,30 @@ public class PurchaseCoinsActivity extends BaseActivity implements PurchasesUpda
     private void configureRecyclerView(List<SkuDetails> skuDetailsList) {
         Log.d(TAG, "configureRecyclerView: count skudetail: "+skuDetailsList.size());
         InAppPurchaseAdapter inAppPurchaseAdapter = new InAppPurchaseAdapter(this, skuDetailsList, this);
+        inAppRV.setLayoutManager(new LinearLayoutManager(PurchaseCoinsActivity.this,LinearLayoutManager.VERTICAL,false));
         inAppRV.setAdapter(inAppPurchaseAdapter);
     }
 
     @Override
     public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
         Log.d(TAG, "onPurchasesUpdated: "+responseCode);
-        int purchasedCoins = 0;
-        if(purchases.get(purchases.size()-1).getSku().equals("coins_100")) {
-            purchasedCoins = 100;
+        if (responseCode == 0) {
+            int purchasedCoins = 0;
+            if (purchases.get(purchases.size() - 1).getSku().equals("coins_100")) {
+                purchasedCoins = 100;
+            }
+            topupCoins(purchasedCoins);
+            allowMultiplePurchases(purchases);
         }
-        topupCoins(purchasedCoins);
-        allowMultiplePurchases(purchases);
     }
 
     private void topupCoins(int purchaseCoins) {
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        SharedPreferences accountData = getSharedPreferences("accountData", MODE_PRIVATE);
-        String uid = accountData.getString("uid", "");
-        userReference = firebaseDatabase.getReference().child("Users").child(uid);
         userReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 int currentCoins = Integer.parseInt(dataSnapshot.child("coins").getValue().toString());
                 dataSnapshot.child("coins").getRef().setValue(currentCoins + purchaseCoins);
+                showCurrentCoins();
             }
 
             @Override
@@ -180,6 +202,7 @@ public class PurchaseCoinsActivity extends BaseActivity implements PurchasesUpda
 
     @Override
     public void onItemClick(int position) {
+        Log.d(TAG, "onItemClick: Buying = "+skuList.get(position));
         SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
         params.setSkusList(skuList).setType(BillingClient.SkuType.INAPP);
         billingClient.querySkuDetailsAsync(params.build(), new SkuDetailsResponseListener() {
@@ -188,6 +211,7 @@ public class PurchaseCoinsActivity extends BaseActivity implements PurchasesUpda
                 BillingFlowParams flowParams = BillingFlowParams.newBuilder()
                         .setSkuDetails(skuDetailsList.get(position))
                         .build();
+                Log.d(TAG, "onSkuDetailsResponse: skudetaillist: "+skuDetailsList.get(position));
                 int itemResponseCode = billingClient.launchBillingFlow(PurchaseCoinsActivity.this ,flowParams);
             }
         });
