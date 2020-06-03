@@ -39,7 +39,8 @@ public class InAppPurchaseAdapter extends RecyclerView.Adapter<InAppPurchaseAdap
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.coinsTV.setText(skuDetailsList.get(position).getTitle());
-        holder.coinsTV.setText("Rp."+skuDetailsList.get(position).getPrice());
+        String price = skuDetailsList.get(position).getPrice().replace("IDR", "");
+        holder.coinsTV.setText("Rp."+price);
 
     }
 

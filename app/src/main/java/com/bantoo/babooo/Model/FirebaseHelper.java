@@ -11,6 +11,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.InstanceIdResult;
 
@@ -59,6 +60,7 @@ public class FirebaseHelper {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
                     maidUniqueKey = snapshot.getKey();
+                    snapshot.child("TIMESTAMP").getRef().setValue(ServerValue.TIMESTAMP);
                     snapshot.child("activate").getRef().setValue(true);
                     snapshot.child("approvalCode").getRef().removeValue();
                 }
@@ -96,6 +98,7 @@ public class FirebaseHelper {
         DatabaseReference withdrawReference = reference.child("WithdrawRequest");
         String withdrawUniqueKey = withdrawReference.push().getKey();
         withdrawReference.child(withdrawUniqueKey).setValue(salaryRequest);
+        withdrawReference.child(withdrawUniqueKey).child("TIMESTAMP").setValue(ServerValue.TIMESTAMP);
         return withdrawUniqueKey;
     }
 

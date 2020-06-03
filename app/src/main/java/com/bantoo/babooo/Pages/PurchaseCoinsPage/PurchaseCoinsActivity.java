@@ -92,12 +92,12 @@ public class PurchaseCoinsActivity extends BaseActivity implements PurchasesUpda
 
     private void setupProductName() {
         skuList.add("coins_100");
-        /*skuList.add("200_coins");
-        skuList.add("500_coins");
-        skuList.add("800_coins");
-        skuList.add("1200_coins");
-        skuList.add("1600_coins");
-        skuList.add("3000_coins");*/
+        skuList.add("coins_200");
+        skuList.add("coins_500");
+        skuList.add("coins_800");
+        skuList.add("coins_1200");
+        skuList.add("coins_1600");
+        skuList.add("coins_3000");
     }
 
     private void setupBillingClient() {
