@@ -19,16 +19,16 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MaidDailyDetailOrderActivity extends AppCompatActivity {
 
-    TextView orderNumberTV, userNameTV, statusTV, dateTV,
+    private TextView orderNumberTV, userNameTV, statusTV, dateTV,
             timeStartTV, estimatedTimeTV, locationTV, serviceNameTV, costServiceTV,
-            feeCostTV, totalIncomeTV, commentTV;
+            feeCostTV, totalIncomeTV;
 
-    ImageView progressBar1, progressBar2, progressBar3, progressBar4, progressBar5, callIV, messageIV,
-            star1IV, star2IV, star3IV, star4IV, star5IV, closeIV;
+    private ImageView progressBar1, progressBar2, progressBar3, progressBar4, progressBar5, callIV, messageIV,
+            closeIV;
 
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference orderReference, userReference;
-    String orderUniqueKey;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference orderReference, userReference;
+    private String orderUniqueKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +53,13 @@ public class MaidDailyDetailOrderActivity extends AppCompatActivity {
         userReference = firebaseDatabase.getReference().child("Users");
     }
 
-    private void activateStar(int star) {
-        switch (star) {
-            case 5: star5IV.setImageResource(R.drawable.asset_star_active);
-            case 4: star4IV.setImageResource(R.drawable.asset_star_active);
-            case 3: star3IV.setImageResource(R.drawable.asset_star_active);
-            case 2: star2IV.setImageResource(R.drawable.asset_star_active);
-            case 1: star1IV.setImageResource(R.drawable.asset_star_active);
+    private void progress (int step) {
+        switch (step) {
+            case 5: progressBar5.setImageResource(R.drawable.asset_star_active);
+            case 4: progressBar4.setImageResource(R.drawable.asset_star_active);
+            case 3: progressBar3.setImageResource(R.drawable.asset_star_active);
+            case 2: progressBar2.setImageResource(R.drawable.asset_star_active);
+            case 1: progressBar1.setImageResource(R.drawable.asset_star_active);
         }
     }
 
@@ -83,9 +83,6 @@ public class MaidDailyDetailOrderActivity extends AppCompatActivity {
         orderReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.child("rating").getValue() != null) {
-                    activateStar(Integer.parseInt(dataSnapshot.child("rating").getValue().toString()));
-                }
                 orderNumberTV.setText(dataSnapshot.getKey());
                 callIV.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -121,11 +118,6 @@ public class MaidDailyDetailOrderActivity extends AppCompatActivity {
                 costServiceTV.setText(dataSnapshot.child("serviceCost").getValue().toString());
                 feeCostTV.setText("10");
                 totalIncomeTV.setText(""+ (Integer.parseInt(dataSnapshot.child("serviceCost").getValue().toString()) - 10 ));
-                if(dataSnapshot.child("comment").getValue() != null) {
-                    commentTV.setText(dataSnapshot.child("comment").getValue().toString());
-                } else {
-                    commentTV.setText("-");
-                }
                 showUserData(dataSnapshot.child("phoneNumber").getValue().toString());
             }
 
@@ -138,11 +130,6 @@ public class MaidDailyDetailOrderActivity extends AppCompatActivity {
 
     private void initView() {
         closeIV = findViewById(R.id.close_IV);
-        star1IV = findViewById(R.id.star1IV_give_dialog);
-        star2IV = findViewById(R.id.star2IV_give_dialog);
-        star3IV = findViewById(R.id.star3IV_give_dialog);
-        star4IV = findViewById(R.id.star4IV_give_dialog);
-        star5IV = findViewById(R.id.star5IV_give_dialog);
         progressBar1 = findViewById(R.id.progressbar_1);
         progressBar2 = findViewById(R.id.progressbar_2);
         progressBar3 = findViewById(R.id.progressbar_3);
@@ -161,7 +148,6 @@ public class MaidDailyDetailOrderActivity extends AppCompatActivity {
         costServiceTV = findViewById(R.id.cost_service_TV);
         feeCostTV = findViewById(R.id.fee_cost_TV);
         totalIncomeTV = findViewById(R.id.total_income_TV);
-        commentTV = findViewById(R.id.comment_TV);
 
         closeIV.setOnClickListener(new View.OnClickListener() {
             @Override
