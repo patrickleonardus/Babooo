@@ -38,7 +38,8 @@ public class OrderHistoryActivity extends AppCompatActivity implements OrderHist
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference orderReference, userReference;
-    private String phoneNumber;
+    private String phoneNumber, artType, estimatedMinute, estimatedTime;
+    private Integer estimatedHour;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +55,7 @@ public class OrderHistoryActivity extends AppCompatActivity implements OrderHist
     private void initFirebase() {
         firebaseDatabase = FirebaseDatabase.getInstance();
         SharedPreferences accountDataSharedPreferences = getSharedPreferences("accountData", Context.MODE_PRIVATE);
-        String artType = accountDataSharedPreferences.getString("artType", "");
+        artType = accountDataSharedPreferences.getString("artType", "");
         phoneNumber = accountDataSharedPreferences.getString("phoneNumber", "");
         if(artType.equals("daily")) {
             orderReference = firebaseDatabase.getReference().child("Order");
@@ -89,16 +90,27 @@ public class OrderHistoryActivity extends AppCompatActivity implements OrderHist
                                         for (DataSnapshot userSnapshot : userDataSnapshot.getChildren()) {
                                             bossServiceName.add(userSnapshot.child("name").getValue().toString());
                                             String orderDate = snapshot.child("orderDate").getValue().toString();
+                                            String orderMonth = snapshot.child("orderMonth").getValue().toString();
+                                            String orderYear = snapshot.child("orderYear").getValue().toString();
                                             String serviceType = snapshot.child("serviceType").getValue().toString();
                                             String maid = snapshot.child("maid").getValue().toString();
-                                            String orderMonth = snapshot.child("orderMonth").getValue().toString();
                                             String status = snapshot.child("status").getValue().toString();
                                             String orderTime = snapshot.child("orderTime").getValue().toString();
+                                            estimatedHour = Integer.parseInt(orderTime.substring(0,2)) + 2;
+                                            estimatedMinute = orderTime.substring(3,5);
+                                            if(estimatedHour < 10) {
+                                                estimatedTime = "0"+estimatedHour+":"+estimatedMinute; }
+                                            else { estimatedTime = estimatedHour+":"+estimatedMinute; }
                                             String address = snapshot.child("address").getValue().toString();
+                                            String noteLocation = snapshot.child("notesLocation").getValue().toString();
                                             String maidPhoneNumber = snapshot.child("maidPhoneNumber").getValue().toString();
+                                            Integer serviceCost = Integer.parseInt(snapshot.child("serviceCost").getValue().toString());
                                             ServiceSchedule serviceSchedule = new ServiceSchedule(orderDate,
                                                     serviceType, maid, orderMonth, status, orderTime, address, maidPhoneNumber);
                                             serviceSchedule.setOrderID(snapshot.getKey());
+                                            serviceSchedule.setOrderYear(orderYear);
+                                            serviceSchedule.setNotesLocation(noteLocation);
+                                            serviceSchedule.setServiceCost(serviceCost);
                                             if(snapshot.child("rating").getValue() != null) {
                                                 try {
                                                     serviceSchedule.setRating(Double.parseDouble(snapshot.child("rating").getValue().toString()));
@@ -143,8 +155,26 @@ public class OrderHistoryActivity extends AppCompatActivity implements OrderHist
 
     @Override
     public void onClickOrderHistory(int position) {
-        Intent intent = new Intent(this, MaidDailyDetailOrderActivity.class);
-        intent.putExtra("orderKey", serviceScheduleList.get(position).getOrderID());
-        startActivity(intent);
+        if (artType.equals("daily")) {
+            Intent intent = new Intent(this, MaidDailyDetailHistoryActivity.class);
+            intent.putExtra("orderKey", serviceScheduleList.get(position).getOrderID());
+            intent.putExtra("user_name", bossServiceName.get(position));
+            intent.putExtra("orderDate", serviceScheduleList.get(position).getOrderDate()+" "
+                    +serviceScheduleList.get(position).getOrderMonth()+" "+serviceScheduleList.get(position).getOrderYear());
+            intent.putExtra("timeStart", serviceScheduleList.get(position).getOrderTime());
+            intent.putExtra("timeEnd", estimatedTime);
+            intent.putExtra("location", serviceScheduleList.get(position).getAddress());
+            intent.putExtra("noteLocation", serviceScheduleList.get(position).getNotesLocation());
+            intent.putExtra("serviceType", serviceScheduleList.get(position).getServiceType());
+            intent.putExtra("serviceCost", serviceScheduleList.get(position).getServiceCost());
+            intent.putExtra("rating", serviceScheduleList.get(position).getRating());
+            intent.putExtra("comment", serviceScheduleList.get(position).getComment());
+            startActivity(intent);
+        }
+        else if (artType.equals("monthly")){
+            Intent intent = new Intent(this, MaidMonthlyDetailHistoryActivity.class);
+            intent.putExtra("orderKey", serviceScheduleList.get(position).getOrderID());
+            startActivity(intent);
+        }
     }
 }
