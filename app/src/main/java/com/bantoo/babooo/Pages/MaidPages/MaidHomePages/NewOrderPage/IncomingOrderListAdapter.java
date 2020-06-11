@@ -3,6 +3,7 @@ package com.bantoo.babooo.Pages.MaidPages.MaidHomePages.NewOrderPage;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,12 +19,16 @@ import java.util.List;
 
 public class IncomingOrderListAdapter extends RecyclerView.Adapter<IncomingOrderListAdapter.MyViewHolder> {
 
-    List<ServiceSchedule> serviceScheduleList;
-    List<String> bossName;
+    private List<ServiceSchedule> serviceScheduleList;
+    private List<String> bossName;
+
+    private IncomingOrderClickListener incomingOrderClickListener;
+    private RelativeLayout incoming_order_RL;
 
     public IncomingOrderListAdapter(List<ServiceSchedule> serviceScheduleList, List<String> bossName) {
         this.serviceScheduleList = serviceScheduleList;
         this.bossName = bossName;
+        this.incomingOrderClickListener = incomingOrderClickListener;
     }
 
     @NonNull
@@ -70,6 +75,15 @@ public class IncomingOrderListAdapter extends RecyclerView.Adapter<IncomingOrder
             jamPesananTV = itemView.findViewById(R.id.jam_pesanan_TV);
             nameTypeTV = itemView.findViewById(R.id.name_type_TV);
             addressTV = itemView.findViewById(R.id.address_TV);
+
+            incoming_order_RL = itemView.findViewById(R.id.incoming_order_RL);
+            incoming_order_RL.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    incomingOrderClickListener.onIncomingOrderClick(position);
+                }
+            });
         }
     }
 }
