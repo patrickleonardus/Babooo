@@ -23,13 +23,13 @@
             android:name=".Pages.MaidPages.MaidContractActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <activity
-            android:name=".Pages.MaidPages.MaidHelpDetailActivity"
+            android:name=".Pages.MaidPages.MaidHelpPages.MaidHelpDetailActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
-            android:name=".Pages.MaidPages.MaidHelpAddNewActivity"
+            android:name=".Pages.MaidPages.MaidHelpPages.MaidHelpAddNewActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
-            android:name=".Pages.MaidPages.MaidHelpActivity"
+            android:name=".Pages.MaidPages.MaidHelpPages.MaidHelpActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".Pages.MaidPages.MaidMonthlyDetailOrderActivity"

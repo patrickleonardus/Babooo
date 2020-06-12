@@ -113,7 +113,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    android:text="Catatan : Pengerjaan layanan per kedatangan maksimal 4 jam"
+                    android:text="Catatan : Pengerjaan layanan per kedatangan maksimal 2 jam"
                     android:textColor="@color/orangePrimary"
                     android:textSize="13sp"
                     android:textStyle="bold" />

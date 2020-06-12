@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import com.bantoo.babooo.Model.ServiceSchedule;
 import com.bantoo.babooo.Model.DateOrder;
 import com.bantoo.babooo.Pages.LoginPage.LoginActivity;
+import com.bantoo.babooo.Pages.MaidPages.MaidDailyDetailOrderActivity;
 import com.bantoo.babooo.Pages.SignUpPage.SignUpRoleActivity;
 import com.bantoo.babooo.R;
 import com.google.firebase.database.DataSnapshot;
@@ -36,7 +37,7 @@ import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class NewOrderFragment extends Fragment implements NewOrderClickListener, DateIncomingOrderClickListener {
+public class NewOrderFragment extends Fragment implements NewOrderClickListener, DateIncomingOrderClickListener, IncomingOrderClickListener {
 
     private static final String TAG = "PesananFragment";
 
@@ -54,6 +55,8 @@ public class NewOrderFragment extends Fragment implements NewOrderClickListener,
     private DateIncomingOrderAdapter dateIncomingOrderAdapter;
     private IncomingOrderListAdapter incomingOrderListAdapter;
     private LinearLayoutManager tanggalLayoutManager;
+    private SharedPreferences accountDataSharedPreferences;
+    private String artType;
 
     int currentDatePosition = 0;
 
@@ -98,10 +101,60 @@ public class NewOrderFragment extends Fragment implements NewOrderClickListener,
                 }
             }
         });
-        retrieveNewOrder();
-        retrieveDateOrder();
+        if(artType.equals("daily")) {
+            retrieveNewOrder();
+            retrieveDateOrder();
+        } else if(artType.equals("monthly")) {
+            retrieveMonthlyNewOrder();
+        }
 
         return rootView;
+    }
+
+    private void retrieveMonthlyNewOrder() {
+        dateOrderList.clear();
+        bossNameList.clear();
+        orderReference.orderByChild("maidPhoneNumber").equalTo(phoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    if(!snapshot.child("accepted").getValue().toString().equals("Accepted")) {
+                        userReference.orderByChild("phoneNumber").equalTo(snapshot.child("phoneNumber").getValue().toString())
+                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for(DataSnapshot userSnapshot: dataSnapshot.getChildren()) {
+                                    bossNameList.add(userSnapshot.child("name").getValue().toString());
+                                    String orderDate = snapshot.child("orderDate").getValue().toString();
+                                    String serviceType = snapshot.child("serviceType").getValue().toString();
+                                    String maid = snapshot.child("maid").getValue().toString();
+                                    String orderMonth = snapshot.child("orderMonth").getValue().toString();
+                                    String status = snapshot.child("status").getValue().toString();
+                                    String orderTime = snapshot.child("orderTime").getValue().toString();
+                                    String address = snapshot.child("address").getValue().toString();
+                                    String maidPhoneNumber = snapshot.child("maidPhoneNumber").getValue().toString();
+                                    ServiceSchedule serviceSchedule = new ServiceSchedule(orderDate,
+                                            serviceType, maid, orderMonth, status, orderTime, address, maidPhoneNumber);
+                                    serviceSchedule.setOrderID(snapshot.getKey());
+                                    serviceSchedulesList.add(serviceSchedule);
+                                    newOrderAdapter.notifyDataSetChanged();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void retrieveDateOrder() {
@@ -140,7 +193,7 @@ public class NewOrderFragment extends Fragment implements NewOrderClickListener,
     private void setRecyclerview() {
         //Pesanan baru RV
         newOrderAdapter = new NewOrderAdapter(serviceSchedulesList, NewOrderFragment.this, bossNameList);
-        pesananBaruRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        pesananBaruRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         pesananBaruRV.setAdapter(newOrderAdapter);
 
         //Pesanan Tanggal RV
@@ -150,17 +203,22 @@ public class NewOrderFragment extends Fragment implements NewOrderClickListener,
         pesananAkanDatangTanggalRV.setAdapter(dateIncomingOrderAdapter);
 
         //Pesanan List RV
-        incomingOrderListAdapter = new IncomingOrderListAdapter(upcomingScheduleList, bossNameUpcomingList);
+        incomingOrderListAdapter = new IncomingOrderListAdapter(upcomingScheduleList, bossNameUpcomingList, this);
         pesananAkanDatangListRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         pesananAkanDatangListRV.setAdapter(incomingOrderListAdapter);
     }
 
     private void firebaseInit() {
         firebaseDatabase = FirebaseDatabase.getInstance();
-        orderReference = firebaseDatabase.getReference().child("Order");
+        accountDataSharedPreferences = getActivity().getSharedPreferences("accountData", Context.MODE_PRIVATE);
+        artType = accountDataSharedPreferences.getString("artType", "");
+        if(artType.equals("daily")) {
+            orderReference = firebaseDatabase.getReference().child("Order");
+        } else if(artType.equals("monthly")) {
+            orderReference = firebaseDatabase.getReference().child("Rent");
+        }
         userReference = firebaseDatabase.getReference().child("Users");
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("accountData", Context.MODE_PRIVATE);
-        phoneNumber = sharedPreferences.getString("phoneNumber", "");
+        phoneNumber = accountDataSharedPreferences.getString("phoneNumber", "");
     }
 
     private void retrieveNewOrder() {
@@ -352,5 +410,12 @@ public class NewOrderFragment extends Fragment implements NewOrderClickListener,
         currentDatePosition = position;
         Log.d("PesananFragment", "onTanggalClick: tanggalPosition: " + position);
         retrieveIncomingOrderList();
+    }
+
+    @Override
+    public void onIncomingOrderClick(int position) {
+        Intent intent = new Intent(getContext(), MaidDailyDetailOrderActivity.class);
+        intent.putExtra("orderKey", upcomingScheduleList.get(position).getOrderID());
+        startActivity(intent);
     }
 }

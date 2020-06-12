@@ -25,7 +25,7 @@ public class IncomingOrderListAdapter extends RecyclerView.Adapter<IncomingOrder
     private IncomingOrderClickListener incomingOrderClickListener;
     private RelativeLayout incoming_order_RL;
 
-    public IncomingOrderListAdapter(List<ServiceSchedule> serviceScheduleList, List<String> bossName) {
+    public IncomingOrderListAdapter(List<ServiceSchedule> serviceScheduleList, List<String> bossName, IncomingOrderClickListener incomingOrderClickListener) {
         this.serviceScheduleList = serviceScheduleList;
         this.bossName = bossName;
         this.incomingOrderClickListener = incomingOrderClickListener;

@@ -9,6 +9,15 @@ public class Maid extends User {
     public long dateOfBirth;
     private String maidUniqueKey;
     private int salary;
+    private String photoUrl;
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
 
     public int getCost() {
         return cost;

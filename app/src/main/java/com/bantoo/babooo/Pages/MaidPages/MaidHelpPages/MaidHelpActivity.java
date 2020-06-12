@@ -1,4 +1,4 @@
-package com.bantoo.babooo.Pages.MaidPages;
+package com.bantoo.babooo.Pages.MaidPages.MaidHelpPages;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,13 +8,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.bantoo.babooo.Model.Report;
-import com.bantoo.babooo.Model.ServiceSchedule;
 import com.bantoo.babooo.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;

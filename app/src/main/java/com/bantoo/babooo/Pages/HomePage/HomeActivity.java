@@ -14,6 +14,8 @@ import com.bantoo.babooo.Pages.HomePage.ServicePage.ServiceFragment;
 import com.bantoo.babooo.R;
 import com.bantoo.babooo.Utilities.BaseActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.PhoneAuthProvider;
 
 public class HomeActivity extends BaseActivity {
     private BottomNavigationView navbar;

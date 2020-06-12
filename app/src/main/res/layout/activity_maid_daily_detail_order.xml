@@ -582,7 +582,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="50dp">
 
             <com.ebanx.swipebtn.SwipeButton
                 android:id="@+id/swipe_button_btn"

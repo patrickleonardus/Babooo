@@ -40,6 +40,7 @@ public class MaidDailyDetailOrderActivity extends AppCompatActivity {
 
         initView();
         initData();
+        handleAction();
         if(orderUniqueKey != null) {
             showData();
         }
@@ -49,9 +50,15 @@ public class MaidDailyDetailOrderActivity extends AppCompatActivity {
         swipeButton.setOnStateChangeListener(new OnStateChangeListener() {
             @Override
             public void onStateChange(boolean active) {
-                statusTV.setText("Menuju Lokasi");
+                String status = "Menuju Lokasi";
+                statusTV.setText(status);
+                updateStatusToFirebase(status);
             }
         });
+    }
+
+    private void updateStatusToFirebase(String status) {
+        orderReference.child("status").setValue(status);
     }
 
     private void initData() {
@@ -141,7 +148,7 @@ public class MaidDailyDetailOrderActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        closeIV = findViewById(R.id.close_IV);
+        closeIV = findViewById(R.id.closeIV);
         progressBar1 = findViewById(R.id.progressbar_1);
         progressBar2 = findViewById(R.id.progressbar_2);
         progressBar3 = findViewById(R.id.progressbar_3);

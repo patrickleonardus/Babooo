@@ -141,6 +141,9 @@ public class MonthlyMaidActivity extends BaseActivity implements Serializable {
                         int salary = Integer.parseInt(snapshot.child("salary").getValue().toString());
                         Maid maid = new Maid(role, name, email, phoneNumber, "-", address, "-", 1571489529, cost, rating);
                         maid.setMaidUniqueKey(snapshot.getKey());
+                        if(snapshot.child("photoUrl").getValue() != null) {
+                            maid.setPhotoUrl(snapshot.child("photoUrl").getValue().toString());
+                        }
                         maid.setSalary(salary);
                         maidList.add(maid);
                     }

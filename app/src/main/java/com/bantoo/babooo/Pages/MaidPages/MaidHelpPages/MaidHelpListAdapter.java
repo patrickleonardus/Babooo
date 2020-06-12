@@ -1,4 +1,4 @@
-package com.bantoo.babooo.Pages.MaidPages;
+package com.bantoo.babooo.Pages.MaidPages.MaidHelpPages;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bantoo.babooo.Model.Report;
 import com.bantoo.babooo.R;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 

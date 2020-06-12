@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.bantoo.babooo.Model.FirebaseHelper;
 import com.bantoo.babooo.Model.User;
 import com.bantoo.babooo.Pages.HomePage.HomeActivity;
+import com.bantoo.babooo.Pages.LoginPage.LoginActivity;
 import com.bantoo.babooo.Pages.MaidPages.MaidHomePages.MaidHomeActivity;
 import com.bantoo.babooo.R;
 import com.bantoo.babooo.Utilities.BaseActivity;
@@ -67,6 +68,11 @@ public class VerificationActivity extends BaseActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mAuth.setLanguageCode("id");
+
+        SharedPreferences accountData = getApplicationContext().getSharedPreferences("accountData", MODE_PRIVATE);
+        if(!accountData.getString("artType", "").equals("")) {
+           finish();
+        }
 
         verificationPhoneTV = findViewById(R.id.verificationTextTV);
         code1ET = findViewById(R.id.code1_login_ET);
@@ -354,34 +360,35 @@ public class VerificationActivity extends BaseActivity {
     };
 
     private void moveToHome() {
-        Intent intent = new Intent(VerificationActivity.this, HomeActivity.class);
+        Intent intent = new Intent(VerificationActivity.this, LoginActivity.class);
         SharedPreferences accountData = getApplicationContext().getSharedPreferences("accountData", MODE_PRIVATE);
         SharedPreferences.Editor editor = accountData.edit();
         editor.putString("phoneNumber", phoneNumber);
         editor.putString("artType", "pengguna");
         editor.apply();
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
     private void moveToARTBulanan() {
-        Intent intent = new Intent(VerificationActivity.this, MaidHomeActivity.class);
+        Intent intent = new Intent(VerificationActivity.this, LoginActivity.class);
         SharedPreferences sharedPreferences = getSharedPreferences("accountData", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("phoneNumber", phoneNumber);
         editor.putString("artType", "monthly");
         editor.apply();
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
     }
 
     private void moveToART() {
-        Intent intent = new Intent(VerificationActivity.this, MaidHomeActivity.class);
+        Intent intent = new Intent(VerificationActivity.this, LoginActivity.class);
         SharedPreferences sharedPreferences = getSharedPreferences("accountData", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("phoneNumber", phoneNumber).commit();
         editor.putString("artType", "daily").commit();
         editor.apply();
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
     }
 
@@ -453,6 +460,11 @@ public class VerificationActivity extends BaseActivity {
             mResendToken = forceResendingToken;
         }
     };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 
     //ABOVE CODE HANDLE AUTHENTICATION METHOD
     //FINISH AUTH METHOD

@@ -75,9 +75,11 @@ public class LoginActivity extends BaseActivity {
         Log.d("Login", "moveToHome: role: "+sharedPreferences.getString("artType", ""));
         if(sharedPreferences.getString("artType", "").equals("pengguna")) {
             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         } else if(sharedPreferences.getString("artType", "").equals("daily") || sharedPreferences.getString("artType", "").equals("monthly")) {
             Intent intent = new Intent(LoginActivity.this, MaidHomeActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
         LoginActivity.this.finish();

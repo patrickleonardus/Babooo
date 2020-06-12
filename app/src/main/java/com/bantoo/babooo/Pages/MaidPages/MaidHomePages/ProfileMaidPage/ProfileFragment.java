@@ -14,7 +14,7 @@ import android.widget.RelativeLayout;
 import com.bantoo.babooo.Pages.HomePage.SettingsPage.SettingsActivity;
 import com.bantoo.babooo.Pages.MaidPages.MaidBiodataActivity;
 import com.bantoo.babooo.Pages.MaidPages.MaidContractActivity;
-import com.bantoo.babooo.Pages.MaidPages.MaidHelpActivity;
+import com.bantoo.babooo.Pages.MaidPages.MaidHelpPages.MaidHelpActivity;
 import com.bantoo.babooo.Pages.MaidPages.OrderHistoryPage.OrderHistoryActivity;
 import com.bantoo.babooo.R;
 

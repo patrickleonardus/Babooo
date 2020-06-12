@@ -1,4 +1,4 @@
-package com.bantoo.babooo.Pages.MaidPages;
+package com.bantoo.babooo.Pages.MaidPages.MaidHelpPages;
 
 import androidx.appcompat.app.AppCompatActivity;
 

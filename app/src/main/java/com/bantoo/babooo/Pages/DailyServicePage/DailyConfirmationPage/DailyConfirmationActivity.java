@@ -140,7 +140,7 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
 
         //handle default estimated time
         estimatedTimeCal = Calendar.getInstance();
-        estimatedTimeCal.add(Calendar.HOUR, 4);
+        estimatedTimeCal.add(Calendar.HOUR, 2);
         estimatedFinishTime = timeFormat.format(estimatedTimeCal.getTime());
 
         serviceNameTV.setText(serviceType + " | " + serviceName);

@@ -1,6 +1,7 @@
 package com.bantoo.babooo.Pages.MonthlyServicePage;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,12 @@ import android.widget.TextView;
 
 import com.bantoo.babooo.Model.Maid;
 import com.bantoo.babooo.R;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.net.URL;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
@@ -67,6 +73,18 @@ public class MonthlyMaidGridViewAdapter extends BaseAdapter {
         star3 = convertView.findViewById(R.id.star_rating3);
         star4 = convertView.findViewById(R.id.star_rating4);
         star5 = convertView.findViewById(R.id.star_rating5);
+
+        //StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("ARTBulanan").child(maidList.get(position).phoneNumber);
+
+        if(maidList.get(position).getPhotoUrl() != null) {
+            RequestOptions options = new RequestOptions()
+                    .centerCrop()
+                    .placeholder(R.mipmap.ic_launcher_round)
+                    .error(R.mipmap.ic_launcher_round);
+            Glide.with(context).load(maidList.get(position).getPhotoUrl()).apply(options).into(maidImage);
+        }
+
+        //Glide.with(context).load(storageReference).into(maidImage);
 
         maidName.setText(name);
         maidSalary.setText("Rp. "+ NumberFormat.getNumberInstance(Locale.GERMAN).format(salary));
