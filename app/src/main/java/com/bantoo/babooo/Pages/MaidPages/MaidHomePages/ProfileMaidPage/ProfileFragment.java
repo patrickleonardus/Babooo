@@ -13,6 +13,8 @@ import android.widget.RelativeLayout;
 
 import com.bantoo.babooo.Pages.HomePage.SettingsPage.SettingsActivity;
 import com.bantoo.babooo.Pages.MaidPages.MaidBiodataActivity;
+import com.bantoo.babooo.Pages.MaidPages.MaidContractActivity;
+import com.bantoo.babooo.Pages.MaidPages.MaidHelpActivity;
 import com.bantoo.babooo.Pages.MaidPages.OrderHistoryPage.OrderHistoryActivity;
 import com.bantoo.babooo.R;
 
@@ -20,7 +22,7 @@ import com.bantoo.babooo.R;
 public class ProfileFragment extends Fragment {
 
     ImageView settingsIV;
-    RelativeLayout biodataRL, orderHistoryRL;
+    RelativeLayout biodataRL, orderHistoryRL, bantuanRL, perjanjianRL;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,6 +32,8 @@ public class ProfileFragment extends Fragment {
         settingsIV = view.findViewById(R.id.settings_Btn);
         biodataRL = view.findViewById(R.id.datadiriRL);
         orderHistoryRL = view.findViewById(R.id.riwayat_pesanan_RL);
+        bantuanRL = view.findViewById(R.id.bantuanRL);
+        perjanjianRL = view.findViewById(R.id.perjanjianRL);
         handleAction();
 
         return view;
@@ -47,6 +51,22 @@ public class ProfileFragment extends Fragment {
         orderHistoryRL.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), OrderHistoryActivity.class);
             startActivity(intent);
+        });
+
+        bantuanRL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), MaidHelpActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        perjanjianRL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (getContext(), MaidContractActivity.class);
+                startActivity(intent);
+            }
         });
     }
 }

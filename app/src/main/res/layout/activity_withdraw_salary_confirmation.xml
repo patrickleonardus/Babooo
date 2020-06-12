@@ -57,7 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
         android:weightSum="2">
 
@@ -118,7 +118,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="24dp"
         android:text="Jumlah koin yang ditarik"
         android:textColor="@color/black"
         android:textStyle="bold" />
@@ -152,7 +152,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
         android:text="Nominal dalam Rupiah"
         android:textColor="@color/black"
         android:textStyle="bold" />
@@ -180,7 +180,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="24dp"
         android:layout_marginRight="20dp"
         android:text="Konfirmasi Admin Bantoo"
         android:textColor="@color/black"

@@ -26,6 +26,7 @@ public class DetailDailyConfirmationActivity extends BaseActivity {
 
     private static final String TAG = "DetailDailyConfirmation";
     private static final int RESULT_DONE_ACTIVITY = 1;
+    final static String callCenterBantoo = "0215512345";
 
     TextView maidNameTV, maidRatingTV, maidStatusTV,
             orderNumberTV, dateOfWorkTV, timeOfWorkTV, estimatedFinishTimeOfWorkTV,
@@ -193,6 +194,9 @@ public class DetailDailyConfirmationActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //call official number
+                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                callIntent.setData(Uri.parse("tel:"+callCenterBantoo.replaceFirst("0", "+62")));
+                startActivity(callIntent);
             }
         });
     }

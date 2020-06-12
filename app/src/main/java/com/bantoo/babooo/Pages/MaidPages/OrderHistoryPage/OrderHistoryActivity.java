@@ -37,9 +37,9 @@ public class OrderHistoryActivity extends AppCompatActivity implements OrderHist
     private List<String> bossServiceName = new ArrayList<>();
 
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference orderReference, userReference;
-    private String phoneNumber, artType, estimatedMinute, estimatedTime;
-    private Integer estimatedHour;
+    private DatabaseReference orderReference, userReference, maidMonthlyReference;
+    private String phoneNumber, artType, estimatedMinute, estimatedTime, salary;
+    private Integer estimatedHour, startDate, estimatedMonth, duration, estimatedYear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +63,7 @@ public class OrderHistoryActivity extends AppCompatActivity implements OrderHist
             orderReference = firebaseDatabase.getReference().child("Rent");
         }
         userReference = firebaseDatabase.getReference().child("Users");
+        maidMonthlyReference = firebaseDatabase.getReference().child("ARTBulanan");
     }
 
     private void loadOrderList() {
@@ -91,7 +92,14 @@ public class OrderHistoryActivity extends AppCompatActivity implements OrderHist
                                             bossServiceName.add(userSnapshot.child("name").getValue().toString());
                                             String orderDate = snapshot.child("orderDate").getValue().toString();
                                             String orderMonth = snapshot.child("orderMonth").getValue().toString();
+                                            String duration = snapshot.child("duration").getValue().toString();
                                             String orderYear = snapshot.child("orderYear").getValue().toString();
+                                            startDate = Integer.parseInt(orderDate)+1;
+                                            estimatedMonth = Integer.parseInt(orderMonth)+Integer.parseInt(duration);
+                                            if(estimatedMonth > 12) {
+                                                estimatedYear = Integer.parseInt(orderYear)+1;
+                                                estimatedMonth -= 12;
+                                                }
                                             String serviceType = snapshot.child("serviceType").getValue().toString();
                                             String maid = snapshot.child("maid").getValue().toString();
                                             String status = snapshot.child("status").getValue().toString();
@@ -105,12 +113,14 @@ public class OrderHistoryActivity extends AppCompatActivity implements OrderHist
                                             String noteLocation = snapshot.child("notesLocation").getValue().toString();
                                             String maidPhoneNumber = snapshot.child("maidPhoneNumber").getValue().toString();
                                             Integer serviceCost = Integer.parseInt(snapshot.child("serviceCost").getValue().toString());
+                                            String comment = snapshot.child("comment").getValue().toString();
                                             ServiceSchedule serviceSchedule = new ServiceSchedule(orderDate,
                                                     serviceType, maid, orderMonth, status, orderTime, address, maidPhoneNumber);
                                             serviceSchedule.setOrderID(snapshot.getKey());
                                             serviceSchedule.setOrderYear(orderYear);
                                             serviceSchedule.setNotesLocation(noteLocation);
                                             serviceSchedule.setServiceCost(serviceCost);
+                                            serviceSchedule.setComment(comment);
                                             if(snapshot.child("rating").getValue() != null) {
                                                 try {
                                                     serviceSchedule.setRating(Double.parseDouble(snapshot.child("rating").getValue().toString()));
@@ -128,6 +138,18 @@ public class OrderHistoryActivity extends AppCompatActivity implements OrderHist
 
                                     }
                                 });
+                        maidMonthlyReference.orderByChild("phoneNumber").equalTo(snapshot.child("maidPhoneNumber").getValue().toString()).
+                                addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                salary = snapshot.child("salary").toString();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
                     }
                 }
             }
@@ -174,6 +196,18 @@ public class OrderHistoryActivity extends AppCompatActivity implements OrderHist
         else if (artType.equals("monthly")){
             Intent intent = new Intent(this, MaidMonthlyDetailHistoryActivity.class);
             intent.putExtra("orderKey", serviceScheduleList.get(position).getOrderID());
+            intent.putExtra("user_name", bossServiceName.get(position));
+            intent.putExtra("duration", serviceScheduleList.get(position).getDuration());
+            intent.putExtra("orderDate", serviceScheduleList.get(position).getOrderDate()+" "
+                    +serviceScheduleList.get(position).getOrderMonth()+" "+serviceScheduleList.get(position).getOrderYear());
+            intent.putExtra("dateStart", startDate+""+serviceScheduleList.get(position).getOrderMonth()+" "
+                    +serviceScheduleList.get(position).getOrderYear());
+            intent.putExtra("dateFinish",startDate+""+estimatedMonth+""+estimatedYear);
+            intent.putExtra("location", serviceScheduleList.get(position).getAddress());
+            intent.putExtra("noteLocation", serviceScheduleList.get(position).getNotesLocation());
+            intent.putExtra("serviceCost", Integer.parseInt(salary));
+            intent.putExtra("rating", serviceScheduleList.get(position).getRating());
+            intent.putExtra("comment", serviceScheduleList.get(position).getComment());
             startActivity(intent);
         }
     }

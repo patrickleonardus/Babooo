@@ -20,6 +20,11 @@ public class ServiceSchedule {
     private Double longitude, latitude;
     private String duration;
     private Double rating;
+    private String comment;
+
+    public String getComment() { return comment; }
+
+    public void setComment(String comment) { this.comment = comment; }
 
     public Double getRating() {
         return rating;

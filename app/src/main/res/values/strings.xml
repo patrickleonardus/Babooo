@@ -22,6 +22,31 @@
         <item>Jawa Timur</item>
     </string-array>
 
+    <string-array name="HelpType">
+        <item>Aplikasi Error</item>
+        <item>Koin / Gaji</item>
+        <item>Pesanan</item>
+        <item>Lain-lain</item>
+    </string-array>
+
+    <string-array name="statusDaily">
+        <item>Pesanan Diterima</item>
+        <item>Menuju ke lokasi sekarang</item>
+        <item>Sampai di lokasi</item>
+        <item>Mulai kerjakan layanan</item>
+        <item>Selesaikan layanan</item>
+    </string-array>
+
+    <string-array name="statusMonthly">
+        <item>Pesanan Diterima</item>
+        <item>Menuju kota tujuan</item>
+        <item>Estimasi 1 jam sampai kota tujuan</item>
+        <item>Sampai di kota tujuan</item>
+        <item>Menuju lokasi</item>
+        <item>Mulai kontrak layanan</item>
+        <item>Selesaikan kontrak</item>
+    </string-array>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

@@ -276,7 +276,7 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
                         Toast.makeText(DailyConfirmationActivity.this, "Waktu sudah terlewat, silahkan periksa kembali", Toast.LENGTH_SHORT).show();
                     } else {
                         if (userLatitude==null) {
-                            Toast.makeText(DailyConfirmationActivity.this, "Please input your address", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(DailyConfirmationActivity.this, "Alamat tidak ditemukan, silahkan periksa kembali", Toast.LENGTH_SHORT).show();
                         } else {
                             checkCoins();
                         }
@@ -294,9 +294,9 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
                 coinsAmount = Integer.parseInt(dataSnapshot.child("coins").getValue().toString());
                 if(coinsAmount < serviceCost) {
                    new AlertDialog.Builder(DailyConfirmationActivity.this)
-                           .setTitle("Coins not Enough")
-                           .setMessage("Your coins aren't enough to use this service")
-                           .setPositiveButton("Buy Coins", new DialogInterface.OnClickListener() {
+                           .setTitle("Koin tidak mencukupi")
+                           .setMessage("Koin anda tidak mencukupi untuk memesan layanan ini")
+                           .setPositiveButton("Tambah Koin", new DialogInterface.OnClickListener() {
                                @Override
                                public void onClick(DialogInterface dialog, int which) {
                                     //move to purchase coins page

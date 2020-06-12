@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bantoo.babooo.R;
+import com.ebanx.swipebtn.OnStateChangeListener;
+import com.ebanx.swipebtn.SwipeButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,6 +27,7 @@ public class MaidDailyDetailOrderActivity extends AppCompatActivity {
 
     private ImageView progressBar1, progressBar2, progressBar3, progressBar4, progressBar5, callIV, messageIV,
             closeIV;
+    private SwipeButton swipeButton;
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference orderReference, userReference;
@@ -40,6 +43,15 @@ public class MaidDailyDetailOrderActivity extends AppCompatActivity {
         if(orderUniqueKey != null) {
             showData();
         }
+    }
+
+    private void handleAction(){
+        swipeButton.setOnStateChangeListener(new OnStateChangeListener() {
+            @Override
+            public void onStateChange(boolean active) {
+                statusTV.setText("Menuju Lokasi");
+            }
+        });
     }
 
     private void initData() {
@@ -148,6 +160,7 @@ public class MaidDailyDetailOrderActivity extends AppCompatActivity {
         costServiceTV = findViewById(R.id.cost_service_TV);
         feeCostTV = findViewById(R.id.fee_cost_TV);
         totalIncomeTV = findViewById(R.id.total_income_TV);
+        swipeButton = findViewById(R.id.swipe_button_btn);
 
         closeIV.setOnClickListener(new View.OnClickListener() {
             @Override
