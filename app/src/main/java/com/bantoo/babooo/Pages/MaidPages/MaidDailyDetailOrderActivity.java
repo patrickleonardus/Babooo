@@ -1,10 +1,12 @@
 package com.bantoo.babooo.Pages.MaidPages;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -31,7 +33,7 @@ public class MaidDailyDetailOrderActivity extends AppCompatActivity {
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference orderReference, userReference;
-    private String orderUniqueKey;
+    private String orderUniqueKey, orderStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,13 +48,46 @@ public class MaidDailyDetailOrderActivity extends AppCompatActivity {
         }
     }
 
+    private void activateProgressStep(int step) {
+        switch (step) {
+            case 5:
+                progressBar5.setImageResource(R.drawable.asset_star_active);
+            case 4:
+                progressBar4.setImageResource(R.drawable.asset_star_active);
+            case 3:
+                progressBar3.setImageResource(R.drawable.asset_star_active);
+            case 2:
+                progressBar2.setImageResource(R.drawable.asset_star_active);
+            case 1:
+                progressBar1.setImageResource(R.drawable.asset_star_active);
+        }
+    }
+
     private void handleAction(){
         swipeButton.setOnStateChangeListener(new OnStateChangeListener() {
             @Override
             public void onStateChange(boolean active) {
-                String status = "Menuju Lokasi";
-                statusTV.setText(status);
-                updateStatusToFirebase(status);
+                int step = 1;
+                String nextStatus = "";
+                if(orderStatus.equals("Akan Datang")) {
+                    nextStatus = "Menuju Lokasi";
+                    step = 2;
+                } else if(orderStatus.equals("Menuju Lokasi")) {
+                    nextStatus = "Sudah Sampai";
+                    step = 3;
+                } else if(orderStatus.equals("Sudah Sampai")) {
+                    nextStatus = "Dalam Pengerjaan";
+                    step = 4;
+                } else if(orderStatus.equals("Dalam Pengerjaan")) {
+                    nextStatus = "Pesanan Selesai";
+                    step = 5;
+                }
+                statusTV.setText(nextStatus);
+                updateStatusToFirebase(nextStatus);
+                orderStatus = nextStatus;
+                statusTV.setText(orderStatus);
+                activateProgressStep(step);
+                swipeButton.setEnabled(true);
             }
         });
     }
@@ -72,7 +107,7 @@ public class MaidDailyDetailOrderActivity extends AppCompatActivity {
         userReference = firebaseDatabase.getReference().child("Users");
     }
 
-    private void progress (int step) {
+    /*private void progress (int step) {
         switch (step) {
             case 5: progressBar5.setImageResource(R.drawable.asset_star_active);
             case 4: progressBar4.setImageResource(R.drawable.asset_star_active);
@@ -80,7 +115,7 @@ public class MaidDailyDetailOrderActivity extends AppCompatActivity {
             case 2: progressBar2.setImageResource(R.drawable.asset_star_active);
             case 1: progressBar1.setImageResource(R.drawable.asset_star_active);
         }
-    }
+    }*/
 
     private void showUserData(String userPhoneNumber) {
         userReference.orderByChild("phoneNumber").equalTo(userPhoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -121,7 +156,8 @@ public class MaidDailyDetailOrderActivity extends AppCompatActivity {
                         startActivity(sendIntent);
                     }
                 });
-                statusTV.setText(dataSnapshot.child("status").getValue().toString());
+                orderStatus = dataSnapshot.child("status").getValue().toString();
+                statusTV.setText(orderStatus);
                 String orderTime = dataSnapshot.child("orderTime").getValue().toString();
                 int finishEstimationHours = Integer.parseInt(orderTime.substring(0,2)) + 2;
                 String finishEstimationMinutes = orderTime.toString().substring(3,5);
