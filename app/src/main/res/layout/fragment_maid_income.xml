@@ -413,31 +413,31 @@
                         android:id="@+id/star1_IV"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/asset_star_active" />
+                        android:src="@drawable/asset_star_inactive" />
 
                     <ImageView
                         android:id="@+id/star2_IV"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/asset_star_active" />
+                        android:src="@drawable/asset_star_inactive" />
 
                     <ImageView
                         android:id="@+id/star3_IV"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/asset_star_active" />
+                        android:src="@drawable/asset_star_inactive" />
 
                     <ImageView
                         android:id="@+id/star4_IV"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/asset_star_active" />
+                        android:src="@drawable/asset_star_inactive" />
 
                     <ImageView
                         android:id="@+id/star5_IV"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/asset_star_active" />
+                        android:src="@drawable/asset_star_inactive" />
 
                     <TextView
                         android:id="@+id/rating_maid_TV"

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.bantoo.babooo.Pages.HomePage.SettingsPage.SettingsActivity;
+import com.bantoo.babooo.Pages.MaidPages.IncomeTargetActivity;
 import com.bantoo.babooo.Pages.MaidPages.MaidBiodataActivity;
 import com.bantoo.babooo.Pages.MaidPages.MaidContractActivity;
 import com.bantoo.babooo.Pages.MaidPages.MaidHelpPages.MaidHelpActivity;
@@ -22,7 +23,7 @@ import com.bantoo.babooo.R;
 public class ProfileFragment extends Fragment {
 
     ImageView settingsIV;
-    RelativeLayout biodataRL, orderHistoryRL, bantuanRL, perjanjianRL;
+    RelativeLayout biodataRL, orderHistoryRL, bantuanRL, perjanjianRL, targetIncomeRL;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,6 +35,7 @@ public class ProfileFragment extends Fragment {
         orderHistoryRL = view.findViewById(R.id.riwayat_pesanan_RL);
         bantuanRL = view.findViewById(R.id.bantuanRL);
         perjanjianRL = view.findViewById(R.id.perjanjianRL);
+        targetIncomeRL = view.findViewById(R.id.targetIncomeRL);
         handleAction();
 
         return view;
@@ -59,6 +61,11 @@ public class ProfileFragment extends Fragment {
                 Intent intent = new Intent(getContext(), MaidHelpActivity.class);
                 startActivity(intent);
             }
+        });
+
+        targetIncomeRL.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), IncomeTargetActivity.class);
+            startActivity(intent);
         });
 
         perjanjianRL.setOnClickListener(new View.OnClickListener() {

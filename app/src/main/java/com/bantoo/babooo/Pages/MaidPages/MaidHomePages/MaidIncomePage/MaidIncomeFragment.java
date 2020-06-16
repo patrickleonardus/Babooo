@@ -45,6 +45,7 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
     Switch activeSwitch;
     ProgressBar incomePB;
     RelativeLayout withdrawIncomeLayout;
+    ImageView star1IV, star2IV, star3IV, star4IV, star5IV;
 
     String phoneNumber;
     FirebaseDatabase firebaseDatabase;
@@ -72,6 +73,11 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
         incomePB = rootView.findViewById(R.id.pendapatan_PB);
         usernameTV = rootView.findViewById(R.id.username_income_maid_tv);
         withdrawIncomeLayout = rootView.findViewById(R.id.penarikan_gaji_RL);
+        star1IV = rootView.findViewById(R.id.star1_IV);
+        star2IV = rootView.findViewById(R.id.star2_IV);
+        star3IV = rootView.findViewById(R.id.star3_IV);
+        star4IV = rootView.findViewById(R.id.star4_IV);
+        star5IV = rootView.findViewById(R.id.star5_IV);
 
         accountDataSharedPreferences = getActivity().getSharedPreferences("accountData", Context.MODE_PRIVATE);
         editor = accountDataSharedPreferences.edit();
@@ -222,7 +228,7 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
                         } catch (Exception e) {}
                         if(rating != 0 && totalOrder != 0) {
                             float averageRating = rating / totalOrder;
-                            ratingMaidTV.setText(averageRating + "");
+                            //ratingMaidTV.setText(averageRating + "");
                         } else {
                             ratingMaidTV.setText("0");
                         }
@@ -258,6 +264,11 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
                     } else if (snapshot.child("activate").getValue().toString().equals("false")) {
                         statusTV.setText("Tidak Aktif");
                     }
+                    if(snapshot.child("rating").getValue() != null) {
+                        ratingMaidTV.setText(snapshot.child("rating").getValue().toString());
+                        float ratingDecimal = Float.parseFloat(snapshot.child("rating").getValue().toString());
+                        activateRating((int) ratingDecimal);
+                    }
                     String totalKoin = "0";
                     if(snapshot.child("coins").getValue() != null) {
                         totalKoin = snapshot.child("coins").getValue().toString();
@@ -285,6 +296,17 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
 
             }
         });
+    }
+
+    private void activateRating(int rating) {
+        switch (rating) {
+            case 5: star5IV.setImageResource(R.drawable.asset_star_active);
+            case 4: star4IV.setImageResource(R.drawable.asset_star_active);
+            case 3: star3IV.setImageResource(R.drawable.asset_star_active);
+            case 2: star2IV.setImageResource(R.drawable.asset_star_active);
+            case 1: star1IV.setImageResource(R.drawable.asset_star_active);
+
+        }
     }
 
     private void showDailyData() {
@@ -316,7 +338,7 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
                 if(counter == 0) counter = 1;
                 float averageRating = totalRating / counter;
                 dailyCoinsTV.setText(totalFee+" koin");
-                ratingMaidTV.setText(""+averageRating);
+                //ratingMaidTV.setText(""+averageRating);
                 dailyCoinsTargetTV.setText("target: "+ targetKoin +" koin");
                 incomePB.setProgress(totalFee);
                 if (targetKoin == 0) {

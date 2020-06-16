@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -29,6 +30,7 @@ public class IncomeTargetActivity extends BaseActivity {
     private TextView coinsTV;
     private SeekBar targetSB;
     private Button saveTargetBtn;
+    private ImageView closeIV;
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference maidReference;
@@ -60,7 +62,7 @@ public class IncomeTargetActivity extends BaseActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 coins = Integer.parseInt(rupiahTargetET.getText().toString()) / 3000;
-                coinsTV.setText(coins);
+                coinsTV.setText(""+coins);
             }
         });
         targetSB.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -68,7 +70,7 @@ public class IncomeTargetActivity extends BaseActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 rupiahTargetET.setText(""+progress);
                 coins = Integer.parseInt(rupiahTargetET.getText().toString()) / 3000;
-                coinsTV.setText(coins);
+                coinsTV.setText(""+coins);
             }
 
             @Override
@@ -85,7 +87,11 @@ public class IncomeTargetActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 saveTargetToFirebase();
+                finish();
             }
+        });
+        closeIV.setOnClickListener(v -> {
+            finish();
         });
     }
 
@@ -115,5 +121,6 @@ public class IncomeTargetActivity extends BaseActivity {
         coinsTV = findViewById(R.id.coins_TV);
         targetSB = findViewById(R.id.targetSB);
         saveTargetBtn = findViewById(R.id.save_target_btn);
+        closeIV = findViewById(R.id.close_IV);
     }
 }
