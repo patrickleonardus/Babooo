@@ -69,13 +69,13 @@
                 android:id="@+id/reject_button"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/asset_close"/>
+                android:src="@drawable/cancel"/>
             <ImageView
                 android:id="@+id/accept_button"
                 android:layout_marginLeft="10dp"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/nav_checklist"/>
+                android:src="@drawable/accept"/>
         </LinearLayout>
 
     </RelativeLayout>
