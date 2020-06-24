@@ -160,28 +160,28 @@
                             android:id="@+id/progressbar_1"
                             android:layout_width="20dp"
                             android:layout_height="10dp"
-                            android:src="@drawable/asset_star_inactive"/>
+                            android:src="@drawable/step_monthly"/>
                         <ImageView
                             android:id="@+id/progressbar_2"
                             android:layout_width="20dp"
                             android:layout_height="10dp"
-                            android:src="@drawable/asset_star_inactive"/>
+                            android:src="@drawable/step_monthly"/>
                         <ImageView
                             android:id="@+id/progressbar_3"
                             android:layout_width="20dp"
                             android:layout_height="10dp"
-                            android:src="@drawable/asset_star_inactive"/>
+                            android:src="@drawable/step_monthly"/>
                         <ImageView
                             android:id="@+id/progressbar_4"
                             android:layout_width="20dp"
                             android:layout_height="10dp"
-                            android:src="@drawable/asset_star_inactive"/>
+                            android:src="@drawable/step_monthly"/>
 
                         <ImageView
                             android:id="@+id/progressbar_5"
                             android:layout_width="20dp"
                             android:layout_height="10dp"
-                            android:src="@drawable/asset_star_inactive"/>
+                            android:src="@drawable/step_monthly"/>
 
                     </LinearLayout>
 
@@ -576,6 +576,18 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/langkah_berikut_tv"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textColor="@color/greenPrimary"
+            android:layout_marginBottom="5dp"
+            android:text="Menuju Ke Lokasi"/>
+
         <RelativeLayout
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
@@ -590,7 +602,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_button_green"
                 app:button_background="@drawable/circle_button"
-                app:inner_text="Menuju ke Lokasi Sekarang"
+                app:inner_text="Geser untuk Melanjutkan"
                 app:inner_text_color="@color/white"
                 app:inner_text_size="16sp"
                 app:inner_text_top_padding="4dp"

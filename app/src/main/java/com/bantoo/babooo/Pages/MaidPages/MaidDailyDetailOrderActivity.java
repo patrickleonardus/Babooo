@@ -25,7 +25,7 @@ public class MaidDailyDetailOrderActivity extends AppCompatActivity {
 
     private TextView orderNumberTV, userNameTV, statusTV, dateTV,
             timeStartTV, estimatedTimeTV, locationTV, serviceNameTV, costServiceTV,
-            feeCostTV, totalIncomeTV;
+            feeCostTV, totalIncomeTV, langkahBerikutTV;
 
     private ImageView progressBar1, progressBar2, progressBar3, progressBar4, progressBar5, callIV, messageIV,
             closeIV;
@@ -51,15 +51,15 @@ public class MaidDailyDetailOrderActivity extends AppCompatActivity {
     private void activateProgressStep(int step) {
         switch (step) {
             case 5:
-                progressBar5.setImageResource(R.drawable.asset_star_active);
+                progressBar5.setImageResource(R.drawable.step_active_monthly);
             case 4:
-                progressBar4.setImageResource(R.drawable.asset_star_active);
+                progressBar4.setImageResource(R.drawable.step_active_monthly);
             case 3:
-                progressBar3.setImageResource(R.drawable.asset_star_active);
+                progressBar3.setImageResource(R.drawable.step_active_monthly);
             case 2:
-                progressBar2.setImageResource(R.drawable.asset_star_active);
+                progressBar2.setImageResource(R.drawable.step_active_monthly);
             case 1:
-                progressBar1.setImageResource(R.drawable.asset_star_active);
+                progressBar1.setImageResource(R.drawable.step_active_monthly);
         }
     }
 
@@ -81,15 +81,36 @@ public class MaidDailyDetailOrderActivity extends AppCompatActivity {
                 } else if(orderStatus.equals("Dalam Pengerjaan")) {
                     nextStatus = "Pesanan Selesai";
                     step = 5;
+                } else if (orderStatus.equals("Pesanan Selesai")) {
+                    swipeButton.setVisibility(View.GONE);
+                    langkahBerikutTV.setVisibility(View.GONE);
                 }
                 statusTV.setText(nextStatus);
                 updateStatusToFirebase(nextStatus);
                 orderStatus = nextStatus;
                 statusTV.setText(orderStatus);
                 activateProgressStep(step);
+                setNextStepLabel();
                 swipeButton.setEnabled(true);
             }
         });
+    }
+
+    private void setNextStepLabel() {
+        String nextStatus = "";
+        if(orderStatus.equals("Akan Datang")) {
+            nextStatus = "Menuju Lokasi";
+        } else if(orderStatus.equals("Menuju Lokasi")) {
+            nextStatus = "Sudah Sampai";
+        } else if(orderStatus.equals("Sudah Sampai")) {
+            nextStatus = "Dalam Pengerjaan";
+        } else if(orderStatus.equals("Dalam Pengerjaan")) {
+            nextStatus = "Pesanan Selesai";
+        } else if (orderStatus.equals("Pesanan Selesai")) {
+            swipeButton.setVisibility(View.GONE);
+            langkahBerikutTV.setVisibility(View.GONE);
+        }
+        langkahBerikutTV.setText(""+nextStatus);
     }
 
     private void updateStatusToFirebase(String status) {
@@ -158,9 +179,10 @@ public class MaidDailyDetailOrderActivity extends AppCompatActivity {
                 });
                 orderStatus = dataSnapshot.child("status").getValue().toString();
                 statusTV.setText(orderStatus);
+                setNextStepLabel();
                 String orderTime = dataSnapshot.child("orderTime").getValue().toString();
                 int finishEstimationHours = Integer.parseInt(orderTime.substring(0,2)) + 2;
-                String finishEstimationMinutes = orderTime.toString().substring(3,5);
+                String finishEstimationMinutes = orderTime.substring(3,5);
                 if(finishEstimationHours < 10) { estimatedTimeTV.setText("0"+finishEstimationMinutes+":"+finishEstimationMinutes); }
                 else { estimatedTimeTV.setText(finishEstimationHours+":"+finishEstimationMinutes); }
                 timeStartTV.setText(orderTime);
@@ -204,6 +226,7 @@ public class MaidDailyDetailOrderActivity extends AppCompatActivity {
         feeCostTV = findViewById(R.id.fee_cost_TV);
         totalIncomeTV = findViewById(R.id.total_income_TV);
         swipeButton = findViewById(R.id.swipe_button_btn);
+        langkahBerikutTV = findViewById(R.id.langkah_berikut_tv);
 
         closeIV.setOnClickListener(new View.OnClickListener() {
             @Override

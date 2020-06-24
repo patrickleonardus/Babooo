@@ -159,28 +159,28 @@
                             android:id="@+id/progressbar_1"
                             android:layout_width="20dp"
                             android:layout_height="10dp"
-                            android:src="@drawable/asset_star_active"/>
+                            android:src="@drawable/step_monthly"/>
                         <ImageView
                             android:id="@+id/progressbar_2"
                             android:layout_width="20dp"
                             android:layout_height="10dp"
-                            android:src="@drawable/asset_star_active"/>
+                            android:src="@drawable/step_monthly"/>
                         <ImageView
                             android:id="@+id/progressbar_3"
                             android:layout_width="20dp"
                             android:layout_height="10dp"
-                            android:src="@drawable/asset_star_active"/>
+                            android:src="@drawable/step_monthly"/>
                         <ImageView
                             android:id="@+id/progressbar_4"
                             android:layout_width="20dp"
                             android:layout_height="10dp"
-                            android:src="@drawable/asset_star_active"/>
+                            android:src="@drawable/step_monthly"/>
 
                         <ImageView
                             android:id="@+id/progressbar_5"
                             android:layout_width="20dp"
                             android:layout_height="10dp"
-                            android:src="@drawable/asset_star_active"/>
+                            android:src="@drawable/step_monthly"/>
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>

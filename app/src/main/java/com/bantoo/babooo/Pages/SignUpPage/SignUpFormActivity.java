@@ -272,6 +272,8 @@ public class SignUpFormActivity extends BaseActivity {
         FirebaseHelper firebaseHelper = new FirebaseHelper();
         firebaseHelper.activateMaid(artType, apprCode);
         editor.putString("uid", firebaseHelper.getMaidUniqueKey());
+        Intent moveToVerification = new Intent(SignUpFormActivity.this, VerificationActivity.class);
+        startActivity(moveToVerification);
         //Intent
         /*
         Intent moveToDetailInformation = new Intent(SignUpFormActivity.this, MaidDetailRegisterInformationActivity.class);

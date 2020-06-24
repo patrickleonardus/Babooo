@@ -13,7 +13,7 @@ import android.widget.RelativeLayout;
 
 import com.bantoo.babooo.Pages.HomePage.SettingsPage.SettingsActivity;
 import com.bantoo.babooo.Pages.MaidPages.IncomeTargetActivity;
-import com.bantoo.babooo.Pages.MaidPages.MaidBiodataActivity;
+import com.bantoo.babooo.Pages.MaidPages.MaidBiodataPages.MaidBiodataActivity;
 import com.bantoo.babooo.Pages.MaidPages.MaidContractActivity;
 import com.bantoo.babooo.Pages.MaidPages.MaidHelpPages.MaidHelpActivity;
 import com.bantoo.babooo.Pages.MaidPages.OrderHistoryPage.OrderHistoryActivity;

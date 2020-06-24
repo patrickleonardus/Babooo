@@ -1,8 +1,12 @@
 package com.bantoo.babooo.Model;
 
+import com.google.firebase.database.core.Repo;
+
+import java.util.Comparator;
+
 public class Report {
 
-    private Integer reportTimeStamp;
+    private long reportTimeStamp;
     private String reportDate;
     private String reportType;
     private String reportStatus;
@@ -10,9 +14,9 @@ public class Report {
     private String phoneNumber;
     private String reportKey;
 
-    public Integer getReportTimeStamp() { return reportTimeStamp; }
+    public long getReportTimeStamp() { return reportTimeStamp; }
 
-    public void setReportTimeStamp(Integer reportTimeStamp) { this.reportTimeStamp = reportTimeStamp; }
+    public void setReportTimeStamp(long reportTimeStamp) { this.reportTimeStamp = reportTimeStamp; }
 
     public String getReportDate() { return reportDate; }
 
@@ -38,7 +42,7 @@ public class Report {
 
     public void setReportKey(String reportKey) { this.reportKey = reportKey; }
 
-    public Report(Integer reportTimeStamp, String reportType, String reportStatus, String reportStory, String phoneNumber) {
+    public Report(long reportTimeStamp, String reportType, String reportStatus, String reportStory, String phoneNumber) {
         this.reportTimeStamp = reportTimeStamp;
         this.reportType = reportType;
         this.reportStatus = reportStatus;

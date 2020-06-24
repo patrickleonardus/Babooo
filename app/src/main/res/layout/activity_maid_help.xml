@@ -75,11 +75,15 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_new_report"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            app:backgroundTint="@color/liteOrange"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:layout_gravity="bottom|right"
-            android:layout_margin="20dp"/>
+            android:layout_margin="20dp"
+            android:scaleType="center"
+            android:src="@drawable/add_btn"
+            app:backgroundTint="@color/liteOrange"
+            app:fabSize="normal"
+            app:maxImageSize="24dp" />
 
     </FrameLayout>
 

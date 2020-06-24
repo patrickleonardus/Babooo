@@ -44,7 +44,7 @@ public class SearchingDailyMaidActivity extends BaseActivity {
     private Double userLatitude, userLongitude;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference artReference, userReference;
-    private int maidCounter = 0, distanceMax = 2000, serviceCost, coinsAmount;
+    private int maidCounter = 0, distanceMax = 2000, serviceCost = 0, coinsAmount;
     private DatabaseReference orderReference;
     private ValueEventListener maidEventListener;
     private Date timeChoosen;
@@ -82,8 +82,10 @@ public class SearchingDailyMaidActivity extends BaseActivity {
         orderReference.child(orderUniqueKey).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                serviceCost = Integer.parseInt(dataSnapshot.child("serviceCost").getValue().toString());
-                serviceCostTV.setText(dataSnapshot.child("serviceCost").getValue().toString());
+                if(dataSnapshot.child("serviceCost").getValue() != null) {
+                    serviceCost = Integer.parseInt(dataSnapshot.child("serviceCost").getValue().toString());
+                }
+                serviceCostTV.setText(""+serviceCost);
                 serviceTypeTV.setText(dataSnapshot.child("serviceType").getValue().toString());
                 userPhoneNumber = dataSnapshot.child("phoneNumber").getValue().toString();
                 showUserCoins();

@@ -13,8 +13,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.bantoo.babooo.R;
+import com.bantoo.babooo.Utilities.BaseActivity;
 
-public class OrderDoneActivity extends AppCompatActivity {
+public class OrderDoneActivity extends BaseActivity {
 
     private Button backButton;
     private String orderUniquekey;

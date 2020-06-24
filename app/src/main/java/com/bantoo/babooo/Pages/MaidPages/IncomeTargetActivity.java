@@ -63,14 +63,17 @@ public class IncomeTargetActivity extends BaseActivity {
             public void afterTextChanged(Editable s) {
                 coins = Integer.parseInt(rupiahTargetET.getText().toString()) / 3000;
                 coinsTV.setText(""+coins);
+                targetSB.setProgress(coins);
             }
         });
         targetSB.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                rupiahTargetET.setText(""+progress);
+                coinsTV.setText(""+progress);
+                rupiahTargetET.setText(""+progress*3000);
+                /*rupiahTargetET.setText(""+progress);
                 coins = Integer.parseInt(rupiahTargetET.getText().toString()) / 3000;
-                coinsTV.setText(""+coins);
+                coinsTV.setText(""+coins);*/
             }
 
             @Override

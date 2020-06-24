@@ -9,6 +9,8 @@
     </string-array>
     <string name="mapbox_access_token">pk.eyJ1IjoidG9tbXlyeWFudG8iLCJhIjoiY2s2ZnowMTRjMDB4aTNlbzVscDdydGMxayJ9.n7FVQhItEHA1fYDBycqEpg</string>
 
+    <string name="agreeTerms">Dengan memesan ini maka anda setuju dengan <u>syarat dan ketentuan</u> yang berlaku</string>
+
     <string-array name="Kota">
         <item>Jakarta</item>
         <item>Tangerang</item>
@@ -46,6 +48,8 @@
         <item>Mulai kontrak layanan</item>
         <item>Selesaikan kontrak</item>
     </string-array>
+
+    <string name="base_url">http://bantoo-e41fa.firebaseapp.com/</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

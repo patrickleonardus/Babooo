@@ -92,14 +92,17 @@ public class OrderHistoryActivity extends AppCompatActivity implements OrderHist
                                             bossServiceName.add(userSnapshot.child("name").getValue().toString());
                                             String orderDate = snapshot.child("orderDate").getValue().toString();
                                             String orderMonth = snapshot.child("orderMonth").getValue().toString();
-                                            String duration = snapshot.child("duration").getValue().toString();
+                                            String duration = "0";
+                                            if(snapshot.child("duration").getValue() != null) {
+                                                duration = snapshot.child("duration").getValue().toString();
+                                            }
                                             String orderYear = snapshot.child("orderYear").getValue().toString();
                                             startDate = Integer.parseInt(orderDate)+1;
                                             estimatedMonth = Integer.parseInt(orderMonth)+Integer.parseInt(duration);
                                             if(estimatedMonth > 12) {
                                                 estimatedYear = Integer.parseInt(orderYear)+1;
                                                 estimatedMonth -= 12;
-                                                }
+                                            }
                                             String serviceType = snapshot.child("serviceType").getValue().toString();
                                             String maid = snapshot.child("maid").getValue().toString();
                                             String status = snapshot.child("status").getValue().toString();
@@ -110,10 +113,16 @@ public class OrderHistoryActivity extends AppCompatActivity implements OrderHist
                                                 estimatedTime = "0"+estimatedHour+":"+estimatedMinute; }
                                             else { estimatedTime = estimatedHour+":"+estimatedMinute; }
                                             String address = snapshot.child("address").getValue().toString();
-                                            String noteLocation = snapshot.child("notesLocation").getValue().toString();
+                                            String noteLocation = "-";
+                                            if(snapshot.child("notesLocation").getValue() != null) {
+                                                noteLocation = snapshot.child("notesLocation").getValue().toString();
+                                            }
                                             String maidPhoneNumber = snapshot.child("maidPhoneNumber").getValue().toString();
                                             Integer serviceCost = Integer.parseInt(snapshot.child("serviceCost").getValue().toString());
-                                            String comment = snapshot.child("comment").getValue().toString();
+                                            String comment = "-";
+                                            if(snapshot.child("comment").getValue() != null) {
+                                                comment = snapshot.child("comment").getValue().toString();
+                                            }
                                             ServiceSchedule serviceSchedule = new ServiceSchedule(orderDate,
                                                     serviceType, maid, orderMonth, status, orderTime, address, maidPhoneNumber);
                                             serviceSchedule.setOrderID(snapshot.getKey());

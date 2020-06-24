@@ -16,6 +16,11 @@ import java.util.List;
 
 public class DateIncomingOrderAdapter extends RecyclerView.Adapter<DateIncomingOrderAdapter.MyViewHolder> {
 
+    public final String[] MONTH_NAMES = {
+            "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+            "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+    };
+
     private List<DateOrder> dateOrderList;
     private DateIncomingOrderClickListener dateIncomingOrderClickListener;
     private static int currentPosition = 0;
@@ -46,7 +51,8 @@ public class DateIncomingOrderAdapter extends RecyclerView.Adapter<DateIncomingO
             holder.underlineView.setVisibility(View.INVISIBLE);
         }
         holder.tanggalTV.setText(dateOrderList.get(position).getDateOrder());
-        holder.bulanTV.setText(dateOrderList.get(position).getMonthOrder());
+        int month = Integer.parseInt(dateOrderList.get(position).getMonthOrder());
+        holder.bulanTV.setText(MONTH_NAMES[month-1]);
     }
 
     @Override

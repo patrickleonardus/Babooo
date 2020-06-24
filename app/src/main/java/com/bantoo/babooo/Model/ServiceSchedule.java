@@ -2,7 +2,7 @@ package com.bantoo.babooo.Model;
 
 import java.util.Date;
 
-public class ServiceSchedule {
+public class ServiceSchedule  {
     private String orderDate;
     private String serviceType;
     private String maid;

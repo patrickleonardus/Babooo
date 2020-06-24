@@ -4,15 +4,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Database;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.bantoo.babooo.Model.Report;
+import com.bantoo.babooo.Model.ReportComparator;
 import com.bantoo.babooo.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -23,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -35,10 +39,9 @@ public class MaidHelpActivity extends AppCompatActivity  implements MaidHelpList
     private MaidHelpListAdapter maidHelpListAdapter;
     private List<Report> reportList = new ArrayList<>();
 
-
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference reportReference;
-    private String phoneNumber;
+    private String phoneNumber, artType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,18 +64,20 @@ public class MaidHelpActivity extends AppCompatActivity  implements MaidHelpList
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     SimpleDateFormat sdfDate = new SimpleDateFormat("dd MM yyyy, HH:mm");
-                    String date = sdfDate.format(new Date(Long.parseLong(snapshot.child("reportTimeStamp").getValue().toString()))); //error
+                    String date = sdfDate.format(new Date(Long.parseLong(snapshot.child("reportTimeStamp").getValue().toString())));
                     String type = snapshot.child("reportType").getValue().toString();
                     String status = snapshot.child("reportStatus").getValue().toString();
                     String story = snapshot.child("reportStory").getValue().toString();
                     String phone = snapshot.child("phoneNumber").getValue().toString();
                     String key = snapshot.getKey();
-                    Report report = new Report(0, type, status, story, phone);
+
+                    Report report = new Report(Long.parseLong(snapshot.child("reportTimeStamp").getValue().toString()), type, status, story, phone);
                     report.setReportDate(date);
                     report.setReportKey(key);
                     reportList.add(report);
-                    maidHelpListAdapter.notifyDataSetChanged();
                 }
+                Collections.sort(reportList, new ReportComparator());
+                maidHelpListAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -91,6 +96,7 @@ public class MaidHelpActivity extends AppCompatActivity  implements MaidHelpList
 
         SharedPreferences sharedPreferences = getSharedPreferences("accountData", Context.MODE_PRIVATE);
         phoneNumber = sharedPreferences.getString("phoneNumber", "");
+        artType = sharedPreferences.getString("artType", "");
     }
 
     public void setRecyclerView(){

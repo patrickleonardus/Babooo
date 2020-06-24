@@ -50,7 +50,7 @@
             android:name=".Pages.MaidPages.OrderHistoryPage.OrderHistoryActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
-            android:name=".Pages.MaidPages.MaidBiodataActivity"
+            android:name=".Pages.MaidPages.MaidBiodataPages.MaidBiodataActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".Pages.MonthlyServicePage.SummaryPage.SummaryMonthlyOrderActivity"

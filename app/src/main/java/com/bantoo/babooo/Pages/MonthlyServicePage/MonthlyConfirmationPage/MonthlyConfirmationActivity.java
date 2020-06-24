@@ -7,6 +7,7 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -88,6 +89,12 @@ public class MonthlyConfirmationActivity extends BaseActivity implements Adapter
         calculateCoins();
     }
 
+    private void termsAndConditionClicked(View v) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(R.string.base_url+"termsAndCondition.html"));
+        startActivity(intent);
+    }
+
     private void initView() {
         serviceNameTV = findViewById(R.id.serice_name_monthly_confirmation_TV);
         serviceDateTV = findViewById(R.id.date_service_monthly_confirmation_TV);
@@ -134,6 +141,8 @@ public class MonthlyConfirmationActivity extends BaseActivity implements Adapter
         serviceTimeTV.setText(currTime);
         estimatedTimeTV.setText(estimatedFinishTime);
         //coinsServiceTV.setText(String.valueOf(serviceCost));
+
+        serviceDetailNameTV.setText("Bantoo Bulanan");
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         accountDataSharedPreferences = getApplicationContext().getSharedPreferences("accountData", MODE_PRIVATE);

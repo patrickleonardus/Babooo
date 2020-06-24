@@ -40,6 +40,7 @@ public class NewOrderAdapter extends RecyclerView.Adapter<NewOrderAdapter.MyView
         ServiceSchedule serviceSchedule = serviceScheduleList.get(position);
         holder.tanggalOrderTV.setText(serviceSchedule.getOrderDate() + " " +serviceSchedule.getOrderMonth());
         holder.jamOrderTV.setText(serviceSchedule.getOrderTime());
+        //
         holder.nameTypeTV.setText(bossName.get(position) + " - " + serviceSchedule.getServiceType());
         holder.addressTV.setText(serviceSchedule.getAddress());
     }

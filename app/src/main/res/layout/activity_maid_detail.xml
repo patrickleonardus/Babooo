@@ -360,6 +360,15 @@
         </LinearLayout>
     </LinearLayout>
 
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:id="@+id/riwayat_pesanan_RV"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <Button
         android:layout_marginTop="12dp"
         android:layout_marginLeft="20dp"
@@ -370,5 +379,6 @@
         android:background="@drawable/rounded_button_green"
         android:text="Rekrut Sekarang"
         android:textColor="@color/white" />
+
 
 </LinearLayout>

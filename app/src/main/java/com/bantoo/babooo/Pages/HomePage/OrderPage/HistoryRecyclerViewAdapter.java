@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.IntegerRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,6 +16,11 @@ import com.bantoo.babooo.R;
 import java.util.List;
 
 public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecyclerViewAdapter.MyViewHolder> {
+
+    public final String[] MONTH_NAMES = {
+            "Januari", "Februari", "Maret", "April",  "Mei", "Juni",
+            "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+    };
 
     private List<ServiceSchedule> serviceSchedule;
     private Context context;
@@ -42,6 +48,12 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
         holder.serviceNameTV.setText(getOrder.getServiceType());
         holder.statusOrderTV.setText(getOrder.getStatus());
         holder.timeOrderTV.setText(getOrder.getOrderTime());
+        if(getOrder.getServiceType().contains("Bulanan")) {
+            holder.typeServiceTV.setText("Layanan Bantoo Bulanan");
+            holder.timeOrderTV.setVisibility(View.GONE);
+        } else {
+            holder.typeServiceTV.setText("Layanan Bantoo Harian");
+        }
     }
 
     @Override
@@ -51,7 +63,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tanggalTV, serviceNameTV, statusOrderTV, timeOrderTV;
+        TextView tanggalTV, serviceNameTV, statusOrderTV, timeOrderTV, typeServiceTV;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -60,6 +72,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
             serviceNameTV = itemView.findViewById(R.id.service_name_TV_history_cell);
             statusOrderTV = itemView.findViewById(R.id.status_order_TV_history_cell);
             timeOrderTV = itemView.findViewById(R.id.time_TV_cell_history);
+            typeServiceTV = itemView.findViewById(R.id.type_service_tv);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

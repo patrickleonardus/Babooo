@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -88,6 +89,12 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
         initVar();
         initFirebase();
         handleAction();
+    }
+
+    private void termsAndConditionClicked(View v) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(R.string.base_url+"termsAndCondition.html"));
+        startActivity(intent);
     }
 
     private void initFirebase() {

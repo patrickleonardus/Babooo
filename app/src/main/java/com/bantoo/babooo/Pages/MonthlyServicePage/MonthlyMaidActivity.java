@@ -89,13 +89,41 @@ public class MonthlyMaidActivity extends BaseActivity implements Serializable {
     }
 
     private void applyFilter() {
-        for(int i = 0; i < maidList.size(); i++) {
+        Log.d("MonthlyMaidActivity", "applyFilter: minCost: "+filterSearches.get(0).getMinCost()+", maxCost: "+filterSearches.get(0).getMaxCost());
+        Log.d("MonthlyMaidActivity", "applyFilter: maidlistsize: "+maidList.size());
+        for(int i = maidList.size() - 1; i >= 0; i--) {
+            Log.d("MonthlyMaidActivity", "applyFilter: "+i);
+            Log.d("MonthlyMaidActivity", "applyFilter: maid: "+maidList.get(i).name+"\n maidRating: "+maidList.get(i).getPopularity()+", filterRating: "+filterSearches.get(0).getPopularity());
+            String dateOfBirth = maidList.get(i).getDateOfBirth();
+            int bornYears = 0;
+            try {
+                bornYears = Integer.parseInt(dateOfBirth.substring(dateOfBirth.length() - 4));
+            } catch (Exception e) {
+                bornYears = 0;
+                Log.d("MonthlyMaidActivity", "applyFilter: parsing int failed, maid: "+maidList.get(i).name);
+            }
             //check cost
-            if(maidList.get(i).getCost() < Integer.parseInt(filterSearches.get(0).getMinCost())
-                    || maidList.get(i).getCost() > Integer.parseInt(filterSearches.get(0).getMaxCost())) {
+            if(maidList.get(i).getSalary() < Integer.parseInt(filterSearches.get(0).getMinCost())
+                    || maidList.get(i).getSalary() > Integer.parseInt(filterSearches.get(0).getMaxCost())) {
+                Log.d("MonthlyMaidActivity", "applyFilter: maid: "+maidList.get(i).name+" cost remove, cost: "+maidList.get(i).getSalary());
+                maidList.remove(i);
+            } else if(maidList.get(i).getExperience() < Integer.parseInt(filterSearches.get(0).getMinYears())
+                    || maidList.get(i).getExperience() > Integer.parseInt(filterSearches.get(0).getMaxYears())) {
+                //check experience
+                Log.d("MonthlyMaidActivity", "applyFilter: maid: "+maidList.get(i).name+" exp remove");
+                maidList.remove(i);
+            } else if(bornYears < Integer.parseInt(filterSearches.get(0).getMinAge())
+                    || bornYears > Integer.parseInt(filterSearches.get(0).getMaxAge())) {
+                //check age
+                Log.d("MonthlyMaidActivity", "applyFilter: maid: "+maidList.get(i).name+" age remove");
+                maidList.remove(i);
+            } else if(maidList.get(i).getPopularity() != filterSearches.get(0).getPopularity()) {
+                //check popularity
+                Log.d("MonthlyMaidActivity", "applyFilter: maid: "+maidList.get(i).name+" rating remove");
                 maidList.remove(i);
             }
         }
+
         adapter.notifyDataSetChanged();
     }
 
@@ -131,21 +159,37 @@ public class MonthlyMaidActivity extends BaseActivity implements Serializable {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                    if (snapshot.child("working").getValue().toString() == "false" && snapshot.child("activate").getValue().toString() == "true") {
-                        String name = snapshot.child("name").getValue().toString();
-                        String email = snapshot.child("email").getValue().toString();
-                        String phoneNumber = snapshot.child("phoneNumber").getValue().toString();
-                        String address = snapshot.child("address").getValue().toString();
-                        int cost = Integer.parseInt(snapshot.child("cost").getValue().toString());
-                        int rating = Integer.parseInt(snapshot.child("rating").getValue().toString());
-                        int salary = Integer.parseInt(snapshot.child("salary").getValue().toString());
-                        Maid maid = new Maid(role, name, email, phoneNumber, "-", address, "-", 1571489529, cost, rating);
-                        maid.setMaidUniqueKey(snapshot.getKey());
-                        if(snapshot.child("photoUrl").getValue() != null) {
-                            maid.setPhotoUrl(snapshot.child("photoUrl").getValue().toString());
+                    if (snapshot.child("working").getValue() != null && snapshot.child("activate").getValue() != null) {
+                        if (snapshot.child("working").getValue().toString() == "false" && snapshot.child("activate").getValue().toString() == "true") {
+                            String name = snapshot.child("name").getValue().toString();
+                            String email = snapshot.child("email").getValue().toString();
+                            String phoneNumber = snapshot.child("phoneNumber").getValue().toString();
+                            String address = snapshot.child("address").getValue().toString();
+                            int cost = Integer.parseInt(snapshot.child("cost").getValue().toString());
+                            String bornYears = "";
+                            if (snapshot.child("ttl").getValue() != null) {
+                                bornYears = snapshot.child("ttl").getValue().toString();
+                            }
+                            int rating = Integer.parseInt(snapshot.child("rating").getValue().toString());
+                            int salary = Integer.parseInt(snapshot.child("salary").getValue().toString());
+                            Maid maid = new Maid(role, name, email, phoneNumber, "-", address, "-", bornYears, cost, rating);
+                            maid.setMaidUniqueKey(snapshot.getKey());
+                            if (snapshot.child("photoUrl").getValue() != null) {
+                                maid.setPhotoUrl(snapshot.child("photoUrl").getValue().toString());
+                            }
+                            if (snapshot.child("experience").getValue() != null) {
+                                maid.setExperience(Integer.parseInt(snapshot.child("experience").getValue().toString()));
+                            } else {
+                                maid.setExperience(0);
+                            }
+                            maid.setSalary(salary);
+                            if (snapshot.child("rating").getValue() != null) {
+                                maid.setPopularity(Integer.parseInt(snapshot.child("rating").getValue().toString()));
+                            } else {
+                                maid.setPopularity(0);
+                            }
+                            maidList.add(maid);
                         }
-                        maid.setSalary(salary);
-                        maidList.add(maid);
                     }
                 }
                 setupGridView();
@@ -159,7 +203,7 @@ public class MonthlyMaidActivity extends BaseActivity implements Serializable {
         });
     }
 
-    public void dummyData() {
+    /*public void dummyData() {
         Maid dummy1 = new Maid(role, "Sadikin", "sadikin@gmail", "08131888888", "-", "Bogor", "-", 1571489529, 1000, 3);
         Maid dummy2 = new Maid(role, "Munir", "sadikin@gmail", "08131888888", "-", "Bogor", "-", 1571489529, 500, 2);
         Maid dummy3 = new Maid(role, "Hasan", "sadikin@gmail", "08131888888", "-", "Bogor", "-", 1571489529, 1000, 5);
@@ -175,7 +219,7 @@ public class MonthlyMaidActivity extends BaseActivity implements Serializable {
         maidList.add(dummy5);
         maidList.add(dummy6);
         maidList.add(dummy7);
-    }
+    }*/
 
     @SuppressLint("ClickableViewAccessibility")
     private void handleSearchET() {

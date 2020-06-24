@@ -1,5 +1,7 @@
 package com.bantoo.babooo.Pages.MonthlyServicePage.DetailMonthlyConfirmationPage;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -42,8 +44,8 @@ public class DetailMonthlyConfirmationActivity extends BaseActivity {
 
     TextView maidNameTV, maidRatingTV, maidStatusTV, durationOfWorkTV,
             orderNumberTV, dateOfWorkTV, timeOfWorkTV, estimatedFinishTimeOfWorkTV,
-            orderLocationTV, serviceNameTV, serviceTypeTV, serviceCostTV, serviceFeeTV,
-            serviceFeeCostTV, totalCostTV;
+            orderLocationTV, serviceNameTV, serviceTypeTV, serviceCostTV,
+            totalCostTV;
     ImageView maidProfilePictureIV, closeIV, optionsMenuIV, callMaidIV, messageMaidIV;
     Button helpBantooBTN;
     Timer timeout;
@@ -106,9 +108,7 @@ public class DetailMonthlyConfirmationActivity extends BaseActivity {
         orderLocationTV = findViewById(R.id.location_detail_monthly_confirmation_TV);
         serviceTypeTV = findViewById(R.id.type_service_detail_monthly_confirmation_TV);
         serviceNameTV = findViewById(R.id.name_service_detail_monthly_confirmation_TV);
-        serviceFeeTV = findViewById(R.id.fee_service_detail_monthly_confirmation_TV);
         serviceCostTV = findViewById(R.id.cost_service_detail_monthly_confirmation_TV);
-        serviceFeeCostTV = findViewById(R.id.fee_cost_service_detail_monthly_confirmation_TV);
         totalCostTV = findViewById(R.id.total_cost_service_detail_monthly_confirmation_TV);
         helpBantooBTN = findViewById(R.id.help_bantoo_detail_monthly_confirmation_BTN);
     }
@@ -165,6 +165,7 @@ public class DetailMonthlyConfirmationActivity extends BaseActivity {
                 orderLocationTV.setText(dataSnapshot.child("address").getValue().toString());
                 serviceNameTV.setText(dataSnapshot.child("serviceType").getValue().toString());
                 serviceCostTV.setText(dataSnapshot.child("serviceCost").getValue().toString());
+                totalCostTV.setText(dataSnapshot.child("serviceCost").getValue().toString());
                 updateStatus();
                 getMaidData();
             }
@@ -232,24 +233,87 @@ public class DetailMonthlyConfirmationActivity extends BaseActivity {
         monthlyRentReference.child(orderUniqueKey).removeValue();
     }
 
-    private void handleAction(){
+    private void handleAction() {
+        helpBantooBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        DetailMonthlyConfirmationActivity.this);
+                alertDialogBuilder.setTitle("Apakah anda ingin menelepon ART?");
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                                callIntent.setData(Uri.parse("tel:"+"+6254123456"));
+                                startActivity(callIntent);
+                            }
+                        })
+                        .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            }
+        });
         callMaidIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", maidPhoneNumber, null)));
-                Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                callIntent.setData(Uri.parse("tel:"+maidPhoneNumber.replaceFirst("0", "+62")));
-                startActivity(callIntent);
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        DetailMonthlyConfirmationActivity.this);
+                alertDialogBuilder.setTitle("Apakah anda ingin menelepon ART?");
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                                callIntent.setData(Uri.parse("tel:"+maidPhoneNumber.replaceFirst("0", "+62")));
+                                startActivity(callIntent);
+                            }
+                        })
+                        .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
             }
         });
         messageMaidIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri sms_uri = Uri.parse("smsto:" +maidPhoneNumber.replaceFirst("0", "+62"));
-                Intent sms_intent = new Intent(Intent.ACTION_VIEW, sms_uri);
-                sms_intent.setData(sms_uri);
-                sms_intent.putExtra("sms_body", "Bantoo: ");
-                startActivity(sms_intent);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        DetailMonthlyConfirmationActivity.this);
+                alertDialogBuilder.setTitle("Apakah anda ingin mengirim SMS ke ART?");
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Uri sms_uri = Uri.parse("smsto:" +maidPhoneNumber.replaceFirst("0", "+62"));
+                                Intent sms_intent = new Intent(Intent.ACTION_VIEW, sms_uri);
+                                sms_intent.setData(sms_uri);
+                                sms_intent.putExtra("sms_body", "Bantoo: ");
+                                startActivity(sms_intent);
+                            }
+                        })
+                        .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
             }
         });
         closeIV.setOnClickListener(new View.OnClickListener() {

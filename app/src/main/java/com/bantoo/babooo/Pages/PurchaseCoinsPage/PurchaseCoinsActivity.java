@@ -155,13 +155,33 @@ public class PurchaseCoinsActivity extends BaseActivity implements PurchasesUpda
         Log.d(TAG, "onPurchasesUpdated: "+responseCode);
         if (responseCode == 0) {
             int purchasedCoins = 0;
-            if (purchases.get(purchases.size() - 1).getSku().equals("coins_100")) {
+            String sku = purchases.get(purchases.size() - 1).getSku();
+            if (sku.equals("coins_100")) {
                 purchasedCoins = 100;
+            } else if (sku.equals("coins_200")) {
+                purchasedCoins = 200;
+            } else if (sku.equals("coins_500")) {
+                purchasedCoins = 500;
+            } else if (sku.equals("coins_800")) {
+                purchasedCoins = 800;
+            } else if (sku.equals("coins_1200")) {
+                purchasedCoins = 1200;
+            } else if (sku.equals("coins_1600")) {
+                purchasedCoins = 1600;
+            } else if (sku.equals("coins_3000")) {
+                purchasedCoins = 3000;
             }
             topupCoins(purchasedCoins);
             allowMultiplePurchases(purchases);
         }
     }
+
+    /*skuList.add("coins_200");
+    skuList.add("coins_500");
+    skuList.add("coins_800");
+    skuList.add("coins_1200");
+    skuList.add("coins_1600");
+    skuList.add("coins_3000");*/
 
     private void topupCoins(int purchaseCoins) {
         userReference.addListenerForSingleValueEvent(new ValueEventListener() {

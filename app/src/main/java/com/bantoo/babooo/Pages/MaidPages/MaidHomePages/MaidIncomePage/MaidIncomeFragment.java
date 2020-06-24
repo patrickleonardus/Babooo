@@ -1,6 +1,8 @@
 package com.bantoo.babooo.Pages.MaidPages.MaidHomePages.MaidIncomePage;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
@@ -41,7 +43,13 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
 
     private static final String TAG = "PendapatanFragment";
 
-    TextView statusTV, totalCoinsTV, inRupiahTV, dailyCoinsTV, dailyPercentageTV, ratingMaidTV, dailyCoinsTargetTV, usernameTV;
+    public final String[] MONTH_NAMES = {
+            "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+            "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+    };
+
+    TextView statusTV, totalCoinsTV, inRupiahTV, dailyCoinsTV, dailyPercentageTV, ratingMaidTV,
+            dailyCoinsTargetTV, usernameTV, pendapatanSampaiTV;
     Switch activeSwitch;
     ProgressBar incomePB;
     RelativeLayout withdrawIncomeLayout;
@@ -73,11 +81,14 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
         incomePB = rootView.findViewById(R.id.pendapatan_PB);
         usernameTV = rootView.findViewById(R.id.username_income_maid_tv);
         withdrawIncomeLayout = rootView.findViewById(R.id.penarikan_gaji_RL);
+        pendapatanSampaiTV = rootView.findViewById(R.id.sampai_pendapatan_tv);
         star1IV = rootView.findViewById(R.id.star1_IV);
         star2IV = rootView.findViewById(R.id.star2_IV);
         star3IV = rootView.findViewById(R.id.star3_IV);
         star4IV = rootView.findViewById(R.id.star4_IV);
         star5IV = rootView.findViewById(R.id.star5_IV);
+
+        checkCurrentMonth();
 
         accountDataSharedPreferences = getActivity().getSharedPreferences("accountData", Context.MODE_PRIVATE);
         editor = accountDataSharedPreferences.edit();
@@ -121,6 +132,11 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
         getCurrentLocation();
 
         return rootView;
+    }
+
+    private void checkCurrentMonth() {
+        Date now = new Date();
+        pendapatanSampaiTV.setText("Pendapatan sampai bulan "+MONTH_NAMES[now.getMonth()]);
     }
 
     private void getCurrentLocation() {
@@ -171,10 +187,40 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
                     if (snapshot.child("activate").getValue() != null) {
                         activeSwitch.setChecked(Boolean.parseBoolean(snapshot.child("activate").getValue().toString()));
                     }
-                    activeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    activeSwitch.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                            snapshot.child("activate").getRef().setValue(isChecked);
+                        public void onClick(View v) {
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                                    getContext());
+                            boolean isChecked = activeSwitch.isChecked();
+                            if(!isChecked) {
+                                alertDialogBuilder.setTitle("Apakah anda ingin mematikan pesanan?");
+                            } else {
+                                alertDialogBuilder.setTitle("Apakah anda ingin menyalakan pesanan?");
+                            }
+                            alertDialogBuilder
+                                    .setMessage("Pesanan yang sudah ditolak tidak bisa diterima kembali")
+                                    .setCancelable(false)
+                                    .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            snapshot.child("activate").getRef().setValue(isChecked);
+                                            if(isChecked) {
+                                                statusTV.setText("Aktif");
+                                            } else {
+                                                statusTV.setText("Tidak Aktif");
+                                            }
+                                        }
+                                    })
+                                    .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            activeSwitch.setChecked(!isChecked);
+                                            dialog.cancel();
+                                        }
+                                    });
+                            AlertDialog alertDialog = alertDialogBuilder.create();
+                            alertDialog.show();
                         }
                     });
 
@@ -269,24 +315,61 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
                         float ratingDecimal = Float.parseFloat(snapshot.child("rating").getValue().toString());
                         activateRating((int) ratingDecimal);
                     }
+                    /*
                     String totalKoin = "0";
                     if(snapshot.child("coins").getValue() != null) {
                         totalKoin = snapshot.child("coins").getValue().toString();
                         totalCoinsTV.setText(totalKoin+" koin");
                     } else { totalCoinsTV.setText("0 koin"); }
-                    inRupiahTV.setText("Setara dengan Rp. "+(Integer.parseInt(totalKoin)*300));
+                    inRupiahTV.setText("Setara dengan Rp. "+(Integer.parseInt(totalKoin)*300));*/
                     if(snapshot.child("target").getValue() != null) {
                         targetKoin = Integer.parseInt(snapshot.child("target").getValue().toString());
                     }
                     if(snapshot.child("activate").getValue() != null) {
                         activeSwitch.setChecked(Boolean.parseBoolean(snapshot.child("activate").getValue().toString()));
                     }
-                    activeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    activeSwitch.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                            snapshot.child("activate").getRef().setValue(isChecked);
+                        public void onClick(View v) {
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                                    getContext());
+                            boolean isChecked = activeSwitch.isChecked();
+                            if(!isChecked) {
+                                alertDialogBuilder.setTitle("Apakah anda ingin mematikan pesanan?");
+                            } else {
+                                alertDialogBuilder.setTitle("Apakah anda ingin menyalakan pesanan?");
+                            }
+                            alertDialogBuilder
+                                    .setMessage("Pesanan yang sudah ditolak tidak bisa diterima kembali")
+                                    .setCancelable(false)
+                                    .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            snapshot.child("activate").getRef().setValue(isChecked);
+                                            if(isChecked) {
+                                                statusTV.setText("Aktif");
+                                            } else {
+                                                statusTV.setText("Tidak Aktif");
+                                            }
+                                        }
+                                    })
+                                    .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            activeSwitch.setChecked(!isChecked);
+                                            dialog.cancel();
+                                        }
+                                    });
+                            AlertDialog alertDialog = alertDialogBuilder.create();
+                            alertDialog.show();
                         }
                     });
+                    /*activeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                        }
+                    });*/
                     showDailyData();
                 }
             }
@@ -319,12 +402,17 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
                 String currentDate = ""+new Date().getDate();
                 String currentMonth = ""+(new Date().getMonth() + 1);
                 String currentYear = ""+(new Date().getYear() + 1900);
+                int totalKoinThisMonth = 0;
+                Date now = new Date();
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
                     String orderDate = snapshot.child("orderDate").getValue().toString();
                     String orderMonth = snapshot.child("orderMonth").getValue().toString();
                     String orderYear = snapshot.child("orderYear").getValue().toString();
                     if(snapshot.child("rating").getValue() != null) {
                         totalRating += Integer.parseInt(snapshot.child("rating").getValue().toString());
+                    }
+                    if(Integer.parseInt(snapshot.child("orderMonth").getValue().toString()) == now.getMonth()+1) {
+                        totalKoinThisMonth += Integer.parseInt(snapshot.child("serviceCost").getValue().toString());
                     }
                     Log.d(TAG, "showDailyData: now: "+currentDate+currentMonth+currentYear);
                     Log.d(TAG, "showDailyData: order: "+orderDate+orderMonth+orderYear);
@@ -335,6 +423,8 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
                         counter++;
                     }
                 }
+                totalCoinsTV.setText(totalKoinThisMonth+" koin");
+                inRupiahTV.setText("Setara dengan Rp. "+(totalKoinThisMonth*300));
                 if(counter == 0) counter = 1;
                 float averageRating = totalRating / counter;
                 dailyCoinsTV.setText(totalFee+" koin");

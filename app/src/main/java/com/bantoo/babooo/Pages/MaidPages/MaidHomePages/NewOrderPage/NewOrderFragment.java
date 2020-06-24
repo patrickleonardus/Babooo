@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bantoo.babooo.Model.ServiceSchedule;
 import com.bantoo.babooo.Model.DateOrder;
@@ -44,6 +45,7 @@ public class NewOrderFragment extends Fragment implements NewOrderClickListener,
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference orderReference, userReference;
     private RecyclerView pesananBaruRV, pesananAkanDatangTanggalRV, pesananAkanDatangListRV;
+    private TextView noNewOrderTV, noNewFutureOrderTV;
     private ImageView leftIV, rightIV;
     private String phoneNumber;
     private List<ServiceSchedule> serviceSchedulesList = new ArrayList<>();
@@ -65,26 +67,28 @@ public class NewOrderFragment extends Fragment implements NewOrderClickListener,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_pesanan, container, false);
+        Log.d(TAG, "onCreateView: called");
         pesananBaruRV = rootView.findViewById(R.id.pesanan_baru_rv);
         pesananAkanDatangTanggalRV = rootView.findViewById(R.id.pesanan_datang_tanggal_RV);
         pesananAkanDatangListRV = rootView.findViewById(R.id.pesanan_datang_list_RV);
+        noNewOrderTV = rootView.findViewById(R.id.no_new_order_tv);
+        noNewFutureOrderTV = rootView.findViewById(R.id.no_future_order_tv);
+        noNewFutureOrderTV.setVisibility(View.GONE);
+        noNewOrderTV.setVisibility(View.GONE);
         leftIV = rootView.findViewById(R.id.left_tanggal_IV);
         rightIV = rootView.findViewById(R.id.right_tanggal_IV);
         firebaseInit();
         setRecyclerview();
-        rightIV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (tanggalLayoutManager.findLastCompletelyVisibleItemPosition() < dateOrderList.size() - 1) {
-                    int difference = dateOrderList.size() - 1 - tanggalLayoutManager.findLastCompletelyVisibleItemPosition();
-                    if (difference < 4) {
-                        tanggalLayoutManager.scrollToPosition(tanggalLayoutManager.findLastVisibleItemPosition() + difference);
-                    } else {
-                        tanggalLayoutManager.scrollToPosition(tanggalLayoutManager.findLastCompletelyVisibleItemPosition() + 4);
-                    }
+        rightIV.setOnClickListener(v -> {
+            if (tanggalLayoutManager.findLastCompletelyVisibleItemPosition() < dateOrderList.size() - 1) {
+                int difference = dateOrderList.size() - 1 - tanggalLayoutManager.findLastCompletelyVisibleItemPosition();
+                if (difference < 4) {
+                    tanggalLayoutManager.scrollToPosition(tanggalLayoutManager.findLastVisibleItemPosition() + difference);
                 } else {
-                    Log.d(TAG, "onClick: no next data, lastvisible:  " + tanggalLayoutManager.findLastCompletelyVisibleItemPosition());
+                    tanggalLayoutManager.scrollToPosition(tanggalLayoutManager.findLastCompletelyVisibleItemPosition() + 4);
                 }
+            } else {
+                Log.d(TAG, "onClick: no next data, lastvisible:  " + tanggalLayoutManager.findLastCompletelyVisibleItemPosition());
             }
         });
         leftIV.setOnClickListener(new View.OnClickListener() {
@@ -106,47 +110,55 @@ public class NewOrderFragment extends Fragment implements NewOrderClickListener,
             retrieveDateOrder();
         } else if(artType.equals("monthly")) {
             retrieveMonthlyNewOrder();
+            noNewFutureOrderTV.setVisibility(View.VISIBLE);
+            pesananAkanDatangListRV.setVisibility(View.GONE);
         }
 
         return rootView;
     }
 
     private void retrieveMonthlyNewOrder() {
-        dateOrderList.clear();
         bossNameList.clear();
+        serviceSchedulesList.clear();
         orderReference.orderByChild("maidPhoneNumber").equalTo(phoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                    if(!snapshot.child("accepted").getValue().toString().equals("Accepted")) {
-                        userReference.orderByChild("phoneNumber").equalTo(snapshot.child("phoneNumber").getValue().toString())
-                                .addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                for(DataSnapshot userSnapshot: dataSnapshot.getChildren()) {
-                                    bossNameList.add(userSnapshot.child("name").getValue().toString());
-                                    String orderDate = snapshot.child("orderDate").getValue().toString();
-                                    String serviceType = snapshot.child("serviceType").getValue().toString();
-                                    String maid = snapshot.child("maid").getValue().toString();
-                                    String orderMonth = snapshot.child("orderMonth").getValue().toString();
-                                    String status = snapshot.child("status").getValue().toString();
-                                    String orderTime = snapshot.child("orderTime").getValue().toString();
-                                    String address = snapshot.child("address").getValue().toString();
-                                    String maidPhoneNumber = snapshot.child("maidPhoneNumber").getValue().toString();
-                                    ServiceSchedule serviceSchedule = new ServiceSchedule(orderDate,
-                                            serviceType, maid, orderMonth, status, orderTime, address, maidPhoneNumber);
-                                    serviceSchedule.setOrderID(snapshot.getKey());
-                                    serviceSchedulesList.add(serviceSchedule);
-                                    newOrderAdapter.notifyDataSetChanged();
-                                }
-                            }
+                if(dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        if (!snapshot.child("accepted").getValue().toString().equals("Accepted")) {
+                            userReference.orderByChild("phoneNumber").equalTo(snapshot.child("phoneNumber").getValue().toString())
+                                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                                                bossNameList.add(userSnapshot.child("name").getValue().toString());
+                                                String orderDate = snapshot.child("orderDate").getValue().toString();
+                                                String serviceType = snapshot.child("serviceType").getValue().toString();
+                                                String maid = snapshot.child("maid").getValue().toString();
+                                                String orderMonth = snapshot.child("orderMonth").getValue().toString();
+                                                String status = snapshot.child("status").getValue().toString();
+                                                String orderTime = snapshot.child("orderTime").getValue().toString();
+                                                String address = snapshot.child("address").getValue().toString();
+                                                String maidPhoneNumber = snapshot.child("maidPhoneNumber").getValue().toString();
+                                                ServiceSchedule serviceSchedule = new ServiceSchedule(orderDate,
+                                                        serviceType, maid, orderMonth, status, orderTime, address, maidPhoneNumber);
+                                                serviceSchedule.setOrderID(snapshot.getKey());
+                                                serviceSchedulesList.add(serviceSchedule);
+                                                newOrderAdapter.notifyDataSetChanged();
+                                            }
+                                        }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                            }
-                        });
+                                        }
+                                    });
+                        }
                     }
+                } else {
+                    Log.d(TAG, "onDataChange: no new order");
+                    pesananBaruRV.setVisibility(View.GONE);
+                    noNewOrderTV.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -159,27 +171,31 @@ public class NewOrderFragment extends Fragment implements NewOrderClickListener,
 
     private void retrieveDateOrder() {
         dateOrderList.clear();
-        bossNameList.clear();
         orderReference.orderByChild("maidPhoneNumber").equalTo(phoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-                    try {
-                        Date orderDate = sdf.parse(snapshot.child("orderYear").getValue().toString()
-                                + "/" + snapshot.child("orderMonth").getValue().toString() + "/"
-                                + snapshot.child("orderDate").getValue().toString());
-                        if (orderDate.after(new Date())) {
-                            DateOrder dateOrder = new DateOrder(snapshot.child("orderDate").getValue().toString()
-                                    , snapshot.child("orderMonth").getValue().toString());
-                            dateOrderList.add(dateOrder);
-                            dateIncomingOrderAdapter.notifyDataSetChanged();
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+                        try {
+                            Date orderDate = sdf.parse(snapshot.child("orderYear").getValue().toString()
+                                    + "/" + snapshot.child("orderMonth").getValue().toString() + "/"
+                                    + snapshot.child("orderDate").getValue().toString());
+                            if (orderDate.after(new Date())) {
+                                DateOrder dateOrder = new DateOrder(snapshot.child("orderDate").getValue().toString()
+                                        , snapshot.child("orderMonth").getValue().toString());
+                                dateOrderList.add(dateOrder);
+                                dateIncomingOrderAdapter.notifyDataSetChanged();
+                            }
+                        } catch (Exception e) {
                         }
-                    } catch (Exception e) {
                     }
-                }
-                if (!dateOrderList.isEmpty()) {
-                    retrieveIncomingOrderList();
+                    if (!dateOrderList.isEmpty()) {
+                        retrieveIncomingOrderList();
+                    }
+                } else {
+                    noNewFutureOrderTV.setVisibility(View.VISIBLE);
+                    pesananAkanDatangListRV.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -222,10 +238,12 @@ public class NewOrderFragment extends Fragment implements NewOrderClickListener,
     }
 
     private void retrieveNewOrder() {
+        Log.d(TAG, "retrieveNewOrder: called");
         orderReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshotOrder) {
                 for (DataSnapshot snapshot : dataSnapshotOrder.getChildren()) {
+                    Log.d(TAG, "onDataChange: datasnapshotorder check");
                     snapshot.child("maidList").getRef().orderByChild("maidPhoneNumber")
                             .equalTo(phoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -235,21 +253,28 @@ public class NewOrderFragment extends Fragment implements NewOrderClickListener,
                                         .getValue().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot userDataSnapshot) {
-                                        for (DataSnapshot userSnapshot : userDataSnapshot.getChildren()) {
-                                            bossNameList.add(userSnapshot.child("name").getValue().toString());
-                                            String orderDate = snapshot.child("orderDate").getValue().toString();
-                                            String serviceType = snapshot.child("serviceType").getValue().toString();
-                                            String maid = snapshot.child("maid").getValue().toString();
-                                            String orderMonth = snapshot.child("orderMonth").getValue().toString();
-                                            String status = snapshot.child("status").getValue().toString();
-                                            String orderTime = snapshot.child("orderTime").getValue().toString();
-                                            String address = snapshot.child("address").getValue().toString();
-                                            String maidPhoneNumber = snapshot.child("maidPhoneNumber").getValue().toString();
-                                            ServiceSchedule serviceSchedule = new ServiceSchedule(orderDate,
-                                                    serviceType, maid, orderMonth, status, orderTime, address, maidPhoneNumber);
-                                            serviceSchedule.setOrderID(snapshot.getKey());
-                                            serviceSchedulesList.add(serviceSchedule);
-                                            newOrderAdapter.notifyDataSetChanged();
+                                        if(userDataSnapshot.exists()) {
+                                            for (DataSnapshot userSnapshot : userDataSnapshot.getChildren()) {
+                                                bossNameList.add(userSnapshot.child("name").getValue().toString());
+                                                String orderDate = snapshot.child("orderDate").getValue().toString();
+                                                String serviceType = snapshot.child("serviceType").getValue().toString();
+                                                String maid = snapshot.child("maid").getValue().toString();
+                                                String orderMonth = snapshot.child("orderMonth").getValue().toString();
+                                                String status = snapshot.child("status").getValue().toString();
+                                                String orderTime = snapshot.child("orderTime").getValue().toString();
+                                                String address = snapshot.child("address").getValue().toString();
+                                                String maidPhoneNumber = snapshot.child("maidPhoneNumber").getValue().toString();
+                                                ServiceSchedule serviceSchedule = new ServiceSchedule(orderDate,
+                                                        serviceType, maid, orderMonth, status, orderTime, address, maidPhoneNumber);
+                                                serviceSchedule.setOrderID(snapshot.getKey());
+                                                serviceSchedulesList.add(serviceSchedule);
+                                                newOrderAdapter.notifyDataSetChanged();
+                                            }
+                                            if(serviceSchedulesList.isEmpty()) {
+                                                Log.d(TAG, "onDataChange: no new order");
+                                                pesananBaruRV.setVisibility(View.GONE);
+                                                noNewOrderTV.setVisibility(View.VISIBLE);
+                                            }
                                         }
                                     }
 

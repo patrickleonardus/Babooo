@@ -31,10 +31,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-        Log.d("ON MESSAGE", "onMessageReceived: called");
-        if(remoteMessage.getData().size() > 0) {
-            Map<String, String> payload = remoteMessage.getData();
-            showNotification(payload);
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("accountData", MODE_PRIVATE);
+        if(sharedPreferences.getBoolean("notifOn", true)) {
+            Log.d("ON MESSAGE", "onMessageReceived: called");
+            if (remoteMessage.getData().size() > 0) {
+                Map<String, String> payload = remoteMessage.getData();
+                showNotification(payload);
+            }
         }
     }
 

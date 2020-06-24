@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.bantoo.babooo.Pages.MaidPages.MaidBiodataActivity">
+    tools:context="com.bantoo.babooo.Pages.MaidPages.MaidBiodataPages.MaidBiodataActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -372,7 +372,7 @@
                         android:indeterminate="false"
                         android:max="100"
                         android:progress="50"
-                        android:progressDrawable="@drawable/circular_progress_bar" />
+                        android:progressDrawable="@drawable/circular_progress_bar"/>
 
                     <ImageView
                         android:layout_width="30dp"
@@ -387,6 +387,19 @@
                         android:text="Kamar Mandi" />
                 </LinearLayout>
             </LinearLayout>
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/riwayat_sebelum_TV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Riwayat Kerja Sebelumnya"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/riwayat_pesanan_RV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 

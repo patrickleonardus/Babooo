@@ -46,6 +46,11 @@ public class LoginActivity extends BaseActivity {
     private boolean restrictLogin;
 
     @Override
+    public void onBackPressed() {
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);

@@ -61,6 +61,17 @@ public class FilterActivity extends BaseActivity implements Serializable, CityFi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter);
 
+        initView();
+        initVar();
+        handleRangeSeekBar();
+        handleButton();
+        handlePopularity(5);
+
+        //prevent keyboard opened
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+    }
+
+    private void initView() {
         cityRV = findViewById(R.id.cityChoosenRV);
         filterAge = findViewById(R.id.filterAge_search_RSB);
         filterYears = findViewById(R.id.filterYears_search_RSB);
@@ -79,14 +90,6 @@ public class FilterActivity extends BaseActivity implements Serializable, CityFi
         popularity4IV = findViewById(R.id.star_popularity4);
         popularity5IV = findViewById(R.id.star_popularity5);
         setFilterBTN = findViewById(R.id.setFilter_BTN);
-
-        initVar();
-        handleRangeSeekBar();
-        handleButton();
-        handlePopularity(5);
-
-        //prevent keyboard opened
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
     @Override
@@ -150,8 +153,8 @@ public class FilterActivity extends BaseActivity implements Serializable, CityFi
         maxAge = String.valueOf(60);
         minYears = String.valueOf(0);
         maxYears = String.valueOf(20);
-        minCost = String.valueOf(50);
-        maxCost = String.valueOf(1000);
+        minCost = String.valueOf(1500000);
+        maxCost = String.valueOf(2500000);
     }
 
     private void handleRangeSeekBar() {
@@ -330,6 +333,8 @@ public class FilterActivity extends BaseActivity implements Serializable, CityFi
             @Override
             public void onClick(View v) {
                 FilterSearch filter = new FilterSearch(maxCost, minCost, maxYears, minYears, minAge, maxAge, maidPopularity,cityList);
+                filter.setPopularity(maidPopularity);
+                filterSearches.clear();
                 filterSearches.add(filter);
                 Intent intent = new Intent();
                 intent.putExtra(FILTERINTENT, (ArrayList<FilterSearch>) filterSearches);

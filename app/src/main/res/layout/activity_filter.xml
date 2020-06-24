@@ -374,7 +374,7 @@
                             android:textColor="@color/black"
                             android:textColorHint="@color/black"
                             android:textSize="14sp"
-                            app:suffix="  tahun" />
+                            app:suffix="  bulan" />
 
                     </LinearLayout>
 
@@ -401,7 +401,7 @@
                             android:textColor="@color/black"
                             android:textColorHint="@color/black"
                             android:textSize="14sp"
-                            app:suffix="  tahun" />
+                            app:suffix="  bulan" />
 
                     </LinearLayout>
 

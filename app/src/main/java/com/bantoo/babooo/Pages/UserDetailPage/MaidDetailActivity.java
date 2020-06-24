@@ -2,8 +2,11 @@ package com.bantoo.babooo.Pages.UserDetailPage;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bantoo.babooo.Model.ServiceSchedule;
+import com.bantoo.babooo.Pages.MaidPages.MaidBiodataPages.MaidOrderDataListAdapter;
 import com.bantoo.babooo.Pages.MonthlyServicePage.MonthlyConfirmationPage.MonthlyConfirmationActivity;
 import com.bantoo.babooo.R;
 import com.bantoo.babooo.Utilities.BaseActivity;
@@ -20,18 +25,23 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MaidDetailActivity extends BaseActivity {
 
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference monthlyMaidReference;
+    private DatabaseReference monthlyMaidReference, orderReference;
 
     private String maidUniqueKey;
 
-    ImageView rating1IV, rating2IV, rating3IV, rating4IV, rating5IV, closeBtn;
-    TextView maidNameTV, maidAgeTV, maidAddressTV, ratingTV;
-    Button recruitButton;
-    ProgressBar cuciPB, setrikaPB, sapuPB, kmrmandiPB;
-
+    private ImageView rating1IV, rating2IV, rating3IV, rating4IV, rating5IV, closeBtn;
+    private TextView maidNameTV, maidAgeTV, maidAddressTV, ratingTV;
+    private Button recruitButton;
+    private ProgressBar cuciPB, setrikaPB, sapuPB, kmrmandiPB;
+    private RecyclerView riwayatPesananRV;
+    private MaidOrderDataListAdapter maidOrderDataListAdapter;
+    private List<ServiceSchedule> serviceScheduleList = new ArrayList<ServiceSchedule>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,10 +50,51 @@ public class MaidDetailActivity extends BaseActivity {
         initView();
         setButtonAction();
         getMaidData();
+        configureRecyclerView();
         //Buat sementara testing di set ke MonthlyServiceDetail
         /*
         Intent intent = new Intent(this, MonthlyConfirmationActivity.class);
         startActivity(intent);*/
+    }
+
+    private void configureRecyclerView() {
+        maidOrderDataListAdapter = new MaidOrderDataListAdapter(getApplicationContext(), serviceScheduleList);
+        riwayatPesananRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        riwayatPesananRV.setAdapter(maidOrderDataListAdapter);
+
+    }
+
+    private void retrieveOrderExperience(String phoneNumber) {
+        orderReference = firebaseDatabase.getReference().child("Rent");
+        orderReference.orderByChild("maidPhoneNumber").equalTo(phoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    String duration = "0";
+                    if(snapshot.child("duration").getValue() != null) {
+                        duration = snapshot.child("duration").getValue().toString();
+                    }
+                    String orderMonth = snapshot.child("orderMonth").getValue().toString();
+                    String orderYear = snapshot.child("orderYear").getValue().toString();
+                    String rating = "0";
+                    if(snapshot.child("rating").getValue() != null) {
+                        rating = snapshot.child("rating").getValue().toString();
+                    }
+                    ServiceSchedule serviceSchedule = new ServiceSchedule("-", "Layanan Bantoo Bulanan",
+                            "-", orderMonth, "-", "-", "-", "-");
+                    serviceSchedule.setDuration(duration);
+                    serviceSchedule.setOrderYear(orderYear);
+                    serviceSchedule.setRating(Double.parseDouble(rating));
+                    serviceScheduleList.add(serviceSchedule);
+                    maidOrderDataListAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void getMaidData() {
@@ -79,6 +130,7 @@ public class MaidDetailActivity extends BaseActivity {
                 setrikaPB.setProgress(setrikaScore);
                 sapuPB.setProgress(sapuScore);
                 kmrmandiPB.setProgress(kmrmandiScore);
+                retrieveOrderExperience(dataSnapshot.child("phoneNumber").getValue().toString());
 
                 /*maidSkillTV1.setText(dataSnapshot.child("skill1").getValue().toString());
                 maidSkillTV2.setText(dataSnapshot.child("skill2").getValue().toString());
@@ -126,6 +178,7 @@ public class MaidDetailActivity extends BaseActivity {
         sapuPB = findViewById(R.id.progress_bar_sapu_maid_detail);
         kmrmandiPB = findViewById(R.id.progress_bar_kmrmandi_maid_detail);
         closeBtn = findViewById(R.id.close_maid_detail_IV);
+        riwayatPesananRV = findViewById(R.id.riwayat_pesanan_RV);
 
         rating1IV.setVisibility(View.GONE);
         rating2IV.setVisibility(View.GONE);

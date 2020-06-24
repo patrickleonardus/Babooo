@@ -103,6 +103,7 @@
                     android:background="@color/lightGrey" />
 
                 <TextView
+                    android:id="@+id/sampai_pendapatan_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"

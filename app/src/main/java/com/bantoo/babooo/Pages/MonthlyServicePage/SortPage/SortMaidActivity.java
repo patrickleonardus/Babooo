@@ -38,8 +38,8 @@ public class SortMaidActivity extends BaseActivity {
 
     private void sortMenuItem() {
         sortMenu.add("Popularitas");
-        sortMenu.add("Coin Tinggi ke Rendah");
-        sortMenu.add("Coin Rendah ke Tinggi");
+        sortMenu.add("Gaji Tinggi ke Rendah");
+        sortMenu.add("Gaji Rendah ke Tinggi");
     }
 
     private void setupSortLV() {
