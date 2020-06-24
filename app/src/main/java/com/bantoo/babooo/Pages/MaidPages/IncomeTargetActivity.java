@@ -66,10 +66,12 @@ public class IncomeTargetActivity extends BaseActivity {
                 targetSB.setProgress(coins);
             }
         });
+        int step = 10;
         targetSB.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                coinsTV.setText(""+progress);
+                progress = ((int) Math.round(progress/step)) * step;
+                coinsTV.setText(""+(progress));
                 rupiahTargetET.setText(""+progress*3000);
                 /*rupiahTargetET.setText(""+progress);
                 coins = Integer.parseInt(rupiahTargetET.getText().toString()) / 3000;
