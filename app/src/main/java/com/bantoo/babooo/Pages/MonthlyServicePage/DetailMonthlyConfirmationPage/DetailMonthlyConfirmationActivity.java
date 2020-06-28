@@ -58,7 +58,16 @@ public class DetailMonthlyConfirmationActivity extends BaseActivity {
     private ValueEventListener statusEventListener;
 
     @Override
-    public void onBackPressed() { }
+    public void onBackPressed() {
+        Intent intent = new Intent(DetailMonthlyConfirmationActivity.this, HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        if(getIntent().getStringExtra("sender") != null) {
+            if(getIntent().getStringExtra("sender").equals("orderFragment")) {
+                intent.putExtra("sender", "orderFragment");
+            }
+        }
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

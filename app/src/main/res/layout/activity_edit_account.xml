@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context="com.bantoo.babooo.Pages.HomePage.AccountPage.EditAccountActivity">
+    tools:context="com.bantoo.babooo.Pages.HomePage.ProfilePage.EditAccountActivity">
 
     <!--Header-->
     <LinearLayout
@@ -120,7 +120,7 @@
             android:layout_marginTop="4dp"
             android:background="@drawable/border_rounded_edit_text"
             android:hint="08...."
-            android:inputType="number"
+            android:inputType="none"
             android:padding="10dp" />
     </LinearLayout>
 

@@ -124,6 +124,7 @@ public class SearchingDailyMaidActivity extends BaseActivity {
                 if(timerRunning == 300) {
                     cancelOrder();
                     Intent moveToARTNotFound = new Intent(SearchingDailyMaidActivity.this, MaidNotFoundActivity.class);
+                    moveToARTNotFound.putExtra("orderID", orderUniqueKey);
                     startActivityForResult(moveToARTNotFound, 1);
                     this.cancel();
                 }
@@ -214,6 +215,7 @@ public class SearchingDailyMaidActivity extends BaseActivity {
                     cancelOrder();
                     timeout.cancel();
                     Intent moveToARTNotFound = new Intent(SearchingDailyMaidActivity.this, MaidNotFoundActivity.class);
+                    moveToARTNotFound.putExtra("orderID", orderUniqueKey);
                     startActivityForResult(moveToARTNotFound, 1);
                 }
             }

@@ -53,9 +53,9 @@ public class SortMaidActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 sortMaidLV.setSelection(position);
                 Intent intent = new Intent();
-                if (sortMenu.get(position).equals("Coin Tinggi ke Rendah")) {
+                if (sortMenu.get(position).equals("Gaji Tinggi ke Rendah")) {
                     intent.putExtra("sortBy", "salaryDescending");
-                } else if (sortMenu.get(position).equals("Coin Rendah ke Tinggi")) {
+                } else if (sortMenu.get(position).equals("Gaji Rendah ke Tinggi")) {
                     intent.putExtra("sortBy", "salaryAscending");
                 }
                 setResult(RESULT_OK, intent);

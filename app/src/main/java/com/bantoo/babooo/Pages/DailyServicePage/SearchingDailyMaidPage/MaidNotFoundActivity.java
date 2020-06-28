@@ -9,10 +9,14 @@ import android.view.View;
 import android.widget.Button;
 
 import com.bantoo.babooo.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MaidNotFoundActivity extends AppCompatActivity {
 
     Button backToOrderBtn;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference orderReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,5 +33,13 @@ public class MaidNotFoundActivity extends AppCompatActivity {
                 finish();
             }
         });
+        removeOrder();
+    }
+
+    private void removeOrder() {
+        String orderUniqueKey = getIntent().getStringExtra("orderID");
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        orderReference = firebaseDatabase.getReference().child("Order");
+        orderReference.child(orderUniqueKey).removeValue();
     }
 }

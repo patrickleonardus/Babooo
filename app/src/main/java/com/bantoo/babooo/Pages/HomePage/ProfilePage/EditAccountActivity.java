@@ -1,6 +1,4 @@
-package com.bantoo.babooo.Pages.HomePage.AccountPage;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.bantoo.babooo.Pages.HomePage.ProfilePage;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,13 +7,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bantoo.babooo.Model.FirebaseHelper;
 import com.bantoo.babooo.R;
 import com.bantoo.babooo.Utilities.BaseActivity;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class EditAccountActivity extends BaseActivity {
 
@@ -105,5 +100,6 @@ public class EditAccountActivity extends BaseActivity {
         passwordET = findViewById(R.id.password_ET_edit_account);
         saveBtn = findViewById(R.id.saveButton_edit_account);
         closeIV = findViewById(R.id.close_edit_IV);
+        noHandphoneET.setEnabled(false);
     }
 }

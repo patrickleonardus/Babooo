@@ -8,14 +8,12 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
-import com.bantoo.babooo.Pages.HomePage.AccountPage.AccountFragment;
+import com.bantoo.babooo.Pages.HomePage.ProfilePage.ProfileFragment;
 import com.bantoo.babooo.Pages.HomePage.OrderPage.OrdersFragment;
 import com.bantoo.babooo.Pages.HomePage.ServicePage.ServiceFragment;
 import com.bantoo.babooo.R;
 import com.bantoo.babooo.Utilities.BaseActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.PhoneAuthProvider;
 
 public class HomeActivity extends BaseActivity {
     private BottomNavigationView navbar;
@@ -23,7 +21,7 @@ public class HomeActivity extends BaseActivity {
 
     private ServiceFragment serviceFragment;
     private OrdersFragment ordersFragment;
-    private AccountFragment accountFragment;
+    private ProfileFragment profileFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +41,7 @@ public class HomeActivity extends BaseActivity {
     private void fragmentSetup() {
         serviceFragment = new ServiceFragment();
         ordersFragment = new OrdersFragment();
-        accountFragment = new AccountFragment();
+        profileFragment = new ProfileFragment();
         if(getIntent().getStringExtra("sender") != null) {
             if(getIntent().getStringExtra("sender").equals("orderFragment")) {
                 navbar.setSelectedItemId(R.id.ordersItem);
@@ -64,7 +62,7 @@ public class HomeActivity extends BaseActivity {
                         setFragment(ordersFragment);
                         return true;
                     case R.id.accountItem:
-                        setFragment(accountFragment);
+                        setFragment(profileFragment);
                         return true;
                     default:
                         return false;

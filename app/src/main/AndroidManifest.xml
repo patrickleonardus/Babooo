@@ -86,7 +86,7 @@
             android:name=".Pages.HomePage.SettingsPage.SettingsActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".Pages.HomePage.AccountPage.EditAccountActivity"
+            android:name=".Pages.HomePage.ProfilePage.EditAccountActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Pages.DailyServicePage.SearchingDailyMaidPage.SearchingDailyMaidActivity"

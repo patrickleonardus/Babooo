@@ -86,6 +86,7 @@ public class DefineLocationActivity extends BaseActivity implements OnMapReadyCa
 
         //findviewbyid
         initView();
+        handleAction();
 
         //this one to save state if application/activity get paused or destroyed
         mapView.onCreate(savedInstanceState);
@@ -225,7 +226,7 @@ public class DefineLocationActivity extends BaseActivity implements OnMapReadyCa
             @Override
             public void onStyleLoaded(@NonNull Style style) {
                 //set on click listener after style of the map loaded
-                handleAction();
+
                 style.addImage("symbolIconId", BitmapFactory.decodeResource(DefineLocationActivity.this.getResources(), R.drawable.blue_marker_view));
 
                 // Create an empty GeoJSON source using the empty feature collection

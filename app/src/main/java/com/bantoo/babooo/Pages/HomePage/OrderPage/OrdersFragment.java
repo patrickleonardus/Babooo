@@ -29,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -106,7 +107,7 @@ public class OrdersFragment extends Fragment implements OrderItemClickListener {
                 previousOrderLine.setVisibility(View.GONE);
                 runningOrderLine.setVisibility(View.VISIBLE);
                 currentTypeOrder = RUNNING_ORDER;
-                retrieveRentData();
+                retrieveOrderData();
             }
         });
         previousTransactionLayout.setOnClickListener(new View.OnClickListener() {
@@ -115,7 +116,7 @@ public class OrdersFragment extends Fragment implements OrderItemClickListener {
                 runningOrderLine.setVisibility(View.GONE);
                 previousOrderLine.setVisibility(View.VISIBLE);
                 currentTypeOrder = PREVIOUS_ORDER;
-                retrieveRentData();
+                retrieveOrderData();
             }
         });
     }
@@ -145,7 +146,6 @@ public class OrdersFragment extends Fragment implements OrderItemClickListener {
                             serviceSchedule.setOrderID(snapshot.getKey());
                             getMaidKey(maidPhoneNumber);
                             serviceScheduleList.add(serviceSchedule);
-                            historyRecyclerViewAdapter.notifyDataSetChanged();
                         }
                     } else if(currentTypeOrder == PREVIOUS_ORDER) {
                         if(snapshot.child("status").getValue().toString().equals("Kontrak Habis")) {
@@ -166,11 +166,10 @@ public class OrdersFragment extends Fragment implements OrderItemClickListener {
                             serviceSchedule.setOrderID(snapshot.getKey());
                             getMaidKey(maidPhoneNumber);
                             serviceScheduleList.add(serviceSchedule);
-                            historyRecyclerViewAdapter.notifyDataSetChanged();
                         }
                     }
+                    checkData();
                 }
-                retrieveOrderData();
             }
 
             @Override
@@ -220,7 +219,6 @@ public class OrdersFragment extends Fragment implements OrderItemClickListener {
                                     new DateFormatSymbols().getMonths()[monthNumber-1], status, orderTime, address, maidPhoneNumber);
                             serviceSchedule.setOrderID(snapshot.getKey());
                             serviceScheduleList.add(serviceSchedule);
-                            historyRecyclerViewAdapter.notifyDataSetChanged();
                         }
                     } else if (currentTypeOrder == PREVIOUS_ORDER) {
                         if(snapshot.child("status").getValue().toString().equals("Pesanan Selesai")) {
@@ -240,11 +238,10 @@ public class OrdersFragment extends Fragment implements OrderItemClickListener {
                                     new DateFormatSymbols().getMonths()[monthNumber-1], status, orderTime, address, maidPhoneNumber);
                             serviceSchedule.setOrderID(snapshot.getKey());
                             serviceScheduleList.add(serviceSchedule);
-                            historyRecyclerViewAdapter.notifyDataSetChanged();
                         }
                     }
                 }
-                checkData();
+                retrieveRentData();
             }
 
             @Override
@@ -262,6 +259,8 @@ public class OrdersFragment extends Fragment implements OrderItemClickListener {
         else {
             noDataLayout.setVisibility(View.GONE);
             historyRV.setVisibility(View.VISIBLE);
+            Collections.reverse(serviceScheduleList);
+            historyRecyclerViewAdapter.notifyDataSetChanged();
         }
     }
 

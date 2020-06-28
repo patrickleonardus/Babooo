@@ -49,6 +49,14 @@ public class DetailDailyConfirmationActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
+        Intent intent = new Intent(DetailDailyConfirmationActivity.this, HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        if(getIntent().getStringExtra("sender") != null) {
+            if(getIntent().getStringExtra("sender").equals("orderFragment")) {
+                intent.putExtra("sender", "orderFragment");
+            }
+        }
+        startActivity(intent);
     }
 
     @Override
@@ -117,12 +125,11 @@ public class DetailDailyConfirmationActivity extends BaseActivity {
                 handleContactAction();
                 String serviceCost = "0", serviceFeeCost = "0";
                 try {
-                    serviceCost = snapshot.child("serviceCostFee").getValue().toString();
+                    serviceCost = snapshot.child("serviceCost").getValue().toString();
                 } catch (Exception e) {}
                 try {
                     serviceFeeCost = snapshot.child("serviceCostFee").getValue().toString();
                 } catch (Exception e) {}
-                serviceFeeCostTV.setText(serviceFeeCost);
                 serviceCostTV.setText(serviceCost);
                 int totalCost = Integer.parseInt(serviceCost) + Integer.parseInt(serviceFeeCost);
                 totalCostTV.setText(""+totalCost);
@@ -180,7 +187,6 @@ public class DetailDailyConfirmationActivity extends BaseActivity {
         serviceNameTV = findViewById(R.id.name_service_detail_daily_confirmation_TV);
         serviceCostTV = findViewById(R.id.cost_service_detail_daily_confirmation_TV);
         serviceFeeTV = findViewById(R.id.fee_service_detail_daily_confirmation_TV);
-        serviceFeeCostTV = findViewById(R.id.fee_cost_service_detail_daily_confirmation_TV);
         totalCostTV = findViewById(R.id.total_cost_service_detail_daily_confirmation_TV);
         helpBantooBTN = findViewById(R.id.help_bantoo_detail_daily_confirmation_BTN);
         closeIV = findViewById(R.id.close_detail_daily_IV);

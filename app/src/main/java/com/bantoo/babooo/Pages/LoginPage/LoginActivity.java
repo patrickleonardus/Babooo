@@ -64,6 +64,7 @@ public class LoginActivity extends BaseActivity {
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
 
+
         //Check state, klo dah isi uid langsung ke home
         if (mUser != null) {
             moveToHome();
@@ -82,12 +83,13 @@ public class LoginActivity extends BaseActivity {
             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
+            LoginActivity.this.finish();
         } else if(sharedPreferences.getString("artType", "").equals("daily") || sharedPreferences.getString("artType", "").equals("monthly")) {
             Intent intent = new Intent(LoginActivity.this, MaidHomeActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
+            LoginActivity.this.finish();
         }
-        LoginActivity.this.finish();
     }
 
     private void resetSharedPref() {

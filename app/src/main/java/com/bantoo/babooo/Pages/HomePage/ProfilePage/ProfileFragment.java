@@ -1,4 +1,4 @@
-package com.bantoo.babooo.Pages.HomePage.AccountPage;
+package com.bantoo.babooo.Pages.HomePage.ProfilePage;
 
 
 import android.content.Intent;
@@ -28,7 +28,7 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AccountFragment extends Fragment {
+public class ProfileFragment extends Fragment {
 
     private ImageButton editProfileButton, settingsButton;
     private TextView usernameTV, phoneNumberTV, addressTV, emailTV, passwordTV;
@@ -37,7 +37,7 @@ public class AccountFragment extends Fragment {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference userReference;
 
-    public AccountFragment() {
+    public ProfileFragment() {
         // Required empty public constructor
     }
 
