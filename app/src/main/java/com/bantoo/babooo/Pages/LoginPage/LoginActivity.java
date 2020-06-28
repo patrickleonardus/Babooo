@@ -175,6 +175,8 @@ public class LoginActivity extends BaseActivity {
                     progressBTN.buttonFinished();
                     SharedPreferences accountData = getApplicationContext().getSharedPreferences("accountData", MODE_PRIVATE);
                     SharedPreferences.Editor editor = accountData.edit();
+                    accountData.edit().putString("logged", "no");
+                    accountData.edit().putString("artType", "user");
                     editor.putString("role", "pengguna");
                     for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
                         editor.putString("uid", snapshot.getKey());
@@ -210,6 +212,7 @@ public class LoginActivity extends BaseActivity {
                     SharedPreferences accountData = getApplicationContext().getSharedPreferences("accountData", MODE_PRIVATE);
                     SharedPreferences.Editor editor = accountData.edit();
                     editor.putString("role", "art");
+                    editor.putString("artType", "daily");
                     for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
                         editor.putString("uid", snapshot.getKey());
                         editor.apply();
@@ -240,6 +243,7 @@ public class LoginActivity extends BaseActivity {
                     SharedPreferences accountData = getApplicationContext().getSharedPreferences("accountData", MODE_PRIVATE);
                     SharedPreferences.Editor editor = accountData.edit();
                     editor.putString("role", "artBulanan");
+                    editor.putString("artType", "monthly");
                     for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
                         editor.putString("uid", snapshot.getKey());
                         editor.apply();

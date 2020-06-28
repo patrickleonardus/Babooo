@@ -118,6 +118,8 @@ public class DetailDailyConfirmationActivity extends BaseActivity {
                 maidStatusTV.setText(status);
                 if (status.equals("Pesanan Selesai")) { //pesanan dah selesai, masuk ke history
                     maidStatusTV.setTextColor(getResources().getColor(R.color.grey));
+                    callIV.setVisibility(View.GONE);
+                    messageIV.setVisibility(View.GONE);
                 } else { //kalo pesanan belum selesai
                     checkOrderDone();
                 }

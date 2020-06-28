@@ -97,6 +97,9 @@ public class MaidDataPage extends Fragment {
                             if (snapshot.child("cityPreference").getValue() != null) {
                                 cityPreferenceTV.setText(snapshot.child("cityPreference").getValue().toString());
                             }
+                            SharedPreferences sharedPreferences = getContext().getSharedPreferences("accountData", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor  = sharedPreferences.edit();
+                            editor.putString("phone", snapshot.child("phoneNumber").getValue().toString()).commit();
                         }
                     }
 

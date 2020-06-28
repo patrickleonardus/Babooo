@@ -53,6 +53,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
             holder.timeOrderTV.setVisibility(View.GONE);
         } else {
             holder.typeServiceTV.setText("Layanan Bantoo Harian");
+            holder.timeOrderTV.setVisibility(View.VISIBLE);
         }
     }
 

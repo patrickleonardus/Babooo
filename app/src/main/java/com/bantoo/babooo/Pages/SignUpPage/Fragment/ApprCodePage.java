@@ -293,6 +293,9 @@ public class ApprCodePage extends Fragment {
                 if(dataSnapshot.exists()) {
                     correct = true;
                     editor.putString("artType", "daily").commit();
+                    for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                        editor.putString("phone", snapshot.child("phoneNumber").getValue().toString()).commit();
+                    }
                 } else {
                     checkMonthlyApprovalCode();
                 }
@@ -314,6 +317,9 @@ public class ApprCodePage extends Fragment {
                 if(dataSnapshot.exists()) {
                     correct = true;
                     editor.putString("artType", "monthly").commit();
+                    for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                        editor.putString("phone", snapshot.child("phoneNumber").getValue().toString()).commit();
+                    }
                 } else {
                     correct = false;
                 }

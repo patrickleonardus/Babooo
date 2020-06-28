@@ -85,7 +85,7 @@ public class OrdersFragment extends Fragment implements OrderItemClickListener {
         firebaseInit();
         setClickListener();
 
-        retrieveRentData();
+        retrieveOrderData();
         setupRecyclerView();
 
         return rootView;
@@ -122,7 +122,6 @@ public class OrdersFragment extends Fragment implements OrderItemClickListener {
     }
 
     private void retrieveRentData() {
-        serviceScheduleList.clear();
         rentReference.orderByChild("phoneNumber").equalTo(phoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -168,8 +167,8 @@ public class OrdersFragment extends Fragment implements OrderItemClickListener {
                             serviceScheduleList.add(serviceSchedule);
                         }
                     }
-                    checkData();
                 }
+                checkData();
             }
 
             @Override
@@ -197,6 +196,7 @@ public class OrdersFragment extends Fragment implements OrderItemClickListener {
 
     private void retrieveOrderData() {
         Log.d(TAG, "retrieveOrderData: "+phoneNumber);
+        serviceScheduleList.clear();
         orderReference.orderByChild("phoneNumber").equalTo(phoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

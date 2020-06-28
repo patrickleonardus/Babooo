@@ -63,7 +63,7 @@ public class MaidHelpActivity extends AppCompatActivity  implements MaidHelpList
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    SimpleDateFormat sdfDate = new SimpleDateFormat("dd MM yyyy, HH:mm");
+                    SimpleDateFormat sdfDate = new SimpleDateFormat("dd MMMM yyyy, HH:mm");
                     String date = sdfDate.format(new Date(Long.parseLong(snapshot.child("reportTimeStamp").getValue().toString())));
                     String type = snapshot.child("reportType").getValue().toString();
                     String status = snapshot.child("reportStatus").getValue().toString();

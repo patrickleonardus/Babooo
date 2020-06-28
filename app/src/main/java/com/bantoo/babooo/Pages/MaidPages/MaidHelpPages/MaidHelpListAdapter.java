@@ -36,17 +36,14 @@ public class MaidHelpListAdapter extends RecyclerView.Adapter<MaidHelpListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull MaidHelpListAdapter.MyViewHolder holder, int position) {
-
         Report report = reportList.get(position);
         holder.reportDateTV.setText(report.getReportDate());
         holder.reportTypeTV.setText(report.getReportType());
         holder.reportStatusTV.setText(report.getReportStatus());
-
     }
 
     @Override
     public int getItemCount() {
-
         return reportList.size();
     }
 

@@ -1,11 +1,16 @@
 package com.bantoo.babooo.Model;
 
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
 
+import com.bantoo.babooo.Pages.SignUpPage.SignUpFormActivity;
+import com.bantoo.babooo.Pages.VerificationPage.VerificationActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -48,7 +53,8 @@ public class FirebaseHelper {
         });
     }
 
-    public void activateMaid(String type, String apprCode) {
+    public void activateMaid(String type, String apprCode, Context context) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference maidReference = database.getReference();
         if(type.equals("daily")) {
             maidReference = database.getReference().child("ART");
@@ -59,10 +65,17 @@ public class FirebaseHelper {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                    maidUniqueKey = snapshot.getKey();
+                    String maidUniqueKey = snapshot.getKey();
                     snapshot.child("TIMESTAMP").getRef().setValue(ServerValue.TIMESTAMP);
                     snapshot.child("activate").getRef().setValue(true);
                     snapshot.child("approvalCode").getRef().removeValue();
+                    Intent moveToVerification = new Intent(context, VerificationActivity.class);
+                    SharedPreferences fromSharePref = context.getSharedPreferences("verificationPage", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = fromSharePref.edit();
+                    editor.putString("uid", snapshot.getKey());
+                    SharedPreferences accountDataPref = context.getSharedPreferences("accountData", Context.MODE_PRIVATE);
+                    accountDataPref.edit().putString("logged", "no");
+                    context.startActivity(moveToVerification);
                 }
             }
 

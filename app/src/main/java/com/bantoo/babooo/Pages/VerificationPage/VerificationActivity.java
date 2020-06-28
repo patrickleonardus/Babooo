@@ -70,7 +70,9 @@ public class VerificationActivity extends BaseActivity {
         mAuth.setLanguageCode("id");
 
         SharedPreferences accountData = getApplicationContext().getSharedPreferences("accountData", MODE_PRIVATE);
-        if(!accountData.getString("artType", "").equals("")) {
+        if(accountData.getString("logged", "").equals("no")) {
+            accountData.edit().remove("logged");
+        } else if(accountData.getString("artType", "").equals("")) {
            finish();
         }
 
