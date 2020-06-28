@@ -237,6 +237,7 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
             @Override
             public void onClick(View v) {
                 DialogFragment fragment = new DatePickerFragment();
+
                 fragment.show(getSupportFragmentManager(), DATEPICKER);
             }
         });

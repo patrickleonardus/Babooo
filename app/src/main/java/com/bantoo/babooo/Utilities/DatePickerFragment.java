@@ -1,5 +1,6 @@
 package com.bantoo.babooo.Utilities;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
@@ -23,6 +24,12 @@ public class DatePickerFragment extends DialogFragment {
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        return new DatePickerDialog(getActivity(), R.style.DatePickerDialog,(DatePickerDialog.OnDateSetListener)getActivity(),year,month,day);
+        DatePickerDialog datePickerDialog =  new DatePickerDialog(getActivity(), R.style.DatePickerDialog,
+                (DatePickerDialog.OnDateSetListener) getActivity(), year, month, day);
+        datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
+        calendar.add(Calendar.DATE, 30);
+        datePickerDialog.getDatePicker().setMaxDate(calendar.getTimeInMillis());
+
+        return datePickerDialog;
     }
 }

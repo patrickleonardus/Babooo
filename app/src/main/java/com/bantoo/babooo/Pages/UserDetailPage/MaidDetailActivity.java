@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -26,9 +27,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MaidDetailActivity extends BaseActivity {
+
+    private static final String TAG = "MaidDetailActivity";
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference monthlyMaidReference, orderReference;
@@ -106,6 +110,16 @@ public class MaidDetailActivity extends BaseActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 maidNameTV.setText(dataSnapshot.child("name").getValue().toString());
                 //maidAgeTV.setText(dataSnapshot.child("age").getValue().toString());
+                try {
+                    String ttl = dataSnapshot.child("ttl").getValue().toString();
+//                    Log.d(TAG, "onDataChange: "+ttl.substring(ttl.length()-5, ttl.length()-1));
+                    int bornYear = Integer.parseInt(ttl.substring(ttl.length()-4, ttl.length()));
+                    Date now = new Date();
+                    int age = (now.getYear() + 1900 ) - bornYear;
+                    maidAgeTV.setText(age+" tahun");
+                } catch(Exception e) {
+                    Log.d(TAG, "onDataChange: parsing age failed");
+                }
                 maidAddressTV.setText(dataSnapshot.child("address").getValue().toString());
                 int rating = Integer.parseInt(dataSnapshot.child("rating").getValue().toString());
                 ratingTV.setText(""+rating);
