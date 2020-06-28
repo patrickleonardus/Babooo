@@ -112,7 +112,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerInParent="true"
                     android:layout_marginLeft="4dp"
-                    android:src="@color/greenPrimary" />
+                    android:src="@drawable/icon3" />
 
                 <LinearLayout
                     android:id="@+id/detail_maid_detail_daily_confirmation_layout"

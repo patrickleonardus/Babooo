@@ -63,7 +63,7 @@
                 android:layout_height="135dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="-90dp"
-                android:src="@drawable/logo_bantoo_bg"
+                android:src="@drawable/icon3"
                 app:civ_shadow="true"
                 app:civ_shadow_color="@color/orangePrimary"
                 app:civ_shadow_radius="5" />
