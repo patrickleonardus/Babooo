@@ -360,6 +360,13 @@
         </LinearLayout>
     </LinearLayout>
 
+    <TextView
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Riwayat Kerja Sebelumnya"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
