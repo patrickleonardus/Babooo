@@ -360,7 +360,6 @@
         </LinearLayout>
     </LinearLayout>
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -379,6 +378,5 @@
         android:background="@drawable/rounded_button_green"
         android:text="Rekrut Sekarang"
         android:textColor="@color/white" />
-
 
 </LinearLayout>

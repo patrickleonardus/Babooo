@@ -2,6 +2,7 @@ package com.bantoo.babooo.Pages.MonthlyServicePage;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -46,6 +47,7 @@ public class MonthlyMaidActivity extends BaseActivity implements Serializable {
     static final String FILTERINTENT = "filterIntent";
 
     private String role = "mitra";
+    private String currentCity = "";
     private List<Maid> maidList = new ArrayList<Maid>();
 
     //LIST DIBAWAH INI DIJADIKAN DASAR UNTUK FILTER PENCARIAN MAID
@@ -66,10 +68,37 @@ public class MonthlyMaidActivity extends BaseActivity implements Serializable {
         sortOptionLayout = findViewById(R.id.sort_maid_layout);
         filterOptionLayout = findViewById(R.id.filter_maid_ET);
 
-        handleSearchET();
-        handleButton();
-        receiveMonthlyMaidData();
+        getCurrentCity();
         //dummyData();
+    }
+
+    private void getCurrentCity() {
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        SharedPreferences accountDataSharedPreferences = getSharedPreferences("accountData", MODE_PRIVATE);
+        String uid = accountDataSharedPreferences.getString("uid", "");
+        DatabaseReference userReference = firebaseDatabase.getReference().child("Users").child(uid);
+        userReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.child("address").getValue() != null) {
+                    currentCity = dataSnapshot.child("address").getValue().toString();
+                    if(currentCity.equalsIgnoreCase("jakarta") ||
+                        currentCity.equalsIgnoreCase("bogor") || currentCity.equalsIgnoreCase("depok") ||
+                        currentCity.equalsIgnoreCase("tangerang") ||
+                        currentCity.equalsIgnoreCase("bekasi")) {
+                        currentCity = "jabodetabek";
+                    }
+                }
+                handleSearchET();
+                handleButton();
+                receiveMonthlyMaidData();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -153,7 +182,6 @@ public class MonthlyMaidActivity extends BaseActivity implements Serializable {
 
     private void receiveMonthlyMaidData() {
         maidList.clear();
-        firebaseDatabase = FirebaseDatabase.getInstance();
         monthlyMaidReference = firebaseDatabase.getReference().child("ARTBulanan");
         monthlyMaidReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -192,10 +220,15 @@ public class MonthlyMaidActivity extends BaseActivity implements Serializable {
                             } else {
                                 maid.setPopularity(0);
                             }
-                            maidList.add(maid);
+                            if(snapshot.child("cityPreference").getValue() != null) {
+                                if(snapshot.child("cityPreference").getValue().toString().equals(currentCity)) {
+                                    maidList.add(maid);
+                                }
+                            }
                         }
                     }
                 }
+                Collections.reverse(maidList);
                 setupGridView();
                 handleGridViewAction();
             }
