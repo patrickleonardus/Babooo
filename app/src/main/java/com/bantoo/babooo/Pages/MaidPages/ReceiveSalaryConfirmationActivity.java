@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -110,9 +111,10 @@ public class ReceiveSalaryConfirmationActivity extends BaseActivity {
                         c.setTime(startOrder);
                         c.add(Calendar.MONTH, Integer.parseInt(duration));
                         Date endOrder = c.getTime();
-                        String endMonth = new DateFormatSymbols().getMonths()[endOrder.getMonth()-1];
+                        String endMonth = new DateFormatSymbols().getMonths()[endOrder.getMonth()];
+                        Log.d("Receive", "onDataChange: ");
                         periodTV.setText(startDate + " " + month + " - " + endOrder.getDate() + " " + endMonth + (endOrder.getYear()+1900));
-                        incomeStartDateTV.setText(startDate + " " + month + " - " + (startOrder.getYear()+1900));
+                        incomeStartDateTV.setText(startDate + " " + month + " " + (startOrder.getYear()+1900));
                     } catch (Exception e) {}
                     getUserData();
                 }
