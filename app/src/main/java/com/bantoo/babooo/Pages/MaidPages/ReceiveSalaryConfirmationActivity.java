@@ -154,7 +154,7 @@ public class ReceiveSalaryConfirmationActivity extends BaseActivity {
                     maidNameTV.setText(""+snapshot.child("name").getValue().toString());
                     Date now = new Date();
                     String month = new DateFormatSymbols().getMonths()[now.getMonth()-1];
-                    currDateTV.setText(now.getDate() + " " +month + " " + now.getYear());
+                    currDateTV.setText(now.getDate() + " " +month + " " + (now.getYear()+1900));
                 }
             }
 
