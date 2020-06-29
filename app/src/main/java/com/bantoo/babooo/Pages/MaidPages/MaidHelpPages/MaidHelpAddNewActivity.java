@@ -16,11 +16,12 @@ import android.widget.Toast;
 
 import com.bantoo.babooo.Model.Report;
 import com.bantoo.babooo.R;
+import com.bantoo.babooo.Utilities.BaseActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 
-public class MaidHelpAddNewActivity extends AppCompatActivity  {
+public class MaidHelpAddNewActivity extends BaseActivity {
 
     final static String callCenterBantoo = "0215512345";
 

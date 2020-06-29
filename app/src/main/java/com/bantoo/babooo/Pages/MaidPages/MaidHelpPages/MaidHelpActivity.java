@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import com.bantoo.babooo.Model.Report;
 import com.bantoo.babooo.Model.ReportComparator;
 import com.bantoo.babooo.R;
+import com.bantoo.babooo.Utilities.BaseActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,7 +31,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-public class MaidHelpActivity extends AppCompatActivity  implements MaidHelpListClickedListener{
+public class MaidHelpActivity extends BaseActivity implements MaidHelpListClickedListener{
 
     private RecyclerView helpReportRV;
     private FloatingActionButton addNewReport;

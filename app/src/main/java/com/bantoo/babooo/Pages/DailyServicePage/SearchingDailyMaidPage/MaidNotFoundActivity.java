@@ -9,10 +9,11 @@ import android.view.View;
 import android.widget.Button;
 
 import com.bantoo.babooo.R;
+import com.bantoo.babooo.Utilities.BaseActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class MaidNotFoundActivity extends AppCompatActivity {
+public class MaidNotFoundActivity extends BaseActivity {
 
     Button backToOrderBtn;
     private FirebaseDatabase firebaseDatabase;

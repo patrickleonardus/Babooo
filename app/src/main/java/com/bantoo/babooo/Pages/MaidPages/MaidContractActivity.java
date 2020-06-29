@@ -7,8 +7,9 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bantoo.babooo.R;
+import com.bantoo.babooo.Utilities.BaseActivity;
 
-public class MaidContractActivity extends AppCompatActivity {
+public class MaidContractActivity extends BaseActivity {
 
     private ImageView closeIV;
 

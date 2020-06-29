@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bantoo.babooo.R;
+import com.bantoo.babooo.Utilities.BaseActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,7 +28,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-public class ExtendContractReminderActivity extends AppCompatActivity {
+public class ExtendContractReminderActivity extends BaseActivity {
 
     private static final String TAG = "ExtendContract";
 

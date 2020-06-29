@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import com.bantoo.babooo.Model.ServiceSchedule;
 import com.bantoo.babooo.Pages.MaidPages.MaidDailyDetailOrderActivity;
 import com.bantoo.babooo.R;
+import com.bantoo.babooo.Utilities.BaseActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class OrderHistoryActivity extends AppCompatActivity implements OrderHistoryClickedRV {
+public class OrderHistoryActivity extends BaseActivity implements OrderHistoryClickedRV {
 
     private static final String TAG = "RiwayatPesanan";
 

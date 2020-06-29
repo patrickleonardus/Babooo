@@ -8,8 +8,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bantoo.babooo.R;
+import com.bantoo.babooo.Utilities.BaseActivity;
 
-public class MaidHelpDetailActivity extends AppCompatActivity {
+public class MaidHelpDetailActivity extends BaseActivity {
 
     private TextView noPengajuanTV, tglPengajuanTV, reportTypeTV, reportStoryTV, reportStatusTV;
     private String reportKey, reportDate, reportType, reportStory, reportStatus;

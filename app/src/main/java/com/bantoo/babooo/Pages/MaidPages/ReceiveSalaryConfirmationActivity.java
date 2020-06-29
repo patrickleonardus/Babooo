@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.bantoo.babooo.R;
+import com.bantoo.babooo.Utilities.BaseActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,7 +26,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-public class ReceiveSalaryConfirmationActivity extends AppCompatActivity {
+public class ReceiveSalaryConfirmationActivity extends BaseActivity {
 
     TextView bossNameTV, incomeStartDateTV, orderNumberTV, monthlyIncomeStatusTV, periodTV,
             baseIncomeTV, totalIncomeTV, thisTotalIncomeTV, currDateTV, maidNameTV;
