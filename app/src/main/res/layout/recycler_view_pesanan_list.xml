@@ -33,13 +33,14 @@
             android:textStyle="bold"
             android:textColor="@color/greenPrimary"
             android:textSize="12sp"
-            android:maxWidth="150dp"
+            android:maxWidth="100dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Marliana - Cuci Kering"/>
         <TextView
             android:id="@+id/address_TV"
             android:textSize="12sp"
+            android:maxWidth="100dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Toko Duta Motor, Serang"
