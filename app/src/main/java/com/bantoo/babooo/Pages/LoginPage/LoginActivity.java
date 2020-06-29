@@ -67,13 +67,15 @@ public class LoginActivity extends BaseActivity {
 
         //Check state, klo dah isi uid langsung ke home
         if (mUser != null) {
+            SharedPreferences sharedPreferences = getSharedPreferences("accountData", Context.MODE_PRIVATE);
+            sharedPreferences.edit().putString("logged", "yes").commit();
             moveToHome();
-        } else if (mUser == null) {
-            handleLogin();
-            phoneChecker();
-            signUpAction();
+        } else {
             resetSharedPref();
         }
+        handleLogin();
+        phoneChecker();
+        signUpAction();
     }
 
     private void moveToHome() {

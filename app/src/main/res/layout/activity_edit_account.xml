@@ -67,7 +67,7 @@
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/asset_maid"
+            android:src="@drawable/icon4"
             app:civ_shadow="true"
             app:civ_shadow_color="@color/orangePrimary"
             app:civ_shadow_radius="4" />

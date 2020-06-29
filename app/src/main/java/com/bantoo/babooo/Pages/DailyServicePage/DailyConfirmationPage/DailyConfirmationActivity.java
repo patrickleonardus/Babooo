@@ -71,7 +71,7 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
     private String notesLocation;
 
     LinearLayout dateLayout, hourLayout, locationLayout;
-    TextView serviceNameTV, detailServiceNameTV, coinsServiceTV, dateServiceTV, startHourTV, estimatedHourTV, locationServiceTV;
+    TextView serviceNameTV, detailServiceNameTV, coinsServiceTV, dateServiceTV, startHourTV, estimatedHourTV, locationServiceTV, syaratTV;
     Button setOrder;
     ImageView closeBtn;
 
@@ -91,7 +91,7 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
         handleAction();
     }
 
-    private void termsAndConditionClicked(View v) {
+    private void termsAndConditionClicked() {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(R.string.base_url+"termsAndCondition.html"));
         startActivity(intent);
@@ -120,6 +120,7 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
         locationLayout = findViewById(R.id.location_service_daily_confirmation_layout);
         setOrder = findViewById(R.id.order_daily_confirmation_BTN);
         closeBtn = findViewById(R.id.close_daily_IV);
+        syaratTV = findViewById(R.id.syaratTV);
     }
 
     private void getServiceData() {
@@ -226,6 +227,12 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
     }
 
     private void handleAction() {
+        syaratTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                termsAndConditionClicked();
+            }
+        });
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

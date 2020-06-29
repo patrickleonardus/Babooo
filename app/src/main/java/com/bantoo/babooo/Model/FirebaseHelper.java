@@ -9,6 +9,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.room.Database;
 
+import com.bantoo.babooo.Pages.HomePage.HomeActivity;
+import com.bantoo.babooo.Pages.LoginPage.LoginActivity;
 import com.bantoo.babooo.Pages.SignUpPage.SignUpFormActivity;
 import com.bantoo.babooo.Pages.VerificationPage.VerificationActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -90,9 +92,13 @@ public class FirebaseHelper {
         return maidUniqueKey;
     }
 
-    public void addUser(User user, String uid) {
+    public void addUser(User user, String uid, Context context) {
         DatabaseReference userReferefence = reference.child("Users").child(uid);
         userReferefence.setValue(user);
+        SharedPreferences accountData = context.getSharedPreferences("accountData", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = accountData.edit();
+        editor.putString("phoneNumber", user.phoneNumber).commit();
+        context.startActivity(new Intent(context, HomeActivity.class));
     }
 
     public void addDailyOrder(ServiceSchedule order, String orderUniqueKey) {

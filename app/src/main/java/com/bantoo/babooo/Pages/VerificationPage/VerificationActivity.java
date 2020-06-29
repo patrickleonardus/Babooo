@@ -69,10 +69,14 @@ public class VerificationActivity extends BaseActivity {
         mAuth = FirebaseAuth.getInstance();
         mAuth.setLanguageCode("id");
 
+        String from = getIntent().getStringExtra("sender");
+        if(from == null) from = "verifUser";
+
+
         SharedPreferences accountData = getApplicationContext().getSharedPreferences("accountData", MODE_PRIVATE);
         if(accountData.getString("logged", "").equals("no")) {
             accountData.edit().remove("logged");
-        } else if(accountData.getString("artType", "").equals("")) {
+        } else if(accountData.getString("artType", "").equals("") && !from.equals("verifUser")) {
            finish();
         }
 
@@ -93,6 +97,7 @@ public class VerificationActivity extends BaseActivity {
         //check datang dari page mana
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("verificationPage", Context.MODE_PRIVATE);
         sender = sharedPreferences.getString("from", "N/A");
+        Log.d("Verification", "onCreate: var sender = "+sender);
 
         initVar();
         handlePhoneNumber();
@@ -137,7 +142,8 @@ public class VerificationActivity extends BaseActivity {
                     token = instanceIdResult.getToken();
                     User user = new User(role, name, email, phoneNum, password, address, token);
                     if(role.equals("pengguna")) {
-                        firebaseHelper.addUser(user, uid);
+                        firebaseHelper.addUser(user, uid, VerificationActivity.this);
+
                     } else if(role.equals("art")) {
 
                     } else if(role.equals("artBulanan")) {

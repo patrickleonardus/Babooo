@@ -52,7 +52,7 @@ public class MonthlyConfirmationActivity extends BaseActivity implements Adapter
     private static final int REQUEST_LOCATION = 1;
     private static final String TAG = "MonthlyConfirmation";
 
-    TextView serviceNameTV, serviceDateTV, serviceTimeTV, estimatedTimeTV, locationTV, serviceDetailNameTV, serviceCostTV;
+    TextView serviceNameTV, serviceDateTV, serviceTimeTV, estimatedTimeTV, locationTV, serviceDetailNameTV, serviceCostTV, syaratTV;
     LinearLayout serviceDateLayout, serviceTimeLayout, serviceLocationLayout;
     Button setOrderBTN;
     Spinner durationSP;
@@ -89,7 +89,7 @@ public class MonthlyConfirmationActivity extends BaseActivity implements Adapter
         calculateCoins();
     }
 
-    private void termsAndConditionClicked(View v) {
+    private void termsAndConditionClicked() {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(R.string.base_url+"termsAndCondition.html"));
         startActivity(intent);
@@ -109,6 +109,7 @@ public class MonthlyConfirmationActivity extends BaseActivity implements Adapter
         setOrderBTN = findViewById(R.id.order_month_confirmation_BTN);
         durationSP = findViewById(R.id.spinner_duration_confirmation_SP);
         closeBtn = findViewById(R.id.close_monthly_confirmation_IV);
+        syaratTV = findViewById(R.id.syaratTV);
         durationSP.setOnItemSelectedListener(this);
     }
 
@@ -168,7 +169,12 @@ public class MonthlyConfirmationActivity extends BaseActivity implements Adapter
     }
 
     private void handleAction() {
-
+        syaratTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                termsAndConditionClicked();
+            }
+        });
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

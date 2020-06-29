@@ -292,6 +292,7 @@ public class SignUpFormActivity extends BaseActivity {
 
     private void moveToVerification() {
         Intent intent = new Intent(SignUpFormActivity.this, VerificationActivity.class);
+        intent.putExtra("sender", "verifUser");
         startActivity(intent);
     }
 
