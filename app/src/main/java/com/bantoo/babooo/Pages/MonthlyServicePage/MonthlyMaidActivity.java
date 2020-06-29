@@ -178,7 +178,11 @@ public class MonthlyMaidActivity extends BaseActivity implements Serializable {
                                 maid.setPhotoUrl(snapshot.child("photoUrl").getValue().toString());
                             }
                             if (snapshot.child("experience").getValue() != null) {
-                                maid.setExperience(Integer.parseInt(snapshot.child("experience").getValue().toString()));
+                                try {
+                                    maid.setExperience(Integer.parseInt(snapshot.child("experience").getValue().toString()));
+                                } catch (Exception e) {
+                                    maid.setExperience(0);
+                                }
                             } else {
                                 maid.setExperience(0);
                             }
