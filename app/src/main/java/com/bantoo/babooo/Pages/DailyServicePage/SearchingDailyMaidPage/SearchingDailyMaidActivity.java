@@ -173,6 +173,7 @@ public class SearchingDailyMaidActivity extends BaseActivity {
         serviceCostTV.setText(""+serviceCost);
         coinsAmount = getIntent().getIntExtra("coinsAmount", 0);
         userCoinsTV.setText(""+coinsAmount);
+        serviceTypeTV.setText(getIntent().getStringExtra("serviceType"));
         firebaseDatabase = FirebaseDatabase.getInstance();
         orderReference = firebaseDatabase.getReference().child("Order");
         timeChoosen = (Date) getIntent().getSerializableExtra("timeChoosen");

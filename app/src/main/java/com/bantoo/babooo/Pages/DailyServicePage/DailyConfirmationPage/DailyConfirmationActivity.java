@@ -361,6 +361,7 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
         moveToSearchingPage.putExtra("timeChoosen", timeChoosen);
         moveToSearchingPage.putExtra("serviceCost", serviceCost);
         moveToSearchingPage.putExtra("coinsAmount", coinsAmount);
+        moveToSearchingPage.putExtra("serviceType", serviceName);
         startActivity(moveToSearchingPage);
     }
 
