@@ -112,7 +112,7 @@ public class ReceiveSalaryConfirmationActivity extends BaseActivity {
                         Date endOrder = c.getTime();
                         String endMonth = new DateFormatSymbols().getMonths()[endOrder.getMonth()-1];
                         periodTV.setText(startDate + " " + month + " - " + endOrder.getDate() + " " + endMonth + (endOrder.getYear()+1900));
-                        incomeStartDateTV.setText(startDate + " " + month + " - " + endOrder.getDate() + " " + endMonth + (endOrder.getYear()+1900));
+                        incomeStartDateTV.setText(startDate + " " + month + " - " + (startOrder.getYear()+1900));
                     } catch (Exception e) {}
                     getUserData();
                 }
@@ -154,7 +154,7 @@ public class ReceiveSalaryConfirmationActivity extends BaseActivity {
                     maidNameTV.setText(""+snapshot.child("name").getValue().toString());
                     Date now = new Date();
                     String month = new DateFormatSymbols().getMonths()[now.getMonth()-1];
-                    currDateTV.setText(now.getDate() + " " +month + " " + now.getYear());
+                    currDateTV.setText(now.getDate() + " " +month + " " + (now.getYear()+1900));
                 }
             }
 
