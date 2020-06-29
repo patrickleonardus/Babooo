@@ -111,7 +111,8 @@ public class ReceiveSalaryConfirmationActivity extends BaseActivity {
                         c.add(Calendar.MONTH, Integer.parseInt(duration));
                         Date endOrder = c.getTime();
                         String endMonth = new DateFormatSymbols().getMonths()[endOrder.getMonth()-1];
-                        periodTV.setText(startDate + " " + month + " - " + endOrder.getDate() + " " + endMonth + endOrder.getYear());
+                        periodTV.setText(startDate + " " + month + " - " + endOrder.getDate() + " " + endMonth + (endOrder.getYear()+1900));
+                        incomeStartDateTV.setText(startDate + " " + month + " - " + endOrder.getDate() + " " + endMonth + (endOrder.getYear()+1900));
                     } catch (Exception e) {}
                     getUserData();
                 }
