@@ -73,7 +73,7 @@
                 <com.mikhaellopez.circularimageview.CircularImageView
                     android:layout_width="135dp"
                     android:layout_height="135dp"
-                    android:src="@drawable/logo_bantoo"
+                    android:src="@drawable/icon4"
                     app:civ_shadow="true"
                     app:civ_shadow_color="@color/orangePrimary"
                     app:civ_shadow_radius="5" />
