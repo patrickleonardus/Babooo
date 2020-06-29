@@ -16,6 +16,10 @@ import java.util.List;
 
 public class NewOrderAdapter extends RecyclerView.Adapter<NewOrderAdapter.MyViewHolder> {
 
+    public static final String[] MONTH_NAMES = {
+            "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+    };
+
     private List<ServiceSchedule> serviceScheduleList;
     private NewOrderClickListener itemClickListener;
     private List<String> bossName;
@@ -38,7 +42,7 @@ public class NewOrderAdapter extends RecyclerView.Adapter<NewOrderAdapter.MyView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         ServiceSchedule serviceSchedule = serviceScheduleList.get(position);
-        holder.tanggalOrderTV.setText(serviceSchedule.getOrderDate() + " " +serviceSchedule.getOrderMonth());
+        holder.tanggalOrderTV.setText(serviceSchedule.getOrderDate() + " " +MONTH_NAMES[Integer.parseInt(serviceSchedule.getOrderMonth())-1]);
         holder.jamOrderTV.setText(serviceSchedule.getOrderTime());
         //
         holder.nameTypeTV.setText(bossName.get(position) + " - " + serviceSchedule.getServiceType());
