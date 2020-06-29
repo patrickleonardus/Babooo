@@ -360,9 +360,16 @@
         </LinearLayout>
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/lightGrey" />
+
     <TextView
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Riwayat Kerja Sebelumnya"/>
@@ -371,7 +378,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:id="@+id/riwayat_pesanan_RV"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="150dp"/>
 
