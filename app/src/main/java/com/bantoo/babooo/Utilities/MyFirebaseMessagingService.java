@@ -1,13 +1,16 @@
 package com.bantoo.babooo.Utilities;
 
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.TaskStackBuilder;
 
@@ -32,6 +35,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("accountData", MODE_PRIVATE);
+        Log.d("TAG", "onMessageReceived: getNotif");
         if(sharedPreferences.getBoolean("notifOn", true)) {
             Log.d("ON MESSAGE", "onMessageReceived: called");
             if (remoteMessage.getData().size() > 0) {
@@ -61,9 +65,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private void showNotification(Map<String, String> payload) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        builder.setSmallIcon(R.mipmap.ic_launcher);
+        builder.setSmallIcon(R.drawable.logo_bantoo);
         builder.setContentTitle(payload.get("username"));
         builder.setContentText(payload.get("text"));
+
 
         String notificationType = payload.get("notificationType");
         Intent resultIntent = new Intent(this, HomeActivity.class);
@@ -109,6 +114,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         builder.setContentIntent(resultPendingIntent);
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+        {
+            String channelId = "Your_channel_id";
+            NotificationChannel channel = new NotificationChannel(
+                    channelId,
+                    "Channel human readable title",
+                    NotificationManager.IMPORTANCE_HIGH);
+            notificationManager.createNotificationChannel(channel);
+            builder.setChannelId(channelId);
+        }
         notificationManager.notify(0, builder.build());
     }
 }

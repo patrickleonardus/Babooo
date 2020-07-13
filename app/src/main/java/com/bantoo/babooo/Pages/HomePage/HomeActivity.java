@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
@@ -13,7 +15,12 @@ import com.bantoo.babooo.Pages.HomePage.OrderPage.OrdersFragment;
 import com.bantoo.babooo.Pages.HomePage.ServicePage.ServiceFragment;
 import com.bantoo.babooo.R;
 import com.bantoo.babooo.Utilities.BaseActivity;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 public class HomeActivity extends BaseActivity {
     private BottomNavigationView navbar;
@@ -32,6 +39,26 @@ public class HomeActivity extends BaseActivity {
         navbar = findViewById(R.id.menuItem);
 
         fragmentSetup();
+
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(HomeActivity.this, new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                String token = instanceIdResult.getToken();
+                Log.i("FCM Token", token);
+                SharedPreferences accountDataSharedPreferences = getApplicationContext().getSharedPreferences("accountData", MODE_PRIVATE);
+                String uid = accountDataSharedPreferences.getString("uid", "");
+                Log.d("ON NEW TOKEN", "onNewToken: created new token");
+                DatabaseReference reference;
+                if(accountDataSharedPreferences.getString("role", "").equals("art")) {
+                    reference = FirebaseDatabase.getInstance().getReference("ART").child(uid);
+                } else if(accountDataSharedPreferences.getString("role", "").equals("artBulanan")) {
+                    reference = FirebaseDatabase.getInstance().getReference("ARTBulanan").child(uid);
+                } else {
+                    reference = FirebaseDatabase.getInstance().getReference("Users").child(uid);
+                }
+                reference.child("token").setValue(token);
+            }
+        });
 
     }
 
