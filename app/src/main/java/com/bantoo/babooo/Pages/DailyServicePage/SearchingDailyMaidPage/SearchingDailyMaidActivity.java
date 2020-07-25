@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.bantoo.babooo.Model.MaidRequest;
 import com.bantoo.babooo.Pages.DailyServicePage.DetailDailyConfirmationPage.DetailDailyConfirmationActivity;
+import com.bantoo.babooo.Pages.HomePage.HomeActivity;
 import com.bantoo.babooo.Pages.LoginPage.LoginActivity;
 import com.bantoo.babooo.Pages.SignUpPage.SignUpRoleActivity;
 import com.bantoo.babooo.R;
@@ -53,6 +54,9 @@ public class SearchingDailyMaidActivity extends BaseActivity {
     private TextView userCoinsTV, serviceCostTV, serviceTypeTV;
     private Timer timeout;
     private long timerRunning = 0;
+
+    @Override
+    public void onBackPressed() {}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -334,9 +338,11 @@ public class SearchingDailyMaidActivity extends BaseActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //if the maid has been found. the data will no longer "maid"
+
+                //kalo order nya dicancel
                 if(dataSnapshot.child("maid").getValue() == null) {
                     orderReference.child(orderUniqueKey).removeEventListener(maidEventListener);
-                } else if (dataSnapshot.child("maid").getValue().toString().equals("maid") == false) {
+                } else if (dataSnapshot.child("maid").getValue().toString().equals("maid") == false) { //kalo udah ada yg ambil orderan
                     timeout.cancel();
                     orderReference.child(orderUniqueKey).removeEventListener(maidEventListener);
                     Log.d(TAG, "onDataChange: "+dataSnapshot.child("maid").getValue().toString());

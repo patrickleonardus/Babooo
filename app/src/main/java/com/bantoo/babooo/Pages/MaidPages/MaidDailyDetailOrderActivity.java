@@ -36,6 +36,8 @@ public class MaidDailyDetailOrderActivity extends BaseActivity {
     private DatabaseReference orderReference, userReference;
     private String orderUniqueKey, orderStatus;
 
+    private int slideCounter = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +49,24 @@ public class MaidDailyDetailOrderActivity extends BaseActivity {
         if(orderUniqueKey != null) {
             showData();
         }
+    }
+
+    private void setProgressStep() {
+        int step = 1;
+        String nextStatus = "";
+        if(orderStatus.equals("Akan Datang")) {
+            step = 1;
+        } else if(orderStatus.equals("Menuju Lokasi")) {
+            step = 2;
+        } else if(orderStatus.equals("Sudah Sampai")) {
+            step = 3;
+        } else if(orderStatus.equals("Dalam Pengerjaan")) {
+            step = 4;
+        } else if (orderStatus.equals("Pesanan Selesai")) {
+            step = 5;
+        }
+        activateProgressStep(step);
+        setNextStepLabel();
     }
 
     private void activateProgressStep(int step) {
@@ -68,6 +88,11 @@ public class MaidDailyDetailOrderActivity extends BaseActivity {
         swipeButton.setOnStateChangeListener(new OnStateChangeListener() {
             @Override
             public void onStateChange(boolean active) {
+                if(slideCounter % 2 == 0) {
+                    slideCounter++;
+                    return;
+                }
+                slideCounter++;
                 int step = 1;
                 String nextStatus = "";
                 if(orderStatus.equals("Akan Datang")) {
@@ -92,7 +117,6 @@ public class MaidDailyDetailOrderActivity extends BaseActivity {
                 statusTV.setText(orderStatus);
                 activateProgressStep(step);
                 setNextStepLabel();
-                swipeButton.setEnabled(true);
             }
         });
     }
@@ -180,6 +204,7 @@ public class MaidDailyDetailOrderActivity extends BaseActivity {
                 });
                 orderStatus = dataSnapshot.child("status").getValue().toString();
                 statusTV.setText(orderStatus);
+                setProgressStep();
                 setNextStepLabel();
                 String orderTime = dataSnapshot.child("orderTime").getValue().toString();
                 int finishEstimationHours = Integer.parseInt(orderTime.substring(0,2)) + 2;

@@ -27,6 +27,7 @@ import androidx.fragment.app.DialogFragment;
 import com.bantoo.babooo.Model.ServiceSchedule;
 import com.bantoo.babooo.Pages.DailyServicePage.SearchingDailyMaidPage.SearchingDailyMaidActivity;
 import com.bantoo.babooo.Pages.LocationPage.DefineLocationActivity;
+import com.bantoo.babooo.Pages.PurchaseCoinsPage.PurchaseCoinsActivity;
 import com.bantoo.babooo.R;
 import com.bantoo.babooo.Utilities.BaseActivity;
 import com.bantoo.babooo.Utilities.DatePickerFragment;
@@ -62,9 +63,15 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
 
     private static final int REQUEST_LOCATION = 1;
 
+    //variable tanggal n waktu
     private Date timeChoosen, dateChoosen, today, now;
     private SimpleDateFormat dateFormat;
-    private SimpleDateFormat format = new SimpleDateFormat("kk:mm");
+    private SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+
+    //dd = tanggal
+    //MM = bulan dalam angka (1)
+    //MMMMM = bulan dalam huruf (Januari)
+    //yyyy = tahun
 
     private String estimatedFinishTime, selectedTime;
     private Double userLatitude, userLongitude;
@@ -136,11 +143,11 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
         String currDate, currTime;
 
         //handle default current date and time
-        calendar = Calendar.getInstance();
+        calendar = Calendar.getInstance(); //waktu setting device
         dateFormat = new SimpleDateFormat("dd MMMM yyyy");
         timeFormat = new SimpleDateFormat("HH:mm");
         today = calendar.getTime();
-        now = calendar.getTime();
+//        now = calendar.getTime();
         dateChoosen = calendar.getTime();
         timeChoosen = calendar.getTime();
         currDate = dateFormat.format(calendar.getTime());
@@ -204,7 +211,7 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
             timeChoosen.setYear(dateChoosen.getYear());
             selectedTime = format.format(selectedTimeToConvert);
             //convert selected time ke estimated time
-            estimatedTimeToConvert.setTime(estimatedTimeToConvert.getTime() + 60 * 60 * 4000);
+            estimatedTimeToConvert.setTime(estimatedTimeToConvert.getTime() + 60 * 60 * 2000);
             estimatedFinishTime = format.format(estimatedTimeToConvert);
 
         } catch (ParseException e) { }
@@ -269,8 +276,8 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
             @Override
             public void onClick(View v) {
 
-                Date nightHour = validateInputTime(NIGHTHOUR);
-                Date morningHour = validateInputTime(MORNINGHOUR);
+//                Date nightHour = validateInputTime(NIGHTHOUR);
+//                Date morningHour = validateInputTime(MORNINGHOUR);
 
                 //TOMMY TOLONG CEK LAGI INI LOGICNYA MASIH BARBAR, di else if kedua dan ketiga salah harusnya ga gitu
                 //kan gamungkin  dia pesen diatas jam 9 malem sama sebelum jam 6 pagi gitu,
@@ -315,6 +322,8 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
                                @Override
                                public void onClick(DialogInterface dialog, int which) {
                                     //move to purchase coins page
+                                   Intent intent = new Intent(DailyConfirmationActivity.this, PurchaseCoinsActivity.class);
+                                   startActivity(intent);
                                }
                            })
                            .setNegativeButton("OK", new DialogInterface.OnClickListener() {
@@ -352,6 +361,7 @@ public class DailyConfirmationActivity extends BaseActivity implements DatePicke
         order.setNotesLocation(notesLocation);
         order.setServiceCost(serviceCost);
         order.setOrderYear(""+(timeChoosen.getYear()+1900));
+
         String orderUniqueKey = orderReference.push().getKey();
         orderReference.child(orderUniqueKey).setValue(order);
         Intent moveToSearchingPage = new Intent(this, SearchingDailyMaidActivity.class);

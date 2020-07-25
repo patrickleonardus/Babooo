@@ -65,7 +65,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private void showNotification(Map<String, String> payload) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        builder.setSmallIcon(R.drawable.logo_bantoo);
+        builder.setSmallIcon(R.drawable.group_2);
         builder.setContentTitle(payload.get("username"));
         builder.setContentText(payload.get("text"));
 
