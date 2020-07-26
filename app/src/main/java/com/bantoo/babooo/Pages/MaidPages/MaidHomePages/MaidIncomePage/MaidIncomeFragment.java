@@ -77,24 +77,21 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
         View rootView = inflater.inflate(R.layout.fragment_maid_income, container, false);
 
 
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(getActivity(), new OnSuccessListener<InstanceIdResult>() {
-            @Override
-            public void onSuccess(InstanceIdResult instanceIdResult) {
-                String token = instanceIdResult.getToken();
-                Log.i("FCM Token", token);
-                SharedPreferences accountDataSharedPreferences = getActivity().getSharedPreferences("accountData", Context.MODE_PRIVATE);
-                String uid = accountDataSharedPreferences.getString("uid", "");
-                Log.d("ON NEW TOKEN", "onNewToken: created new token");
-                DatabaseReference reference;
-                if(accountDataSharedPreferences.getString("role", "").equals("art")) {
-                    reference = FirebaseDatabase.getInstance().getReference("ART").child(uid);
-                } else if(accountDataSharedPreferences.getString("role", "").equals("artBulanan")) {
-                    reference = FirebaseDatabase.getInstance().getReference("ARTBulanan").child(uid);
-                } else {
-                    reference = FirebaseDatabase.getInstance().getReference("Users").child(uid);
-                }
-                reference.child("token").setValue(token);
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(getActivity(), instanceIdResult -> {
+            String token = instanceIdResult.getToken();
+            Log.i("FCM Token", token);
+            SharedPreferences accountDataSharedPreferences = getActivity().getSharedPreferences("accountData", Context.MODE_PRIVATE);
+            String uid = accountDataSharedPreferences.getString("uid", "");
+            Log.d("ON NEW TOKEN", "onNewToken: created new token");
+            DatabaseReference reference;
+            if(accountDataSharedPreferences.getString("role", "").equals("art")) {
+                reference = FirebaseDatabase.getInstance().getReference("ART").child(uid);
+            } else if(accountDataSharedPreferences.getString("role", "").equals("artBulanan")) {
+                reference = FirebaseDatabase.getInstance().getReference("ARTBulanan").child(uid);
+            } else {
+                reference = FirebaseDatabase.getInstance().getReference("Users").child(uid);
             }
+            reference.child("token").setValue(token);
         });
 
         statusTV = rootView.findViewById(R.id.status_TV);
