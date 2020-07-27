@@ -43,7 +43,7 @@ public class ExtendContractReminderActivity extends BaseActivity implements Adap
     private String rentUniqueKey, userPhoneNumber;
     private String startDate, coinsFee;
 
-    private Date renewStartDate;
+    private Date renewStartDate, startWorkingDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +77,8 @@ public class ExtendContractReminderActivity extends BaseActivity implements Adap
                 startDate = dataSnapshot.child("orderDate").getValue()+"-"+dataSnapshot.child("orderMonth").getValue()+"-"+dataSnapshot.child("orderYear").getValue();
                 DateFormat textFormat = new SimpleDateFormat("dd MMMM yyyy");
                 DateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
-                Date startWorkingDate = new Date(), endWorkingDate = new Date();
+                startWorkingDate = new Date();
+                Date endWorkingDate = new Date();
                 try {
                     startWorkingDate = format.parse(startDate);
                     Calendar c = Calendar.getInstance();
@@ -85,11 +86,12 @@ public class ExtendContractReminderActivity extends BaseActivity implements Adap
                     String duration = dataSnapshot.child("duration").getValue().toString();
                     //updateSpinnerData(duration);
                     c.add(Calendar.MONTH, Integer.parseInt(duration));
+                    startWorkingDate = c.getTime();
+                    c.add(Calendar.MONTH, 1);
                     endWorkingDate = c.getTime();
                     c.add(Calendar.DATE, 1);
-                    renewStartDate = c.getTime();
+                    //renewStartDate = c.getTime();
                 } catch(Exception e){}
-                startWorkingTV.setText(textFormat.format(startWorkingDate));
                 endWorkingTV.setText(textFormat.format(endWorkingDate));
                 loadMaidData(dataSnapshot.child("maidPhoneNumber").getValue().toString());
                 durationSpinner.setOnItemSelectedListener(ExtendContractReminderActivity.this);
@@ -196,15 +198,12 @@ public class ExtendContractReminderActivity extends BaseActivity implements Adap
         DateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
 
         Calendar c = Calendar.getInstance();
-        try {
-            c.setTime(format.parse(startDate));
+            c.setTime(startWorkingDate);
             DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
             startWorkingTV.setText(dateFormat.format(c.getTime()));
             c.add(Calendar.MONTH, Integer.parseInt(duration));
             endWorkingTV.setText(dateFormat.format(c.getTime()));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+
 
         coinsFeeTV.setText(""+Integer.parseInt(coinsFee) * Integer.parseInt(duration));
     }

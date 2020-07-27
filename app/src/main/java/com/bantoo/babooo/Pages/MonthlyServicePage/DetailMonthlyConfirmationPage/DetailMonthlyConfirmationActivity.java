@@ -192,7 +192,6 @@ public class DetailMonthlyConfirmationActivity extends BaseActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 maidNameTV.setText(dataSnapshot.child("name").getValue().toString());
                 maidRatingTV.setText(dataSnapshot.child("rating").getValue().toString());
-
             }
 
             @Override

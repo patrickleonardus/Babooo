@@ -145,7 +145,7 @@ public class OrdersFragment extends Fragment implements OrderItemClickListener {
                             ServiceSchedule serviceSchedule = new ServiceSchedule(orderDate, serviceType, maid,
                                     new DateFormatSymbols().getMonths()[monthNumber-1], status, orderTime, address, maidPhoneNumber);
                             serviceSchedule.setOrderID(snapshot.getKey());
-                            getMaidKey(maidPhoneNumber);
+                            //getMaidKey(maidPhoneNumber);
                             serviceScheduleList.add(serviceSchedule);
                         }
                     } else if(currentTypeOrder == PREVIOUS_ORDER) {
@@ -165,7 +165,7 @@ public class OrdersFragment extends Fragment implements OrderItemClickListener {
                             ServiceSchedule serviceSchedule = new ServiceSchedule(orderDate, serviceType, maid,
                                     new DateFormatSymbols().getMonths()[monthNumber-1], status, orderTime, address, maidPhoneNumber);
                             serviceSchedule.setOrderID(snapshot.getKey());
-                            getMaidKey(maidPhoneNumber);
+                            //getMaidKey(maidPhoneNumber);
                             serviceScheduleList.add(serviceSchedule);
                         }
                     }
@@ -291,20 +291,38 @@ public class OrdersFragment extends Fragment implements OrderItemClickListener {
         Intent moveToDetail;
         if(serviceScheduleList.get(position).getServiceType().equals("Bantoo Bulanan")) {
             moveToDetail = new Intent(getContext(), DetailMonthlyConfirmationActivity.class);
-            moveToDetail.putExtra("orderUniqueKey", serviceScheduleList.get(position).getOrderID());
-            moveToDetail.putExtra("maidUniqueKey", maidIDList.get(position));
-            moveToDetail.putExtra("sender", "orderFragment");
+            monthlyMaidReference.orderByChild("phoneNumber")
+                    .equalTo(serviceScheduleList.get(position).getMaidPhoneNumber())
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                                moveToDetail.putExtra("orderUniqueKey", serviceScheduleList.get(position).getOrderID());
+                                moveToDetail.putExtra("sender", "orderFragment");
+                                moveToDetail.putExtra("maidUniqueKey", snapshot.getKey());
+                                startActivity(moveToDetail);
+                                return;
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+            //moveToDetail.putExtra("maidUniqueKey", maidIDList.get(position));
         } else {
             if(serviceScheduleList.get(position).getMaid().equals("maid")) {
                 moveToDetail = new Intent(getContext(), SearchingDailyMaidActivity.class);
                 moveToDetail.putExtra("sender", "orders");
                 moveToDetail.putExtra("orderUniqueKey", serviceScheduleList.get(position).getOrderID());
+                startActivity(moveToDetail);
             } else {
                 moveToDetail = new Intent(getContext(), DetailDailyConfirmationActivity.class);
                 moveToDetail.putExtra("orderUniqueKey", serviceScheduleList.get(position).getOrderID());
                 moveToDetail.putExtra("sender", "orderFragment");
+                startActivity(moveToDetail);
             }
         }
-        startActivity(moveToDetail);
     }
 }
