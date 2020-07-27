@@ -41,6 +41,12 @@
             android:textSize="16sp" />
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/darker_gray" />
+
     <LinearLayout
         android:id="@+id/perpanjang_kontrak_mitra_monthly_options"
         android:layout_width="150dp"
@@ -50,7 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Perpanjang Kontrak"
+            android:text="Pembaharuan Kontrak"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="16sp" />

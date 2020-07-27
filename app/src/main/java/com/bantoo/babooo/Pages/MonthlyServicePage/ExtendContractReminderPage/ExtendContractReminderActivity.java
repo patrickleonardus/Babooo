@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -21,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -28,7 +30,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-public class ExtendContractReminderActivity extends BaseActivity {
+public class ExtendContractReminderActivity extends BaseActivity implements AdapterView.OnItemClickListener {
 
     private static final String TAG = "ExtendContract";
 
@@ -39,6 +41,7 @@ public class ExtendContractReminderActivity extends BaseActivity {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference rentReference, monthlyMaidReference, userReference;
     private String rentUniqueKey, userPhoneNumber;
+    private String startDate, coinsFee;
 
     private Date renewStartDate;
 
@@ -65,12 +68,13 @@ public class ExtendContractReminderActivity extends BaseActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 userPhoneNumber = dataSnapshot.child("phoneNumber").getValue().toString();
+                coinsFee = dataSnapshot.child("serviceCost").getValue().toString();
                 coinsFeeTV.setText(dataSnapshot.child("serviceCost").getValue().toString());
                 maidNameTV.setText(dataSnapshot.child("maid").getValue().toString());
                 orderNumberTV.setText(dataSnapshot.getKey());
                 maidStatusTV.setText(dataSnapshot.child("status").getValue().toString());
                 serviceNameTV.setText(dataSnapshot.child("serviceType").getValue().toString());
-                String startDate = dataSnapshot.child("orderDate").getValue()+"-"+dataSnapshot.child("orderMonth").getValue()+"-"+dataSnapshot.child("orderYear").getValue();
+                startDate = dataSnapshot.child("orderDate").getValue()+"-"+dataSnapshot.child("orderMonth").getValue()+"-"+dataSnapshot.child("orderYear").getValue();
                 DateFormat textFormat = new SimpleDateFormat("dd MMMM yyyy");
                 DateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
                 Date startWorkingDate = new Date(), endWorkingDate = new Date();
@@ -144,6 +148,7 @@ public class ExtendContractReminderActivity extends BaseActivity {
                 updateCoins();
             }
         });
+        durationSpinner.setOnItemClickListener(this);
     }
 
     private void updateCoins() {
@@ -177,5 +182,29 @@ public class ExtendContractReminderActivity extends BaseActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        String duration = "";
+        int counter = 0;
+        while (durationSpinner.getSelectedItem().toString().charAt(counter) != ' ') {
+            duration += durationSpinner.getSelectedItem().toString().charAt(counter);
+            counter++;
+        }
+        DateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+
+        Calendar c = Calendar.getInstance();
+        try {
+            c.setTime(format.parse(startDate));
+            DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
+            startWorkingTV.setText(dateFormat.format(c.getTime()));
+            c.add(Calendar.MONTH, Integer.parseInt(duration));
+            endWorkingTV.setText(dateFormat.format(c.getTime()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        coinsFeeTV.setText(Integer.parseInt(coinsFee) * Integer.parseInt(duration));
     }
 }
