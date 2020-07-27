@@ -38,7 +38,7 @@ public class SalaryConfirmationActivity extends BaseActivity {
     private static final String TAG = "SalaryConfirmation";
 
     private Spinner monthSpinner;
-    private TextView nomorPesananTV, salaryMaidTV, finishEstimationTV, nameMaidTV, startDateTV, ratingMaidTV;
+    private TextView nomorPesananTV, salaryMaidTV, finishEstimationTV, nameMaidTV, startDateTV, ratingMaidTV, tanggalBayarSekarangTV;
     private ImageView tanggalPembayaranIV;
     private String rentUniqueKey;
     private Button confirmSalaryBtn;
@@ -72,6 +72,7 @@ public class SalaryConfirmationActivity extends BaseActivity {
                 String startDate = dataSnapshot.child("orderDate").getValue()+"-"+dataSnapshot.child("orderMonth").getValue()+"-"+dataSnapshot.child("orderYear").getValue();
                 DateFormat textFormat = new SimpleDateFormat("dd MMMM yyyy");
                 DateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+                tanggalBayarSekarangTV.setText(textFormat.format(new Date()));
                 Date startWorkingDate = new Date(), endWorkingDate = new Date();
                 try {
                     startWorkingDate = format.parse(startDate);
@@ -134,6 +135,7 @@ public class SalaryConfirmationActivity extends BaseActivity {
         nomorPesananTV = findViewById(R.id.nomor_pesanan_TV_salary_confirm);
         ratingMaidTV = findViewById(R.id.rating_maid_TV_salary_confirm);
         tanggalPembayaranIV = findViewById(R.id.tanggal_pembayaran_IV_salary_confirm);
+        tanggalBayarSekarangTV = findViewById(R.id.tanggal_bayar_sekarang);
 
         monthSpinner = findViewById(R.id.spinner_month_salary_confirmation);
         confirmSalaryBtn = findViewById(R.id.salary_month_confirmation_BTN);
