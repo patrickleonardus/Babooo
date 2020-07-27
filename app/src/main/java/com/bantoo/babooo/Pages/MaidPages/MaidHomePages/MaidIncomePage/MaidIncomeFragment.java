@@ -207,9 +207,12 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
                     usernameTV.setText(snapshot.child("name").getValue().toString());
                     String salary = snapshot.child("salary").getValue().toString();
                     String tidySalary = NumberFormat.getNumberInstance(Locale.GERMAN).format(Integer.parseInt(salary));
-                    totalCoinsTV.setText("Rp "+tidySalary);
+                    //totalCoinsTV.setText("Rp "+tidySalary);
                     if (snapshot.child("activate").getValue() != null) {
                         activeSwitch.setChecked(Boolean.parseBoolean(snapshot.child("activate").getValue().toString()));
+                        if(Boolean.parseBoolean(snapshot.child("activate").getValue().toString())) {
+                            statusTV.setText("Aktif");
+                        } else { statusTV.setText("Tidak Aktif"); }
                     }
                     activeSwitch.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -223,7 +226,7 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
                                 alertDialogBuilder.setTitle("Apakah anda ingin menyalakan pesanan?");
                             }
                             alertDialogBuilder
-                                    .setMessage("Pesanan yang sudah ditolak tidak bisa diterima kembali")
+                                    .setMessage("")
                                     .setCancelable(false)
                                     .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                                         @Override
@@ -271,10 +274,20 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
                             rating += Integer.parseInt(snapshot.child("rating").getValue().toString());
                             totalOrder++;
                         }
-                        int duration = Integer.parseInt(snapshot.child("duration").getValue().toString());
-                        int totalSalary = duration * Integer.parseInt(salary);
+                        int paidMonth = 1;
+                        int multiplySalary = 0;
+                        while(snapshot.child("Gaji Bulan Ke "+paidMonth).getValue() != null) {
+                            if(snapshot.child("Gaji Bulan Ke "+paidMonth).getValue().toString().equals("Sudah Dibayar")) {
+                                multiplySalary++;
+                            }
+                        }
+                        int totalSalary = Integer.parseInt(salary) * multiplySalary;
                         String tidyTotalSalary = NumberFormat.getNumberInstance(Locale.GERMAN).format(totalSalary);
-                        inRupiahTV.setText("dari total kontrak Rp. " + tidyTotalSalary);
+                        totalCoinsTV.setText("Rp "+tidyTotalSalary);
+                        int duration = Integer.parseInt(snapshot.child("duration").getValue().toString());
+                        //int totalSalary = duration * Integer.parseInt(salary);
+                        //String tidyTotalSalary = NumberFormat.getNumberInstance(Locale.GERMAN).format(totalSalary);
+                        //inRupiahTV.setText("dari total kontrak Rp. " + tidyTotalSalary);
                         Date now = new Date();
                         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
                         String orderDate = snapshot.child("orderDate").getValue().toString();
@@ -339,6 +352,9 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
                         float ratingDecimal = Float.parseFloat(snapshot.child("rating").getValue().toString());
                         activateRating((int) ratingDecimal);
                     }
+                    int coinsSaatIni = Integer.parseInt(snapshot.child("coins").getValue().toString());
+                    totalCoinsTV.setText(coinsSaatIni+" koin");
+                    inRupiahTV.setText("Setara dengan Rp. "+coinsSaatIni*300);
                     /*
                     String totalKoin = "0";
                     if(snapshot.child("coins").getValue() != null) {
@@ -447,8 +463,8 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
                         counter++;
                     }
                 }
-                totalCoinsTV.setText(totalKoinThisMonth+" koin");
-                inRupiahTV.setText("Setara dengan Rp. "+(totalKoinThisMonth*300));
+                //totalCoinsTV.setText(totalKoinThisMonth+" koin");
+                //inRupiahTV.setText("Setara dengan Rp. "+(totalKoinThisMonth*300));
                 if(counter == 0) counter = 1;
                 float averageRating = totalRating / counter;
                 dailyCoinsTV.setText(totalFee+" koin");
