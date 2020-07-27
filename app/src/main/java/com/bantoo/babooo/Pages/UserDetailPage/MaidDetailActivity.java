@@ -40,7 +40,7 @@ public class MaidDetailActivity extends BaseActivity {
     private String maidUniqueKey;
 
     private ImageView rating1IV, rating2IV, rating3IV, rating4IV, rating5IV, closeBtn;
-    private TextView maidNameTV, maidAgeTV, maidAddressTV, ratingTV;
+    private TextView maidNameTV, maidAgeTV, maidAddressTV, ratingTV, gajiTV;
     private Button recruitButton;
     private ProgressBar cuciPB, setrikaPB, sapuPB, kmrmandiPB;
     private RecyclerView riwayatPesananRV;
@@ -108,6 +108,7 @@ public class MaidDetailActivity extends BaseActivity {
         monthlyMaidReference.child(maidUniqueKey).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                gajiTV.setText("Rp "+dataSnapshot.child("salary").getValue().toString());
                 maidNameTV.setText(dataSnapshot.child("name").getValue().toString());
                 //maidAgeTV.setText(dataSnapshot.child("age").getValue().toString());
                 try {
@@ -183,6 +184,7 @@ public class MaidDetailActivity extends BaseActivity {
         rating4IV = findViewById(R.id.rating_image4_maid_detail);
         rating5IV = findViewById(R.id.rating_image5_maid_detail);
         maidNameTV = findViewById(R.id.maid_name_TV_maid_detail);
+        gajiTV = findViewById(R.id.gaji_TV);
         maidAgeTV = findViewById(R.id.maid_age_TV_maid_detail);
         maidAddressTV = findViewById(R.id.maid_address_TV_maid_detail);
         ratingTV = findViewById(R.id.rating_tv_maid_detail);
