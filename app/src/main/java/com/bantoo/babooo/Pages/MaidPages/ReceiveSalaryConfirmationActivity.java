@@ -68,6 +68,7 @@ public class ReceiveSalaryConfirmationActivity extends BaseActivity {
                             Map<String, Object> salaryConfirmMap = new HashMap<String, Object>();
                             salaryConfirmMap.put("ART", "Sudah dikonfirmasi oleh ART");
                             snapshot.getRef().child("gaji Bulan ke "+runningMonth).setValue(salaryConfirmMap);
+                            finish();
                         }
                     }
 

@@ -135,6 +135,7 @@ public class MaidBiodataActivity extends BaseActivity {
                     ttlTV.setText(snapshot.child("ttl").getValue().toString());
                     alamatTV.setText(snapshot.child("address").getValue().toString());
                     emailTV.setText(snapshot.child("email").getValue().toString());
+                    gajiTV.setText(snapshot.child("salary").getValue().toString());
                     if(snapshot.child("experience").getValue() != null) {
                         pengalamanKerjaTV.setText(snapshot.child("experience").getValue().toString());
                     }
