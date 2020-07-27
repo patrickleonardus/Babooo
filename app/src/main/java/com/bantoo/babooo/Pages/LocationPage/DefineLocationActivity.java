@@ -137,6 +137,7 @@ public class DefineLocationActivity extends BaseActivity implements OnMapReadyCa
                 Style style = mapboxMap.getStyle();
                 if (style != null) {
                     GeoJsonSource source = style.getSourceAs("geojsonSourceLayerId");
+
                     if (source != null) {
                         source.setGeoJson(FeatureCollection.fromFeatures(
                                 new Feature[] {Feature.fromJson(selectedCarmenFeature.toJson())}));
@@ -286,7 +287,7 @@ public class DefineLocationActivity extends BaseActivity implements OnMapReadyCa
         longitudeLocation = location.getLongitude();
         MapboxGeocoding reverseGeocode = MapboxGeocoding.builder()
                 .accessToken(getString(R.string.mapbox_access_token))
-                .query(Point.fromLngLat(location.getLongitude(), location.getLatitude()))
+                .query(Point.fromLngLat(longitudeLocation, latitudeLocation))
                 .geocodingTypes(GeocodingCriteria.TYPE_ADDRESS)
                 .build();
         reverseGeocode.enqueueCall(new Callback<GeocodingResponse>() {

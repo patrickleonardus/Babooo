@@ -20,6 +20,10 @@ public class MaidNotFoundActivity extends BaseActivity {
     private DatabaseReference orderReference;
 
     @Override
+    public void onBackPressed() {
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maid_not_found);

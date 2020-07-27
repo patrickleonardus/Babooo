@@ -117,7 +117,7 @@
                         android:layout_marginTop="4dp"
                         android:text="Catatan : Upah ART setiap bulannya akan anda berikan secara tunai langsung kepada ART"
                         android:textColor="@color/orangePrimary"
-                        android:textSize="13sp"
+                        android:textSize="10sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -455,7 +455,7 @@
                             android:layout_marginTop="6dp"
                             android:text="Biaya diatas belum termasuk uang transportasi mitra dari kota asal. Silahkan komunikasikan kembali pada mitra pada saat kedatangan"
                             android:textColor="@color/orangePrimary"
-                            android:textSize="13sp"
+                            android:textSize="10sp"
                             android:textStyle="bold" />
 
                     </LinearLayout>

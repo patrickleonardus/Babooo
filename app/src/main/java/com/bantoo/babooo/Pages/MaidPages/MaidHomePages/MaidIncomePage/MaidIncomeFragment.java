@@ -24,20 +24,26 @@ import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.bantoo.babooo.Pages.MaidPages.MaidHomePages.MaidHomeActivity;
 import com.bantoo.babooo.Pages.MaidPages.ReceiveSalaryConfirmationActivity;
 import com.bantoo.babooo.Pages.MaidPages.WithdrawSalaryFormActivity;
 import com.bantoo.babooo.R;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+
+import static com.mapbox.mapboxsdk.Mapbox.getApplicationContext;
 
 public class MaidIncomeFragment extends Fragment implements LocationListener {
 
@@ -69,6 +75,24 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_maid_income, container, false);
+
+
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(getActivity(), instanceIdResult -> {
+            String token = instanceIdResult.getToken();
+            Log.i("FCM Token", token);
+            SharedPreferences accountDataSharedPreferences = getActivity().getSharedPreferences("accountData", Context.MODE_PRIVATE);
+            String uid = accountDataSharedPreferences.getString("uid", "");
+            Log.d("ON NEW TOKEN", "onNewToken: created new token");
+            DatabaseReference reference;
+            if(accountDataSharedPreferences.getString("role", "").equals("art")) {
+                reference = FirebaseDatabase.getInstance().getReference("ART").child(uid);
+            } else if(accountDataSharedPreferences.getString("role", "").equals("artBulanan")) {
+                reference = FirebaseDatabase.getInstance().getReference("ARTBulanan").child(uid);
+            } else {
+                reference = FirebaseDatabase.getInstance().getReference("Users").child(uid);
+            }
+            reference.child("token").setValue(token);
+        });
 
         statusTV = rootView.findViewById(R.id.status_TV);
         totalCoinsTV = rootView.findViewById(R.id.total_koin_TV);

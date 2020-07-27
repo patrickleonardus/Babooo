@@ -359,27 +359,46 @@ public class NewOrderFragment extends Fragment implements NewOrderClickListener,
                 .setCancelable(false)
                 .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        orderReference.child(serviceSchedulesList.get(position).getOrderID()).addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                if (dataSnapshot.child("maid").getValue().toString().equals("maid")) {
-                                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("accountData", MODE_PRIVATE);
-                                    String maidName = sharedPreferences.getString("maidName", "");
-                                    dataSnapshot.child("maid").getRef().setValue(maidName);
-                                    dataSnapshot.child("maidPhoneNumber").getRef().setValue(phoneNumber);
-                                    dataSnapshot.child("maidList").getRef().removeValue();
-                                    serviceSchedulesList.remove(position);
-                                    newOrderAdapter.notifyDataSetChanged();
-                                } else {
-                                    Log.d("PesananFragment", "onDataChange: order has been taken");
+                        if(artType.equals("monthly")) {
+                            orderReference.child(serviceSchedulesList.get(position).getOrderID()).child("accepted").setValue("Accepted");
+                            orderReference.orderByChild("maidPhoneNumber").equalTo(phoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                                        if(!snapshot.getKey().equals(serviceSchedulesList.get(position).getOrderID())) {
+                                            snapshot.child("accepted").getRef().setValue("Rejected");
+                                        }
+                                    }
                                 }
-                            }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                            }
-                        });
+                                }
+                            });
+                        } else {
+                            orderReference.child(serviceSchedulesList.get(position).getOrderID()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    if (dataSnapshot.child("maid").getValue().toString().equals("maid")) {
+                                        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("accountData", MODE_PRIVATE);
+                                        String maidName = sharedPreferences.getString("maidName", "");
+                                        dataSnapshot.child("maid").getRef().setValue(maidName);
+                                        dataSnapshot.child("maidPhoneNumber").getRef().setValue(phoneNumber);
+                                        dataSnapshot.child("maidList").getRef().removeValue();
+                                        serviceSchedulesList.remove(position);
+                                        newOrderAdapter.notifyDataSetChanged();
+                                    } else {
+                                        Log.d("PesananFragment", "onDataChange: order has been taken");
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+                        }
                     }
                 })
                 .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
@@ -401,23 +420,27 @@ public class NewOrderFragment extends Fragment implements NewOrderClickListener,
                 .setCancelable(false)
                 .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        orderReference.child(serviceSchedulesList.get(position).getOrderID())
-                                .child("maidList").orderByChild("maidPhoneNumber").equalTo(phoneNumber)
-                                .addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                            snapshot.getRef().removeValue();
-                                            serviceSchedulesList.remove(position);
-                                            newOrderAdapter.notifyDataSetChanged();
+                        if(artType.equals("monthly")) {
+                            orderReference.child(serviceSchedulesList.get(position).getOrderID()).child("accepted").setValue("Rejected");
+                        } else {
+                            orderReference.child(serviceSchedulesList.get(position).getOrderID())
+                                    .child("maidList").orderByChild("maidPhoneNumber").equalTo(phoneNumber)
+                                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                                snapshot.getRef().removeValue();
+                                                serviceSchedulesList.remove(position);
+                                                newOrderAdapter.notifyDataSetChanged();
+                                            }
                                         }
-                                    }
 
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                                    }
-                                });
+                                        }
+                                    });
+                        }
                     }
                 })
                 .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
