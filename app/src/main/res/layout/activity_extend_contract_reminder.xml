@@ -125,6 +125,7 @@
             </LinearLayout>
 
             <TextView
+                android:visibility="gone"
                 android:textStyle="italic|bold"
                 android:id="@+id/maid_status_extend_reminder"
                 android:layout_width="wrap_content"

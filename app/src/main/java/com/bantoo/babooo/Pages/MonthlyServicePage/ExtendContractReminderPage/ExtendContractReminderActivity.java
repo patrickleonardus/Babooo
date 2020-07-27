@@ -92,6 +92,7 @@ public class ExtendContractReminderActivity extends BaseActivity implements Adap
                 startWorkingTV.setText(textFormat.format(startWorkingDate));
                 endWorkingTV.setText(textFormat.format(endWorkingDate));
                 loadMaidData(dataSnapshot.child("maidPhoneNumber").getValue().toString());
+                durationSpinner.setOnItemSelectedListener(ExtendContractReminderActivity.this);
             }
 
             @Override
@@ -148,7 +149,7 @@ public class ExtendContractReminderActivity extends BaseActivity implements Adap
                 updateCoins();
             }
         });
-        durationSpinner.setOnItemSelectedListener(this);
+
     }
 
     private void updateCoins() {
@@ -205,7 +206,7 @@ public class ExtendContractReminderActivity extends BaseActivity implements Adap
             e.printStackTrace();
         }
 
-        coinsFeeTV.setText(Integer.parseInt(coinsFee) * Integer.parseInt(duration));
+        coinsFeeTV.setText(""+Integer.parseInt(coinsFee) * Integer.parseInt(duration));
     }
 
     @Override
