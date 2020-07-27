@@ -65,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@id/statusLabel_TV"
-                    android:text="Aktif"
+                    android:text="-"
                     android:textColor="@color/greenPrimary"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -130,7 +130,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:text="500 koin"
+                        android:text="-"
                         android:textColor="@color/quantum_yellow800"
                         android:textSize="28sp"
                         android:textStyle="bold" />
@@ -140,7 +140,7 @@
                     android:id="@+id/setara_rupiah_koin_TV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Setara dengan Rp. 150.000"
+                    android:text=" "
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="16sp"
@@ -338,7 +338,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
-                        android:text="270 koin"
+                        android:text="-"
                         android:textColor="@color/greenPrimary"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -353,7 +353,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="20dp"
                     android:max="100"
-                    android:progress="50"
+                    android:progress="0"
                     android:progressBackgroundTint="@color/greenPrimary"
                     android:progressTint="@color/greenPrimary"
                     android:scaleY="3" />
@@ -370,7 +370,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
-                        android:text="75%"
+                        android:text="-"
                         android:textColor="@color/greenPrimary"
                         android:textStyle="bold" />
 
@@ -379,7 +379,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="target: 360 koin"
+                        android:text="-"
                         android:textColor="@color/greenPrimary" />
                 </RelativeLayout>
             </LinearLayout>
@@ -445,7 +445,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
-                        android:text="5.0" />
+                        android:text="-" />
                 </LinearLayout>
             </RelativeLayout>
         </LinearLayout>
