@@ -182,6 +182,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/gaji_TV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Rp. 3.000.000 /bulan"
