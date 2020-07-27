@@ -269,7 +269,8 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
                     int rating = 0;
                     int totalOrder = 0;
-                    if(!snapshot.child("status").getValue().toString().equals("Sudah Selesai")) {
+                    if(!snapshot.child("status").getValue().toString().equals("Sudah Selesai")
+                            && snapshot.child("accepted").getValue().toString().equals("Accepted")) {
                         if(snapshot.child("rating").getValue() != null) {
                             rating += Integer.parseInt(snapshot.child("rating").getValue().toString());
                             totalOrder++;
@@ -299,7 +300,7 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
                             long diffInMillies = Math.abs(current.getTime() - firstOrder.getTime());
                             long diffInDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
                             Log.d(TAG, "onDataChange: diffinDays: "+diffInDays);
-                            diffInMonth = ((int) diffInDays / 30) + 1;
+                            diffInMonth = ((int) diffInDays / 30);
                             Log.d(TAG, "onDataChange: diffinMonth: "+diffInMonth);
                             String periodeBulan = "Bulan ke "+diffInMonth;
                             dailyCoinsTV.setText(periodeBulan);

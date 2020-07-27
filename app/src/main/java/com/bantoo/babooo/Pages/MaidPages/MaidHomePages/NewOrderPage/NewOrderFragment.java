@@ -125,7 +125,7 @@ public class NewOrderFragment extends Fragment implements NewOrderClickListener,
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        if (!snapshot.child("accepted").getValue().toString().equals("Accepted")) {
+                        if (snapshot.child("accepted").getValue().toString().equals("none")) {
                             userReference.orderByChild("phoneNumber").equalTo(snapshot.child("phoneNumber").getValue().toString())
                                     .addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
