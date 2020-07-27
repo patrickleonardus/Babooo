@@ -160,6 +160,13 @@ public class ExtendContractReminderActivity extends BaseActivity {
                         salaryConfirmMap.put("orderDate", "" + renewStartDate.getDate());
                         salaryConfirmMap.put("orderMonth", "" + (1 + renewStartDate.getMonth()));
                         salaryConfirmMap.put("orderYear", "" + (1900 + renewStartDate.getYear()));
+                        String duration = "";
+                        int counter = 0;
+                        while(durationSpinner.getSelectedItem().toString().charAt(counter) != ' ') {
+                            duration += durationSpinner.getSelectedItem().toString().charAt(counter);
+                            counter++;
+                        }
+                        salaryConfirmMap.put("duration", duration);
                         rentReference.updateChildren(salaryConfirmMap);
                     }
                 }

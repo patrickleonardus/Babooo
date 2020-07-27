@@ -70,7 +70,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:layout_marginLeft="4dp"
-            android:src="@drawable/logo_bantoo"
+            android:src="@drawable/icon3"
             app:civ_border="true" />
 
         <LinearLayout
@@ -263,7 +263,7 @@
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Rp. 3.000.000"
+            android:text="Rp. -"
             android:textSize="36px"
             android:textColor="@color/greenPrimary"/>
     </LinearLayout>
@@ -338,7 +338,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:text="Biaya diatas belum termasuk uang transportasi mitra dari kota asal. Silahkan komunikasikan kembali pada mitra pada saat kedatangan"
+                android:text="Dengan menkonfirmasi, maka layanan akan otomatis diperpanjang. Silahkan melakukan komunikasi terlebih dahulu dengan mitra ART."
                 android:textColor="@color/orangePrimary"
                 android:textSize="13sp"
                 android:textStyle="bold" />
