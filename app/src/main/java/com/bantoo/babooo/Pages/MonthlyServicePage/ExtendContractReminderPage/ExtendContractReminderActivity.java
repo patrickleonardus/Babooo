@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-public class ExtendContractReminderActivity extends BaseActivity implements AdapterView.OnItemClickListener {
+public class ExtendContractReminderActivity extends BaseActivity implements AdapterView.OnItemSelectedListener {
 
     private static final String TAG = "ExtendContract";
 
@@ -148,7 +148,7 @@ public class ExtendContractReminderActivity extends BaseActivity implements Adap
                 updateCoins();
             }
         });
-        durationSpinner.setOnItemClickListener(this);
+        durationSpinner.setOnItemSelectedListener(this);
     }
 
     private void updateCoins() {
@@ -183,9 +183,9 @@ public class ExtendContractReminderActivity extends BaseActivity implements Adap
             }
         });
     }
-
+    
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String duration = "";
         int counter = 0;
         while (durationSpinner.getSelectedItem().toString().charAt(counter) != ' ') {
@@ -206,5 +206,10 @@ public class ExtendContractReminderActivity extends BaseActivity implements Adap
         }
 
         coinsFeeTV.setText(Integer.parseInt(coinsFee) * Integer.parseInt(duration));
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }
