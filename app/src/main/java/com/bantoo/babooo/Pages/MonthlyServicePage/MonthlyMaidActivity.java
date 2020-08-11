@@ -105,7 +105,7 @@ public class MonthlyMaidActivity extends BaseActivity implements Serializable {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == REQUEST_FILTER){
-            if(resultCode == RESULT_OK){
+            if(resultCode == RESULT_OK) {
                 filterSearches = (ArrayList<FilterSearch>) data.getSerializableExtra(FILTERINTENT);
                 applyFilter();
             }

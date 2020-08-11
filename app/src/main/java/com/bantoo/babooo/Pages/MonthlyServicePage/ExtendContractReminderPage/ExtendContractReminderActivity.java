@@ -3,6 +3,7 @@ package com.bantoo.babooo.Pages.MonthlyServicePage.ExtendContractReminderPage;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bantoo.babooo.Pages.MaidPages.ReceiveSalaryConfirmationActivity;
 import com.bantoo.babooo.R;
 import com.bantoo.babooo.Utilities.BaseActivity;
 import com.google.firebase.database.DataSnapshot;
@@ -148,7 +150,19 @@ public class ExtendContractReminderActivity extends BaseActivity implements Adap
         renewContractBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateCoins();
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        ExtendContractReminderActivity.this);
+                alertDialogBuilder.setTitle("Apakah Anda ingin memperpanjang kontak");
+                alertDialogBuilder.setMessage("Jika sudah diperpanjang, tidak dapat dibatalkan.")
+                        .setCancelable(false)
+                        .setPositiveButton("OK", (dialog, id) -> {
+                            updateCoins();
+                        })
+                        .setNegativeButton("Tidak", (dialog, id) -> {
+                            dialog.cancel();
+                        });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
             }
         });
 
@@ -164,18 +178,20 @@ public class ExtendContractReminderActivity extends BaseActivity implements Adap
                         Toast.makeText(ExtendContractReminderActivity.this, "Not enough Coins", Toast.LENGTH_SHORT).show();
                     } else {
                         snapshot.child("coins").getRef().setValue(currentCoins - Integer.parseInt(coinsFeeTV.getText().toString()));
-                        Map<String, Object> salaryConfirmMap = new HashMap<String, Object>();
+                        /*Map<String, Object> salaryConfirmMap = new HashMap<String, Object>();
                         salaryConfirmMap.put("orderDate", "" + renewStartDate.getDate());
                         salaryConfirmMap.put("orderMonth", "" + (1 + renewStartDate.getMonth()));
-                        salaryConfirmMap.put("orderYear", "" + (1900 + renewStartDate.getYear()));
+                        salaryConfirmMap.put("orderYear", "" + (1900 + renewStartDate.getYear()));*/
                         String duration = "";
                         int counter = 0;
                         while(durationSpinner.getSelectedItem().toString().charAt(counter) != ' ') {
                             duration += durationSpinner.getSelectedItem().toString().charAt(counter);
                             counter++;
                         }
-                        salaryConfirmMap.put("duration", duration);
-                        rentReference.updateChildren(salaryConfirmMap);
+                        int currentDuration = Integer.parseInt(snapshot.child("duration").getValue().toString());
+                        rentReference.child("duration").setValue(currentDuration + Integer.parseInt(duration));
+                        /*salaryConfirmMap.put("duration", duration);
+                        rentReference.updateChildren(salaryConfirmMap);*/
                     }
                 }
             }

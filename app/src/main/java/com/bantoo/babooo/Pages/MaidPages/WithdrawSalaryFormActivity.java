@@ -71,7 +71,7 @@ public class WithdrawSalaryFormActivity extends BaseActivity {
                     coinsValue = Integer.parseInt(coinsWithdrawET.getText().toString());
                 }
 
-                inRupiahTV.setText("Rp "+(coinsValue*3000));
+                inRupiahTV.setText("Rp "+(coinsValue*300));
             }
         });
         withdrawSalaryBtn.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +87,10 @@ public class WithdrawSalaryFormActivity extends BaseActivity {
     }
 
     private void addRequestToFirebase() {
+        /*
+        * WITHDRAWREQUEST
+        *   -jkHJSHDAA
+        * */
         withdrawReference.orderByChild("phoneNumber").equalTo(phoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

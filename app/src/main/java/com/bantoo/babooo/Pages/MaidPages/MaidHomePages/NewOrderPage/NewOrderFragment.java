@@ -31,10 +31,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -185,11 +189,25 @@ public class NewOrderFragment extends Fragment implements NewOrderClickListener,
                                 DateOrder dateOrder = new DateOrder(snapshot.child("orderDate").getValue().toString()
                                         , snapshot.child("orderMonth").getValue().toString());
                                 dateOrderList.add(dateOrder);
-                                dateIncomingOrderAdapter.notifyDataSetChanged();
                             }
                         } catch (Exception e) {
                         }
                     }
+                    Collections.sort(dateOrderList, new Comparator<DateOrder>() {
+                        @Override
+                        public int compare(DateOrder o1, DateOrder o2) {
+                            Date now = new Date();
+                            DateFormat format = new SimpleDateFormat("dd MM yyyy", Locale.ENGLISH);
+                            Date date1 = new Date(), date2 = new Date();
+                            try {
+                                date1 = format.parse(o1.getDateOrder() + " " + o1.getMonthOrder() + " " + (now.getYear() + 1900));
+                                date2 = format.parse(o2.getDateOrder() + " " + o2.getMonthOrder() + " " + (now.getYear() + 1900));
+                            } catch (Exception e) {}
+
+                            return date1.compareTo(date2);
+                        }
+                    });
+                    dateIncomingOrderAdapter.notifyDataSetChanged();
                     if (!dateOrderList.isEmpty()) {
                         retrieveIncomingOrderList();
                     }
@@ -357,48 +375,46 @@ public class NewOrderFragment extends Fragment implements NewOrderClickListener,
         alertDialogBuilder
                 .setMessage("Pesanan yang sudah diterima tidak bisa dibatalkan")
                 .setCancelable(false)
-                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        if(artType.equals("monthly")) {
-                            orderReference.child(serviceSchedulesList.get(position).getOrderID()).child("accepted").setValue("Accepted");
-                            orderReference.orderByChild("maidPhoneNumber").equalTo(phoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                                        if(!snapshot.getKey().equals(serviceSchedulesList.get(position).getOrderID())) {
-                                            snapshot.child("accepted").getRef().setValue("Rejected");
-                                        }
+                .setPositiveButton("Ya", (dialog, id) -> {
+                    if(artType.equals("monthly")) {
+                        orderReference.child(serviceSchedulesList.get(position).getOrderID()).child("accepted").setValue("Accepted");
+                        orderReference.orderByChild("maidPhoneNumber").equalTo(phoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                                    if(!snapshot.getKey().equals(serviceSchedulesList.get(position).getOrderID())) {
+                                        snapshot.child("accepted").getRef().setValue("Rejected");
                                     }
                                 }
+                            }
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
 
+                            }
+                        });
+                    } else {
+                        orderReference.child(serviceSchedulesList.get(position).getOrderID()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.child("maid").getValue().toString().equals("maid")) {
+                                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("accountData", MODE_PRIVATE);
+                                    String maidName = sharedPreferences.getString("maidName", "");
+                                    dataSnapshot.child("maid").getRef().setValue(maidName);
+                                    dataSnapshot.child("maidPhoneNumber").getRef().setValue(phoneNumber);
+                                    dataSnapshot.child("maidList").getRef().removeValue();
+                                    serviceSchedulesList.remove(position);
+                                    newOrderAdapter.notifyDataSetChanged();
+                                } else {
+                                    Log.d("PesananFragment", "onDataChange: order has been taken");
                                 }
-                            });
-                        } else {
-                            orderReference.child(serviceSchedulesList.get(position).getOrderID()).addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    if (dataSnapshot.child("maid").getValue().toString().equals("maid")) {
-                                        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("accountData", MODE_PRIVATE);
-                                        String maidName = sharedPreferences.getString("maidName", "");
-                                        dataSnapshot.child("maid").getRef().setValue(maidName);
-                                        dataSnapshot.child("maidPhoneNumber").getRef().setValue(phoneNumber);
-                                        dataSnapshot.child("maidList").getRef().removeValue();
-                                        serviceSchedulesList.remove(position);
-                                        newOrderAdapter.notifyDataSetChanged();
-                                    } else {
-                                        Log.d("PesananFragment", "onDataChange: order has been taken");
-                                    }
-                                }
+                            }
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                                }
-                            });
-                        }
+                            }
+                        });
                     }
                 })
                 .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {

@@ -3,6 +3,7 @@ package com.bantoo.babooo.Pages.MaidPages;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,7 +38,7 @@ public class ReceiveSalaryConfirmationActivity extends BaseActivity {
     DatabaseReference rentReference, userReference, maidReference;
     String phoneNumber;
     String bossPhoneNumber;
-    int runningMonth;
+    int runningMonth, loop = 1, found;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,31 +95,66 @@ public class ReceiveSalaryConfirmationActivity extends BaseActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                    bossPhoneNumber = snapshot.child("phoneNumber").getValue().toString();
+                    String duration = snapshot.child("duration").getValue().toString();
+                        Log.d("ReceieveSalaryConfirm", "onDataChange: gaji ke "+loop);
+                        snapshot.getRef().child("gaji Bulan ke "+loop).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot gajiSnapshot) {
+                                if(gajiSnapshot.exists()) {
+                                    Log.d("ReceieveSalaryConfirm", "onDataChange: snapshot gaji exist ");
+                                    if(gajiSnapshot.child("ART").getValue() == null) {
+                                        Log.d("ReceieveSalaryConfirm", "onDataChange: ");
+                                        bossPhoneNumber = snapshot.child("phoneNumber").getValue().toString();
                     /*int monthOrder = Integer.parseInt(snapshot.child("orderMonth").getValue().toString());
                     String month = new DateFormatSymbols().getMonths()[monthOrder-1];*/
-                    orderNumberTV.setText(snapshot.getKey());
-                    String duration = snapshot.child("duration").getValue().toString();
-                    monthlyIncomeStatusTV.setText("Bulan ke "+runningMonth+" dari "+duration);
-                    String startDate = snapshot.child("orderDate").getValue().toString();
-                    String startMonth = snapshot.child("orderMonth").getValue().toString();
-                    String month = new DateFormatSymbols().getMonths()[Integer.parseInt(startMonth)-1];
-                    String startYear = snapshot.child("orderYear").getValue().toString();
-                    String combineStartOrderDate = startDate + "-" + startMonth + "-" + startYear;
-                    DateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
-                    try {
-                        Date startOrder = format.parse(combineStartOrderDate);
-                        Calendar c = Calendar.getInstance();
-                        c.setTime(startOrder);
-                        c.add(Calendar.MONTH, Integer.parseInt(duration));
-                        Date endOrder = c.getTime();
-                        String endMonth = new DateFormatSymbols().getMonths()[endOrder.getMonth()];
-                        Log.d("Receive", "onDataChange: ");
-                        periodTV.setText(startDate + " " + month + " - " + endOrder.getDate() + " " + endMonth + (endOrder.getYear()+1900));
-                        incomeStartDateTV.setText(startDate + " " + month + " " + (startOrder.getYear()+1900));
-                    } catch (Exception e) {}
-                    getUserData();
-                }
+                                        orderNumberTV.setText(snapshot.getKey());
+                                        monthlyIncomeStatusTV.setText("Bulan ke "+loop+" dari "+duration);
+                                        String startDate = snapshot.child("orderDate").getValue().toString();
+                                        String startMonth = snapshot.child("orderMonth").getValue().toString();
+                                        String month = new DateFormatSymbols().getMonths()[Integer.parseInt(startMonth)-1];
+                                        String startYear = snapshot.child("orderYear").getValue().toString();
+                                        String combineStartOrderDate = startDate + "-" + startMonth + "-" + startYear;
+                                        DateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+                                        DateFormat fullMonthformat = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
+                                        try {
+                                            Date dibayarTime = new Date(Long.parseLong(gajiSnapshot.child("dibayarTime").getValue().toString()));
+                                            Date startOrder = format.parse(combineStartOrderDate);
+                                            Calendar c = Calendar.getInstance();
+                                            c.setTime(startOrder);
+                                            c.add(Calendar.MONTH, Integer.parseInt(duration));
+                                            Date endOrder = c.getTime();
+                                            String endMonth = new DateFormatSymbols().getMonths()[endOrder.getMonth()];
+                                            Log.d("Receive", "onDataChange: ");
+                                            periodTV.setText(startDate + " " + month + " - " + endOrder.getDate() + " " + endMonth + (endOrder.getYear()+1900));
+                                            incomeStartDateTV.setText(fullMonthformat.format(dibayarTime));
+                                        } catch (Exception e) {
+                                            Log.d("ReceieveSalaryConfirm", "onDataChange: converting date error");
+                                        }
+                                        getUserData();
+                                    } else {
+                                        loop += 1;
+                                        showView();
+                                    }
+                                } else {
+                                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                                            ReceiveSalaryConfirmationActivity.this);
+                                    alertDialogBuilder.setTitle("Pengguna layanan belum mengkonfirmasi gaji anda");
+                                    alertDialogBuilder.setMessage("Buka halaman ini ketika pengguna sudah konfirmasi")
+                                            .setCancelable(false)
+                                            .setPositiveButton("OK", (dialog, id) -> {
+                                                finish();
+                                            });
+                                    AlertDialog alertDialog = alertDialogBuilder.create();
+                                    alertDialog.show();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
             }
 
             @Override

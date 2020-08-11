@@ -93,7 +93,7 @@ public class SettingsActivity extends BaseActivity {
                             }
                         });
             } else {
-                alertDialogBuilder.setTitle("Apakah anda ingin menyalakan notifikasi?");
+                alertDialogBuilder.setTitle("Apakah anda ingin mematikan notifikasi?");
                 alertDialogBuilder
                         .setCancelable(false)
                         .setPositiveButton("Ya", new DialogInterface.OnClickListener() {

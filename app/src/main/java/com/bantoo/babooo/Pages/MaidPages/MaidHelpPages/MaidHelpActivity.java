@@ -28,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -56,8 +57,6 @@ public class MaidHelpActivity extends BaseActivity implements MaidHelpListClicke
         loadReportList();
     }
 
-
-
     public void loadReportList(){
         reportList.clear();
         reportReference.orderByChild("phoneNumber").equalTo(phoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -77,7 +76,13 @@ public class MaidHelpActivity extends BaseActivity implements MaidHelpListClicke
                     report.setReportKey(key);
                     reportList.add(report);
                 }
-                Collections.sort(reportList, new ReportComparator());
+                Collections.sort(reportList, new Comparator<Report>() {
+                    @Override
+                    public int compare(Report t1, Report t2) {
+                        return Long.compare(t2.getReportTimeStamp(), t1.getReportTimeStamp());
+                    }
+                });
+                //Collections.sort(reportList, new ReportComparator());
                 maidHelpListAdapter.notifyDataSetChanged();
             }
 

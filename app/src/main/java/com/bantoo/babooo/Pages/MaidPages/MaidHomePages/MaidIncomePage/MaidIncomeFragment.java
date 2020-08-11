@@ -37,6 +37,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -75,7 +77,6 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_maid_income, container, false);
-
 
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(getActivity(), instanceIdResult -> {
             String token = instanceIdResult.getToken();
@@ -348,9 +349,14 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
                     } else if (snapshot.child("activate").getValue().toString().equals("false")) {
                         statusTV.setText("Tidak Aktif");
                     }
+                    //double = 16 angka dibelakang koma
+                    //float = 8 angka dibelakang koma
+                    //int, short, long =
                     if(snapshot.child("rating").getValue() != null) {
-                        ratingMaidTV.setText(snapshot.child("rating").getValue().toString());
                         float ratingDecimal = Float.parseFloat(snapshot.child("rating").getValue().toString());
+                        BigDecimal bd = BigDecimal.valueOf(ratingDecimal);
+                        bd = bd.setScale(1, RoundingMode.HALF_UP);
+                        ratingMaidTV.setText(""+bd);
                         activateRating((int) ratingDecimal);
                     }
                     int coinsSaatIni = Integer.parseInt(snapshot.child("coins").getValue().toString());
@@ -381,7 +387,7 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
                                 alertDialogBuilder.setTitle("Apakah anda ingin menyalakan pesanan?");
                             }
                             alertDialogBuilder
-                                    .setMessage("Pesanan yang sudah ditolak tidak bisa diterima kembali")
+                                    .setMessage("...")
                                     .setCancelable(false)
                                     .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                                         @Override
@@ -460,7 +466,7 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
                     if(Integer.parseInt(currentDate) == Integer.parseInt(orderDate) &&
                             Integer.parseInt(currentMonth) == Integer.parseInt(orderMonth) &&
                             Integer.parseInt(currentYear) == Integer.parseInt(orderYear)) {
-                        totalFee += Integer.parseInt(snapshot.child("serviceCost").getValue().toString());
+                        totalFee += Integer.parseInt(snapshot.child("serviceCost").getValue().toString()) - 10;
                         counter++;
                     }
                 }
@@ -475,7 +481,10 @@ public class MaidIncomeFragment extends Fragment implements LocationListener {
                 if (targetKoin == 0) {
                     dailyPercentageTV.setText("0%");
                 } else {
-                    dailyPercentageTV.setText("" + totalFee / targetKoin * 100);
+                    float dailyPercentage = ((float) totalFee / (float)targetKoin) * 100;
+                    BigDecimal bd = BigDecimal.valueOf(dailyPercentage);
+                    bd = bd.setScale(1, RoundingMode.HALF_UP);
+                    dailyPercentageTV.setText(bd +"%");
                 }
                 incomePB.setMax(targetKoin);
             }

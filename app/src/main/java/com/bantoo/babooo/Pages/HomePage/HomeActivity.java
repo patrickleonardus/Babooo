@@ -30,6 +30,7 @@ public class HomeActivity extends BaseActivity {
     private OrdersFragment ordersFragment;
     private ProfileFragment profileFragment;
 
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

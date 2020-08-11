@@ -58,9 +58,9 @@ public class MaidBiodataActivity extends BaseActivity {
             configureRV();
             retrieveOrderExperience();
         } else if(artType.equals("daily")) {
-             riwayatPesananRV.setVisibility(View.INVISIBLE);
-             findViewById(R.id.riwayat_sebelum_TV).setVisibility(View.INVISIBLE);
-        }
+            riwayatPesananRV.setVisibility(View.INVISIBLE);
+            findViewById(R.id.riwayat_sebelum_TV).setVisibility(View.INVISIBLE);
+    }
     }
 
     private void configureRV() {

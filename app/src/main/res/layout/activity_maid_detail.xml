@@ -185,7 +185,7 @@
             android:id="@+id/gaji_TV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Rp. 3.000.000 /bulan"
+            android:text="Rp - / Bulan"
             android:textColor="@color/black" />
 
 
@@ -202,7 +202,7 @@
             android:id="@+id/maid_address_TV_maid_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Jl. Tanah Baru no. 34, Sidoarjo, Jawa Timur \n13445"
+            android:text="-\n-"
             android:textColor="@color/black" />
 
         <View
@@ -250,7 +250,7 @@
                 android:background="@drawable/circle_shape"
                 android:indeterminate="false"
                 android:max="100"
-                android:progress="50"
+                android:progress="0"
                 android:progressDrawable="@drawable/circular_progress_bar" />
 
             <ImageView
@@ -281,7 +281,7 @@
                 android:background="@drawable/circle_shape"
                 android:indeterminate="false"
                 android:max="100"
-                android:progress="50"
+                android:progress="0"
                 android:progressDrawable="@drawable/circular_progress_bar" />
 
             <ImageView
@@ -312,7 +312,7 @@
                 android:background="@drawable/circle_shape"
                 android:indeterminate="false"
                 android:max="100"
-                android:progress="50"
+                android:progress="0"
                 android:progressDrawable="@drawable/circular_progress_bar" />
 
             <ImageView
@@ -344,7 +344,7 @@
                 android:background="@drawable/circle_shape"
                 android:indeterminate="false"
                 android:max="100"
-                android:progress="50"
+                android:progress="0"
                 android:progressDrawable="@drawable/circular_progress_bar" />
 
             <ImageView

@@ -21,6 +21,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
@@ -144,9 +145,16 @@ public class SalaryConfirmationActivity extends BaseActivity {
             public void onClick(View v) {
                 Map<String, Object> salaryConfirmMap = new HashMap<String, Object>();
                 salaryConfirmMap.put("user", "Sudah Dibayar");
+                salaryConfirmMap.put("dibayarTime", ServerValue.TIMESTAMP);
                 rentReference.child("gaji "+monthSpinner.getSelectedItem()).updateChildren(salaryConfirmMap);
                 finish();
             }
         });
+        /*
+        * RENT
+        * ----UNIQUE KEY
+        * -------GAJI BULAN KE 1
+        * ---------- USER: SUDAH DIBAYAR
+        * */
     }
 }
