@@ -10,7 +10,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
-import com.bantoo.babooo.Pages.HomePage.ProfilePage.ProfileFragment;
+import com.bantoo.babooo.Pages.HomePage.ProfilePage.AccountFragment;
 import com.bantoo.babooo.Pages.HomePage.OrderPage.OrdersFragment;
 import com.bantoo.babooo.Pages.HomePage.ServicePage.ServiceFragment;
 import com.bantoo.babooo.R;
@@ -28,7 +28,7 @@ public class HomeActivity extends BaseActivity {
 
     private ServiceFragment serviceFragment;
     private OrdersFragment ordersFragment;
-    private ProfileFragment profileFragment;
+    private AccountFragment accountFragment;
 
     
     @Override
@@ -69,7 +69,7 @@ public class HomeActivity extends BaseActivity {
     private void fragmentSetup() {
         serviceFragment = new ServiceFragment();
         ordersFragment = new OrdersFragment();
-        profileFragment = new ProfileFragment();
+        accountFragment = new AccountFragment();
         if(getIntent().getStringExtra("sender") != null) {
             if(getIntent().getStringExtra("sender").equals("orderFragment")) {
                 navbar.setSelectedItemId(R.id.ordersItem);
@@ -90,7 +90,7 @@ public class HomeActivity extends BaseActivity {
                         setFragment(ordersFragment);
                         return true;
                     case R.id.accountItem:
-                        setFragment(profileFragment);
+                        setFragment(accountFragment);
                         return true;
                     default:
                         return false;

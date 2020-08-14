@@ -66,8 +66,6 @@ public class OrdersFragment extends Fragment implements OrderItemClickListener {
         // Required empty public constructor
     }
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

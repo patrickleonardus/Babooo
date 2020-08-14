@@ -28,7 +28,7 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ProfileFragment extends Fragment {
+public class AccountFragment extends Fragment {
 
     private ImageButton editProfileButton, settingsButton;
     private TextView usernameTV, phoneNumberTV, addressTV, emailTV, passwordTV;
@@ -37,7 +37,7 @@ public class ProfileFragment extends Fragment {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference userReference;
 
-    public ProfileFragment() {
+    public AccountFragment() {
         // Required empty public constructor
     }
 
