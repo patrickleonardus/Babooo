@@ -46,7 +46,7 @@ public class VerificationActivity extends BaseActivity {
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private FirebaseHelper firebaseHelper = new FirebaseHelper();
 
-    TextView verificationPhoneTV, validationTV;
+    TextView verificationPhoneTV, validationTV, resendCodeTV;
     EditText code1ET, code2ET, code3ET, code4ET, code5ET, code6ET;
     LinearLayout validationLayout;
     View verificationBTN;
@@ -87,6 +87,7 @@ public class VerificationActivity extends BaseActivity {
         code4ET = findViewById(R.id.code4_login_ET);
         code5ET = findViewById(R.id.code5_login_ET);
         code6ET = findViewById(R.id.code6_login_ET);
+        resendCodeTV = findViewById(R.id.resend_code_TV);
         verificationBTN = findViewById(R.id.verificationBtn);
         validationTV = findViewById(R.id.validation_login_TV);
         validationLayout = findViewById(R.id.validation_login);
@@ -293,6 +294,7 @@ public class VerificationActivity extends BaseActivity {
     }
 
     private void handleButton() {
+        resendCodeTV.setOnClickListener(v -> resendCode());
         if (sender.equals("N/A")) {
             displayError("Terjadi kesalahan, silahkan reload ulang page ini");
         } else {
@@ -329,7 +331,7 @@ public class VerificationActivity extends BaseActivity {
         }
     }
 
-    private void resendCode(View v) {
+    private void resendCode() {
         resendVerificationCode(mResendToken);
         Toast.makeText(getApplicationContext(), "Kode verifikasi telah dikirim", Toast.LENGTH_SHORT).show();
     }
